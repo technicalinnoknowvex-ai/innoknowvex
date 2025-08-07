@@ -1,0 +1,27 @@
+.content{
+   
+    display: flex;
+    flex-direction: row;
+    align-items: center ;
+    justify-content: center;
+    min-height: 100vh; // Takes at least full viewport height
+    padding: 2rem;
+    width: 100%;
+}
+
+.content__text{
+    display: flex;
+    flex-direction: column;
+    left: 0;
+}
+.content h1{
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.content h2{
+    font-size: 1.5rem;
+     font-family: Sharp Grotesk;
+    color:#FF6432;
+    margin-bottom: 0.5rem;
+}
