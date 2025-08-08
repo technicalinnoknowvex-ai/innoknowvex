@@ -1,10 +1,11 @@
-'use client'
+"use client";
 import React, { useEffect, useRef } from "react";
 import landingStyles from "./styles/landing.module.scss";
-import CircularText from '../../UI/CircularText.jsx';
+import CircularText from "../../UI/CircularText.jsx";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+
 
 // Register ScrollTrigger plugin
 if (typeof window !== "undefined") {
@@ -31,7 +32,7 @@ const LandingPage = () => {
 
       tlLeft.to(starLeftRef.current, {
         rotateZ: 720, // Two full rotations (360 × 2)
-        duration: 2 // Shorter duration makes it faster
+        duration: 2, // Shorter duration makes it faster
       });
 
       // Faster animation for right star (2 full rotations in opposite direction)
@@ -46,7 +47,7 @@ const LandingPage = () => {
 
       tlRight.to(starRightRef.current, {
         rotateZ: -720, // Two full rotations counter-clockwise
-        duration: 2
+        duration: 2,
       });
 
       // Animation for circular text (position at bottom)
@@ -56,15 +57,15 @@ const LandingPage = () => {
           trigger: circularTextRef.current,
           start: "top bottom",
           end: "bottom bottom",
-          scrub: 0.5
-        }
+          scrub: 0.5,
+        },
       });
 
       // Cleanup function
       return () => {
         tlLeft.kill();
         tlRight.kill();
-        ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
       };
     }
   }, []);
@@ -91,17 +92,31 @@ const LandingPage = () => {
         />
       </div>
 
+      <Image className={landingStyles.bg}
+        src='/images/Ellipse4.svg'
+        width={600}
+        height={600}
+        alt='bg-image'
+
+      />
+
       <p className={landingStyles.landing__text}>
-        Transforming Aspirations
+        Transforming <br />
+        Aspirations
         <br />
-        into <br />
+        into
+        <br />
         Achievements
       </p>
 
+
       {/* Circular Text at Bottom */}
-      <div ref={circularTextRef} className={landingStyles.circularTextContainer}>
+      <div
+        ref={circularTextRef}
+        className={landingStyles.circularTextContainer}
+      >
         <CircularText
-          text="REACT*BITS*COMPONENTS*"
+          text="Scroll*To*Explore*"
           onHover="speedUp"
           spinDuration={20}
           className={landingStyles.circularText}

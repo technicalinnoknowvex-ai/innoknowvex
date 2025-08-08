@@ -7,18 +7,16 @@
   align-items: center;
   position: relative;
   overflow-x: hidden;
-
   &__text {
-    font-family: var(--font-sharp-25), sans-serif;
-    font-weight: 700;
-    font-size: 3rem;
+    font-family: var(--font-sharp-25), Sharp Grotesk;
+    font-weight: 105;
+    font-size: 4rem;
     text-align: center;
     position: relative;
     z-index: 1;
     margin-bottom: 3rem;
   }
 }
-
 .starContainerLeft {
   position: absolute;
   top: 15%;
@@ -42,12 +40,16 @@
   width: 60px;
   height: 60px;
   pointer-events: none;
-
   img {
     width: 100%;
     height: 100%;
     object-fit: contain;
     pointer-events: none;
   }
+}
+.bg{
+  position: absolute;
+  height: 100vh;
+  width: 100vh;
 }
 
