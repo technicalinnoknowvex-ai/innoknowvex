@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useRef } from "react";
 import landingStyles from "./styles/landing.module.scss";
-
+import CircularText from '../../UI/CircularText.jsx';
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -43,7 +43,7 @@ const LandingPage = () => {
 
   return (
     <div className={landingStyles.landing}>
-      
+
 
       <div ref={starRef} className={landingStyles.starContainer}>
         <Image
@@ -68,7 +68,14 @@ const LandingPage = () => {
           alt="Soft Star"
         />
       </p>
-      
+
+      <CircularText
+  text="REACT*BITS*COMPONENTS*"
+  onHover="speedUp"
+  spinDuration={20}
+  className="custom-class"
+/>
+
     </div>
   );
 };
