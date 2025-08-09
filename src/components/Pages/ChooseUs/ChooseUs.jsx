@@ -1,85 +1,70 @@
-// import Image from 'next/image';
-// import styles from './styles/styles.scss'
 
-// export default function Chooseus() {
-//     return (
-//         <div className={styles.content}>
-
-//             <Image
-//                 // ref={starRef}
-//                 // className={style.content__img}
-//                 src="/images/SoftStar.svg"
-//                 width={60}
-//                 height={60}
-//                 alt="Soft Star"
-//             />
-
-//             <b>Why choose Us</b>
-//             <h2>What makes our courses stand out.</h2>
-//             <p>We’re more than just a platform — we’re a learning
-//                 ecosystem designed to help you thrive. From live
-//                 classes and hands-on projects to personalized support
-//                 and a vibrant community, every feature we offer is built
-//                 to make your learning journey engaging, effective, and future-ready.</p>
-//         </div>
-
-//     );
-
-// }
-
-
+'use client';
 import Image from 'next/image';
-import styles from './styles/styles.scss';
+import styles from './styles/styles.module.scss';
+import React, { useEffect, useRef } from 'react';
 
 export default function Chooseus() {
+    const textRef = useRef(null);
+    const starRef = useRef(null);
+    const titleRef = useRef(null);
+    const subtitleRef = useRef(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add(styles.visible);
+                    }
+                });
+            },
+            { threshold: 0.1 }
+        );
+
+        if (textRef.current) observer.observe(textRef.current);
+        if (starRef.current) observer.observe(starRef.current);
+        if (titleRef.current) observer.observe(titleRef.current);
+        if (subtitleRef.current) observer.observe(subtitleRef.current);
+
+        return () => {
+            if (textRef.current) observer.unobserve(textRef.current);
+            if (starRef.current) observer.unobserve(starRef.current);
+            if (titleRef.current) observer.unobserve(titleRef.current);
+            if (subtitleRef.current) observer.unobserve(subtitleRef.current);
+        };
+    }, []);
+
     return (
-        <div className={styles.pageContainer}>
+        <div className={styles.chooseUsPage}>
+            <div className={styles.ellipseContainer}>
+                <Image
+                    src='/images/Ellipse4.svg'
+                    width={400}
+                    height={400}
+                    alt="Background ellipse"
+                    className={styles.ellipse}
+                />
+            </div>
+            
             <div className={styles.content}>
-                <div className={styles.textSection}>
+                <div className={styles.content__text}>
                     <Image
+                        ref={starRef}
+                        className={styles.content__img}
                         src="/images/SoftStar.svg"
                         width={60}
                         height={60}
                         alt="Soft Star"
-                        className={styles.starImage}
                     />
-
-                    <b className={styles.subtitle}>Why choose Us</b>
-                    <h2 className={styles.title}>What makes our courses stand out.</h2>
-                    <p className={styles.description}>We're more than just a platform — we're a learning
-                        ecosystem designed to help you thrive. From live
-                        classes and hands-on projects to personalized support
-                        and a vibrant community, every feature we offer is built
-                        to make your learning journey engaging, effective, and future-ready.</p>
-                </div>
-
-                <div className={styles.boxesSection}>
-                    {/* Row 1 */}
-                    <div className={`${styles.featureBox} ${styles.orangeBox}`}>
-                        <h3 className={styles.boxTitle}>Title 1</h3>
-                        <p className={styles.boxContent}>Content for feature 1 goes here</p>
-                    </div>
-                    <div className={styles.featureBox}>
-                        <h3 className={styles.boxTitle}>Title 2</h3>
-                        <p className={styles.boxContent}>Content for feature 2 goes here</p>
-                    </div>
-                    <div className={styles.featureBox}>
-                        <h3 className={styles.boxTitle}>Title 3</h3>
-                        <p className={styles.boxContent}>Content for feature 3 goes here</p>
-                    </div>
-
-                    {/* Row 2 */}
-                    <div className={styles.featureBox}>
-                        <h3 className={styles.boxTitle}>Title 4</h3>
-                        <p className={styles.boxContent}>Content for feature 4 goes here</p>
-                    </div>
-                    <div className={styles.featureBox}>
-                        <h3 className={styles.boxTitle}>Title 5</h3>
-                        <p className={styles.boxContent}>Content for feature 5 goes here</p>
-                    </div>
-                    <div className={styles.featureBox}>
-                        <h3 className={styles.boxTitle}>Title 6</h3>
-                        <p className={styles.boxContent}>Content for feature 6 goes here</p>
+                    <div ref={textRef} className={styles.content__textContent}>
+                        <h1 ref={titleRef}>Why choose Us</h1>
+                        <b ref={subtitleRef}>WHAT MAKES OUR COURSES STAND OUT</b>
+                        <p>
+                            We're more than just a platform — we're a learning ecosystem 
+                            designed to help you thrive. From live classes and hands-on 
+                            projects to personalized support and a vibrant community.
+                        </p>
                     </div>
                 </div>
             </div>

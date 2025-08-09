@@ -3,6 +3,7 @@ import AboutUs from "@/components/Pages/About Us/AboutUs";
 import Navbar from "@/components/Pages/Navbar/Navbar";
 import React from "react";
 import Chooseus from "@/components/Pages/ChooseUs/ChooseUs";
+import Cards from "@/components/Pages/ChooseUs/Cards";
 
 
 const page = () => {
@@ -11,6 +12,7 @@ const page = () => {
     <div><LandingPage /></div>
     <div><AboutUs/></div>
     <div><Chooseus/></div>
+    <div><Cards/></div>
     </div>
     )
 };
