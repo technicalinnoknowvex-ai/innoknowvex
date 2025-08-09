@@ -4,6 +4,7 @@ import Navbar from "@/components/Pages/Navbar/Navbar";
 import React from "react";
 import Chooseus from "@/components/Pages/ChooseUs/ChooseUs";
 import Cards from "@/components/Pages/ChooseUs/Cards";
+import FAQ from "@/components/Pages/FAQ/FAQ";
 
 
 const page = () => {
@@ -13,6 +14,7 @@ const page = () => {
     <div><AboutUs/></div>
     <div><Chooseus/></div>
     <div><Cards/></div>
+    <div><FAQ/></div>
     </div>
     )
 };
