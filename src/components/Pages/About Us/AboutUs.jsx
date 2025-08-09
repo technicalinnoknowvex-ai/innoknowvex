@@ -1,4 +1,3 @@
-
 'use client';
 
 import style from './styles/about.module.scss';
@@ -35,6 +34,16 @@ export default function AboutUs() {
 
     return (
         <div className={style.content}>
+            <div className={style.ellipseContainer}>
+                <Image
+                    src='/images/Ellipse4.svg'
+                    width={400}
+                    height={400}
+                    alt="Background ellipse"
+                    className={style.ellipse}
+                />
+            </div>
+            
             <div className={style.content__text}>
                 <Image
                     ref={starRef}
@@ -48,7 +57,6 @@ export default function AboutUs() {
                     <h1>About Us</h1> <br />
                     <b> GET TO KNOW US BETTER </b>
                     <p>
-
                         Innoknowvex is a cutting-edge EdTech platform designed to seamlessly
                         connect students with internships, professional training, career development,
                         and expert mentorship. Our mission is to bridge the gap between academic
