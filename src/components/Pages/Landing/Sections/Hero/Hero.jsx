@@ -1,23 +1,56 @@
+"use client";
 import React from "react";
 import heroStyles from "./styles/hero.module.scss";
-const Hero = () => {
+import Marquee from "./Marquee/Marquee";
+import { Textfit } from "react-textfit";
+import Sparkle from "@/components/Common/Icons/Sparkle";
+import CircularText from "./RotatingRing/CircularText";
+import { MouseParallax, ScrollParallax } from "react-just-parallax";
+
+const Hero = ({ scrollContainerRef }) => {
   return (
-    <section className={heroStyles.heroWrapper}>
-      <p className={heroStyles.heroWrapper__headingTop}>Testing font</p>
-      <br />
-      <p className={heroStyles.heroWrapper__headingMiddle}>A B C D E F</p>
-      <br />
-      <p className={heroStyles.heroWrapper__headingBottom}>a b c d e f</p>
-      <p className={heroStyles.heroWrapper__para}>
-        Innoknowvex is a cutting-edge EdTech platform designed to seamlessly
-        connect students with internships, professional training, career
-        development, and expert mentorship. Our mission is to bridge the gap
-        between academic education and industry requirements by providing
-        students with access to industry-relevant programs hands-on training,
-        and specialized mentorship. Through a structured, expert-driven
-        approach, we empower aspiring professionals with the practical skills
-        and industry insights necessary to excel in their chosen fields.
-      </p>
+    <section className={heroStyles.hero}>
+      <div className={heroStyles.heroTextWrapper}>
+        <div className={heroStyles.gradientSpot}></div>
+
+        <Textfit mode="multi" className={heroStyles.textFitContainer}>
+          <p className={heroStyles.textFitContainer__heroText}>
+            Transforming
+            <br />
+            Aspirations
+            <br />
+            into
+            <br />
+            Achievements
+          </p>
+
+          <ScrollParallax
+            scrollContainerRef={scrollContainerRef}
+            isAbsolutelyPositioned
+          >
+            <MouseParallax isAbsolutelyPositioned strength={0.02} zIndex={2}>
+              <div className={heroStyles.sparkleOne}>
+                <Sparkle />
+              </div>
+            </MouseParallax>
+          </ScrollParallax>
+
+          <ScrollParallax
+            scrollContainerRef={scrollContainerRef}
+            isAbsolutelyPositioned
+          >
+            <MouseParallax isAbsolutelyPositioned strength={0.03} zIndex={2}>
+              <div className={heroStyles.sparkleTwo}>
+                <Sparkle />
+              </div>
+            </MouseParallax>
+          </ScrollParallax>
+        </Textfit>
+      </div>
+      <div className={heroStyles.scrollWheelWrapper}>
+        <CircularText text={"SCROLL TO EXPLORE • SCROLL TO EXPLORE • "} />
+      </div>
+      <Marquee />
     </section>
   );
 };

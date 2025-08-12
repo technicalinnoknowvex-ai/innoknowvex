@@ -32,3 +32,31 @@
   color: $color;
   font-style: if($italic, italic, normal);
 }
+
+$mobile: 393px;
+$tablet: 830px;
+$desktop: 1440px;
+
+@mixin tablet-down {
+  @media (max-width: #{$desktop - 1px}) {
+    @content;
+  }
+}
+
+@mixin mobile-down {
+  @media (max-width: #{$tablet - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet-only {
+  @media (min-width: #{$tablet}) and (max-width: #{$desktop - 1px}) {
+    @content;
+  }
+}
+
+@mixin mobile-only {
+  @media (max-width: #{$tablet - 1px}) {
+    @content;
+  }
+}

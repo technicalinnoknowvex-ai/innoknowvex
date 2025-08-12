@@ -6,11 +6,4 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: lightgreen;
-
-  &__box {
-    width: 100px;
-    aspect-ratio: 1/1;
-    background-color: $brand-primary;
-  }
 }
