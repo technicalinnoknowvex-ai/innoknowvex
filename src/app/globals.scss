@@ -1,4 +1,4 @@
-@use "../styles/variables.module";
+@use "../styles/index" as *;
 
 * {
   box-sizing: border-box;
@@ -15,8 +15,8 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: variables.$text-primary;
-  background: variables.$app-background-base;
+  color: $text-primary;
+  background: $app-background-base;
 }
 
 a {

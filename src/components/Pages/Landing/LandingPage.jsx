@@ -1,17 +1,13 @@
 import React from "react";
 import landingStyles from "./styles/landing.module.scss";
+import Hero from "./Sections/Hero/Hero";
+import AboutUs from "./Sections/AboutUs/AboutUs";
+
 const LandingPage = () => {
   return (
     <div className={landingStyles.landing}>
-      <p className={landingStyles.landing__text}>
-        Learn What
-        <br />
-        Matters.
-        <br />
-        Master What
-        <br />
-        Counts.
-      </p>
+      <Hero />
+      <AboutUs />
     </div>
   );
 };
