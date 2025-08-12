@@ -23,4 +23,14 @@
     @include m.font(f.$font-sharp-25, f.$bold, v.$text-tertiary);
     font-size: 3rem;
   }
+  &__para {
+    margin-top: 10px;
+    width: 80%;
+    @include m.font(f.$font-oldschool, f.$book, v.$text-primary);
+    font-size: 0.85rem;
+    line-height: 1.3;
+    background-color: v.$app-background-base;
+    padding: 50px 50px;
+    border: 1px solid red;
+  }
 }
