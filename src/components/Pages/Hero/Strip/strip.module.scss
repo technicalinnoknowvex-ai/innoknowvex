@@ -25,22 +25,22 @@
   display: flex;
   white-space: nowrap;
   width: max-content;
+  transform: translateX(-50%); // Set initial position
 }
 
 .heading {
   display: flex;
   align-items: center;
-//   padding: 0 30px;
-//   gap: 20px;
   flex-shrink: 0;
-//   margin: 0 10px;
-  transform: translateX(-200%);
+  padding-right: 60px;  // Add spacing between items
+  white-space: nowrap;
+  gap: 50px;
 }
 
 .heading img {
   height: 40px;
   filter: brightness(0) invert(1);
-  margin: 0 30px;
+  white-space: nowrap;
 }
 
 .heading h1 {
