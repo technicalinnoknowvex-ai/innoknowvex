@@ -1,12 +1,11 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import landingStyles from "./styles/hero.module.scss";
-import CircularText from "../../UI/CircularText.jsx";
+import landingStyles from "./styles/landing.module.scss";
+import CircularText from "./HeroSection/CircularDisk/CircularText.jsx";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import Strip from "@/components/Pages/Hero/Strip/Strip";
-import Arrow from "@/components/Pages/Hero/Arrow/Arrow";
+import Strip from "./HeroSection/Marque/Marque";
 
 // Register ScrollTrigger plugin
 if (typeof window !== "undefined") {

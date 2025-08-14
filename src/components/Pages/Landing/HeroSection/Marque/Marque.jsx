@@ -2,7 +2,7 @@
 "use client"
 
 import React, { useEffect, useRef } from 'react'
-import styles from "./strip.module.scss"
+import styles from "./marque.module.scss"
 import gsap from 'gsap'
 
 const marqueContent = [
