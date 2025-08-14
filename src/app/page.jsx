@@ -1,4 +1,4 @@
-import LandingPage from "@/components/Pages/Landing/LandingPage";
+import LandingPage from "@/components/Pages/Hero/HeroSection";
 import AboutUs from "@/components/Pages/About Us/AboutUs";
 import Navbar from "@/components/Pages/Navbar/Navbar";
 import React from "react";

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { motion, useAnimation, useMotionValue } from "framer-motion";
 
 import "./CircularText.scss"; // Ensure you have the styles defined in this file
-import Arrow from "./Arrow/Arrow";
+import Arrow from "../Pages/Hero/Arrow/Arrow";
 
 const getRotationTransition = (duration, from, loop = true) => ({
   from,
