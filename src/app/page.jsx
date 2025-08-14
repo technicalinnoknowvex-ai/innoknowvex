@@ -1,5 +1,5 @@
 import LandingPage from "@/components/Pages//Landing/LandingPage";
-import AboutUs from "@/components/Pages/About Us/AboutUs";
+import AboutUs from "@/components/Pages/Landing/About Us/AboutUs";
 import Navbar from "@/components/Pages/Navbar/Navbar";
 import React from "react";
 import Chooseus from "@/components/Pages/ChooseUs/ChooseUs";
