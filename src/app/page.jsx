@@ -5,6 +5,7 @@ import React from "react";
 import Chooseus from "@/components/Pages/ChooseUs/ChooseUs";
 import Cards from "@/components/Pages/ChooseUs/Cards";
 import FAQ from "@/components/Pages/FAQ/FAQ";
+import Footer from "@/components/Pages/Footer/Footer";
 
 
 const page = () => {
@@ -15,6 +16,7 @@ const page = () => {
     <div><Chooseus/></div>
     <div><Cards/></div>
     <div><FAQ/></div>
+    <div><Footer/></div>
     </div>
     )
 };
