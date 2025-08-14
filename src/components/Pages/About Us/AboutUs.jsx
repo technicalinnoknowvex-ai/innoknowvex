@@ -35,6 +35,8 @@ export default function AboutUs() {
 }
 
 
+
+// ye code anshuman ne likha tha , isko neeche lake rakha hai reference ke liye taki chnages karke phir se likh saku 
 <div className={style.content}>
             <div className={style.ellipseContainer}>
                 <Image
