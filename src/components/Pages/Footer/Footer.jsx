@@ -63,7 +63,7 @@ export default function Footer() {
                     <a href="#">About Us</a>
                     <a href="#">Services</a>
                     <a href="#">Blog</a>
-                    <a href="#"><Testimonials></Testimonials></a>
+                    {/* <a href="#"><Testimonials></Testimonials></a> */}
                 </div>
 
 

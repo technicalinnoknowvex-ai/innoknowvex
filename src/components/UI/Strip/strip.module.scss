@@ -1,0 +1,50 @@
+@font-face {
+  font-family: sharp-grotesk;
+  src: url('/fonts/sharpGrotesk/SharpGrotesk-Medium25.otf')
+}
+
+.strip1 {
+    width: 100%;
+    background-color: #FF8C4D;
+    height: 8vh;
+}
+
+.strip2 {
+  width: 110%;
+  background-color: #FF6432;
+  height: 8vh;
+  margin-top: -75px;
+  rotate: -2deg;
+  position: relative;
+  left: -2%;
+  display: flex;
+  overflow: hidden;
+}
+
+.content {
+  display: flex;
+  white-space: nowrap;
+  width: max-content;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+//   padding: 0 30px;
+//   gap: 20px;
+  flex-shrink: 0;
+//   margin: 0 10px;
+  transform: translateX(-200%);
+}
+
+.heading img {
+  height: 40px;
+  filter: brightness(0) invert(1);
+  margin: 0 30px;
+}
+
+.heading h1 {
+  font-size: 25px;
+  color: white;
+  white-space: nowrap;
+}

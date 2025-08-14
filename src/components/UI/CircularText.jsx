@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { motion, useAnimation, useMotionValue } from "framer-motion";
 
 import "./CircularText.scss"; // Ensure you have the styles defined in this file
+import Arrow from "./Arrow/Arrow";
 
 const getRotationTransition = (duration, from, loop = true) => ({
   from,
@@ -26,6 +27,7 @@ const CircularText = ({
   spinDuration = 20,
   onHover = "speedUp",
   className = "",
+  
 }) => {
   const letters = Array.from(text);
   const controls = useAnimation();
@@ -87,6 +89,7 @@ const CircularText = ({
   };
 
   return (
+    <>
     <motion.div
       className={`circular-text ${className}`}
       style={{ rotate: rotation }}
@@ -108,7 +111,13 @@ const CircularText = ({
           </span>
         );
       })}
+      
     </motion.div>
+    <div>
+      <Arrow/>
+    </div>
+    
+    </>
   );
 };
 

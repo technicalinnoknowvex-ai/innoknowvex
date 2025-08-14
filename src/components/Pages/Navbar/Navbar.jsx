@@ -7,17 +7,20 @@ export default function Navbar() {
 
     return (
 
-        <div 
-        
+        <div
+
         >
             <Image className={styles.navbar_logo}
                 src='images/knowvexLogo2.0.svg'
                 width={361}
-                height={211} 
-                alt='image'/>
+                height={211}
+                alt='image' />
 
             <div className={styles.navbar__link}>
-                <Link href="/" > Home</Link>
+                <Link href="/" className={styles.home}>
+                    Home
+                    <div className={styles.line}></div>
+                </Link>
                 <Link href="/" > About</Link>
                 <Link href="/" > Programs</Link>
                 <Link href="/" > Blogs</Link>
@@ -31,5 +34,3 @@ export default function Navbar() {
     );
 
 }
-
-

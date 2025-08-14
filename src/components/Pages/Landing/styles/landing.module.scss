@@ -1,26 +1,33 @@
+@font-face {
+  font-family: sharp-grotesk;
+  src: url('/fonts/sharpGrotesk/SharpGrotesk-Medium25.otf')
+}
+
 .landing {
   width: 100%;
-  min-height: 100vh;
+  min-height: 95vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
-  overflow-x: hidden;
+  overflow: hidden;
   &__text {
-    font-family: var(--font-sharp-25), Sharp Grotesk;
+    font-family: sharp-grotesk;
     font-weight: 105;
-    font-size: 4rem;
+    font-size: 5rem;
     text-align: center;
     position: relative;
     z-index: 1;
-    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
   }
 }
 .starContainerLeft {
   position: absolute;
-  top: 15%;
-  left: 15%;
+  top: 20%;
+  left: 25%;
   width: 60px;
   height: 60px;
   pointer-events: none;
@@ -35,8 +42,8 @@
 
 .starContainerRight {
   position: absolute;
-  bottom: 45%;
-  right: 15%;
+  bottom: 46%;
+  right: 25%;
   width: 60px;
   height: 60px;
   pointer-events: none;
@@ -55,3 +62,6 @@
   top:20%;
 }
 
+.circularTextContainer{
+  margin-top: -125px;
+}

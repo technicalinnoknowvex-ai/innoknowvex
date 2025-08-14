@@ -19,4 +19,16 @@
   background-color: #FF6432;
   border-radius: 5px 20 5 20px;
   border: none;
+  margin-top: -5px;
+}
+
+.home{
+  display: flex;
+  flex-direction: column;
+}
+
+.line{
+  height: 1.5px;
+  background-color: #FF6432;
+  margin-top: 3px;
 }

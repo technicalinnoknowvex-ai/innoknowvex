@@ -1,4 +1,0 @@
-Have to add moving strip animation.
-Page size check.
-Change the animation of stars.
-Font review.
