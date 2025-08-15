@@ -1,9 +1,112 @@
-@use "../../../../../../styles/variables" as *;
+@use "../../../../../../styles/index" as *;
 
 .sectionWrapper {
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 70px);
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid #715c119e;
+
+  &__innerContainer {
+    width: calc(100% - 100px);
+    height: calc(70% - 70px);
+    display: flex;
+    border: 1px solid #715c119e;
+
+    @include mobile-down {
+      height: 100%;
+      flex-direction: column;
+      border: 1px solid #715c11;
+    }
+  }
+}
+
+.leftSection {
+  width: 50%;
+  height: auto;
+  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  @include mobile-down {
+    width: 100%;
+  }
+}
+
+.headingContainer {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid red;
+  &__primaryHeading {
+    @include font($font-sharp-25, $medium);
+    font-size: 2.2rem;
+  }
+  &__secondaryHeading {
+    @include font($font-sharp-25, $medium, $text-brand);
+    font-size: 1rem;
+  }
+}
+
+.paraContainer {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 20px 0px;
+
+  &__paraText {
+    @include font($font-oldschool, $medium);
+    line-height: 1.5;
+  }
+}
+
+.actionBtnContainer {
+  width: 100%;
+  height: auto;
+  border: 1px solid red;
+
+  button {
+    background-color: $brand-primary;
+    height: 40px;
+    width: auto;
+    @include font($font-oldschool, $book, white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    border: none;
+    border-radius: 5px 15px 5px 15px;
+
+    .buttonTextFitContainer {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0px 15px;
+    }
+  }
+}
+
+.rightSection {
+  width: 50%;
+  height: 100%;
+  border: 1px solid red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include tablet-down {
+    width: 100%;
+  }
+
+  &__imageContainer {
+    width: 80%;
+    aspect-ratio: 3/2;
+    background-color: aliceblue;
+    border-radius: 10px;
+  }
 }

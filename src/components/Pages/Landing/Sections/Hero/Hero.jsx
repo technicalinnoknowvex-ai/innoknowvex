@@ -14,7 +14,7 @@ const Hero = ({ scrollContainerRef }) => {
         <div className={heroStyles.gradientSpot}></div>
 
         <Textfit mode="multi" className={heroStyles.textFitContainer}>
-          <p className={heroStyles.textFitContainer__heroText}>
+          <h1 className={heroStyles.textFitContainer__heroText}>
             Transforming
             <br />
             Aspirations
@@ -22,7 +22,7 @@ const Hero = ({ scrollContainerRef }) => {
             into
             <br />
             Achievements
-          </p>
+          </h1>
 
           <ScrollParallax
             scrollContainerRef={scrollContainerRef}

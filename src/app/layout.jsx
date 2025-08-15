@@ -146,7 +146,7 @@ const oldSchoolGrotesk = localFont({
       style: "normal",
     },
     {
-      path: "../../public/fonts/oldSchoolGrotesk/OldschoolGrotesk-NormalMedium.otf",
+      path: "../../public/fonts/oldSchoolGrotesk/OldschoolGrotesk-NormalRegular.otf",
       weight: "500",
       style: "normal",
     },

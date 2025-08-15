@@ -21,9 +21,7 @@
 
 @mixin font(
   $font-family,
-  // Required: font variable (e.g., f.$font-sharp-20)
   $weight: f.$book,
-  // Default book weight
   $color: v.$text-primary,
   $italic: false
 ) {

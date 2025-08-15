@@ -45,6 +45,15 @@ const LandingPage = () => {
       <Navbar />
       <Hero scrollContainerRef={scrollContainerRef} />
       <AboutUs />
+      {Array.from({ length: 3 }).map((_, index) => (
+        <div
+          key={index}
+          style={{
+            width: "100%",
+            height: "100vh",
+          }}
+        />
+      ))}
     </div>
   );
 };
