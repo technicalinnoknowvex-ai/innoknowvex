@@ -44,7 +44,7 @@ const LandingPage = () => {
     <div className={landingStyles.landing} ref={scrollContainerRef}>
       <Navbar />
       <Hero scrollContainerRef={scrollContainerRef} />
-      <AboutUs />
+      <AboutUs scrollContainerRef={scrollContainerRef} />
       {Array.from({ length: 3 }).map((_, index) => (
         <div
           key={index}

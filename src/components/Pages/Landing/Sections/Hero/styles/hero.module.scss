@@ -36,7 +36,7 @@
     z-index: 1;
     // border: 1px solid green;
 
-    @include m.mobile-down {
+    @include m.tablet-down {
       width: 90%;
       height: unset;
     }
@@ -55,7 +55,7 @@
       top: -25px;
       left: -70px;
 
-      @include m.mobile-down {
+      @include m.tablet-down {
         top: -90px;
         left: -10px;
       }
@@ -71,7 +71,7 @@
       top: 50%;
       right: -50px;
 
-      @include m.mobile-down {
+      @include m.tablet-down {
         top: 110%;
         right: 0;
       }
