@@ -4,8 +4,8 @@ import Navbar from "@/components/Pages/Navbar/Navbar";
 import React from "react";
 import Chooseus from "@/components/Pages/Landing/ChooseUs/ChooseUs";
 import Cards from "@/components/Pages/Landing/ChooseUs/Cards";
-import FAQ from "@/components/Pages/FAQ/FAQ";
-import Footer from "@/components/Pages/Footer/Footer";
+import FAQ from "@/components/Pages/Landing/FAQ/FAQ";
+import Footer from "@/components/Pages/Landing/Footer/Footer";
 import Partner from "@/components/Pages/Partner/Partner";
 
 
