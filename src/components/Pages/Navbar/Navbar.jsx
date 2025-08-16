@@ -10,11 +10,11 @@ export default function Navbar() {
         <div
 
         >
-            <Image className={styles.navbar_logo}
+            {/* <Image className={styles.navbar_logo}
                 src='images/knowvexLogo2.0.svg'
                 width={361}
                 height={211}
-                alt='image' />
+                alt='image' /> */}
 
             <div className={styles.navbar__link}>
                 <Link href="/" className={styles.home}>

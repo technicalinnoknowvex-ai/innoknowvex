@@ -1,0 +1,72 @@
+$steps: 8;
+$max-blur: 40px;
+
+
+.navbar {
+  position: fixed;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  z-index: 1000;
+
+  &__overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(248, 241, 222, 0.922);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(20px);
+
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.3) 80%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+
+    mask-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.3) 80%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
+
+    overflow: visible;
+  }
+}
+
+.contentWrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0px 30px;
+}
+
+.logoWrapper {
+  width: auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+
+  .logoContainer {
+    width: auto;
+    height: 80%;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.linksWrapper {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}

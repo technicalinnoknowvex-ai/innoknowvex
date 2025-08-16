@@ -66,7 +66,7 @@ export default function Footer() {
                     <h2>OUR PROGRAMS</h2>
                     <div className={styles.programsGrid}>
                         <div className={styles.linkItems}>
-                            <Link href="#">Web Development</Link>
+                            <Link href="/courses/web-development">Web Development</Link>
                             <Link href="#">Android Development</Link>
                             <Link href="#">Python Programming</Link>
                             <Link href="#">Java & DSA</Link>
