@@ -1,3 +1,4 @@
+import Hiringpartners from './HiringPartner'
 import ImageMarquee from './ImageMarquee'
 import styles from './styles/Partner.module.scss'
 export default function Partner(){
@@ -11,6 +12,9 @@ export default function Partner(){
             <p>SEE BRANDS THAT TRUSTS US</p>
 
             <ImageMarquee/>
+            <p>HIRING PARTNERS</p>
+
+            <Hiringpartners/>
 
         </div>
     )
