@@ -93,7 +93,6 @@ const LandingPage = () => {
           width={600}
           height={600}
           alt='bg-image'
-
         />
 
         <div className={landingStyles.landing__text}>

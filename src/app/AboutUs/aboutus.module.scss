@@ -1,0 +1,113 @@
+@font-face {
+  font-family: sharp-grotesk;
+  src: url('/fonts/sharpGrotesk/SharpGrotesk-Medium25.otf')
+}
+
+
+@font-face {
+  font-family: old-school-grotesk;
+  src: url('/fonts/oldSchoolGrotesk/OldschoolGroteskVar.ttf')
+}
+
+.first{
+    width: 100%;
+    margin-top: 20vh;
+    height: 30vh;
+}
+
+.content1{
+    display: flex;
+    flex-direction: column;
+    padding: auto 10px;
+    width: 800px;
+    margin-left: 13%;
+    margin-top: 7vh;
+    gap: 10px;
+}
+
+.star1{
+ margin: 17px 200px;
+ position: absolute;
+}
+
+.bg{
+  position: absolute;
+  height: 100vh;
+  width: 100vh;
+  top: 2%;
+  margin-left: -18%;
+}
+
+.content1 h1{
+    font-family: sharp-grotesk;
+    font-weight: 100;
+    font-size: 40px;
+}
+
+.content1 h4{
+    font-family: sharp-grotesk;
+    font-weight: 100;
+    color: #FF6432;
+    font-size: 20px;
+}
+
+.content1 p{
+    font-family: old-school-grotesk;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.second {
+  width: 100%;
+  margin-top: 20vh;
+  height: 30vh;
+  position: relative; // to keep child absolute elements scoped
+}
+
+.content2 {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+  width: 800px;
+  margin-right: 13%;   // instead of margin-left
+  margin-top: 7vh;
+  gap: 10px;
+  text-align: right;   // aligns text to the right
+  margin-left: auto;   // pushes it to the right side
+}
+
+.star2 {
+  margin: 17px 200px;
+  position: absolute;
+  right: 0; // push to right
+}
+
+.bg2 {
+  position: absolute;
+  height: 100vh;
+  width: 100vh;
+  top: 2%;
+  margin-right: -18%;
+  right: 0;
+}
+
+.content2 h1 {
+  font-family: sharp-grotesk;
+  font-weight: 100;
+  font-size: 40px;
+}
+
+.content2 h4 {
+  font-family: sharp-grotesk;
+  font-weight: 100;
+  color: #FF6432;
+  font-size: 20px;
+}
+
+.content2 p {
+  font-family: old-school-grotesk;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+

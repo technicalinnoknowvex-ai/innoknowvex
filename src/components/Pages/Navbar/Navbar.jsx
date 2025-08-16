@@ -21,7 +21,7 @@ export default function Navbar() {
                     Home
                     <div className={styles.line}></div>
                 </Link>
-                <Link href="/" > About</Link>
+                <Link href="/AboutUs" > About</Link>
                 <Link href="/" > Programs</Link>
                 <Link href="/" > Blogs</Link>
                 <Link href="/" > Testimonials</Link>
