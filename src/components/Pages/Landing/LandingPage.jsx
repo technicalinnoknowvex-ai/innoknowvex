@@ -8,6 +8,7 @@ import Lenis from "lenis";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Programs from "./Sections/Programs/Programs";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -45,6 +46,7 @@ const LandingPage = () => {
       <Navbar />
       <Hero scrollContainerRef={scrollContainerRef} />
       <AboutUs scrollContainerRef={scrollContainerRef} />
+      <Programs scrollContainerRef={scrollContainerRef} />
       {Array.from({ length: 3 }).map((_, index) => (
         <div
           key={index}
