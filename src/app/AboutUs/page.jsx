@@ -1,9 +1,63 @@
+"use client"
+
 import Navbar from '@/components/Pages/Navbar/Navbar'
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import style from "./aboutus.module.scss"
 import Image from "next/image";
+import gsap from 'gsap';
 
 const AboutUs = () => {
+  const starRef = useRef()
+  const starRef1 = useRef()
+  const starRef2 = useRef()
+  const starRef3 = useRef()
+  const starRef4 = useRef()
+  const starRef5 = useRef()
+
+  useEffect(()=>{
+    gsap.to(starRef.current,{
+      rotate:360,
+      duration:4,
+      repeat:-1,
+      ease:"linear"
+    })
+
+    gsap.to(starRef1.current,{
+      rotate:360,
+      duration:4,
+      repeat:-1,
+      ease:"linear"
+    })
+
+    gsap.to(starRef2.current,{
+      rotate:360,
+      duration:4,
+      repeat:-1,
+      ease:"linear"
+    })
+
+    gsap.to(starRef3.current,{
+      rotate:360,
+      duration:4,
+      repeat:-1,
+      ease:"linear"
+    })
+
+    gsap.to(starRef4.current,{
+      rotate:360,
+      duration:4,
+      repeat:-1,
+      ease:"linear"
+    })
+
+    gsap.to(starRef5.current,{
+      rotate:360,
+      duration:4,
+      repeat:-1,
+      ease:"linear"
+    })
+  },[])
+
   return (
     <>
       <Navbar />
@@ -18,7 +72,7 @@ const AboutUs = () => {
           />
 
           <div className={style.content1}>
-            <Image className={style.star1} width={50} height={50} src="/images/SoftStar.svg" alt='start-image' />
+            <Image className={style.star1} ref={starRef} width={50} height={50} src="/images/SoftStar.svg" alt='start-image' />
 
             <h1>Our vision.</h1>
             <h4>What Drive Us Forward</h4>
@@ -38,7 +92,7 @@ const AboutUs = () => {
           />
 
           <div className={style.content2}>
-            <Image className={style.star2} width={50} height={50} src="/images/SoftStar.svg" alt='start-image' />
+            <Image className={style.star2} ref={starRef1} width={50} height={50} src="/images/SoftStar.svg" alt='start-image' />
 
             <h1>Our mission</h1>
             <h4>GUIDED BY PURPOSE</h4>
@@ -58,7 +112,7 @@ const AboutUs = () => {
           />
 
           <div className={style.content1}>
-            <Image className={style.star1} width={50} height={50} src="/images/SoftStar.svg" alt='start-image' />
+            <Image className={style.star1} ref={starRef2} width={50} height={50} src="/images/SoftStar.svg" alt='start-image' />
 
             <h1>Meet The</h1>
             <h4>TEAM.</h4>
@@ -70,7 +124,7 @@ const AboutUs = () => {
       <div className={style.team}>
         <div className={style.pic1}>
           <Image className={style.ceo} src="/images/aboutUsPage/CEO.jpeg" height={535} width={400} alt='CEO image' />
-          <Image className={style.star} src="/images/SoftStar.svg" height={50} width={50} alt='star' />
+          <Image className={style.star} src="/images/SoftStar.svg" height={50} width={50} alt='star' ref={starRef3} />
           <Image className={style.bg} src="/images/Ellipse4.svg" height={300} width={300} alt='bg'/>
           <h1>FARUK</h1>
           <div></div>
@@ -80,7 +134,7 @@ const AboutUs = () => {
 
         <div className={style.pic2}>
           <Image className={style.ceo} src="/images/aboutUsPage/CGO.jpeg" height={535} width={400} alt='CEO image' />
-          <Image className={style.star} src="/images/SoftStar.svg" height={50} width={50} alt='star' />
+          <Image className={style.star} src="/images/SoftStar.svg" height={50} width={50} alt='star' ref={starRef4}/>
           <Image className={style.bg} src="/images/Ellipse4.svg" height={300} width={300} alt='bg'/>
           <h1>DURGESH C.</h1>
           <div></div>
@@ -90,7 +144,7 @@ const AboutUs = () => {
 
         <div className={style.pic3}>
           <Image className={style.ceo} src="/images/aboutUsPage/COO.jpeg" height={535} width={400} alt='CEO image' />
-          <Image className={style.star} src="/images/SoftStar.svg" height={50} width={50} alt='star' />
+          <Image className={style.star} src="/images/SoftStar.svg" height={50} width={50} alt='star' ref={starRef5}/>
           <Image className={style.bg} src="/images/Ellipse4.svg" height={300} width={300} alt='bg'/>
           <h1>Vamsi Krishna</h1>
           <div></div>
