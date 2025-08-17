@@ -62,7 +62,7 @@ const AboutUs = () => {
         trigger: headRef1.current, 
         start: "top 80%",           
         end: "bottom 20%",
-        toggleActions: "play none none reverse",
+        toggleActions: "play none none",
       }
     })
     
@@ -133,9 +133,9 @@ const AboutUs = () => {
     second()
     third()
 
-    return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    }
+    // return () => {
+    //   ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    // }
   },[])
 
   return (
