@@ -1,13 +1,11 @@
-
 .courseContainer {
   max-width: 1600px;
   // padding: 5px;
   margin: auto;
   // margin-left: 50px;
   padding-top: 100px;
-  
 
-  img {
+  .courseImage {
     margin-left: 70px;
     width: 1400px;
     height: auto;
@@ -95,7 +93,7 @@
     padding-left: 50px;
     font-family: var(--font-sharp-22), Oldschool Grotesk;
     font-size: 25px;
-    color: #FF6432;
+    color: #ff6432;
     width: 600px;
     font-weight: 450;
     padding-bottom: 80px;
@@ -126,7 +124,7 @@
 }
 
 .featureNumber {
-  background: #FF6432;
+  background: #ff6432;
   color: white;
   width: 70px;
   height: 80px;
@@ -147,7 +145,7 @@
     font-family: var(--font-sharp-25), Sharp Grotesk;
     font-size: 24px;
     font-weight: 500;
-    color: #9C7F16;
+    color: #9c7f16;
     margin-bottom: 15px;
     line-height: 1.3;
   }
@@ -167,7 +165,7 @@
     opacity: 0;
     transform: translateX(100px);
   }
-  
+
   100% {
     opacity: 1;
     transform: translateX(0px);
@@ -176,15 +174,14 @@
 
 .cardsContainer {
   width: auto;
-  padding-right:300px ;
+  padding-right: 300px;
   min-height: 100vh;
   display: flex;
-  background: linear-gradient(135deg, #f5f1e8 0%, #ede4d2 100%);
   margin-top: 50px;
 }
 
 .leftSection {
-  width: 30%;
+  width: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -194,10 +191,10 @@
 .careerBoostContent {
   text-align: left;
   max-width: 400px;
-  
+
   .careerBoostTitle {
     font-size: 2rem;
-    
+
     font-weight: 700;
     color: #2c3e50;
     margin-bottom: 2rem;
@@ -205,7 +202,7 @@
     font-weight: 500;
     line-height: 1.1;
   }
-  
+
   .careerBoostDescription {
     font-size: 1.2rem;
     color: #5a6c7d;
@@ -227,6 +224,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin-left: 5%;
+  
 }
 
 .card {
@@ -241,7 +239,7 @@
   opacity: 0;
   transform: translateX(100px);
   transition: transform 0.8s ease-out, opacity 0.8s ease-out;
-  border: 1px solid #9C7F16;
+  border: 1px solid #9c7f16;
 
   &.visible {
     opacity: 1;
@@ -256,10 +254,11 @@
 
 .softSkillsCard {
   // background-color: #FF6432;
-  border: 1px solid #9C7F16;
+  border: 1px solid #9c7f16;
 
-  h3, p {
-    color: #9C7F16 !important;
+  h3,
+  p {
+    color: #9c7f16 !important;
   }
 }
 
@@ -290,7 +289,7 @@
   font-size: 1.2rem;
   justify-content: center;
   margin: 0;
-  color: #9C7F16;
+  color: #9c7f16;
   font-family: var(--font-sharp-25), Sharp Grotesk;
   font-weight: 600;
   text-transform: uppercase;
@@ -322,24 +321,36 @@
 }
 
 /* Staggered animations for cards */
-.card:nth-child(1) { transition-delay: 0.1s; }
-.card:nth-child(2) { transition-delay: 0.2s; }
-.card:nth-child(3) { transition-delay: 0.3s; }
-.card:nth-child(4) { transition-delay: 0.4s; }
-.card:nth-child(5) { transition-delay: 0.5s; }
-.card:nth-child(6) { transition-delay: 0.6s; }
+.card:nth-child(1) {
+  transition-delay: 0.1s;
+}
+.card:nth-child(2) {
+  transition-delay: 0.2s;
+}
+.card:nth-child(3) {
+  transition-delay: 0.3s;
+}
+.card:nth-child(4) {
+  transition-delay: 0.4s;
+}
+.card:nth-child(5) {
+  transition-delay: 0.5s;
+}
+.card:nth-child(6) {
+  transition-delay: 0.6s;
+}
 
 // Responsive design
 @media (max-width: 1200px) {
   .cardsGrid {
     gap: 1.5rem;
   }
-  
+
   .card {
     padding: 2rem;
     min-height: 180px;
   }
-  
+
   .careerBoostContent .careerBoostTitle {
     font-size: 3rem;
   }
@@ -354,7 +365,7 @@
     padding: 2rem;
     margin-left: 0;
   }
-  
+
   .careerBoostContent .careerBoostTitle {
     font-size: 2.5rem;
   }
@@ -384,7 +395,7 @@
     grid-template-columns: 1fr;
     gap: 25px;
     padding: 0 10px;
-    
+
     .featureCard:nth-child(3) {
       grid-column: 1;
       grid-row: auto;
@@ -400,12 +411,13 @@
   .featureNumber {
     align-self: center;
   }
-  
+
   .cardsContainer {
     flex-direction: column;
   }
 
-  .leftSection, .cardsSection {
+  .leftSection,
+  .cardsSection {
     width: 100%;
   }
 
@@ -423,25 +435,25 @@
     min-height: 160px;
     border-radius: 30px 30px 30px 110px;
   }
-  
+
   .careerBoostContent {
     text-align: center;
     margin-bottom: 2rem;
-    
+
     .careerBoostTitle {
       font-size: 2.5rem;
     }
   }
 }
 
-.Plans{
+.Plans {
   padding-top: 50px;
-    > img {
+  img {
     height: 6vh;
     width: 6vh;
     margin-left: 450px;
   }
-    h1 {
+  h1 {
     padding-left: 30px;
     font-family: var(--font-sharp-25), Sharp Grotesk;
     font-weight: 430;
@@ -454,6 +466,89 @@
     font-family: var(--font-sharp-22), Oldschool Grotesk;
     text-align: center;
     font-size: 24px;
-    color: #FF6432;
+    color: #ff6432;
   }
+}
+
+.pricingCardLayout {
+  height: 600px;
+  width: 300px;
+  display: flex;
+  
+  padding-left: 40px;
+  margin-bottom: 100px;
+  gap: 20px;
+
+  .pricingCards {
+    border: 1px solid #715C11;
+    border-radius: 15px 60px 15px 60px;
+    position: relative;
+    text-align: center; 
+  }
+
+  .heading {
+    display: inline-flex; 
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto; 
+    padding-top: 60px;
+  }
+
+  .cardStar {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  h1 {
+    position: relative;
+    font-family: var(--font-sharp-25), Sharp Grotesk;
+    color: #9c7f16;
+    font-size: 42px;
+    font-weight: 430;
+    margin: 0;
+    padding-left: 25px; // Space for the star
+  }
+
+  .price {
+    font-size: 30px;
+    font-family: var(--font-sharp-25), Sharp Grotesk;
+    padding-bottom: 20px;
+    margin: 0 auto; // Center the price
+  }
+
+  .planDesc {
+    width: 470px;
+    font-family: var(--font-sharp-22), Oldschool Grotesk;
+    font-size: 12px;
+    color: #9c7f16;
+    padding-bottom: 20px;
+    margin: 0 auto; // Center the description
+  }
+
+  button {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 100px;
+    border-radius: 5px 20px 5px 20px;
+    background-color: #ff6432;
+    color: white;
+    border-color: #ff6432;
+    margin-bottom: 20px;
+  }
+}
+
+.plancontent {
+  font-family: var(--font-sharp-22), Oldschool Grotesk;
+  line-height: 2;
+  text-align: left; // Align features list to left
+  padding-left: 20px; // Add some padding
+}
+
+.featureimg {
+  padding-right: 10px;
 }

@@ -86,17 +86,17 @@ export default function CourseLayout({ course }) {
           <button className={styles.Brochure}>Brochure</button>
         </div>
       </section>
-      
+
       <div className={styles.whyLearnSection}>
         <img src='/images/Ellipse4.svg' alt='ellipse' className={styles.ellipse1} />
-        
+
         <div className={styles.LearnForm}>
           <img src="/images/SoftStar.svg"
             width={60}
             height={60} alt="SoftStar" />
           <h1>Why Learn from <br /> InnoKnowvex</h1>
           <p>WE HAVE NOT ONE, BUT THREE REASONS</p>
-          
+
           {/* Features Section */}
           <div className={styles.featuresGrid}>
             <div className={styles.featureCard}>
@@ -106,7 +106,7 @@ export default function CourseLayout({ course }) {
                 <p>Simple and secure control of your organization's financial and legal transactions. Send customized invoices and contracts.</p>
               </div>
             </div>
-            
+
             <div className={styles.featureCard}>
               <div className={styles.featureNumber}>02</div>
               <div className={styles.featureContent}>
@@ -114,7 +114,7 @@ export default function CourseLayout({ course }) {
                 <p>Simple and secure control of your organization's financial and legal transactions. Send customized invoices and contracts.</p>
               </div>
             </div>
-            
+
             <div className={styles.featureCard}>
               <div className={styles.featureNumber}>03</div>
               <div className={styles.featureContent}>
@@ -142,11 +142,11 @@ export default function CourseLayout({ course }) {
         <div className={styles.cardsSection}>
           <div className={styles.cardsGrid}>
             {/* First row */}
-            <div 
+            <div
               ref={el => cardRefs.current[0] = el}
               className={`${styles.card} ${styles.softSkillsCard}`}
             >
-              <div 
+              <div
                 ref={el => headerRefs.current[0] = el}
                 className={styles.cardHeader}
               >
@@ -164,12 +164,12 @@ export default function CourseLayout({ course }) {
                 Enhance your communications and interpersonal skills.
               </p>
             </div>
-            
-            <div 
+
+            <div
               ref={el => cardRefs.current[1] = el}
               className={styles.card}
             >
-              <div 
+              <div
                 ref={el => headerRefs.current[1] = el}
                 className={styles.cardHeader}
               >
@@ -187,12 +187,12 @@ export default function CourseLayout({ course }) {
                 Prepare for interviews with realistic practice sessions.
               </p>
             </div>
-            
-            <div 
+
+            <div
               ref={el => cardRefs.current[2] = el}
               className={styles.card}
             >
-              <div 
+              <div
                 ref={el => headerRefs.current[2] = el}
                 className={styles.cardHeader}
               >
@@ -212,11 +212,11 @@ export default function CourseLayout({ course }) {
             </div>
 
             {/* Second row */}
-            <div 
+            <div
               ref={el => cardRefs.current[3] = el}
               className={styles.card}
             >
-              <div 
+              <div
                 ref={el => headerRefs.current[3] = el}
                 className={styles.cardHeader}
               >
@@ -234,12 +234,12 @@ export default function CourseLayout({ course }) {
                 Boost confidence with realistic, interview-style practice.
               </p>
             </div>
-            
-            <div 
+
+            <div
               ref={el => cardRefs.current[4] = el}
               className={styles.card}
             >
-              <div 
+              <div
                 ref={el => headerRefs.current[4] = el}
                 className={styles.cardHeader}
               >
@@ -257,12 +257,12 @@ export default function CourseLayout({ course }) {
                 Build a professional resume that highlights your strength.
               </p>
             </div>
-            
-            <div 
+
+            <div
               ref={el => cardRefs.current[5] = el}
               className={styles.card}
             >
-              <div 
+              <div
                 ref={el => headerRefs.current[5] = el}
                 className={styles.cardHeader}
               >
@@ -283,15 +283,177 @@ export default function CourseLayout({ course }) {
           </div>
         </div>
       </div>
-
       <div className={styles.Plans}>
         <img src="/images/SoftStar.svg"
-                  width={40}
-                  height={40}
-                  alt="Soft Star" />
+          width={40}
+          height={40}
+          alt="Soft Star"
+        />
         <h1>Plans to fit your Learning needs</h1>
         <p>CHOOSE THAT FITS YOU</p>
       </div>
+      <img src="/images/Ellipse4.svg" alt="" />
+      <div className={styles.pricingCardLayout}>
+        <div className={styles.pricingCards}>
+          <div className={styles.heading}>
+            <img src="/images/SoftStar3.svg"
+              width={20}
+              height={20}
+              alt="Soft Star"
+              className={styles.cardStar} />
+            <h1>Self</h1>
+          </div>
+
+          <p className={styles.price}> Rs 5,999</p>
+          <p className={styles.planDesc}>Learn at your own pace with all the resources you need to succeed independently.</p>
+          <button>Enroll Now</button>
+
+
+          <p className={styles.plancontent}>
+            <div className={styles.features}>
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
+              Recorded sesion </div>
+            <div className={styles.features}>
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />Hand-on internship
+            </div>
+            <div className={styles.features}>
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
+              Hands-on Project
+            </div>
+            <div className={styles.features}>
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
+              Certification
+            </div>
+            <div className={styles.features}>
+              <img src="/images/redcross.svg" alt=" Cross" className={styles.featureimg} />
+              Doubt Clearing
+            </div>
+            <div className={styles.features}>
+              <img src="/images/redcross.svg" alt=" Cross" className={styles.featureimg} />
+              Live Session
+            </div>
+            <div className={styles.features}>
+              <img src="/images/redcross.svg" alt=" Cross" className={styles.featureimg} />
+              Mentor Guidance
+            </div>
+            <div className={styles.features}>
+              <img src="/images/redcross.svg" alt=" Cross" className={styles.featureimg} />
+              Placement
+            </div>
+            <div className={styles.features}>
+              <img src="/images/redcross.svg" alt=" Cross" className={styles.featureimg} />
+              Mock Interview
+            </div>
+          </p>
+        </div>
+        <div className={styles.pricingCards}>
+          <div className={styles.heading}>
+            <img src="/images/SoftStar3.svg"
+              width={20}
+              height={20}
+              alt="Soft Star"
+              className={styles.cardStar} />
+            <h1>Mentor</h1>
+          </div>
+
+          <p className={styles.price}> Rs 8,999</p>
+          <p className={styles.planDesc}>Learn at your own pace with all the resources you need to succeed independently.</p>
+          <button>Enroll Now</button>
+
+
+          <p className={styles.plancontent}>
+            <div className={styles.features}>
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
+              Recorded sesion </div>
+            <div className={styles.features}>
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />Hand-on internship
+            </div>
+            <div className={styles.features}>
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
+              Hands-on Project
+            </div>
+            <div className={styles.features}>
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
+              Certification
+            </div>
+            <div className={styles.features}>
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
+              Doubt Clearing
+            </div>
+            <div className={styles.features}>
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
+              Live Session
+            </div>
+            <div className={styles.features}>
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
+              Mentor Guidance
+            </div>
+            <div className={styles.features}>
+              <img src="/images/redcross.svg" alt=" Cross" className={styles.featureimg} />
+              Placement
+            </div>
+            <div className={styles.features}>
+              <img src="/images/redcross.svg" alt=" Cross" className={styles.featureimg} />
+              Mock Interview
+            </div>
+          </p>
+        </div>
+        <div className={styles.pricingCards}>
+          <div className={styles.heading}>
+            <img src="/images/SoftStar3.svg"
+              width={20}
+              height={20}
+              alt="Soft Star"
+              className={styles.cardStar} />
+            <h1>Professional</h1>
+          </div>
+
+          <p className={styles.price}> Rs 11,999</p>
+          <p className={styles.planDesc}>Learn at your own pace with all the resources you need to succeed independently.</p>
+          <button>Enroll Now</button>
+
+
+          <p className={styles.plancontent}>
+            <div className={styles.features}>
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
+              Recorded sesion </div>
+            <div className={styles.features}>
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />Hand-on internship
+            </div>
+            <div className={styles.features}>
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
+              Hands-on Project
+            </div>
+            <div className={styles.features}>
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
+              Certification
+            </div>
+            <div className={styles.features}>
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />              
+              Doubt Clearing
+            </div>
+            <div className={styles.features}>
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />    
+                        Live Session
+            </div>
+            <div className={styles.features}>
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />   
+                         Mentor Guidance
+            </div>
+            <div className={styles.features}>
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />  
+                          Placement
+            </div>
+            <div className={styles.features}>
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />  
+                          Mock Interview
+            </div>
+          </p>
+        </div>
+      </div>
+
+
+
     </div>
   )
 }
