@@ -1,4 +1,3 @@
-
 export const landingPageData = {
   aboutSection: {
     heading: "About Us.",
@@ -46,6 +45,49 @@ export const landingPageData = {
         description:
           "Gain mastery in Machine Learning through a project-based curriculum emphasizing supervised, unsupervised, and reinforcement learning techniques. With real-world case studies, coding exercises, and expert mentorship, you’ll develop the ability to build intelligent models and deploy them in practice. This program prepares you to innovate and excel in AI-powered applications across industries.",
         link: "/programs/machine-learning",
+      },
+    ],
+  },
+  whyChooseUsSection: {
+    heading: "Why choose Us",
+    subheading: "What makes our courses stand out.",
+    para: `We’re more than just a platform — we’re a learning ecosystem designed to help you thrive. From live classes and hands-on projects to personalized support and a vibrant community, every feature we offer is built to make your learning journey engaging, effective, and future-ready.`,
+    reasons: [
+      {
+        title: "Live",
+        subTitle: "Classes",
+        description:
+          "Learn directly from industry experts in real-time through engaging classes that simplify difficult concepts, encourage active participation, and keep you motivated. With interactive guidance, you gain confidence, build knowledge, and remain consistently focused throughout your complete learning journey.",
+      },
+      {
+        title: "Linkedin &",
+        subTitle: "Resume Building",
+        description:
+          "Develop a professional resume and LinkedIn profile with tailored guidance that highlights your skills, emphasizes achievements, and increases visibility. With expert advice, you learn how to impress recruiters, showcase your strengths, and unlock meaningful career opportunities in today’s competitive job market.",
+      },
+      {
+        title: "100% Job",
+        subTitle: "Assistance",
+        description:
+          "Receive end-to-end career support from a dedicated team that assists with applications, prepares you for interviews, and offers mentorship. You are guided at every step until you confidently secure the right role and achieve ongoing professional success in your chosen path.",
+      },
+      {
+        title: "Interview",
+        subTitle: "Training",
+        description:
+          "Master the art of interviews through structured practice sessions, personalized coaching, and actionable feedback from experts. With confidence-building preparation, you enhance communication, present your skills effectively, and leave recruiters impressed with your professionalism, clarity, and readiness for success in every interview.",
+      },
+      {
+        title: "Placement",
+        subTitle: "Assistance",
+        description:
+          "Gain placement assistance with comprehensive career support from specialists who connect you with employers, guide your applications, and prepare you with effective strategies. Their expert help ensures you feel prepared, stay motivated, and confidently secure roles that match your career ambitions and goals.",
+      },
+      {
+        title: "Lifetime Access",
+        subTitle: "to Content",
+        description:
+          "Enjoy lifetime access to course content, including updated resources, added modules, and future enhancements. Revisit your learning anytime, stay current with industry trends, and continuously improve your skills—ensuring your knowledge grows steadily and remains valuable throughout your entire professional journey.",
       },
     ],
   },
