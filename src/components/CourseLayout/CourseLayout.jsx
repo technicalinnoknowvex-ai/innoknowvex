@@ -283,6 +283,11 @@ export default function CourseLayout({ course }) {
           </div>
         </div>
       </div>
+
+      <div className={styles.Plans}>
+        <h1>Plans to fit your Learning needs</h1>
+        <p>CHOOSE THAT FITS YOU</p>
+      </div>
     </div>
   )
 }

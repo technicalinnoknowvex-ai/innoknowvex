@@ -1,19 +1,22 @@
 
 .courseContainer {
-  max-width: 1400px;
-  padding: 5px;
+  max-width: 1600px;
+  // padding: 5px;
   margin: auto;
+  // margin-left: 50px;
   padding-top: 100px;
+  
 
   img {
-    width: 100%;
+    margin-left: 70px;
+    width: 1400px;
     height: auto;
-    max-height: 400px;
+    max-height: 500px;
     border-radius: 30px 60px 30px 60px;
   }
 
   h2 {
-    padding-left: 30px;
+    padding-left: 100px;
     padding-top: 50px;
     font-family: var(--font-sharp-25), Sharp Grotesk;
     font-weight: 430;
@@ -22,7 +25,8 @@
   }
 
   p {
-    padding-left: 30px;
+    padding-left: 100px;
+    padding-right: 70px;
     font-family: var(--font-sharp-22), Oldschool Grotesk;
     font-size: 16px;
     color: #262c35;
@@ -31,7 +35,7 @@
 
 .buttons {
   padding-top: 30px;
-  padding-left: 20px;
+  padding-left: 100px;
 
   .Brochure {
     padding: 10px 15px;
@@ -171,7 +175,8 @@
 }
 
 .cardsContainer {
-  width: 100%;
+  width: auto;
+  padding-right:300px ;
   min-height: 100vh;
   display: flex;
   background: linear-gradient(135deg, #f5f1e8 0%, #ede4d2 100%);
@@ -192,6 +197,7 @@
   
   .careerBoostTitle {
     font-size: 2rem;
+    
     font-weight: 700;
     color: #2c3e50;
     margin-bottom: 2rem;
@@ -282,6 +288,7 @@
 
 .card h3 {
   font-size: 1.2rem;
+  justify-content: center;
   margin: 0;
   color: #9C7F16;
   font-family: var(--font-sharp-25), Sharp Grotesk;
@@ -424,5 +431,24 @@
     .careerBoostTitle {
       font-size: 2.5rem;
     }
+  }
+}
+
+.Plans{
+    h1 {
+    padding-left: 30px;
+    padding-top: 50px;
+    font-family: var(--font-sharp-25), Sharp Grotesk;
+    font-weight: 430;
+    text-align: center;
+    color: #262c35;
+  }
+
+  p {
+    padding-left: 30px;
+    font-family: var(--font-sharp-22), Oldschool Grotesk;
+    text-align: center;
+    font-size: 24px;
+    color: #FF6432;
   }
 }
