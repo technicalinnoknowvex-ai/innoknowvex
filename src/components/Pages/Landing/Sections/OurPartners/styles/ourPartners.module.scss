@@ -1,0 +1,120 @@
+@use "../../../../../../styles/index" as *;
+
+.sectionWrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //   border: 1px solid #715c119e;
+  padding: 70px 0px 10px 0px;
+
+  @include tablet-down {
+    height: auto;
+    padding: 70px 0% 10px 0%;
+  }
+
+  &__innerContainer {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    // border: 1px solid #715c119e;
+
+    @include tablet-down {
+      height: auto;
+      flex-direction: column;
+    }
+    h1 {
+      @include font($font-sharp-25, $medium, $text-brand);
+      font-size: 1rem;
+      text-transform: uppercase;
+      z-index: 2;
+      margin: 20px 0px;
+    }
+  }
+}
+
+.mainHeaderSection {
+  width: 100%;
+  height: auto;
+  // border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+
+  .sectionHeadingWrapper {
+    position: relative;
+    width: 100%;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1;
+    // border: 1px solid green;
+
+    &__primaryHeading {
+      position: relative;
+      // border: 1px solid red;
+      @include font($font-sharp-25, $medium);
+      font-size: 2.2rem;
+      z-index: 2;
+      margin-bottom: 5px;
+
+      .sparkleDiv {
+        top: 0px;
+        left: 0px;
+        transform: translate(-80%, -80%);
+        position: absolute;
+        width: 40px;
+        aspect-ratio: 1/1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        // border: 1px solid red;
+        z-index: 2;
+
+        @include tablet-down {
+          transform: translate(-50%, -90%);
+        }
+      }
+    }
+    &__secondaryHeading {
+      @include font($font-sharp-25, $medium, $text-brand);
+      font-size: 1rem;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+  }
+
+  .sectionDescriptionWrapper {
+    width: 100%;
+    height: auto;
+    display: flex;
+
+    .descTextFit {
+      width: 60%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding: 20px 0px;
+      line-height: 2;
+      @include font($font-oldschool, $medium);
+      @include tablet-down {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.marqueeSection {
+  width: 100%;
+  height: 120px;
+  // border: 1px solid red;
+  display: flex;
+  align-items: center;
+
+}

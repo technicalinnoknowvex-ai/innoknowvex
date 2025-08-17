@@ -1,3 +1,16 @@
+import Accenture from "@/components/Pages/Landing/Sections/OurPartners/Logos/Accenture";
+import AmityUni from "@/components/Pages/Landing/Sections/OurPartners/Logos/AmityUni";
+import Boat from "@/components/Pages/Landing/Sections/OurPartners/Logos/Boat";
+import Capgemini from "@/components/Pages/Landing/Sections/OurPartners/Logos/Capgemini";
+import IBM from "@/components/Pages/Landing/Sections/OurPartners/Logos/IBM";
+import KLUni from "@/components/Pages/Landing/Sections/OurPartners/Logos/KLUni";
+import Phonepe from "@/components/Pages/Landing/Sections/OurPartners/Logos/Phonepe";
+import PresidencyUni from "@/components/Pages/Landing/Sections/OurPartners/Logos/PresidencyUni";
+import RangaswamyCollege from "@/components/Pages/Landing/Sections/OurPartners/Logos/RangaswamyCollege";
+import Razorpay from "@/components/Pages/Landing/Sections/OurPartners/Logos/Razorpay";
+import RevaUni from "@/components/Pages/Landing/Sections/OurPartners/Logos/RevaUni";
+import Wipro from "@/components/Pages/Landing/Sections/OurPartners/Logos/Wipro";
+
 export const landingPageData = {
   aboutSection: {
     heading: "About Us.",
@@ -89,6 +102,33 @@ export const landingPageData = {
         description:
           "Enjoy lifetime access to course content, including updated resources, added modules, and future enhancements. Revisit your learning anytime, stay current with industry trends, and continuously improve your skills—ensuring your knowledge grows steadily and remains valuable throughout your entire professional journey.",
       },
+    ],
+  },
+  ourPartnerSection: {
+    heading: "Our Partners",
+    subheading: "SEE BRANDS THAT TRUSTS US",
+
+    brands: [
+      Razorpay,
+      IBM,
+      Capgemini,
+      Boat,
+      Accenture,
+      Phonepe,
+      Wipro,
+      Razorpay,
+      IBM,
+      Capgemini,
+    ],
+    hiringPartners: [
+      RangaswamyCollege,
+      KLUni,
+      AmityUni,
+      RevaUni,
+      PresidencyUni,
+      RangaswamyCollege,
+      KLUni,
+      AmityUni,
     ],
   },
 };

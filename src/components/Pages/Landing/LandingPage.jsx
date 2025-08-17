@@ -10,6 +10,7 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Programs from "./Sections/Programs/Programs";
 import WhyChooseUs from "./Sections/WhyChooseUs/WhyChooseUs";
+import OurPartners from "./Sections/OurPartners/OurPartners";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -49,6 +50,7 @@ const LandingPage = () => {
       <AboutUs scrollContainerRef={scrollContainerRef} />
       <Programs scrollContainerRef={scrollContainerRef} />
       <WhyChooseUs scrollContainerRef={scrollContainerRef} />
+      <OurPartners scrollContainerRef={scrollContainerRef} />
       {Array.from({ length: 3 }).map((_, index) => (
         <div
           key={index}
