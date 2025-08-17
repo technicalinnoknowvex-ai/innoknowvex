@@ -1,239 +1,653 @@
+// aboutus.module.scss
+
+// Font faces
 @font-face {
   font-family: sharp-grotesk;
-  src: url('/fonts/sharpGrotesk/SharpGrotesk-Medium25.otf')
+  src: url('/fonts/sharpGrotesk/SharpGrotesk-Medium25.otf');
 }
-
 
 @font-face {
   font-family: old-school-grotesk;
-  src: url('/fonts/oldSchoolGrotesk/OldschoolGroteskVar.ttf')
+  src: url('/fonts/oldSchoolGrotesk/OldschoolGroteskVar.ttf');
 }
 
-.section{
+// Define breakpoints
+$mobile: 480px;
+$tablet: 768px;
+$laptop: 1024px;
+$desktop: 1200px;
+
+// Mixins for media queries
+@mixin mobile {
+  @media (max-width: #{$mobile - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$mobile}) and (max-width: #{$tablet - 1px}) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media (min-width: #{$tablet}) and (max-width: #{$laptop - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$laptop}) {
+    @content;
+  }
+}
+
+// Main styles
+.section {
   position: relative;
   width: 100%;
+  background: transparent;
+  overflow: hidden;
+  min-height: 60vh;
+
+  @include mobile {
+    padding: 40px 0;
+    min-height: auto;
+  }
+
+  @include tablet {
+    padding: 60px 0;
+  }
 }
 
-.section2{
+.section2 {
   width: 100%;
   position: relative;
+  overflow: hidden;
+  min-height: 60vh;
+
+  @include mobile {
+    padding: 40px 0;
+    min-height: auto;
+  }
+
+  @include tablet {
+    padding: 60px 0;
+  }
 }
 
-.first{
+.first {
   position: relative;
   width: 100%;
+  display: flex;
+  align-items: center;
+
+  @include mobile {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  @include tablet {
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+  }
 }
 
-.content1{
+.content1 {
   display: flex;
   flex-direction: column;
   margin: 150px 180px;
   width: 90vh;
+  position: relative;
+  z-index: 10;
+
+  @include mobile {
+    margin: 20px;
+    width: 100%;
+    max-width: 90vw;
+    text-align: center;
+  }
+
+  @include tablet {
+    margin: 40px;
+    width: 80vw;
+    text-align: center;
+  }
+
+  @include laptop {
+    margin: 80px 100px;
+    width: 70vw;
+  }
+
+  h1 {
+    font-family: sharp-grotesk;
+    font-weight: 100;
+    font-size: 3rem;
+
+    @include mobile {
+      font-size: 1.8rem;
+    }
+
+    @include tablet {
+      font-size: 2.2rem;
+    }
+
+    @include laptop {
+      font-size: 2.6rem;
+    }
+  }
+
+  h4 {
+    font-family: sharp-grotesk;
+    font-weight: 100;
+    font-size: 1.5rem;
+    color: #FF6432;
+    margin-top: 10px;
+
+    @include mobile {
+      font-size: 1rem;
+      margin-top: 8px;
+    }
+
+    @include tablet {
+      font-size: 1.2rem;
+    }
+
+    @include laptop {
+      font-size: 1.3rem;
+    }
+  }
+
+  p {
+    font-family: old-school-grotesk;
+    font-weight: 400;
+    font-size: 1.2rem;
+    margin-top: 20px;
+
+    @include mobile {
+      font-size: 0.9rem;
+      margin-top: 15px;
+      line-height: 1.5;
+    }
+
+    @include tablet {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    @include laptop {
+      font-size: 1.1rem;
+    }
+  }
 }
 
-.ellipse1{
+.ellipse1 {
   position: absolute;
   margin: -20px -150px;
+  z-index: 1;
+  pointer-events: none;
+
+  @include mobile {
+    width: 250px;
+    height: 250px;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    opacity: 0.1;
+  }
+
+  @include tablet {
+    width: 350px;
+    height: 350px;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    opacity: 0.2;
+  }
+
+  @include laptop {
+    width: 450px;
+    height: 450px;
+    margin: -50px -100px;
+    opacity: 0.3;
+  }
 }
 
-.star1{
+.star1 {
   scale: 0.8;
   margin: 2px -28px;
+  z-index: 15;
+  position: relative;
+
+  @include mobile {
+    scale: 0.6;
+    position: absolute;
+    top: -20px;
+    left: -15px;
+    margin: 0;
+  }
+
+  @include tablet {
+    scale: 0.7;
+    position: absolute;
+    top: -25px;
+    left: -20px;
+    margin: 0;
+  }
+
+  @include laptop {
+    scale: 0.75;
+    margin: 2px -25px;
+  }
 }
 
-.content1 h1{
-  font-family: sharp-grotesk;
-  font-weight: 100;
-  font-size: 3rem;
-}
-
-.content1 h4{
-  font-family: sharp-grotesk;
-  font-weight: 100;
-  font-size: 1.5rem;
-  color: #FF6432;
-  margin-top: 10px;
-}
-
-.content1 p{
-  font-family: old-school-grotesk;
-  font-weight: 400;
-  font-size: 1.2rem;
-  margin-top: 20px;
-}
-
-.content2{
+.content2 {
   display: flex;
   flex-direction: column;
   text-align-last: right;
   margin: 100px 180px;
+  position: relative;
+  z-index: 10;
+
+  @include mobile {
+    margin: 20px;
+    text-align: center;
+    text-align-last: center;
+  }
+
+  @include tablet {
+    margin: 40px;
+    text-align: center;
+    text-align-last: center;
+  }
+
+  @include laptop {
+    margin: 80px 100px;
+    text-align-last: right;
+  }
+
+  h1 {
+    font-family: sharp-grotesk;
+    font-weight: 100;
+    font-size: 3rem;
+
+    @include mobile {
+      font-size: 1.8rem;
+    }
+
+    @include tablet {
+      font-size: 2.2rem;
+    }
+
+    @include laptop {
+      font-size: 2.6rem;
+    }
+  }
+
+  h4 {
+    font-family: sharp-grotesk;
+    font-weight: 100;
+    font-size: 1.5rem;
+    color: #FF6432;
+    margin-top: 10px;
+
+    @include mobile {
+      font-size: 1rem;
+      margin-top: 8px;
+    }
+
+    @include tablet {
+      font-size: 1.2rem;
+    }
+
+    @include laptop {
+      font-size: 1.3rem;
+    }
+  }
+
+  p {
+    font-family: old-school-grotesk;
+    font-weight: 400;
+    font-size: 1.2rem;
+    margin-top: 20px;
+    text-align: right;
+    padding: 0 0 0 550px;
+
+    @include mobile {
+      font-size: 0.9rem;
+      margin-top: 15px;
+      text-align: center;
+      padding: 0;
+      line-height: 1.5;
+    }
+
+    @include tablet {
+      font-size: 1rem;
+      text-align: center;
+      padding: 0 50px;
+      line-height: 1.6;
+    }
+
+    @include laptop {
+      font-size: 1.1rem;
+      padding: 0 0 0 200px;
+    }
+  }
 }
 
-.ellipse2{
+.ellipse2 {
   position: absolute;
   right: 0%;
   margin: -20px -150px;
+  z-index: 1;
+  pointer-events: none;
+
+  @include mobile {
+    width: 250px;
+    height: 250px;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    opacity: 0.1;
+  }
+
+  @include tablet {
+    width: 350px;
+    height: 350px;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    opacity: 0.2;
+  }
+
+  @include laptop {
+    width: 450px;
+    height: 450px;
+    margin: -50px -100px;
+    opacity: 0.3;
+  }
 }
 
-.star2{
+.star2 {
   position: absolute;
   right: 0%;
   scale: 0.8;
   margin: -55px 150px;
+  z-index: 15;
+
+  @include mobile {
+    scale: 0.6;
+    top: -20px;
+    right: -15px;
+    margin: 0;
+  }
+
+  @include tablet {
+    scale: 0.7;
+    top: -25px;
+    right: -20px;
+    margin: 0;
+  }
+
+  @include laptop {
+    scale: 0.75;
+    margin: -50px 100px;
+  }
 }
 
-.content2 h1{
-  font-family: sharp-grotesk;
-  font-weight: 100;
-  font-size: 3rem;
+// Team section
+.team {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  @include mobile {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    padding: 20px;
+  }
+
+  @include tablet {
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+    padding: 40px;
+  }
+
+  @include laptop {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 80px 50px;
+  }
 }
 
-.content2 h4{
-  font-family: sharp-grotesk;
-  font-weight: 100;
-  font-size: 1.5rem;
-  color: #FF6432;
-  margin-top: 10px;
-}
-
-.content2 p{
-  font-family: old-school-grotesk;
-  font-weight: 400;
-  font-size: 1.2rem;
-  margin-top: 20px;
-  text-align: right;
-  padding: 0 0 0 550px; /* Changed from padding both sides to only left */
-}
-
-.team{
-  display: flex
-}
-
-.pic1{
+.pic1, .pic2, .pic3 {
   display: flex;
   flex-direction: column;
+  position: relative;
   margin-left: 180px;
   margin-bottom: 150px;
   margin-top: 80px;
-  position: relative;
+
+  @include mobile {
+    margin: 0;
+    align-items: center;
+    text-align: center;
+    max-width: 280px;
+  }
+
+  @include tablet {
+    margin: 0;
+    align-items: center;
+    text-align: center;
+    max-width: 350px;
+  }
+
+  @include laptop {
+    margin: 0 20px 100px 20px;
+    max-width: 300px;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .ceo {
+    border-radius: 40px 40px 40px 100px;
+
+    @include mobile {
+      width: 250px;
+      height: 350px;
+      border-radius: 20px 20px 20px 50px;
+    }
+
+    @include tablet {
+      width: 300px;
+      height: 400px;
+      border-radius: 30px 30px 30px 70px;
+    }
+
+    @include laptop {
+      width: 350px;
+      height: 450px;
+      border-radius: 35px 35px 35px 85px;
+    }
+  }
+
+  h1 {
+    font-family: sharp-grotesk;
+    font-weight: 100;
+    font-size: x-large;
+
+    @include mobile {
+      font-size: large;
+      margin-top: 15px;
+    }
+
+    @include tablet {
+      font-size: x-large;
+      margin-top: 20px;
+    }
+  }
+
+  div {
+    background-color: black;
+    height: 0.05rem;
+    width: 25rem;
+    opacity: 0.2;
+
+    @include mobile {
+      width: 15rem;
+      margin: 10px 0;
+    }
+
+    @include tablet {
+      width: 20rem;
+      margin: 12px 0;
+    }
+
+    @include laptop {
+      width: 22rem;
+    }
+  }
+
+  h4 {
+    font-family: sharp-grotesk;
+    font-weight: 100;
+    font-size: smaller;
+    margin-top: 10px;
+    opacity: 0.8;
+
+    @include mobile {
+      font-size: small;
+      margin-top: 8px;
+    }
+
+    @include tablet {
+      font-size: smaller;
+    }
+  }
+
+  p {
+    margin-top: 20px;
+    width: 350px;
+    font-size: smaller;
+    font-family: old-school-grotesk;
+
+    @include mobile {
+      width: 100%;
+      max-width: 250px;
+      font-size: small;
+      margin-top: 15px;
+      line-height: 1.4;
+    }
+
+    @include tablet {
+      width: 100%;
+      max-width: 300px;
+      font-size: smaller;
+      line-height: 1.5;
+    }
+
+    @include laptop {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
 }
 
-.bg{
+// Specific positioning adjustments for team members
+.pic2 {
+  @include desktop {
+    margin-top: 280px;
+  }
+
+  @include laptop {
+    margin-top: 150px;
+  }
+}
+
+.pic3 {
+  @include desktop {
+    margin-top: -150px;
+  }
+
+  @include laptop {
+    margin-top: 50px;
+  }
+}
+
+.bg {
   position: absolute;
   margin: 380px -90px;
+  z-index: -1;
+
+  @include mobile {
+    width: 200px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    opacity: 0.1;
+  }
+
+  @include tablet {
+    width: 250px;
+    height: 250px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    opacity: 0.1;
+  }
+
+  @include laptop {
+    width: 280px;
+    height: 280px;
+    margin: 200px -50px;
+  }
 }
 
-.ceo{
-  border-radius: 40px 40px 40px 100px;
-}
-
-.star{
+.star {
   scale: 0.6;
-  margin: 0px -29px ;
+  margin: 0px -29px;
+
+  @include mobile {
+    scale: 0.4;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    margin: 0;
+  }
+
+  @include tablet {
+    scale: 0.5;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    margin: 0;
+  }
+
+  @include laptop {
+    scale: 0.55;
+    margin: 0px -25px;
+  }
 }
 
-.pic1 h1{
-  font-family: sharp-grotesk;
-  font-weight: 100;
-  font-size: x-large;
+// Container utility
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+
+  @include mobile {
+    padding: 0 15px;
+  }
 }
-
-.pic1 div{
-  background-color: black;
-  height: 0.05rem;
-  width: 25rem;
-  opacity: 0.2;
-}
-
-.pic1 h4{
-  font-family: sharp-grotesk;
-  font-weight: 100;
-  font-size: smaller;
-  margin-top: 10px;
-  opacity: 0.8;
-}
-
-.pic1 p{
-  margin-top: 20px;
-  width: 350px;
-  font-size: smaller;
-}
-
-.pic2{
-  display: flex;
-  flex-direction: column;
-  margin-left: 180px;
-  margin-bottom: 150px;
-  margin-top: 280px;
-  position: relative;
-}
-
-.pic2 h1{
-  font-family: sharp-grotesk;
-  font-weight: 100;
-  font-size: x-large;
-}
-
-.pic2 div{
-  background-color: black;
-  height: 0.05rem;
-  width: 25rem;
-  opacity: 0.2;
-}
-
-.pic2 h4{
-  font-family: sharp-grotesk;
-  font-weight: 100;
-  font-size: smaller;
-  margin-top: 10px;
-  opacity: 0.8;
-}
-
-.pic2 p{
-  margin-top: 20px;
-  width: 350px;
-  font-size: smaller;
-}
-
-.pic3{
-  display: flex;
-  flex-direction: column;
-  margin-left: 180px;
-  margin-bottom: 150px;
-  margin-top: -150px;
-  position: relative;
-}
-
-.pic3 h1{
-  font-family: sharp-grotesk;
-  font-weight: 100;
-  font-size: x-large;
-}
-
-.pic3 div{
-  background-color: black;
-  height: 0.05rem;
-  width: 25rem;
-  opacity: 0.2;
-}
-
-.pic3 h4{
-  font-family: sharp-grotesk;
-  font-weight: 100;
-  font-size: smaller;
-  margin-top: 10px;
-  opacity: 0.8;
-}
-
-.pic3 p{
-  margin-top: 20px;
-  width: 350px;
-  font-size: smaller;
-}
-
-
-.section{
-  background: transparent;
-}
-
-
