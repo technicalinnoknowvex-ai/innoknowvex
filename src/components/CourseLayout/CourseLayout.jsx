@@ -285,6 +285,10 @@ export default function CourseLayout({ course }) {
       </div>
 
       <div className={styles.Plans}>
+        <img src="/images/SoftStar.svg"
+                  width={40}
+                  height={40}
+                  alt="Soft Star" />
         <h1>Plans to fit your Learning needs</h1>
         <p>CHOOSE THAT FITS YOU</p>
       </div>

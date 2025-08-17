@@ -435,9 +435,14 @@
 }
 
 .Plans{
+  padding-top: 50px;
+    > img {
+    height: 6vh;
+    width: 6vh;
+    margin-left: 450px;
+  }
     h1 {
     padding-left: 30px;
-    padding-top: 50px;
     font-family: var(--font-sharp-25), Sharp Grotesk;
     font-weight: 430;
     text-align: center;
