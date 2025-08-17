@@ -1,9 +1,5 @@
+
 export const landingPageData = {
-  heroSection: {
-    heading: "Hi, I'm Praveen Lohar",
-    subheading: "Frontend Developer | Designer",
-    buttonText: "View My Work",
-  },
   aboutSection: {
     heading: "About Us.",
     subheading: "Get to Know Us Better",

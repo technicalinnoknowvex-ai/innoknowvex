@@ -12,18 +12,11 @@ const Hero = ({ scrollContainerRef }) => {
     <section className={heroStyles.hero}>
       <div className={heroStyles.heroTextWrapper}>
         <div className={heroStyles.gradientSpot}></div>
-
-        <Textfit mode="multi" className={heroStyles.textFitContainer}>
-          <h1 className={heroStyles.textFitContainer__heroText}>
-            Transforming
-            <br />
-            Aspirations
-            <br />
-            into
-            <br />
-            Achievements
-          </h1>
-
+        <Textfit
+          mode="multi"
+          forceSingleModeWidth={true}
+          className={heroStyles.textFit}
+        >
           <ScrollParallax
             scrollContainerRef={scrollContainerRef}
             isAbsolutelyPositioned
@@ -35,6 +28,15 @@ const Hero = ({ scrollContainerRef }) => {
             </MouseParallax>
           </ScrollParallax>
 
+          <h1 className={heroStyles.textFit__heroText}>
+            Transforming
+            <br />
+            Aspirations
+            <br />
+            into
+            <br />
+            Achievements
+          </h1>
           <ScrollParallax
             scrollContainerRef={scrollContainerRef}
             isAbsolutelyPositioned

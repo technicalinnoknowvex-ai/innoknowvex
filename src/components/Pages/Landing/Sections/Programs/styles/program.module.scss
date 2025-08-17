@@ -6,59 +6,69 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
-  margin-top: 50px;
+  // border: 1px solid #715c119e;
+  padding: 70px 100px 10px 100px;
+
+  @include tablet-down {
+    height: auto;
+    padding: 90px 8% 10px 8%;
+  }
 
   &__innerContainer {
-    width: calc(100% - 200px);
+    width: 100%;
     height: auto;
     display: flex;
     flex-direction: column;
-    border: 1px solid seagreen;
+    // border: 1px solid seagreen;
 
     @include tablet-down {
-      width: calc(100% - 50px);
       flex-direction: column;
     }
   }
 }
 
-.topSection {
+.mainHeaderSection {
   width: 100%;
   height: auto;
+  // border: 1px solid red;
   display: flex;
   flex-direction: column;
-  align-self: self-start;
-  border: 1px solid red;
 
-  &__headingContainer {
+  .sectionHeadingWrapper {
     width: 100%;
     flex: 0 0 auto;
     display: flex;
     flex-direction: column;
     position: relative;
     z-index: 1;
+    // border: 1px solid green;
 
     .sparkleDiv {
-      top: -30px;
-      left: -30px;
+      top: 0px;
+      left: 0px;
+      transform: translate(-80%, -80%);
       position: absolute;
-      width: 30px;
+      width: 40px;
       aspect-ratio: 1/1;
       display: flex;
       align-items: center;
       justify-content: center;
       // border: 1px solid red;
       z-index: 2;
+
+      @include tablet-down {
+        transform: translate(-50%, -90%);
+      }
     }
 
-    .primaryHeading {
+    &__primaryHeading {
       // border: 1px solid red;
       @include font($font-sharp-25, $medium);
       font-size: 2.2rem;
       z-index: 2;
+      margin-bottom: 5px;
     }
-    .secondaryHeading {
+    &__secondaryHeading {
       @include font($font-sharp-25, $medium, $text-brand);
       font-size: 1rem;
       text-transform: uppercase;
@@ -66,132 +76,209 @@
     }
   }
 
-  &__paraContainer {
-    width: 60%;
-    // flex: 0 0 auto;
-    flex: 1 1 auto;
-    overflow: hidden;
+  .sectionDescriptionWrapper {
+    width: 100%;
+    height: auto;
     display: flex;
-    align-items: center;
-    z-index: 2;
-    // border: 1px solid red;
 
-    @include tablet-down {
-      width: 100%;
-    }
-
-    .paraTextFit {
-      width: 100%;
+    .descTextFit {
+      width: 60%;
       height: 100%;
-      // display: flex;
-      display: block;
+      display: flex;
       align-items: center;
       padding: 20px 0px;
       line-height: 2;
       @include font($font-oldschool, $medium);
+      @include tablet-down {
+        width: 100%;
+      }
     }
   }
 }
 
-.middleSection {
+.subHeaderSection {
   width: 100%;
   height: 100px;
-  border: 1px solid red;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  // border: 1px solid red;
 
-  &__middleHeading {
-    @include font($font-sharp-25, $medium);
-    font-size: 2.2rem;
-    line-height: 1.3;
-    z-index: 2;
+  @include tablet-down {
+    height: 70px;
+  }
 
-    span {
-      color: $text-brand;
+  &__textFit {
+    width: 100%;
+    height: 100%;
+    // background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    h1 {
+      @include font($font-sharp-25, $medium);
+      line-height: 1.3;
+      z-index: 2;
+      span {
+        color: $text-brand;
+      }
     }
   }
 }
 
-.mainSection {
+.contentSection {
   width: 100%;
-  flex: 1;
-  border: 1px solid blue;
+  height: auto;
   display: flex;
-
-  &__leftSection {
-    width: 50%;
-    // height: 100%;
-    aspect-ratio: 3/2;
-    border: 1px solid red;
-  }
-  &__rightSection {
-    width: 50%;
-    aspect-ratio: 3/2;
-    border: 1px solid green;
-    display: flex;
-    justify-content: center;
-    padding: 40px;
+  // border: 1px solid red;
+  margin-top: 20px;
+  @include tablet-down {
+    flex-direction: column;
   }
 }
 
-.programCardGrid {
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: 80px minmax(0, 1fr) 45px;
-  grid-template-areas:
-    "programTitleCell"
-    "programDescCell"
-    "programLinkBtnCell";
+.leftSection {
+  width: 50%;
+  height: 60vh;
+  // border: 1px solid blue;
+  padding: 5%;
+
+  @include tablet-down {
+    width: 100%;
+    height: unset;
+    aspect-ratio: 3/2;
+  }
+
+  .programImageContainer {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px 90px 20px 90px;
+    background-color: #fe954f76;
+
+    @include tablet-down {
+      border-radius: 20px 50px 20px 50px;
+    }
+  }
 }
 
-.programTitleCell {
-  grid-area: "programTitleCell";
-  width: 100%;
+.rightSection {
+  width: 50%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  border: 1px solid red;
-}
-.programDescCell {
-  grid-area: "programDescCell";
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  border: 1px solid green;
-}
+  height: 60vh;
+  // border: 1px solid green;
+  @include tablet-down {
+    width: 100%;
+    height: 65vh;
+    max-height: 65vh;
+    // border: 1px solid red;
+  }
 
-.programLinkBtnCell {
-  grid-area: "programLinkBtnCell";
-  width: 100%;
-  height: 100%;
-  border: 1px solid blue;
-  display: flex;
-  align-items: center;
+  .programGrid {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 80px minmax(0, 1fr) 45px;
+    grid-template-areas:
+      "titleCell"
+      "descriptionCell"
+      "linkCell";
+    // border: 1px solid red;
 
-  &__link {
-    height: 90%;
-    width: auto;
-    padding: 0px 10px;
-    background-color: $brand-primary;
-    @include font($font-oldschool, $book, white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    outline: none;
-    border: none;
-    border-radius: 5px 15px 5px 15px;
-
-    .buttonTextFitContainer {
+    .titleCell {
+      position: relative;
+      grid-area: "titleCell";
       width: 100%;
       height: 100%;
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 0px 15px;
+      // border: 1px solid red;
+
+      .sparkleDiv {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 0px;
+        left: 0px;
+        width: 30px;
+        aspect-ratio: 1/1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+        // border: 1px solid red;
+      }
+      h3 {
+        @include font($font-sharp-25, $medium);
+        text-transform: uppercase;
+        line-height: 1.5;
+      }
     }
+    .descriptionCell {
+      grid-area: "descriptionCell";
+      width: 100%;
+      height: 100%;
+      // background-color: lightsalmon;
+      display: flex;
+      align-items: center;
+      // border: 1px solid red;
+
+      &__descTextFit {
+        display: flex;
+        align-items: center;
+        line-height: 2;
+        @include font($font-oldschool, $medium);
+      }
+    }
+
+    .linkCell {
+      grid-area: "linkCell";
+      width: 100%;
+      height: 100%;
+      // border: 1px solid blue;
+      display: flex;
+      align-items: flex-end;
+
+      &__link {
+        height: 85%;
+        width: auto;
+        background-color: $brand-primary;
+        @include font($font-oldschool, $book, white);
+        border-radius: 5px 15px 5px 15px;
+        display: flex;
+        align-items: center;
+
+        .linkTextFit {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0px 10px;
+        }
+      }
+    }
+  }
+}
+
+.gradientSpot {
+  position: absolute;
+  align-self: start;
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(250, 152, 5, 0.74);
+
+  &--1 {
+    height: 200px;
+    top: -80px;
+    left: -150px;
+    margin-top: auto;
+    margin-bottom: auto;
+    filter: blur(5rem);
+    z-index: 1;
+  }
+  &--2 {
+    height: 70%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(10rem);
   }
 }

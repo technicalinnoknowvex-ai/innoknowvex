@@ -4,6 +4,7 @@ import { Textfit } from "react-textfit";
 import { landingPageData } from "@/data/landing";
 import Image from "next/image";
 import Sparkle from "@/components/Common/Icons/Sparkle";
+import Link from "next/link";
 const AboutUs = ({ scrollContainerRef }) => {
   const { heading, subheading, para, images } = landingPageData.aboutSection;
 
@@ -11,7 +12,7 @@ const AboutUs = ({ scrollContainerRef }) => {
     <section className={aboutUsStyles.sectionWrapper}>
       <div className={aboutUsStyles.sectionWrapper__innerContainer}>
         <section className={aboutUsStyles.leftSection}>
-          <div className={aboutUsStyles.headingContainer}>
+          <div className={aboutUsStyles.sectionHeadingContainer}>
             <div
               className={`${aboutUsStyles.gradientSpot} ${aboutUsStyles["gradientSpot--1"]}`}
             />
@@ -19,10 +20,16 @@ const AboutUs = ({ scrollContainerRef }) => {
               <Sparkle />
             </div>
 
-            <h2 className={aboutUsStyles.headingContainer__primaryHeading}>
+            <h2
+              className={aboutUsStyles.sectionHeadingContainer__primaryHeading}
+            >
               {heading}
             </h2>
-            <h3 className={aboutUsStyles.headingContainer__secondaryHeading}>
+            <h3
+              className={
+                aboutUsStyles.sectionHeadingContainer__secondaryHeading
+              }
+            >
               {subheading}
             </h3>
           </div>
@@ -30,20 +37,19 @@ const AboutUs = ({ scrollContainerRef }) => {
             <Textfit
               className={aboutUsStyles.paraContainer__paraTextFit}
               mode="multi"
-              forceSingleModeWidth={false}
             >
               {para}
             </Textfit>
           </div>
-          <div className={aboutUsStyles.actionBtnContainer}>
-            <button className={aboutUsStyles.callToActionBtn}>
+          <div className={aboutUsStyles.linkContainer}>
+            <Link href={"#"} className={aboutUsStyles.linkContainer__link}>
               <Textfit
                 mode="single"
                 className={aboutUsStyles.buttonTextFitContainer}
               >
                 Know More
               </Textfit>
-            </button>
+            </Link>
           </div>
         </section>
         <section className={aboutUsStyles.rightSection}>

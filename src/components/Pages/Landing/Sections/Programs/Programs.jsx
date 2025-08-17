@@ -7,10 +7,10 @@ import Link from "next/link";
 const Programs = () => {
   const { heading, subheading, para } = landingPageData.programsSection;
   return (
-    <div className={programStyles.sectionWrapper}>
+    <section className={programStyles.sectionWrapper}>
       <div className={programStyles.sectionWrapper__innerContainer}>
-        <section className={programStyles.topSection}>
-          <div className={programStyles.topSection__headingContainer}>
+        <section className={programStyles.mainHeaderSection}>
+          <div className={programStyles.sectionHeadingWrapper}>
             <div
               className={`${programStyles.gradientSpot} ${programStyles["gradientSpot--1"]}`}
             />
@@ -18,63 +18,81 @@ const Programs = () => {
               <Sparkle />
             </div>
 
-            <h2 className={programStyles.primaryHeading}>{heading}</h2>
-            <h3 className={programStyles.secondaryHeading}>{subheading}</h3>
-          </div>
-          <div className={programStyles.topSection__paraContainer}>
-            <Textfit
-              className={programStyles.paraTextFit}
-              mode="multi"
-              forceSingleModeWidth={false}
+            <h2 className={programStyles.sectionHeadingWrapper__primaryHeading}>
+              {heading}
+            </h2>
+            <h3
+              className={programStyles.sectionHeadingWrapper__secondaryHeading}
             >
-              {para}
+              {subheading}
+            </h3>
+          </div>
+          <div className={programStyles.sectionDescriptionWrapper}>
+            <Textfit mode="multi" className={programStyles.descTextFit}>
+              <p>{para}</p>
             </Textfit>
           </div>
         </section>
-        <div className={programStyles.middleSection}>
-          <h1 className={programStyles.middleSection__middleHeading}>
-            What <span>Programs</span>
-            <br /> We'are Offering
-          </h1>
-        </div>
-        <main className={programStyles.mainSection}>
-          <section className={programStyles.mainSection__leftSection}></section>
-          <section className={programStyles.mainSection__rightSection}>
-            <div className={programStyles.programCardGrid}>
-              <div className={programStyles.programTitleCell}>
+
+        <section className={programStyles.subHeaderSection}>
+          <Textfit
+            mode="multi"
+            className={programStyles.subHeaderSection__textFit}
+          >
+            <h1>
+              What <span>Programs</span>
+              <br /> We'are Offering
+            </h1>
+          </Textfit>
+        </section>
+        <div className={programStyles.contentSection}>
+          <section className={programStyles.leftSection}>
+            <div className={programStyles.programImageContainer}></div>
+          </section>
+          <section className={programStyles.rightSection}>
+            <div className={programStyles.programGrid}>
+              <div className={programStyles.titleCell}>
+                <div className={programStyles.sparkleDiv}>
+                  <Sparkle />
+                </div>
                 <h3>
                   Artificial
                   <br />
                   Intelligence
                 </h3>
               </div>
-              <div className={programStyles.programDescCell}>
-                Dive into the world of Artificial Intelligence with a hands-on
-                learning experience focused on machine learning, deep learning,
-                and neural networks. Through interactive lessons, real-world
-                projects, and expert guidance, you’ll move beyond theory into
-                practical application. Whether you're starting out or
-                upskilling, this course equips you for real-world challenges and
-                success in an AI-driven future.
-              </div>
-              <div className={programStyles.programLinkBtnCell}>
-                <Link
-                  className={programStyles.programLinkBtnCell__link}
-                  href={"#"}
+              <div className={programStyles.descriptionCell}>
+                <Textfit
+                  mode="multi"
+                  className={programStyles.descriptionCell__descTextFit}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                  }}
                 >
-                  <Textfit
-                    mode="single"
-                    className={programStyles.buttonTextFitContainer}
-                  >
+                  AI refers to the simulation of human intelligence in machines
+                  that are programmed to think like humans and mimic their
+                  actions. This encompasses the ability of machines to perform
+                  tasks commonly associated with human cognition, such as
+                  learning from experience, reasoning based on provided data,
+                  and adapting to new inputs to solve complex problems. AI can
+                  manifest in various forms, from basic rule-based systems to
+                  advanced neural networks capable of processing vast amounts of
+                  information and making decisions independently.
+                </Textfit>
+              </div>
+              <div className={programStyles.linkCell}>
+                <Link className={programStyles.linkCell__link} href={"#"}>
+                  <Textfit mode="single" className={programStyles.linkTextFit}>
                     Learn More
                   </Textfit>
                 </Link>
               </div>
             </div>
           </section>
-        </main>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
