@@ -9,105 +9,218 @@
   src: url('/fonts/oldSchoolGrotesk/OldschoolGroteskVar.ttf')
 }
 
+.section{
+  position: relative;
+  width: 100%;
+}
+
+.section2{
+  width: 100%;
+  position: relative;
+}
+
 .first{
-    width: 100%;
-    margin-top: 20vh;
-    height: 30vh;
+  position: relative;
+  width: 100%;
 }
 
 .content1{
-    display: flex;
-    flex-direction: column;
-    padding: auto 10px;
-    width: 800px;
-    margin-left: 13%;
-    margin-top: 7vh;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  margin: 150px 180px;
+  width: 90vh;
+}
+
+.ellipse1{
+  position: absolute;
+  margin: -20px -150px;
 }
 
 .star1{
- margin: 17px 200px;
- position: absolute;
-}
-
-.bg{
-  position: absolute;
-  height: 100vh;
-  width: 100vh;
-  top: 2%;
-  margin-left: -18%;
+  scale: 0.8;
+  margin: 2px -28px;
 }
 
 .content1 h1{
-    font-family: sharp-grotesk;
-    font-weight: 100;
-    font-size: 40px;
+  font-family: sharp-grotesk;
+  font-weight: 100;
+  font-size: 3rem;
 }
 
 .content1 h4{
-    font-family: sharp-grotesk;
-    font-weight: 100;
-    color: #FF6432;
-    font-size: 20px;
+  font-family: sharp-grotesk;
+  font-weight: 100;
+  font-size: 1.5rem;
+  color: #FF6432;
+  margin-top: 10px;
 }
 
 .content1 p{
-    font-family: old-school-grotesk;
-    font-size: 18px;
-    margin-top: 10px;
+  font-family: old-school-grotesk;
+  font-weight: 400;
+  font-size: 1.2rem;
+  margin-top: 20px;
 }
 
-.second {
-  width: 100%;
-  margin-top: 20vh;
-  height: 30vh;
-  position: relative; // to keep child absolute elements scoped
-}
-
-.content2 {
+.content2{
   display: flex;
   flex-direction: column;
-  padding: 0 10px;
-  width: 800px;
-  margin-right: 13%;   // instead of margin-left
-  margin-top: 7vh;
-  gap: 10px;
-  text-align: right;   // aligns text to the right
-  margin-left: auto;   // pushes it to the right side
+  text-align-last: right;
+  margin: 100px 180px;
 }
 
-.star2 {
-  margin: 17px 200px;
+.ellipse2{
   position: absolute;
-  right: 0; // push to right
+  right: 0%;
+  margin: -20px -150px;
 }
 
-.bg2 {
+.star2{
   position: absolute;
-  height: 100vh;
-  width: 100vh;
-  top: 2%;
-  margin-right: -18%;
-  right: 0;
+  right: 0%;
+  scale: 0.8;
+  margin: -55px 150px;
 }
 
-.content2 h1 {
+.content2 h1{
   font-family: sharp-grotesk;
   font-weight: 100;
-  font-size: 40px;
+  font-size: 3rem;
 }
 
-.content2 h4 {
+.content2 h4{
   font-family: sharp-grotesk;
   font-weight: 100;
+  font-size: 1.5rem;
   color: #FF6432;
-  font-size: 20px;
-}
-
-.content2 p {
-  font-family: old-school-grotesk;
-  font-size: 18px;
   margin-top: 10px;
 }
+
+.content2 p{
+  font-family: old-school-grotesk;
+  font-weight: 400;
+  font-size: 1.2rem;
+  margin-top: 20px;
+  text-align: right;
+  padding: 0 0 0 550px; /* Changed from padding both sides to only left */
+}
+
+.team{
+  display: flex
+}
+
+.pic1{
+  display: flex;
+  flex-direction: column;
+  margin-left: 180px;
+  margin-bottom: 150px;
+}
+
+.ceo{
+  border-radius: 40px 40px 40px 100px;
+}
+
+.star{
+  scale: 0.6;
+  margin: 0px -29px ;
+}
+
+.pic1 h1{
+  font-family: sharp-grotesk;
+  font-weight: 100;
+  font-size: x-large;
+}
+
+.pic1 div{
+  background-color: black;
+  height: 0.05rem;
+  width: 25rem;
+  opacity: 0.2;
+}
+
+.pic1 h4{
+  font-family: sharp-grotesk;
+  font-weight: 100;
+  font-size: smaller;
+  margin-top: 10px;
+  opacity: 0.8;
+}
+
+.pic1 p{
+  margin-top: 20px;
+  width: 350px;
+  font-size: smaller;
+}
+
+.pic2{
+  display: flex;
+  flex-direction: column;
+  margin-left: 180px;
+  margin-bottom: 150px;
+  margin-top: 180px;
+}
+
+.pic2 h1{
+  font-family: sharp-grotesk;
+  font-weight: 100;
+  font-size: x-large;
+}
+
+.pic2 div{
+  background-color: black;
+  height: 0.05rem;
+  width: 25rem;
+  opacity: 0.2;
+}
+
+.pic2 h4{
+  font-family: sharp-grotesk;
+  font-weight: 100;
+  font-size: smaller;
+  margin-top: 10px;
+  opacity: 0.8;
+}
+
+.pic2 p{
+  margin-top: 20px;
+  width: 350px;
+  font-size: smaller;
+}
+
+.pic3{
+  display: flex;
+  flex-direction: column;
+  margin-left: 180px;
+  margin-bottom: 150px;
+  margin-top: -150px;
+}
+
+.pic3 h1{
+  font-family: sharp-grotesk;
+  font-weight: 100;
+  font-size: x-large;
+}
+
+.pic3 div{
+  background-color: black;
+  height: 0.05rem;
+  width: 25rem;
+  opacity: 0.2;
+}
+
+.pic3 h4{
+  font-family: sharp-grotesk;
+  font-weight: 100;
+  font-size: smaller;
+  margin-top: 10px;
+  opacity: 0.8;
+}
+
+.pic3 p{
+  margin-top: 20px;
+  width: 350px;
+  font-size: smaller;
+}
+
 
 
