@@ -71,6 +71,7 @@ const AboutUs = () => {
         <div className={style.pic1}>
           <Image className={style.ceo} src="/images/aboutUsPage/CEO.jpeg" height={535} width={400} alt='CEO image' />
           <Image className={style.star} src="/images/SoftStar.svg" height={50} width={50} alt='star' />
+          <Image className={style.bg} src="/images/Ellipse4.svg" height={300} width={300} alt='bg'/>
           <h1>FARUK</h1>
           <div></div>
           <h4>Founder and CEO</h4>
@@ -80,6 +81,7 @@ const AboutUs = () => {
         <div className={style.pic2}>
           <Image className={style.ceo} src="/images/aboutUsPage/CGO.jpeg" height={535} width={400} alt='CEO image' />
           <Image className={style.star} src="/images/SoftStar.svg" height={50} width={50} alt='star' />
+          <Image className={style.bg} src="/images/Ellipse4.svg" height={300} width={300} alt='bg'/>
           <h1>DURGESH C.</h1>
           <div></div>
           <h4>CGO</h4>
@@ -89,6 +91,7 @@ const AboutUs = () => {
         <div className={style.pic3}>
           <Image className={style.ceo} src="/images/aboutUsPage/COO.jpeg" height={535} width={400} alt='CEO image' />
           <Image className={style.star} src="/images/SoftStar.svg" height={50} width={50} alt='star' />
+          <Image className={style.bg} src="/images/Ellipse4.svg" height={300} width={300} alt='bg'/>
           <h1>Vamsi Krishna</h1>
           <div></div>
           <h4>COO</h4>
