@@ -1,5 +1,5 @@
 import { courses } from '../../../data/courses'
-import CourseLayout from '../../../components/CourseLayout/CourseLayout'
+import CourseLayout from '../../../components/Pages/Programs/CourseLayout'
 import { notFound } from 'next/navigation'
 
 export default async function CoursePage({ params }) {

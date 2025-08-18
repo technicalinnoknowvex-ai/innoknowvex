@@ -1,0 +1,120 @@
+.plansContainer {
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+
+.Plans {
+  padding-top: 50px;
+  
+  img {
+    height: 6vh;
+    width: 6vh;
+    margin-left: 450px;
+  }
+  
+  h1 {
+    padding-left: 30px;
+    font-family: var(--font-sharp-25), Sharp Grotesk;
+    font-weight: 430;
+    text-align: center;
+    color: #262c35;
+  }
+
+  p {
+    padding-left: 30px;
+    font-family: var(--font-sharp-22), Oldschool Grotesk;
+    text-align: center;
+    font-size: 24px;
+    color: #ff6432;
+  }
+}
+
+.pricingCardLayout {
+  height: 600px;
+  width: 300px;
+  display: flex;
+  padding-left: 40px;
+  margin-bottom: 100px;
+  gap: 20px;
+
+  .pricingCards {
+    border: 1px solid #715C11;
+    border-radius: 15px 60px 15px 60px;
+    position: relative;
+    text-align: center; 
+  }
+
+  .heading {
+    display: inline-flex; 
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto; 
+    padding-top: 60px;
+  }
+
+  .cardStar {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  h1 {
+    position: relative;
+    font-family: var(--font-sharp-25), Sharp Grotesk;
+    color: #9c7f16;
+    font-size: 42px;
+    font-weight: 430;
+    margin: 0;
+    padding-left: 25px; // Space for the star
+  }
+
+  .price {
+    font-size: 30px;
+    font-family: var(--font-sharp-25), Sharp Grotesk;
+    padding-bottom: 20px;
+    margin: 0 auto; // Center the price
+  }
+
+  .planDesc {
+    width: 470px;
+    font-family: var(--font-sharp-22), Oldschool Grotesk;
+    font-size: 12px;
+    color: #9c7f16;
+    padding-bottom: 20px;
+    margin: 0 auto; // Center the description
+  }
+
+  button {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 100px;
+    border-radius: 5px 20px 5px 20px;
+    background-color: #ff6432;
+    color: white;
+    border-color: #ff6432;
+    margin-bottom: 20px;
+  }
+}
+
+.plancontent {
+  font-family: var(--font-sharp-22), Oldschool Grotesk;
+  line-height: 2;
+  text-align: left; // Align features list to left
+  padding-left: 20px; // Add some padding
+}
+
+.features {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.featureimg {
+  padding-right: 10px;
+  width: 16px;
+  height: 16px;
+}
