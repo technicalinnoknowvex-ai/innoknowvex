@@ -170,7 +170,7 @@
       "cell1 cell1 cell4 cell3 cell3 cell3"
       "cell5 cell7 cell7 cell3 cell3 cell3"
       "cell6 cell7 cell7 cell8 cell9 cell10";
-    gap: 3px;
+    gap: 1px;
 
     @include tablet-down {
       height: 100%;

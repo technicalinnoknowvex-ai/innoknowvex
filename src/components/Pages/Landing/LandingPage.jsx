@@ -13,6 +13,7 @@ import WhyChooseUs from "./Sections/WhyChooseUs/WhyChooseUs";
 import OurPartners from "./Sections/OurPartners/OurPartners";
 import Testimonials from "./Sections/Testimonials/Testimonials";
 import FAQ from "./Sections/FAQ/FAQ";
+import Footer from "./Sections/Footer/Footer";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -55,7 +56,8 @@ const LandingPage = () => {
       <OurPartners scrollContainerRef={scrollContainerRef} />
       <Testimonials scrollContainerRef={scrollContainerRef} />
       <FAQ scrollContainerRef={scrollContainerRef} />
-      {Array.from({ length: 3 }).map((_, index) => (
+      <Footer />
+      {/* {Array.from({ length: 3 }).map((_, index) => (
         <div
           key={index}
           style={{
@@ -63,7 +65,7 @@ const LandingPage = () => {
             height: "100vh",
           }}
         />
-      ))}
+      ))} */}
     </div>
   );
 };

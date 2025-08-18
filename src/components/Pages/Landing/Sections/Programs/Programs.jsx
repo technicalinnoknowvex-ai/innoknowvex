@@ -4,7 +4,10 @@ import Sparkle from "@/components/Common/Icons/Sparkle";
 import { landingPageData } from "@/data/landing";
 import { Textfit } from "react-textfit";
 import Link from "next/link";
+import { useCursor } from "@/context/useCursor";
 const Programs = () => {
+  const { handleMouseEnter, handleMouseLeave, setCursorContent } = useCursor();
+
   const { heading, subheading, para } = landingPageData.programsSection;
   return (
     <section className={programStyles.sectionWrapper}>
@@ -82,7 +85,23 @@ const Programs = () => {
                 </Textfit>
               </div>
               <div className={programStyles.linkCell}>
-                <Link className={programStyles.linkCell__link} href={"#"}>
+                <Link
+                  onMouseEnter={() => {
+                    handleMouseEnter(null, {
+                      dot: {
+                        // backgroundColor: "white",
+                        opacity: 0.5,
+                        scale: 10,
+                      },
+                      ring: {
+                        opacity: 0,
+                      },
+                    });
+                  }}
+                  onMouseLeave={() => handleMouseLeave()}
+                  className={programStyles.linkCell__link}
+                  href={"#"}
+                >
                   <Textfit mode="single" className={programStyles.linkTextFit}>
                     Learn More
                   </Textfit>

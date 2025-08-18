@@ -4,24 +4,23 @@ import gsap from "gsap";
 import CursorContext from "./CursorContext";
 
 export const CursorProvider = ({ children }) => {
-  const cursorRef = useRef(null);
-  const cursorTailRef = useRef(null);
+  const cursorRingRef = useRef(null);
+  const cursorDotRef = useRef(null);
   const [cursorContent, setCursorContent] = useState(null);
 
-  const handleMouseEnter = (onMouseEnterCallback) => {
-    if (cursorRef.current && cursorTailRef.current) {
-      gsap.to(cursorRef.current, {
-        scale: 1.5,
-        opacity: 0.8,
+  const handleMouseEnter = (onMouseEnterCallback, options = {}) => {
+    if (cursorRingRef.current && cursorDotRef.current) {
+      gsap.to(cursorRingRef.current, {
         duration: 0.2,
         ease: "power1.inOut",
+        ...options.ring,
       });
 
-      gsap.to(cursorTailRef.current, {
-        scale: 10,
-        opacity: 0.5,
+      gsap.to(cursorDotRef.current, {
         duration: 0.2,
         ease: "power1.inOut",
+        backgroundColor: options.tailColor || "#FF6432",
+        ...options.dot,
       });
     }
 
@@ -31,17 +30,18 @@ export const CursorProvider = ({ children }) => {
   };
 
   const handleMouseLeave = (onMouseLeaveCallback) => {
-    if (cursorRef.current && cursorTailRef.current) {
-      gsap.to(cursorRef.current, {
+    if (cursorRingRef.current && cursorDotRef.current) {
+      gsap.to(cursorRingRef.current, {
         scale: 1,
         opacity: 1,
         duration: 0.2,
         ease: "power1.inOut",
       });
 
-      gsap.to(cursorTailRef.current, {
+      gsap.to(cursorDotRef.current, {
         scale: 1,
         opacity: 1,
+        backgroundColor: "#FF6432",
         duration: 0.2,
         ease: "power1.inOut",
       });
@@ -53,8 +53,8 @@ export const CursorProvider = ({ children }) => {
   };
 
   const value = {
-    cursorRef,
-    cursorTailRef,
+    cursorRingRef,
+    cursorDotRef,
     handleMouseEnter,
     handleMouseLeave,
     setCursorContent,

@@ -5,8 +5,10 @@ import { landingPageData } from "@/data/landing";
 import Image from "next/image";
 import Sparkle from "@/components/Common/Icons/Sparkle";
 import Link from "next/link";
+import { useCursor } from "@/context/useCursor";
 const AboutUs = ({ scrollContainerRef }) => {
   const { heading, subheading, para, images } = landingPageData.aboutSection;
+  const { handleMouseEnter, handleMouseLeave } = useCursor();
 
   return (
     <section className={aboutUsStyles.sectionWrapper}>
@@ -42,7 +44,23 @@ const AboutUs = ({ scrollContainerRef }) => {
             </Textfit>
           </div>
           <div className={aboutUsStyles.linkContainer}>
-            <Link href={"#"} className={aboutUsStyles.linkContainer__link}>
+            <Link
+              href={"#"}
+              className={aboutUsStyles.linkContainer__link}
+              onMouseEnter={() => {
+                handleMouseEnter(null, {
+                  dot: {
+                    // backgroundColor: "white",
+                    opacity: 0.5,
+                    scale: 10,
+                  },
+                  ring: {
+                    opacity: 0,
+                  },
+                });
+              }}
+              onMouseLeave={() => handleMouseLeave()}
+            >
               <Textfit
                 mode="single"
                 className={aboutUsStyles.buttonTextFitContainer}

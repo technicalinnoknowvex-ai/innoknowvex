@@ -280,4 +280,8 @@ export const landingPageData = {
       },
     ],
   },
+  footerSection: {
+    heading: "Contact Us.",
+    subheading: "GET IN TOUCH",
+  },
 };
