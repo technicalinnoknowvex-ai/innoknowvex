@@ -253,4 +253,31 @@ export const landingPageData = {
       },
     ],
   },
+  faqSection: {
+    heading: "Frequently asked questions",
+    subheading: "WHAT YOU SHOULD KNOW",
+    para: `Got questions? You're not alone. We've gathered the most common (and most important) ones right here to help you get clarity, feel confident, and make the right choice. Whether you're curious, cautious, or just doing your homework — the answers you need are just below.`,
+    faqs: [
+      {
+        question: "Who will be my mentor?",
+        answer:
+          "You'll be guided by industry professionals with years of hands-on experience in their respective domains. Our mentors focus on concept clarity, practical knowledge, and personalized support throughout your learning journey",
+      },
+      {
+        question: "Can I pay in easy monthly installments?",
+        answer:
+          "Yes, we offer flexible EMI (Easy Monthly Installment) options to make learning more accessible for everyone.",
+      },
+      {
+        question: "What payment methods do you accept?",
+        answer:
+          "We accept all major credit/debit cards, UPI, net banking, and EMI options through partnered banks and financial services.",
+      },
+      {
+        question: "Will I receive a certificate after completing the program?",
+        answer:
+          "Yes, upon successful completion of your program, you’ll receive an industry-recognized certificate from Innoknowvex.",
+      },
+    ],
+  },
 };

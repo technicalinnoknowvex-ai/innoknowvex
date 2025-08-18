@@ -12,6 +12,7 @@ import Programs from "./Sections/Programs/Programs";
 import WhyChooseUs from "./Sections/WhyChooseUs/WhyChooseUs";
 import OurPartners from "./Sections/OurPartners/OurPartners";
 import Testimonials from "./Sections/Testimonials/Testimonials";
+import FAQ from "./Sections/FAQ/FAQ";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -53,6 +54,7 @@ const LandingPage = () => {
       <WhyChooseUs scrollContainerRef={scrollContainerRef} />
       <OurPartners scrollContainerRef={scrollContainerRef} />
       <Testimonials scrollContainerRef={scrollContainerRef} />
+      <FAQ scrollContainerRef={scrollContainerRef} />
       {Array.from({ length: 3 }).map((_, index) => (
         <div
           key={index}
