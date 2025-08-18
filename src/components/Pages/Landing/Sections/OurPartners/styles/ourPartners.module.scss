@@ -2,12 +2,13 @@
 
 .sectionWrapper {
   width: 100%;
-  height: 100%;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  //   border: 1px solid #715c119e;
+  // border: 1px solid #715c119e;
   padding: 70px 0px 10px 0px;
+  overflow: hidden;
 
   @include tablet-down {
     height: auto;
@@ -116,5 +117,4 @@
   // border: 1px solid red;
   display: flex;
   align-items: center;
-
 }

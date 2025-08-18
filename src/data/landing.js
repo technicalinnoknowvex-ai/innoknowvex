@@ -131,4 +131,126 @@ export const landingPageData = {
       AmityUni,
     ],
   },
+  testimonialsSection: {
+    heading: "Testimonials",
+    subheading: "Don't Just Take our word for it",
+
+    rowTop: [
+      {
+        testimonial:
+          "The Data Science course exceeded my expectations. The curriculum was rigorous yet practical, covering everything from data cleaning to advanced machine learning. I particularly appreciated the hands-on projects that mirrored real-world scenarios. Thanks to this course, I transitioned from a data analyst to a data scientist within six months.",
+        name: "Shivam Rastogi",
+        profession: "DATA SCIENCE STUDENT",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+      {
+        testimonial:
+          "The Data Science course exceeded my expectations. The curriculum was rigorous yet practical, covering everything from data cleaning to advanced machine learning. I particularly appreciated the hands-on projects that mirrored real-world scenarios. Thanks to this course, I transitioned from a data analyst to a data scientist within six months.",
+        name: "Shivam Rastogi",
+        profession: "DATA SCIENCE STUDENT",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+      {
+        testimonial:
+          "The Data Science course exceeded my expectations. The curriculum was rigorous yet practical, covering everything from data cleaning to advanced machine learning. I particularly appreciated the hands-on projects that mirrored real-world scenarios. Thanks to this course, I transitioned from a data analyst to a data scientist within six months.",
+        name: "Shivam Rastogi",
+        profession: "DATA SCIENCE STUDENT",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+      {
+        testimonial:
+          "The Data Science course exceeded my expectations. The curriculum was rigorous yet practical, covering everything from data cleaning to advanced machine learning. I particularly appreciated the hands-on projects that mirrored real-world scenarios. Thanks to this course, I transitioned from a data analyst to a data scientist within six months.",
+        name: "Shivam Rastogi",
+        profession: "DATA SCIENCE STUDENT",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+      {
+        testimonial:
+          "The Data Science course exceeded my expectations. The curriculum was rigorous yet practical, covering everything from data cleaning to advanced machine learning. I particularly appreciated the hands-on projects that mirrored real-world scenarios. Thanks to this course, I transitioned from a data analyst to a data scientist within six months.",
+        name: "Shivam Rastogi",
+        profession: "DATA SCIENCE STUDENT",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+      {
+        testimonial:
+          "The Data Science course exceeded my expectations. The curriculum was rigorous yet practical, covering everything from data cleaning to advanced machine learning. I particularly appreciated the hands-on projects that mirrored real-world scenarios. Thanks to this course, I transitioned from a data analyst to a data scientist within six months.",
+        name: "Shivam Rastogi",
+        profession: "DATA SCIENCE STUDENT",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+      {
+        testimonial:
+          "The Data Science course exceeded my expectations. The curriculum was rigorous yet practical, covering everything from data cleaning to advanced machine learning. I particularly appreciated the hands-on projects that mirrored real-world scenarios. Thanks to this course, I transitioned from a data analyst to a data scientist within six months.",
+        name: "Shivam Rastogi",
+        profession: "DATA SCIENCE STUDENT",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+      {
+        testimonial:
+          "The Data Science course exceeded my expectations. The curriculum was rigorous yet practical, covering everything from data cleaning to advanced machine learning. I particularly appreciated the hands-on projects that mirrored real-world scenarios. Thanks to this course, I transitioned from a data analyst to a data scientist within six months.",
+        name: "Shivam Rastogi",
+        profession: "DATA SCIENCE STUDENT",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+    ],
+    rowBottom: [
+      {
+        testimonial:
+          "The Data Science course exceeded my expectations. The curriculum was rigorous yet practical, covering everything from data cleaning to advanced machine learning. I particularly appreciated the hands-on projects that mirrored real-world scenarios. Thanks to this course, I transitioned from a data analyst to a data scientist within six months.",
+        name: "Shivam Rastogi",
+        profession: "DATA SCIENCE STUDENT",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+      {
+        testimonial:
+          "The Data Science course exceeded my expectations. The curriculum was rigorous yet practical, covering everything from data cleaning to advanced machine learning. I particularly appreciated the hands-on projects that mirrored real-world scenarios. Thanks to this course, I transitioned from a data analyst to a data scientist within six months.",
+        name: "Shivam Rastogi",
+        profession: "DATA SCIENCE STUDENT",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+      {
+        testimonial:
+          "The Data Science course exceeded my expectations. The curriculum was rigorous yet practical, covering everything from data cleaning to advanced machine learning. I particularly appreciated the hands-on projects that mirrored real-world scenarios. Thanks to this course, I transitioned from a data analyst to a data scientist within six months.",
+        name: "Shivam Rastogi",
+        profession: "DATA SCIENCE STUDENT",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+      {
+        testimonial:
+          "The Data Science course exceeded my expectations. The curriculum was rigorous yet practical, covering everything from data cleaning to advanced machine learning. I particularly appreciated the hands-on projects that mirrored real-world scenarios. Thanks to this course, I transitioned from a data analyst to a data scientist within six months.",
+        name: "Shivam Rastogi",
+        profession: "DATA SCIENCE STUDENT",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+
+      {
+        testimonial:
+          "The Data Science course exceeded my expectations. The curriculum was rigorous yet practical, covering everything from data cleaning to advanced machine learning. I particularly appreciated the hands-on projects that mirrored real-world scenarios. Thanks to this course, I transitioned from a data analyst to a data scientist within six months.",
+        name: "Shivam Rastogi",
+        profession: "DATA SCIENCE STUDENT",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+      {
+        testimonial:
+          "The Data Science course exceeded my expectations. The curriculum was rigorous yet practical, covering everything from data cleaning to advanced machine learning. I particularly appreciated the hands-on projects that mirrored real-world scenarios. Thanks to this course, I transitioned from a data analyst to a data scientist within six months.",
+        name: "Shivam Rastogi",
+        profession: "DATA SCIENCE STUDENT",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+      {
+        testimonial:
+          "The Data Science course exceeded my expectations. The curriculum was rigorous yet practical, covering everything from data cleaning to advanced machine learning. I particularly appreciated the hands-on projects that mirrored real-world scenarios. Thanks to this course, I transitioned from a data analyst to a data scientist within six months.",
+        name: "Shivam Rastogi",
+        profession: "DATA SCIENCE STUDENT",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+      {
+        testimonial:
+          "The Data Science course exceeded my expectations. The curriculum was rigorous yet practical, covering everything from data cleaning to advanced machine learning. I particularly appreciated the hands-on projects that mirrored real-world scenarios. Thanks to this course, I transitioned from a data analyst to a data scientist within six months.",
+        name: "Shivam Rastogi",
+        profession: "DATA SCIENCE STUDENT",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+    ],
+  },
 };
