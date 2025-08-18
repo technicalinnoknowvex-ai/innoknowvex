@@ -67,36 +67,42 @@ export default function Footer() {
                     <div className={styles.programsGrid}>
                         <div className={styles.linkItems}>
                             <Link href="/courses/web-development">Web Development</Link>
-                            <Link href="#">Android Development</Link>
-                            <Link href="#">Python Programming</Link>
-                            <Link href="#">Java & DSA</Link>
-                            <Link href="#">Machine Learning</Link>
-                            <Link href="#">Artificial Intelligence</Link>
-                            <Link href="#">Cloud Computing</Link>
-                            <Link href="#">Cyber security</Link>
-                            <Link href="#">Data Science</Link>
-                            <Link href="#">Nanotechnology</Link>
-                            <Link href="#">Embedded Systems</Link>
-                            <Link href="#">Internet of Things (IOT)</Link>
-                            <Link href="#">Hybrid Electric Vehicles</Link>
-                            <Link href="#">VLSI</Link>
+                            <Link href="/courses/android-development">Android Development</Link>
+                            <Link href="/courses/python-programming">Python Programming</Link>
+                            <Link href="/courses/java-dsa">Java & DSA</Link>
+                            <Link href="/courses/machine-learning">Machine Learning</Link>
+                            <Link href="/courses/artificial-intelligence">Artificial Intelligence</Link>
+                            <Link href="/courses/cloud-computing">Cloud Computing</Link>
+                            <Link href="/courses/cyber-security">Cyber security</Link>
+                            <Link href="/courses/data-science">Data Science</Link>
+                            <Link href="/courses/nanotechnology">Nanotechnology</Link>
+                            <Link href="/courses/embedded-systems">Embedded Systems</Link>
+                            <Link href="/courses/iot">Internet of Things (IOT)</Link>
+                            <Link href="/courses/hev">Hybrid Electric Vehicles</Link>
+                            <Link href="/courses/C-C++">C-C++</Link>
+                             <Link href="/courses/AutoCad">AutoCad</Link>
+                            <Link href="/courses/Automobile Design">Automobile Design</Link>
+                           <Link href="/courses/vlsi">VLSI</Link>
                         </div>
                         <div className={styles.linkItems}>
-                            <Link href="#">Fashion Designing</Link>
-                            <Link href="#">UI/UX</Link>
-                             <div className={styles.divider} />
-                            <Link href="#">Psychology</Link>
-                            <Link href="#">Medical Coding</Link>
+                            
+                            <Link href="/courses/Data Science">Data Science</Link>
+                            <Link href="/courses/DSA">DSA</Link>
+                            <Link href="/courses/fashion-designing">Fashion Designing</Link>
+                            <Link href="/courses/ui-ux-design">UI/UX</Link>
                             <div className={styles.divider} />
-                            <Link href="#">Digital Marketing</Link>
-                            <Link href="#">Business Analytics</Link>
-                            <Link href="#">Finance</Link>
-                            <Link href="#">Stock Trading</Link>
-                            <Link href="#">Human Resources</Link>
-                            <Link href="#">Corporate Law</Link>
+                            <Link href="/courses/psychology">Psychology</Link>
+                            <Link href="/courses/medical-coding">Medical Coding</Link>
+                            <div className={styles.divider} />
+                            <Link href="/courses/digital-marketing">Digital Marketing</Link>
+                            <Link href="/courses/business-analytics">Business Analytics</Link>
+                            <Link href="/courses/finance">Finance</Link>
+                            <Link href="/courses/stock-trading">Stock Trading</Link>
+                            <Link href="/courses/human-resources">Human Resources</Link>
+                            <Link href="/courses/corporate-law">Corporate Law</Link>
                             <h2>ADVANCED PROGRAMS</h2>
-                            <Link href="#">Advanced Data Science</Link>
-                            <Link href="#">Advanced Web Development</Link>
+                            <Link href="/courses/advanced-data-science">Advanced Data Science</Link>
+                            <Link href="/courses/advanced-web-development">Advanced Web Development</Link>
                         </div>
                     </div>
                 </div>
