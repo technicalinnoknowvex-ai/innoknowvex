@@ -10,7 +10,9 @@ import { Icon } from "@iconify/react";
 
 const Footer = () => {
   const { cursorRingRef, handleMouseEnter, handleMouseLeave } = useCursor();
-  const { heading, subheading } = landingPageData.footerSection;
+  const { heading, subheading, email, address, socialLinks, footerLinks } =
+    landingPageData.footerSection;
+
   return (
     <footer
       className={styles.sectionWrapper}
@@ -54,12 +56,45 @@ const Footer = () => {
               icon="eva:email-fill"
               style={{ width: "20px", height: "20px", color: "#fff6c3" }}
             />
-            <p className={styles.email}>innoknowvex@gmail.com</p>
+            <p className={styles.email}>{email}</p>
+          </div>
+          <div className={styles.addressContainer}>
+            <label className={styles.label}>ADDRESS</label>
+            <p className={styles.address}>{address}</p>
+          </div>
+          <div className={styles.socialLinksContainer}>
+            {socialLinks.map((social, sIndex) => (
+              <Link
+                key={sIndex}
+                href={social.href}
+                className={styles.socialLinks}
+              >
+                <Icon icon={social.icon} className={styles.socialIcons} />
+              </Link>
+            ))}
           </div>
         </div>
-        <div className={styles.topSection__linksList}></div>
-        <div className={styles.topSection__linksList}></div>
-        <div className={styles.topSection__linksList}></div>
+        <div className={styles.topSection__footerLinksGrid}>
+          {footerLinks.map((group, gIndex) => (
+            <React.Fragment key={gIndex}>
+              <div
+                className={`${styles.itemContainer} ${styles["itemContainer--label"]}`}
+              >
+                {group.listLabel}
+              </div>
+              {group.links.map((link, lIndex) => (
+                <Link
+                  key={lIndex}
+                  href={link.href}
+                  className={`${styles.itemContainer} ${styles["itemContainer--link"]}`}
+                >
+                  <div className={styles.animatedUnderline}></div>
+                  {link.label}
+                </Link>
+              ))}
+            </React.Fragment>
+          ))}
+        </div>
       </section>
       <section className={styles.bottomSection}>
         <div className={styles.bottomSection__emblemDiv}>
