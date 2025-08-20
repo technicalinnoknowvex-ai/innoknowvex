@@ -4,35 +4,70 @@
   width: 100%;
   height: 100%;
   background-color: $brand-primary;
-  margin-top: 100px;
   display: flex;
   flex-direction: column;
-  padding-top: 90px;
+  justify-content: space-between;
+  padding-top: 100px;
 
   @include tablet-down {
-    height: 100vh;
+    height: auto;
   }
 }
 
-.topSection {
-  flex: 1;
+.sectionInnerWrapper {
+  width: 100%;
+  height: 100%;
   display: grid;
-  grid-template-columns: 40% minmax(0, 1fr);
-  grid-template-rows: 100%;
-  padding: 0px 100px;
+  grid-template-columns: 40% 60%;
+  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr) auto;
+  grid-template-areas:
+    "contactUsCell linksCell"
+    "addressSocialCell linksCell"
+    "legalCell legalCell";
 
-  &__contactUsWrapper {
+  @include tablet-down {
+    grid-template-columns: 50% 50%;
+    grid-template-rows: repeat(3, auto);
+    grid-template-areas:
+      "contactUsCell addressSocialCell"
+      "linksCell linksCell"
+      "legalCell legalCell";
+  }
+
+  @include mobile-down {
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(4, auto);
+    grid-template-areas:
+      "contactUsCell"
+      "addressSocialCell"
+      "linksCell"
+      "legalCell";
+  }
+
+  &__contactUsCell {
     width: 100%;
     height: 100%;
+    grid-area: contactUsCell;
+    display: flex;
+    flex-direction: column;
+    padding-left: 70px;
 
-    .sectionHeadingWrapper {
+    @include tablet-down {
+      height: fit-content;
+      padding-left: 8%;
+    }
+
+    @include mobile-down {
+      height: fit-content;
+      align-items: center;
+    }
+
+    .headingContainer {
+      position: relative;
       width: 100%;
-      flex: 0 0 auto;
+      height: auto;
       display: flex;
       flex-direction: column;
-      position: relative;
-      z-index: 1;
-      // border: 1px solid green;
 
       .sparkleDiv {
         top: 0px;
@@ -44,7 +79,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        // border: 1px solid red;
         z-index: 2;
 
         @include tablet-down {
@@ -66,60 +100,89 @@
         z-index: 2;
       }
     }
-
-    .sendMsgButton {
-      height: fit-content;
-      width: fit-content;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      background-color: #fff6c3;
-      border-radius: 15px 5px 15px 5px;
-      padding: 10px 15px;
-      margin-top: 10px;
-      outline: none;
-      border: none;
-      p {
-        margin-top: 2px;
-        @include font($font-oldschool, $medium, $text-brand);
-      }
-    }
-
-    .emailRow {
+    .emailContainer {
       width: 100%;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      margin-top: 10px;
-      p {
-        margin-top: 5px;
-        margin-left: 10px;
-        font-size: 1rem;
-        @include font($font-oldschool, $book, #fff6c3);
-      }
-    }
-
-    .addressContainer {
-      width: fit-content;
-      height: fit-content;
+      height: auto;
       // border: 1px solid red;
       display: flex;
       flex-direction: column;
-      margin-top: 20px;
 
-      .label {
-        width: auto;
-        height: auto;
-        // border: 1px solid green;
-        text-transform: uppercase;
-        @include font($font-sharp-25, $book, #fff6c3);
-        margin-bottom: 10px;
+      .emailRow {
+        width: 100%;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+        p {
+          margin-top: 5px;
+          margin-left: 10px;
+          font-size: 1rem;
+          @include font($font-oldschool, $book, #fff6c3);
+        }
       }
-      .address {
-        width: 70%;
-        font-size: 0.9rem;
-        @include font($font-oldschool, $book, white);
-        line-height: 1.5;
+      .sendMsgButton {
+        height: fit-content;
+        width: fit-content;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        background-color: #fff6c3;
+        border-radius: 15px 5px 15px 5px;
+        padding: 10px 15px;
+        margin-top: 10px;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        p {
+          margin-top: 2px;
+          @include font($font-oldschool, $medium, $text-brand);
+        }
+      }
+    }
+  }
+
+  &__addressSocialCell {
+    width: 100%;
+    height: 100%;
+    grid-area: addressSocialCell;
+    // border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    padding-left: 70px;
+
+    @include tablet-down {
+      height: fit-content;
+      padding-left: 0px;
+      padding-right: 8%;
+      align-items: flex-end;
+    }
+    @include mobile-down {
+      height: fit-content;
+      padding: 50px 0px;
+      align-items: center;
+    }
+
+    .addressLabel {
+      width: auto;
+      height: auto;
+      text-transform: uppercase;
+      @include font($font-sharp-25, $book, #fff6c3);
+      margin-bottom: 10px;
+    }
+    .address {
+      width: 70%;
+      // border: 1px solid red;
+      font-size: 0.9rem;
+      @include font($font-oldschool, $book, white);
+      line-height: 1.5;
+
+      @include tablet-down {
+        text-align: end;
+      }
+
+      @include mobile-down {
+        width: 90%;
+        text-align: center;
       }
     }
     .socialLinksContainer {
@@ -127,13 +190,11 @@
       align-items: center;
       width: fit-content;
       height: 40px;
-      // border: 1px solid red;
       margin-top: 20px;
 
       .socialLinks {
         height: 100%;
         aspect-ratio: 1/1;
-        // border: 1px solid green;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -147,28 +208,44 @@
     }
   }
 
-  &__footerLinksGrid {
-    flex: 1;
+  &__linksCell {
+    width: 100%;
     height: 100%;
+    grid-area: linksCell;
+    padding: 0px 70px;
+    overflow: hidden;
+
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: 33% 33% 33%;
     grid-auto-flow: column;
-    grid-template-rows: repeat(12, auto);
+    grid-template-rows: repeat(13, auto);
     padding-bottom: 40px;
     column-gap: 20px;
-    // border: 1px solid red;
+
+    @include tablet-down {
+      height: 50vh;
+      padding: 50px 5%;
+    }
+
+    @include mobile-down {
+      height: fit-content;
+      grid-template-rows: repeat(38, 35px);
+      grid-template-columns: 100%;
+      place-items: center;
+      padding: 0px 5%;
+    }
 
     .itemContainer {
       height: 100%;
       width: fit-content;
       display: flex;
       align-items: center;
+      // border: 1px solid red;
 
       &--label {
         width: max-content;
         @include font($font-sharp-25, $book, #fff6c3);
         font-size: 0.8rem;
-        white-space: nowrap;
         border-bottom: 1px solid #fff6c3;
       }
 
@@ -176,7 +253,7 @@
         position: relative;
         @include font($font-oldschool, $book, white);
         font-size: 0.8rem;
-        white-space: nowrap;
+        // white-space: nowrap;
 
         .animatedUnderline {
           position: absolute;
@@ -197,50 +274,44 @@
       }
     }
   }
-}
 
-.bottomSection {
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  padding: 0px 30px;
-
-  &__emblemDiv {
+  &__legalCell {
     width: 100%;
-    flex: 1;
+    height: fit-content;
+    grid-area: legalCell;
+    // border: 1px solid black;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    // border: 1px solid red;
-  }
-  &__bottomLinksDiv {
-    width: 100%;
-    height: 40px;
-    // border: 1px solid red;
-    display: flex;
-    align-items: center;
+    padding: 0px 70px;
 
-    p {
-      font-size: 0.85rem;
-      @include font($font-oldschool, $book, white);
+    @include tablet-down {
+      padding: 0px 2%;
+      margin-top: 30px;
     }
-    .rightContainer {
-      width: auto;
-      margin-left: auto;
-      height: 100%;
+
+    .companyEmblem {
+      width: 100%;
       display: flex;
       align-items: center;
-      // border: 1px solid red;
-
-      &__rightLinks {
-        margin-left: 20px;
-        font-size: 0.85rem;
+      justify-content: center;
+    }
+    .copywrite {
+      width: 100%;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      @include mobile-down {
+        justify-content: center;
+      }
+      p {
+        font-size: 0.9rem;
         @include font($font-oldschool, $book, white);
+
+        @include mobile-down {
+          font-size: 0.8rem;
+        }
       }
     }
   }
 }
-
-// sectionLinks
-// programs

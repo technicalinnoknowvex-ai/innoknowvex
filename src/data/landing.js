@@ -316,7 +316,7 @@ export const landingPageData = {
           { label: "Programs", href: "#" },
           { label: "Blogs", href: "#" },
           { label: "Testimonials", href: "#" },
-          { label: "", href: "#" },
+          // { label: "", href: "#" },
           // { label: "", href: "#" },
           // { label: "", href: "#" },
           // { label: "", href: "#" },
@@ -355,7 +355,7 @@ export const landingPageData = {
           { label: "Stock Trading", href: "#" },
           { label: "Human Resources", href: "#" },
           { label: "Corporate Law", href: "#" },
-          { label: "", href: "#" },
+          // { label: "", href: "#" },
         ],
       },
       {
@@ -363,6 +363,14 @@ export const landingPageData = {
         links: [
           { label: "Advanced Data Science", href: "#" },
           { label: "Advanced Web Development", href: "#" },
+        ],
+      },
+      {
+        listLabel: "LEGAL",
+        links: [
+          { label: "Privacy Policy", href: "#" },
+          { label: "Payments & Refunds", href: "#" },
+          { label: "Terms of Service", href: "#" },
         ],
       },
     ],

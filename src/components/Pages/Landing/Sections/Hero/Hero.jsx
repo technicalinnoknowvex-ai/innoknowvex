@@ -6,8 +6,11 @@ import { Textfit } from "react-textfit";
 import Sparkle from "@/components/Common/Icons/Sparkle";
 import CircularText from "./RotatingRing/CircularText";
 import { MouseParallax, ScrollParallax } from "react-just-parallax";
+import { useCursor } from "@/context/useCursor";
 
 const Hero = ({ scrollContainerRef }) => {
+  const { resetCursor, transformCursor } = useCursor();
+
   return (
     <section className={heroStyles.hero}>
       <div className={heroStyles.heroTextWrapper}>
@@ -16,6 +19,20 @@ const Hero = ({ scrollContainerRef }) => {
           mode="multi"
           forceSingleModeWidth={true}
           className={heroStyles.textFit}
+          onMouseEnter={() =>
+            transformCursor({
+              dot: {
+                backgroundColor: "white",
+                scale: 20,
+                opacity: 0.2,
+              },
+              ring: {
+                opacity: 0,
+                scale: 0.5,
+              },
+            })
+          }
+          onMouseLeave={() => resetCursor()}
         >
           <ScrollParallax
             scrollContainerRef={scrollContainerRef}

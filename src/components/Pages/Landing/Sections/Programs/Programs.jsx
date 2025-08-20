@@ -6,7 +6,7 @@ import { Textfit } from "react-textfit";
 import Link from "next/link";
 import { useCursor } from "@/context/useCursor";
 const Programs = () => {
-  const { handleMouseEnter, handleMouseLeave, setCursorContent } = useCursor();
+  const { resetCursor, transformCursor } = useCursor();
 
   const { heading, subheading, para } = landingPageData.programsSection;
   return (
@@ -86,19 +86,20 @@ const Programs = () => {
               </div>
               <div className={programStyles.linkCell}>
                 <Link
-                  onMouseEnter={() => {
-                    handleMouseEnter(null, {
+                  onMouseEnter={() =>
+                    transformCursor({
                       dot: {
-                        // backgroundColor: "white",
-                        opacity: 0.5,
+                        backgroundColor: "#ff6432",
                         scale: 10,
+                        opacity: 0.5,
                       },
                       ring: {
                         opacity: 0,
+                        scale: 0.5,
                       },
-                    });
-                  }}
-                  onMouseLeave={() => handleMouseLeave()}
+                    })
+                  }
+                  onMouseLeave={() => resetCursor()}
                   className={programStyles.linkCell__link}
                   href={"#"}
                 >

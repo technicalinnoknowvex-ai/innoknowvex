@@ -7,6 +7,7 @@ import Marquee from "./Marquee/Marquee";
 const OurPartners = () => {
   const { heading, subheading, brands, hiringPartners } =
     landingPageData.ourPartnerSection;
+
   return (
     <section className={styles.sectionWrapper}>
       <div className={styles.sectionWrapper__innerContainer}>
@@ -28,11 +29,11 @@ const OurPartners = () => {
           </div>
         </section>
         <section className={styles.marqueeSection}>
-          <Marquee items={brands} duration={8} />
+          <Marquee items={brands} />
         </section>
         <h1>HIRING PARTNERS</h1>
         <section className={styles.marqueeSection}>
-          <Marquee items={hiringPartners} direction="right" duration={8} />
+          <Marquee items={hiringPartners} direction="right" />
         </section>
       </div>
     </section>

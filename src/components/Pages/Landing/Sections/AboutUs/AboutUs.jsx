@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useCursor } from "@/context/useCursor";
 const AboutUs = ({ scrollContainerRef }) => {
   const { heading, subheading, para, images } = landingPageData.aboutSection;
-  const { handleMouseEnter, handleMouseLeave } = useCursor();
+  const { resetCursor, transformCursor } = useCursor();
 
   return (
     <section className={aboutUsStyles.sectionWrapper}>
@@ -47,19 +47,20 @@ const AboutUs = ({ scrollContainerRef }) => {
             <Link
               href={"#"}
               className={aboutUsStyles.linkContainer__link}
-              onMouseEnter={() => {
-                handleMouseEnter(null, {
+              onMouseEnter={() =>
+                transformCursor({
                   dot: {
-                    // backgroundColor: "white",
-                    opacity: 0.5,
+                    backgroundColor: "#ff6432",
                     scale: 10,
+                    opacity: 0.5,
                   },
                   ring: {
                     opacity: 0,
+                    scale: 0.5,
                   },
-                });
-              }}
-              onMouseLeave={() => handleMouseLeave()}
+                })
+              }
+              onMouseLeave={() => resetCursor()}
             >
               <Textfit
                 mode="single"

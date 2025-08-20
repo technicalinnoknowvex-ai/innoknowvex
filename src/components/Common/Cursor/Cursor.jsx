@@ -39,8 +39,8 @@ const Cursor = () => {
 
   return (
     <>
-      <div className={styles.cursor} ref={cursorRingRef} />
-      <div className={styles.cursorTail} ref={cursorDotRef}>
+      <div className={styles.cursorRing} ref={cursorRingRef} />
+      <div className={styles.cursorDot} ref={cursorDotRef}>
         <div className={styles.cursorContentDiv}>{cursorContent}</div>
       </div>
     </>
