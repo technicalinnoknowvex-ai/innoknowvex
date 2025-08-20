@@ -3,7 +3,7 @@ import styles from "./styles/marquee.module.scss";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
-const Marquee = ({ items, direction = "left", duration = 30 }) => {
+const Marquee = ({ items, direction = "left", duration = 50 }) => {
   const marqueeRef = useRef(null);
   const marqueeContentRef = useRef(null);
 

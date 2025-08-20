@@ -36,12 +36,7 @@ const AboutUs = ({ scrollContainerRef }) => {
             </h3>
           </div>
           <div className={aboutUsStyles.paraContainer}>
-            <Textfit
-              className={aboutUsStyles.paraContainer__paraTextFit}
-              mode="multi"
-            >
-              {para}
-            </Textfit>
+            <p className={aboutUsStyles.paraContainer__paraText}>{para}</p>
           </div>
           <div className={aboutUsStyles.linkContainer}>
             <Link

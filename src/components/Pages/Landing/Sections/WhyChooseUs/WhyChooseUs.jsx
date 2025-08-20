@@ -27,9 +27,9 @@ const WhyChooseUs = ({ scrollContainerRef }) => {
             </h3>
           </div>
           <div className={styles.sectionDescriptionWrapper}>
-            <Textfit mode="multi" className={styles.descTextFit}>
+            <div className={styles.descDiv}>
               <p>{para}</p>
-            </Textfit>
+            </div>
           </div>
         </section>
         <section className={styles.contentSection}>

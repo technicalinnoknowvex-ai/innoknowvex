@@ -31,9 +31,9 @@ const Programs = () => {
             </h3>
           </div>
           <div className={programStyles.sectionDescriptionWrapper}>
-            <Textfit mode="multi" className={programStyles.descTextFit}>
+            <div className={programStyles.descDiv}>
               <p>{para}</p>
-            </Textfit>
+            </div>
           </div>
         </section>
 

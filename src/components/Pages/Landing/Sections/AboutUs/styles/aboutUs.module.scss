@@ -88,8 +88,8 @@
 
   .paraContainer {
     width: 100%;
-    // flex: 0 0 auto;
-    flex: 1 1 auto;
+    // flex: 1 1 auto;
+    height: fit-content;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -101,14 +101,10 @@
       padding: 5px 0px;
     }
 
-    &__paraTextFit {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
+    &__paraText {
       line-height: 2;
       @include font($font-oldschool, $medium);
-      // background-color: green;
+      font-size: 1rem;
     }
   }
 
