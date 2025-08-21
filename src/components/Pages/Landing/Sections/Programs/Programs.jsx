@@ -24,51 +24,6 @@ const Programs = () => {
     }
   };
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Create a single scroll trigger for pinning the section
-      ScrollTrigger.create({
-        trigger: programSectionRef.current,
-        scroller: scrollContainerRef.current,
-        start: "top 0px",
-        end: "bottom -50%",
-        scrub: true,
-        pin: true,
-        markers: { startColor: "salmon", endColor: "salmon" },
-      });
-
-      const projectTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: programSectionRef.current,
-          scroller: scrollContainerRef.current,
-          start: "0% 0px",
-          end: "bottom -50%",
-          scrub: 2,
-        },
-      });
-
-      gsap.set(programRefs.current[0], {
-        clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-      });
-
-      programRefs.current.forEach((project, index) => {
-        if (index !== 0) {
-          projectTimeline.to(project, {
-            clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-            ease: "power2.inOut",
-            duration: 1,
-          });
-        }
-      });
-
-      // Refresh ScrollTrigger
-      ScrollTrigger.refresh();
-    }, programSectionRef);
-
-    // Cleanup on unmount
-    return () => ctx.revert();
-  }, []);
-
   const { heading, subheading, para, programs } =
     landingPageData.programsSection;
 

@@ -48,7 +48,6 @@ const LandingPage = () => {
 
   return (
     <div className={landingStyles.landing}>
-      <Navbar />
       <Hero scrollContainerRef={scrollContainerRef} />
       <AboutUs scrollContainerRef={scrollContainerRef} />
       <Programs scrollContainerRef={scrollContainerRef} />
