@@ -3,6 +3,7 @@ import "./globals.scss";
 import localFont from "next/font/local";
 import { CursorProvider } from "@/context/CursorProvider";
 import Cursor from "@/components/Common/Cursor/Cursor";
+import { ScrollProvider } from "@/context/ScrollContext";
 
 const sharpGrotesk20 = localFont({
   src: [
@@ -182,8 +183,10 @@ export default function RootLayout({ children }) {
         ${sharpGrotesk25.variable} ${oldSchoolGrotesk.variable}`}
       >
         <CursorProvider>
-          <Cursor />
-          <AppLayout>{children}</AppLayout>
+          <ScrollProvider>
+            <Cursor />
+            <AppLayout>{children}</AppLayout>
+          </ScrollProvider>
         </CursorProvider>
       </body>
     </html>

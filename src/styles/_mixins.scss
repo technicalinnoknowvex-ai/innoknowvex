@@ -33,7 +33,14 @@
 
 $mobile: 393px;
 $tablet: 830px;
+$large-tablet: 1024px;
 $desktop: 1440px;
+
+@mixin large-tablet-down {
+  @media (max-width: #{$large-tablet}) {
+    @content;
+  }
+}
 
 @mixin tablet-down {
   @media (max-width: #{$tablet}) {

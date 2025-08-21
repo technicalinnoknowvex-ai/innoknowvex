@@ -15,39 +15,39 @@ import Testimonials from "./Sections/Testimonials/Testimonials";
 import FAQ from "./Sections/FAQ/FAQ";
 import Footer from "./Sections/Footer/Footer";
 
-gsap.registerPlugin(ScrollTrigger, useGSAP);
+// gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const LandingPage = () => {
   const scrollContainerRef = useRef(null);
 
-  useGSAP(
-    () => {
-      if (scrollContainerRef.current) {
-        const lenis = new Lenis({
-          wrapper: scrollContainerRef.current,
-          duration: 2,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          smoothWheel: true,
-          syncTouch: true,
-        });
+  // useGSAP(
+  //   () => {
+  //     if (scrollContainerRef.current) {
+  //       const lenis = new Lenis({
+  //         wrapper: scrollContainerRef.current,
+  //         duration: 2,
+  //         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  //         smoothWheel: true,
+  //         syncTouch: true,
+  //       });
 
-        lenis.on("scroll", ScrollTrigger.update);
+  //       lenis.on("scroll", ScrollTrigger.update);
 
-        const raf = (time) => {
-          lenis.raf(time);
-          requestAnimationFrame(raf);
-        };
-        requestAnimationFrame(raf);
+  //       const raf = (time) => {
+  //         lenis.raf(time);
+  //         requestAnimationFrame(raf);
+  //       };
+  //       requestAnimationFrame(raf);
 
-        // Cleanup function - useGSAP automatically handles this
-        return () => lenis.destroy();
-      }
-    },
-    { scope: scrollContainerRef }
-  ); // Optional: scope to container
+  //       // Cleanup function - useGSAP automatically handles this
+  //       return () => lenis.destroy();
+  //     }
+  //   },
+  //   { scope: scrollContainerRef }
+  // ); // Optional: scope to container
 
   return (
-    <div className={landingStyles.landing} ref={scrollContainerRef}>
+    <div className={landingStyles.landing}>
       <Navbar />
       <Hero scrollContainerRef={scrollContainerRef} />
       <AboutUs scrollContainerRef={scrollContainerRef} />
@@ -57,15 +57,6 @@ const LandingPage = () => {
       <Testimonials scrollContainerRef={scrollContainerRef} />
       <FAQ scrollContainerRef={scrollContainerRef} />
       <Footer />
-      {/* {Array.from({ length: 3 }).map((_, index) => (
-        <div
-          key={index}
-          style={{
-            width: "100%",
-            height: "100vh",
-          }}
-        />
-      ))} */}
     </div>
   );
 };
