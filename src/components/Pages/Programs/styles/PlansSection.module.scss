@@ -2,32 +2,57 @@
   margin-top: 50px;
   margin-bottom: 100px;
 }
+.starOrange {
+  border: 1px solid black;
+  height: 50vh;
+  width: 50vh;
+  // margin-left: 450px;
+  // padding-bottom: 10px;
+}
+.alignHeading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 400px;
+  gap: 10px;
+}
 
-.ellipse{
+.ellipse {
   position: absolute;
   height: 900px;
   width: 900px;
   z-index: 0;
-  left:120%;
+  left: 120%;
   bottom: 30px;
+}
+.staralign {
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
 }
 
 .Plans {
+  position: sticky;
+  justify-content: center;
+  align-items: center;
+
   padding-top: 50px;
-  padding: 80px;
-  
+  padding-bottom: 80px;
+
   img {
-    height: 6vh;
-    width: 6vh;
+    height: 8vh;
+    width: 8vh;
     margin-left: 450px;
+    bottom: 50%;
   }
-  
+
   h1 {
-    padding-left: 30px;
+    // padding-left: 30px;
     font-family: var(--font-sharp-25), Sharp Grotesk;
     font-weight: 430;
     text-align: center;
     color: #262c35;
+    width: 700px;
   }
 
   p {
@@ -40,7 +65,6 @@
 }
 
 .pricingCardLayout {
-  
   position: relative;
   height: 650px;
   width: 300px;
@@ -50,20 +74,19 @@
   gap: 20px;
 
   .pricingCards {
-    
-    background: #F8F1DE;
-    border: 1px solid #715C11;
+    background: #f8f1de;
+    border: 1px solid #715c11;
     border-radius: 15px 60px 15px 60px;
     position: relative;
-    text-align: center; 
+    text-align: center;
   }
 
   .heading {
-    display: inline-flex; 
+    display: inline-flex;
     position: relative;
     justify-content: center;
     align-items: center;
-    margin: 0 auto; 
+    margin: 0 auto;
     padding-top: 60px;
   }
 
@@ -94,7 +117,6 @@
   }
 
   .planDesc {
-    
     width: 470px;
     font-family: var(--font-sharp-22), Oldschool Grotesk;
     font-size: 12px;
@@ -116,11 +138,10 @@
 }
 
 .plancontent {
-  
   font-family: var(--font-sharp-22), Oldschool Grotesk;
   line-height: 2;
-  text-align: left; // Align features list to left
-  padding-left: 100px; // Add some padding
+  text-align: left;
+  padding-left: 100px;
 }
 
 .features {

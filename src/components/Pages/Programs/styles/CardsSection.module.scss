@@ -1,4 +1,3 @@
-
 @keyframes slideInFromRight {
   0% {
     opacity: 0;
@@ -11,15 +10,13 @@
   }
 }
 
-.ellipse{
-  position:absolute;
-  // transform :transform(-50%);
+.ellipse {
+  position: absolute;
   z-index: 0;
-  height: 700px;
-  width: 700px;
-  left:100;
+  height: 800px;
+  width: 800px;
+  left: 80;
   bottom: 20%;
-
 }
 
 .cardsContainer {
@@ -55,7 +52,7 @@
     width: 500px;
     color: #2c3e50;
     margin-bottom: 2rem;
-    font-family: var(--font-sharp-25), Sharp Grotesk !important; 
+    font-family: var(--font-sharp-25), Sharp Grotesk !important;
     font-weight: 450;
     line-height: 01;
   }
@@ -70,7 +67,7 @@
 }
 
 .cardsSection {
-  position:relative;
+  position: relative;
   width: 65%;
   padding: 2rem 0 2rem 0;
   box-sizing: border-box;
@@ -98,9 +95,9 @@
   opacity: 0;
   transform: translateX(100px);
   transition: transform 0.8s ease-out, opacity 0.8s ease-out;
-  border: 1px solid #9c7f16;
+  border: 0.5px solid #9c7f16;
   max-width: 100%;
-  background:#F8F1DE;
+  background: #f8f1de;
 
   &.visible {
     opacity: 1;
@@ -130,23 +127,18 @@
 }
 
 .starImage {
-  width: 40px !important;
-  height: 40px !important;
-  max-width: 40px;
-  max-height: 40px;
+  position: relative;
+  width: 30px !important;
+  height: 30px !important;
+  max-width: 30px;
+  max-height: 30px;
   object-fit: contain;
-  opacity: 0;
-  transform: translateX(100px);
-  transition: transform 0.8s ease-out 0.2s, opacity 0.8s ease-out 0.2s;
   flex-shrink: 0;
-
-  &.visible {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  bottom: 25px;
 }
 
 .card h3 {
+  position: relative;
   font-size: clamp(0.9rem, 1.8vw, 1.2rem);
   justify-content: center;
   margin: 0;
@@ -154,15 +146,8 @@
   font-family: var(--font-sharp-25), Sharp Grotesk !important;
   font-weight: 500;
   text-transform: uppercase;
-  opacity: 0;
-  transform: translateX(100px);
-  transition: transform 0.8s ease-out 0.3s, opacity 0.8s ease-out 0.3s;
   line-height: 1.2;
-
-  &.visible {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  left: -15px;
 }
 
 .card p {
@@ -171,15 +156,7 @@
   color: #9c7f16;
   font-family: var(--font-sharp-22), Oldschool Grotesk !important;
   margin-top: auto;
-  opacity: 0;
-  transform: translateX(100px);
-  transition: transform 0.8s ease-out 0.4s, opacity 0.8s ease-out 0.4s;
   padding-left: 0;
-
-  &.visible {
-    opacity: 1;
-    transform: translateX(0);
-  }
 }
 
 /* Staggered animations for cards */
@@ -212,15 +189,19 @@
 }
 
 @media (max-width: 1200px) {
+  // .careerBoostTitle{
+  //   padding-left: 60px;
+  // }
   .cardsContainer {
     max-width: 1000px;
+
     padding: 0 1.5rem 0 2rem;
     margin-top: 30px;
     gap: 4rem;
   }
 
   .cardsGrid {
-    gap: 1.2rem;
+    gap: 1.5rem;
   }
 
   .card {
@@ -269,6 +250,11 @@
   .card {
     padding: 2rem;
     min-height: 170px;
+  }
+  .careerBoostTitle {
+    justify-content: center;
+    align-items: center;
+    padding-left: 60px;
   }
 }
 
@@ -327,15 +313,28 @@
     height: 35px !important;
     max-width: 35px;
     max-height: 35px;
+    position: relative;
+  }
+  .ellipse {
+    padding-top: 50px;
+    padding-right: 200px;
   }
 }
 
 // Single column for small screens
 @media (max-width: 600px) {
+    .careerBoostTitle {
+    font-family: var(--font-sharp-25), Sharp Grotesk !important;
+    font-size: 40 !important;
+    width: 400px;
+    padding-right: 80px;
+    justify-content: center;
+    align-items: center;
+  }
   .cardsContainer {
     padding: 0 1rem;
     margin-top: 5px;
-    gap: 1.5rem;
+    gap: 1rem;
   }
 
   .leftSection {
@@ -366,6 +365,7 @@
   }
 
   .cardHeader {
+    position: absolute;
     gap: 1rem;
     margin-bottom: 1.2rem;
   }
@@ -375,10 +375,19 @@
     height: 35px !important;
     max-width: 35px;
     max-height: 35px;
+    bottom: 15px;
   }
 }
 
 @media (max-width: 480px) {
+  .careerBoostTitle {
+    font-family: var(--font-sharp-25), Sharp Grotesk !important;
+    font-size: 40 !important;
+    width: 200px;
+    padding-right: 150px;
+    justify-content: center;
+    align-items: center;
+  }
   .cardsContainer {
     padding: 0 0.8rem;
     margin-top: 5px;

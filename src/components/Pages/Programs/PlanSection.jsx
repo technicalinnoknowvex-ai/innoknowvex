@@ -5,20 +5,29 @@ export default function PlansSection() {
   return (
     <div className={styles.plansContainer}>
       <div className={styles.Plans}>
-        <img src="/images/SoftStar.svg"
-          width={40}
-          height={40}
-          alt="Soft Star"
-        />
-        <h1>Plans to fit your Learning needs</h1>
+        <div className={styles.alignHeading}>
+          <img src="/images/SoftStar.svg"
+            width={50}
+            height={50}
+            alt="Soft Star"
+            className={styles.starOrange}
+          />
+        <div className={styles.staralign}>
+          
+          <h1>Plans to fit your Learning needs</h1>
+        </div>
+        </div>
+        
+
+
         <p>CHOOSE THAT FITS YOU</p>
       </div>
-      
-      
+
+
       <div className={styles.pricingCardLayout}>
-        <img src="/images/Ellipse4.svg" 
-        alt="" 
-        className={styles.ellipse}/>
+        <img src="/images/Ellipse4.svg"
+          alt=""
+          className={styles.ellipse} />
         <div className={styles.pricingCards}>
           <div className={styles.heading}>
             <img src="/images/SoftStar3.svg"
@@ -153,24 +162,24 @@ export default function PlansSection() {
               Certification
             </div>
             <div className={styles.features}>
-              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />              
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
               Doubt Clearing
             </div>
             <div className={styles.features}>
-              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />    
-                        Live Session
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
+              Live Session
             </div>
             <div className={styles.features}>
-              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />   
-                         Mentor Guidance
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
+              Mentor Guidance
             </div>
             <div className={styles.features}>
-              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />  
-                          Placement
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
+              Placement
             </div>
             <div className={styles.features}>
-              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />  
-                          Mock Interview
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
+              Mock Interview
             </div>
           </p>
         </div>

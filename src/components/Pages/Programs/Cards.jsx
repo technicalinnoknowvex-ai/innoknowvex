@@ -3,18 +3,10 @@ import { useRef, useEffect } from 'react';
 import styles from './styles/CardsSection.module.scss'
 
 export default function CardsSection() {
-  const starRefs = useRef([]);
   const cardRefs = useRef([]);
-  const headerRefs = useRef([]);
-  const paragraphRefs = useRef([]);
-  const headingRefs = useRef([]);
 
   useEffect(() => {
-    starRefs.current = starRefs.current.slice(0, 6);
     cardRefs.current = cardRefs.current.slice(0, 6);
-    headerRefs.current = headerRefs.current.slice(0, 6);
-    paragraphRefs.current = paragraphRefs.current.slice(0, 6);
-    headingRefs.current = headingRefs.current.slice(0, 6);
   }, []);
 
   useEffect(() => {
@@ -29,38 +21,14 @@ export default function CardsSection() {
       { threshold: 0.1 }
     );
 
-    // Observe all elements
+    // Observe only card elements
     cardRefs.current.forEach((card) => {
       if (card) observer.observe(card);
-    });
-    starRefs.current.forEach((star) => {
-      if (star) observer.observe(star);
-    });
-    headerRefs.current.forEach((header) => {
-      if (header) observer.observe(header);
-    });
-    paragraphRefs.current.forEach((paragraph) => {
-      if (paragraph) observer.observe(paragraph);
-    });
-    headingRefs.current.forEach((heading) => {
-      if (heading) observer.observe(heading);
     });
 
     return () => {
       cardRefs.current.forEach((card) => {
         if (card) observer.unobserve(card);
-      });
-      starRefs.current.forEach((star) => {
-        if (star) observer.unobserve(star);
-      });
-      headerRefs.current.forEach((header) => {
-        if (header) observer.unobserve(header);
-      });
-      paragraphRefs.current.forEach((paragraph) => {
-        if (paragraph) observer.unobserve(paragraph);
-      });
-      headingRefs.current.forEach((heading) => {
-        if (heading) observer.unobserve(heading);
       });
     };
   }, []);
@@ -77,12 +45,9 @@ export default function CardsSection() {
         </div>
       </div>
 
-
-
       {/* Cards section */}
-        <div className={styles.cardsSection}>
-
-          <img src="/images/Ellipse4.svg"
+      <div className={styles.cardsSection}>
+        <img src="/images/Ellipse4.svg"
           alt=" ellipse"
           className={styles.ellipse} />
 
@@ -92,21 +57,17 @@ export default function CardsSection() {
             ref={el => cardRefs.current[0] = el}
             className={`${styles.card} ${styles.softSkillsCard}`}
           >
-            <div
-              ref={el => headerRefs.current[0] = el}
-              className={styles.cardHeader}
-            >
+            <div className={styles.cardHeader}>
               <img
-                ref={el => starRefs.current[0] = el}
                 className={styles.starImage}
                 src="/images/SoftStar3.svg"
                 width={20}
                 height={20}
                 alt="Soft Star"
               />
-              <h3 ref={el => headingRefs.current[0] = el}>SOFT SKILLS</h3>
+              <h3>SOFT SKILLS</h3>
             </div>
-            <p ref={el => paragraphRefs.current[0] = el}>
+            <p>
               Enhance your communications and interpersonal skills.
             </p>
           </div>
@@ -115,21 +76,17 @@ export default function CardsSection() {
             ref={el => cardRefs.current[1] = el}
             className={styles.card}
           >
-            <div
-              ref={el => headerRefs.current[1] = el}
-              className={styles.cardHeader}
-            >
+            <div className={styles.cardHeader}>
               <img
-                ref={el => starRefs.current[1] = el}
                 className={styles.starImage}
                 src="/images/SoftStar3.svg"
                 width={40}
                 height={40}
                 alt="Soft Star"
               />
-              <h3 ref={el => headingRefs.current[1] = el}>MOCK INTERVIEWS</h3>
+              <h3>MOCK INTERVIEWS</h3>
             </div>
-            <p ref={el => paragraphRefs.current[1] = el}>
+            <p>
               Prepare for interviews with realistic practice sessions.
             </p>
           </div>
@@ -138,21 +95,17 @@ export default function CardsSection() {
             ref={el => cardRefs.current[2] = el}
             className={styles.card}
           >
-            <div
-              ref={el => headerRefs.current[2] = el}
-              className={styles.cardHeader}
-            >
+            <div className={styles.cardHeader}>
               <img
-                ref={el => starRefs.current[2] = el}
                 className={styles.starImage}
                 src="/images/SoftStar3.svg"
                 width={20}
                 height={20}
                 alt="Soft Star"
               />
-              <h3 ref={el => headingRefs.current[2] = el}>PORTFOLIO BUILDING</h3>
+              <h3>PORTFOLIO BUILDING</h3>
             </div>
-            <p ref={el => paragraphRefs.current[2] = el}>
+            <p>
               Create a standout portfolio that showcases your skills.
             </p>
           </div>
@@ -162,21 +115,17 @@ export default function CardsSection() {
             ref={el => cardRefs.current[3] = el}
             className={styles.card}
           >
-            <div
-              ref={el => headerRefs.current[3] = el}
-              className={styles.cardHeader}
-            >
+            <div className={styles.cardHeader}>
               <img
-                ref={el => starRefs.current[3] = el}
                 className={styles.starImage}
                 src="/images/SoftStar3.svg"
                 width={20}
                 height={20}
                 alt="Soft Star"
               />
-              <h3 ref={el => headingRefs.current[3] = el}>RESUME BUILDING</h3>
+              <h3>RESUME BUILDING</h3>
             </div>
-            <p ref={el => paragraphRefs.current[3] = el}>
+            <p>
               Build a professional resume that highlights your strengths.
             </p>
           </div>
@@ -185,21 +134,17 @@ export default function CardsSection() {
             ref={el => cardRefs.current[4] = el}
             className={styles.card}
           >
-            <div
-              ref={el => headerRefs.current[4] = el}
-              className={styles.cardHeader}
-            >
+            <div className={styles.cardHeader}>
               <img
-                ref={el => starRefs.current[4] = el}
                 className={styles.starImage}
                 src="/images/SoftStar3.svg"
                 width={40}
                 height={40}
                 alt="Soft Star"
               />
-              <h3 ref={el => headingRefs.current[4] = el}>MOCK TESTS</h3>
+              <h3>MOCK TESTS</h3>
             </div>
-            <p ref={el => paragraphRefs.current[4] = el}>
+            <p>
               Boost confidence with realistic, test-style practice.
             </p>
           </div>
@@ -208,27 +153,22 @@ export default function CardsSection() {
             ref={el => cardRefs.current[5] = el}
             className={styles.card}
           >
-            <div
-              ref={el => headerRefs.current[5] = el}
-              className={styles.cardHeader}
-            >
+            <div className={styles.cardHeader}>
               <img
-                ref={el => starRefs.current[5] = el}
                 className={styles.starImage}
                 src="/images/SoftStar3.svg"
                 width={40}
                 height={40}
                 alt="Soft Star"
               />
-              <h3 ref={el => headingRefs.current[5] = el}>INTERVIEW GUIDANCE</h3>
+              <h3>INTERVIEW GUIDANCE</h3>
             </div>
-            <p ref={el => paragraphRefs.current[5] = el}>
+            <p>
               Ace your interview with targeted guidance and support.
             </p>
           </div>
         </div>
       </div>
-
     </div>
   )
 }
