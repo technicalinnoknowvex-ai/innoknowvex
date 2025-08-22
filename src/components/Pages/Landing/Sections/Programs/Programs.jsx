@@ -1,16 +1,39 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import programStyles from "./styles/program.module.scss";
 import Sparkle from "@/components/Common/Icons/Sparkle";
 import { landingPageData } from "@/data/landing";
 import { Textfit } from "react-textfit";
 import Link from "next/link";
+import { useCursor } from "@/context/useCursor";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useScroll } from "@/context/ScrollContext";
+import Image from "next/image";
+
 const Programs = () => {
-  const { heading, subheading, para } = landingPageData.programsSection;
+  const { resetCursor, transformCursor } = useCursor();
+  const { scrollContainerRef } = useScroll();
+
+  const programSectionRef = useRef(null);
+  const programRefs = useRef([]);
+
+  const addToRefs = (el, refArray) => {
+    if (el && !refArray.current.includes(el)) {
+      refArray.current.push(el);
+    }
+  };
+
+  const { heading, subheading, para, programs } =
+    landingPageData.programsSection;
+
+  const programsList = programs.slice(0, 4);
+
   return (
-    <div className={programStyles.sectionWrapper}>
+    <section className={programStyles.sectionWrapper} ref={programSectionRef}>
       <div className={programStyles.sectionWrapper__innerContainer}>
-        <section className={programStyles.topSection}>
-          <div className={programStyles.topSection__headingContainer}>
+        <section className={programStyles.mainHeaderSection}>
+          <div className={programStyles.sectionHeadingWrapper}>
             <div
               className={`${programStyles.gradientSpot} ${programStyles["gradientSpot--1"]}`}
             />
@@ -18,63 +41,105 @@ const Programs = () => {
               <Sparkle />
             </div>
 
-            <h2 className={programStyles.primaryHeading}>{heading}</h2>
-            <h3 className={programStyles.secondaryHeading}>{subheading}</h3>
-          </div>
-          <div className={programStyles.topSection__paraContainer}>
-            <Textfit
-              className={programStyles.paraTextFit}
-              mode="multi"
-              forceSingleModeWidth={false}
+            <h2 className={programStyles.sectionHeadingWrapper__primaryHeading}>
+              {heading}
+            </h2>
+            <h3
+              className={programStyles.sectionHeadingWrapper__secondaryHeading}
             >
-              {para}
-            </Textfit>
+              {subheading}
+            </h3>
+          </div>
+          <div className={programStyles.sectionDescriptionWrapper}>
+            <div className={programStyles.descDiv}>
+              <p>{para}</p>
+            </div>
           </div>
         </section>
-        <div className={programStyles.middleSection}>
-          <h1 className={programStyles.middleSection__middleHeading}>
-            What <span>Programs</span>
-            <br /> We'are Offering
-          </h1>
-        </div>
-        <main className={programStyles.mainSection}>
-          <section className={programStyles.mainSection__leftSection}></section>
-          <section className={programStyles.mainSection__rightSection}>
-            <div className={programStyles.programCardGrid}>
-              <div className={programStyles.programTitleCell}>
+
+        <section className={programStyles.subHeaderSection}>
+          <Textfit
+            mode="multi"
+            className={programStyles.subHeaderSection__textFit}
+          >
+            <h1>
+              What <span>Programs</span>
+              <br /> We'are Offering
+            </h1>
+          </Textfit>
+        </section>
+        <section className={programStyles.contentSection}>
+          <div className={programStyles.contentSection__left}>
+            {programsList.map((program, programIndex) => (
+              <div
+                key={program.title}
+                className={programStyles.programImageContainer}
+                ref={(el) => addToRefs(el, programRefs)}
+                style={{
+                  clipPath:
+                    programIndex === 0
+                      ? "polygon(0 0, 100% 0, 100% 100%, 0 100%)"
+                      : "polygon(0 0, 100% 0, 100% 0, 0 0)",
+                }}
+              >
+                <Image src={program.image} fill={true} alt={"program-banner"} />
+              </div>
+            ))}
+          </div>
+          <div className={programStyles.contentSection__right}>
+            <div className={programStyles.programGrid}>
+              <div className={programStyles.titleCell}>
+                <div className={programStyles.sparkleDiv}>
+                  <Sparkle />
+                </div>
                 <h3>
                   Artificial
                   <br />
                   Intelligence
                 </h3>
               </div>
-              <div className={programStyles.programDescCell}>
-                Dive into the world of Artificial Intelligence with a hands-on
-                learning experience focused on machine learning, deep learning,
-                and neural networks. Through interactive lessons, real-world
-                projects, and expert guidance, you’ll move beyond theory into
-                practical application. Whether you're starting out or
-                upskilling, this course equips you for real-world challenges and
-                success in an AI-driven future.
+              <div className={programStyles.descriptionCell}>
+                <p>
+                  AI refers to the simulation of human intelligence in machines
+                  that are programmed to think like humans and mimic their
+                  actions. This encompasses the ability of machines to perform
+                  tasks commonly associated with human cognition, such as
+                  learning from experience, reasoning based on provided data,
+                  and adapting to new inputs to solve complex problems. AI can
+                  manifest in various forms, from basic rule-based systems to
+                  advanced neural networks capable of processing vast amounts of
+                  information and making decisions independently.
+                </p>
               </div>
-              <div className={programStyles.programLinkBtnCell}>
+              <div className={programStyles.linkCell}>
                 <Link
-                  className={programStyles.programLinkBtnCell__link}
+                  onMouseEnter={() =>
+                    transformCursor({
+                      dot: {
+                        backgroundColor: "#ff6432",
+                        scale: 10,
+                        opacity: 0.5,
+                      },
+                      ring: {
+                        opacity: 0,
+                        scale: 0.5,
+                      },
+                    })
+                  }
+                  onMouseLeave={() => resetCursor()}
+                  className={programStyles.linkCell__link}
                   href={"#"}
                 >
-                  <Textfit
-                    mode="single"
-                    className={programStyles.buttonTextFitContainer}
-                  >
+                  <Textfit mode="single" className={programStyles.linkTextFit}>
                     Learn More
                   </Textfit>
                 </Link>
               </div>
             </div>
-          </section>
-        </main>
+          </div>
+        </section>
       </div>
-    </div>
+    </section>
   );
 };
 

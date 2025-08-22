@@ -1,7 +1,4 @@
-@use "../../../../../../styles/variables" as v;
-@use "../../../../../../styles/mixins" as m;
-@use "../../../../../../styles/fonts" as f;
-
+@use "../../../../../../styles/index" as *;
 .hero {
   width: 100%;
   height: calc(100vh + 60px);
@@ -15,6 +12,24 @@
   overflow: hidden;
 }
 
+.gradientSpot {
+  position: absolute;
+  height: 70%;
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(250, 152, 5, 0.74);
+  filter: blur(5rem);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  @include tablet-down {
+    filter: blur(7rem);
+  }
+}
+
 .heroTextWrapper {
   position: relative;
   width: 100%;
@@ -22,27 +37,52 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1;
   // border: 1px solid red;
 
-  .textFitContainer {
+  .textContainer {
     position: relative;
-    height: 90%;
+    height: fit-content;
     aspect-ratio: 16/9;
+    // border: 1px solid red;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    z-index: 1;
-    // border: 1px solid green;
 
-    @include m.tablet-down {
-      width: 90%;
-      height: unset;
-    }
+    &__textDiv {
+      width: 100%;
+      height: fit-content;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      // border: 1px solid red;
+      overflow: hidden;
+      padding: 2px 0px;
+      h1 {
+        @include font($font-sharp-25, $medium);
+        font-size: 4.5rem;
+        z-index: 2;
+        line-height: 1.2;
 
-    &__heroText {
-      @include m.font(f.$font-sharp-25, f.$medium);
+        @include tablet-down {
+          font-size: clamp(
+            2.25rem,
+            0.22654462242562934rem + 8.237986270022883vw,
+            4.5rem
+          ) !important;
+        }
+
+        @include mobile-down {
+          font-size: 1.75rem;
+          font-size: 2.25rem;
+          font-size: clamp(
+            1.75rem,
+            0.13709677419354827rem + 8.60215053763441vw,
+            2.25rem
+          ) !important;
+        }
+      }
     }
 
     .sparkleOne {
@@ -52,28 +92,56 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      top: -25px;
-      left: -70px;
+      z-index: 2;
+      transform: translate(-100%, -10%);
+      top: 0%;
+      left: 0%;
+      // border: 1px solid red;
 
-      @include m.tablet-down {
-        top: -90px;
-        left: -10px;
+      div {
+        width: 100%;
+        aspect-ratio: 1/1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // border: 1px solid red;
+      }
+      @include tablet-down {
+        transform: translate(-50%, -100%);
+        top: 0%;
+        left: 0%;
       }
     }
 
     .sparkleTwo {
       position: absolute;
-      width: 50px;
+      width: 55px;
       aspect-ratio: 1/1;
       display: flex;
       justify-content: center;
       align-items: center;
-      top: 50%;
-      right: -50px;
+      transform: translate(150%, 0px);
+      z-index: 2;
+      top: 0%;
+      bottom: 0%;
+      right: 0%;
+      margin-top: auto;
+      margin-bottom: auto;
 
-      @include m.tablet-down {
-        top: 110%;
-        right: 0;
+      div {
+        width: 100%;
+        aspect-ratio: 1/1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      @include tablet-down {
+        transform: translate(50%, 100%);
+        top: unset;
+        bottom: 0%;
+        right: 0%;
+        margin: 0;
       }
     }
   }
@@ -81,31 +149,9 @@
 
 .scrollWheelWrapper {
   width: 100%;
-  height: 120px;
-  min-height: 120px;
+  height: 110px;
+  min-height: 110px;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.gradientSpot {
-  position: absolute;
-  align-self: start;
-  height: 70%;
-  aspect-ratio: 1/1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(250, 152, 5, 0.74);
-  filter: blur(5rem);
-  top: 40%;
-  bottom: 0;
-  margin-top: auto;
-  margin-bottom: auto;
-
-  @include m.mobile-down {
-    top: 20%;
-    width: 50%;
-    height: unset;
-  }
 }
