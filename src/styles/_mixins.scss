@@ -61,3 +61,7 @@ $desktop: 1440px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+@mixin border($thickness: 1, $color: black) {
+  border: $thickness solid $color;
+}

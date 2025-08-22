@@ -1,145 +1,158 @@
+"use client";
+
 import React, { useEffect, useRef } from "react";
-import programStyles from "./styles/program.module.scss";
-import Sparkle from "@/components/Common/Icons/Sparkle";
+import styles from "./styles/program.module.scss";
 import { landingPageData } from "@/data/landing";
-import { Textfit } from "react-textfit";
 import Link from "next/link";
-import { useCursor } from "@/context/useCursor";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useScroll } from "@/context/ScrollContext";
 import Image from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import DoubleSparkle from "@/components/Common/Icons/DoubleSparkle";
+import { useScroll } from "@/context/ScrollContext";
+import Sparkle from "@/components/Common/Icons/Sparkle";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Programs = () => {
-  const { resetCursor, transformCursor } = useCursor();
   const { scrollContainerRef } = useScroll();
 
   const programSectionRef = useRef(null);
   const programRefs = useRef([]);
+
+  const { heading, subheading, para, programs } =
+    landingPageData.programsSection;
+  const programsList = programs.slice(0, 4);
 
   const addToRefs = (el, refArray) => {
     if (el && !refArray.current.includes(el)) {
       refArray.current.push(el);
     }
   };
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: programSectionRef.current,
+        scroller: scrollContainerRef.current,
+        start: "top 0px",
+        end: "bottom -50%",
+        scrub: true,
+        pin: true,
+        // pinSpacing: false,
+        markers: true,
+      });
 
-  const { heading, subheading, para, programs } =
-    landingPageData.programsSection;
+      const projectTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: programSectionRef.current,
+          scroller: scrollContainerRef.current,
+          scroller: scrollContainerRef.current,
+          start: "top 0px",
+          end: "bottom -50%",
+          scrub: 2,
+          markers: true,
+        },
+      });
 
-  const programsList = programs.slice(0, 4);
+      gsap.set(programRefs.current[0], {
+        clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+      });
+
+      programRefs.current.forEach((project, index) => {
+        if (index !== 0) {
+          projectTimeline.to(project, {
+            clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+            ease: "power2.inOut",
+            duration: 1,
+          });
+        }
+      });
+
+      ScrollTrigger.refresh();
+    }, programSectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section className={programStyles.sectionWrapper} ref={programSectionRef}>
-      <div className={programStyles.sectionWrapper__innerContainer}>
-        <section className={programStyles.mainHeaderSection}>
-          <div className={programStyles.sectionHeadingWrapper}>
+    <div ref={programSectionRef} className={styles.sectionWrapper}>
+      <div className={styles.innerWrapper}>
+        <div className={styles.mainHeaderWrapper}>
+          <div className={styles.sectionHeadingWrapper}>
             <div
-              className={`${programStyles.gradientSpot} ${programStyles["gradientSpot--1"]}`}
+              className={`${styles.gradientSpot} ${styles["gradientSpot--1"]}`}
             />
-            <div className={programStyles.sparkleDiv}>
+            <div className={styles.sparkleDiv}>
               <Sparkle />
             </div>
 
-            <h2 className={programStyles.sectionHeadingWrapper__primaryHeading}>
+            <h2 className={styles.sectionHeadingWrapper__primaryHeading}>
               {heading}
             </h2>
-            <h3
-              className={programStyles.sectionHeadingWrapper__secondaryHeading}
-            >
+            <h3 className={styles.sectionHeadingWrapper__secondaryHeading}>
               {subheading}
             </h3>
           </div>
-          <div className={programStyles.sectionDescriptionWrapper}>
-            <div className={programStyles.descDiv}>
+          <div className={styles.sectionDescriptionWrapper}>
+            <div className={styles.descDiv}>
               <p>{para}</p>
             </div>
           </div>
-        </section>
+        </div>
+        <div className={styles.secondaryHeaderWrapper}>
+          <h1>
+            What <span>Programs</span>
+            <br />
+            We’re offering
+          </h1>
+        </div>
 
-        <section className={programStyles.subHeaderSection}>
-          <Textfit
-            mode="multi"
-            className={programStyles.subHeaderSection__textFit}
-          >
-            <h1>
-              What <span>Programs</span>
-              <br /> We'are Offering
-            </h1>
-          </Textfit>
-        </section>
-        <section className={programStyles.contentSection}>
-          <div className={programStyles.contentSection__left}>
-            {programsList.map((program, programIndex) => (
-              <div
-                key={program.title}
-                className={programStyles.programImageContainer}
-                ref={(el) => addToRefs(el, programRefs)}
-                style={{
-                  clipPath:
-                    programIndex === 0
-                      ? "polygon(0 0, 100% 0, 100% 100%, 0 100%)"
-                      : "polygon(0 0, 100% 0, 100% 0, 0 0)",
-                }}
-              >
-                <Image src={program.image} fill={true} alt={"program-banner"} />
-              </div>
-            ))}
-          </div>
-          <div className={programStyles.contentSection__right}>
-            <div className={programStyles.programGrid}>
-              <div className={programStyles.titleCell}>
-                <div className={programStyles.sparkleDiv}>
-                  <Sparkle />
-                </div>
-                <h3>
-                  Artificial
-                  <br />
-                  Intelligence
-                </h3>
-              </div>
-              <div className={programStyles.descriptionCell}>
-                <p>
-                  AI refers to the simulation of human intelligence in machines
-                  that are programmed to think like humans and mimic their
-                  actions. This encompasses the ability of machines to perform
-                  tasks commonly associated with human cognition, such as
-                  learning from experience, reasoning based on provided data,
-                  and adapting to new inputs to solve complex problems. AI can
-                  manifest in various forms, from basic rule-based systems to
-                  advanced neural networks capable of processing vast amounts of
-                  information and making decisions independently.
-                </p>
-              </div>
-              <div className={programStyles.linkCell}>
-                <Link
-                  onMouseEnter={() =>
-                    transformCursor({
-                      dot: {
-                        backgroundColor: "#ff6432",
-                        scale: 10,
-                        opacity: 0.5,
-                      },
-                      ring: {
-                        opacity: 0,
-                        scale: 0.5,
-                      },
-                    })
-                  }
-                  onMouseLeave={() => resetCursor()}
-                  className={programStyles.linkCell__link}
-                  href={"#"}
+        <main className={styles.contentWrapper}>
+          <div className={styles.contentWrapper__left}>
+            <div className={styles.programImgContainer}>
+              {programsList.map((program, programIndex) => (
+                <div
+                  ref={(el) => addToRefs(el, programRefs)}
+                  style={{
+                    clipPath:
+                      programIndex === 0
+                        ? "polygon(0 0, 100% 0, 100% 100%, 0 100%)"
+                        : "polygon(0 0, 100% 0, 100% 0, 0 0)",
+                  }}
+                  key={program.title}
+                  className={styles.outerDiv}
                 >
-                  <Textfit mode="single" className={programStyles.linkTextFit}>
-                    Learn More
-                  </Textfit>
+                  <div className={styles.outerDiv__imageDiv}>
+                    <Image src={program.image} fill alt="program-banner" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className={styles.contentWrapper__right}>
+            <div className={styles.programInfoGrid}>
+              <div className={styles.titleCell}>
+                <div className={styles.sparkleDiv}>
+                  <DoubleSparkle />
+                </div>
+                <h1>{programsList[0].title}</h1>
+                <h1>{programsList[0].subTitle}</h1>
+              </div>
+
+              <div className={styles.descriptionCell}>
+                <p>{programsList[0].description}</p>
+              </div>
+
+              <div className={styles.linkCell}>
+                <Link href={"#"} className={styles.linkCell__link}>
+                  <p>Learn More</p>
                 </Link>
               </div>
             </div>
           </div>
-        </section>
+        </main>
       </div>
-    </section>
+    </div>
   );
 };
 
