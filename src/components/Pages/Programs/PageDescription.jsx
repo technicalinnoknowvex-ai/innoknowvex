@@ -8,14 +8,14 @@ export default function DescriptionSection({ course }) {
       return;
     }
 
-    // Create a temporary anchor element
+    
     const link = document.createElement('a');
     link.href = course.brochure;
     
-    // Set the download filename (you can customize this)
+    
     link.download = `${course.id}-brochure.pdf`;
     
-    // Append to body, click, and remove
+    
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

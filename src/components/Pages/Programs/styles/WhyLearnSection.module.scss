@@ -20,45 +20,50 @@
 }
 
 .ellipse1 {
-  position: relative;
-  width: 400px;
-  height: 400px;
-  left: -750px;
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  left: -200px;
+  transform :transform(-50%);
   z-index: 0;
 
   // Large Desktop
   @media (max-width: 1600px) and (min-width: 1447px) {
-    width: 380px;
-    height: 380px;
-    left: -720px;
+    width: 700px;
+    height: 700px;
+    left: -300px;
+    bottom:5%;
   }
 
   // Medium Desktop - Fixed for your range
   @media (max-width: 1446px) and (min-width: 1200px) {
-    width: 320px;
-    height: 320px;
-    left: -600px;
+    width: 700px;
+    height: 700px;
+   left: -300px;
   }
 
   // Small Desktop - Fixed for your range
   @media (max-width: 1199px) and (min-width: 1025px) {
-    width: 280px;
-    height: 280px;
-    left: -500px;
+   width: 700px;
+    height: 700px;
+   left: -300px;
+  
   }
 
   // Tablet Landscape - Your problem range
   @media (max-width: 1024px) and (min-width: 770px) {
-    width: 240px;
-    height: 240px;
-    left: -400px;
+    width: 500px;
+    height: 500px;
+   left: -300px;
+   
+   
   }
 
   // Below your range
   @media (max-width: 769px) {
-    width: 200px;
-    height: 200px;
-    left: -300px;
+    width: 500px;
+    height: 500px;
+   left: -200px;
   }
 }
 

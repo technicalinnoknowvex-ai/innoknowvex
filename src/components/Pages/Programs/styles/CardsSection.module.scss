@@ -11,6 +11,17 @@
   }
 }
 
+.ellipse{
+  position:absolute;
+  // transform :transform(-50%);
+  z-index: 0;
+  height: 700px;
+  width: 700px;
+  left:100;
+  bottom: 20%;
+
+}
+
 .cardsContainer {
   width: 100%;
   max-width: 1400px;
@@ -32,7 +43,7 @@
   justify-content: flex-start;
   padding: 2rem 0;
   padding-top: 4rem;
-  min-width: 300px;
+  min-width: 400px;
 }
 
 .careerBoostContent {
@@ -41,16 +52,16 @@
 
   .careerBoostTitle {
     font-size: clamp(1.5rem, 4vw, 3.5rem);
-    font-weight: 800;
+    width: 400px;
     color: #2c3e50;
     margin-bottom: 2rem;
-    font-family: var(--font-sharp-25), Sharp Grotesk;
+    font-family: var(--font-sharp-22), Sharp Grotesk;
     font-weight: 500;
     line-height: 1.1;
   }
 
   .careerBoostDescription {
-    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    font-size: 16px;
     color: #5a6c7d;
     line-height: 1.6;
     font-family: var(--font-sharp-22), Oldschool Grotesk;
@@ -59,6 +70,7 @@
 }
 
 .cardsSection {
+  position:relative;
   width: 65%;
   padding: 2rem 0 2rem 0;
   box-sizing: border-box;
@@ -66,11 +78,13 @@
 }
 
 .cardsGrid {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   margin-left: 0;
   max-width: 100%;
+  // background:#F8F1DE;
 }
 
 .card {
@@ -86,6 +100,7 @@
   transition: transform 0.8s ease-out, opacity 0.8s ease-out;
   border: 1px solid #9c7f16;
   max-width: 100%;
+  background:#F8F1DE;
 
   &.visible {
     opacity: 1;
@@ -99,7 +114,7 @@
 }
 
 .softSkillsCard {
-  border: 1px solid #9c7f16;
+  // border: 1px solid #9c7f16;
 
   h3,
   p {

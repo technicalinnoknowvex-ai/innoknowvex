@@ -3,8 +3,18 @@
   margin-bottom: 100px;
 }
 
+.ellipse{
+  position: absolute;
+  height: 900px;
+  width: 900px;
+  z-index: 0;
+  left:120%;
+  bottom: 30px;
+}
+
 .Plans {
   padding-top: 50px;
+  padding: 80px;
   
   img {
     height: 6vh;
@@ -30,7 +40,9 @@
 }
 
 .pricingCardLayout {
-  height: 600px;
+  
+  position: relative;
+  height: 650px;
   width: 300px;
   display: flex;
   padding-left: 40px;
@@ -38,6 +50,8 @@
   gap: 20px;
 
   .pricingCards {
+    
+    background: #F8F1DE;
     border: 1px solid #715C11;
     border-radius: 15px 60px 15px 60px;
     position: relative;
@@ -80,6 +94,7 @@
   }
 
   .planDesc {
+    
     width: 470px;
     font-family: var(--font-sharp-22), Oldschool Grotesk;
     font-size: 12px;
@@ -101,10 +116,11 @@
 }
 
 .plancontent {
+  
   font-family: var(--font-sharp-22), Oldschool Grotesk;
   line-height: 2;
   text-align: left; // Align features list to left
-  padding-left: 20px; // Add some padding
+  padding-left: 100px; // Add some padding
 }
 
 .features {

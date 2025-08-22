@@ -4,7 +4,9 @@ import styles from './styles/WhyLearnSection.module.scss'
 export default function WhyLearnSection() {
   return (
     <div className={styles.whyLearnSection}>
-      <img src='/images/Ellipse4.svg' alt='ellipse' className={styles.ellipse1} />
+      <img src='/images/Ellipse4.svg' 
+      alt='ellipse' 
+      className={styles.ellipse1} />
        
       <div className={styles.LearnForm}>
         <img src="/images/SoftStar.svg"

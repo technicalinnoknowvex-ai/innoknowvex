@@ -13,9 +13,12 @@ export default function PlansSection() {
         <h1>Plans to fit your Learning needs</h1>
         <p>CHOOSE THAT FITS YOU</p>
       </div>
-      <img src="/images/Ellipse4.svg" alt="" />
+      
       
       <div className={styles.pricingCardLayout}>
+        <img src="/images/Ellipse4.svg" 
+        alt="" 
+        className={styles.ellipse}/>
         <div className={styles.pricingCards}>
           <div className={styles.heading}>
             <img src="/images/SoftStar3.svg"

@@ -10,7 +10,7 @@ export default function CardsSection() {
   const paragraphRefs = useRef([]);
   const headingRefs = useRef([]);
 
-  useEffect(() => {           
+  useEffect(() => {
     starRefs.current = starRefs.current.slice(0, 6);
     cardRefs.current = cardRefs.current.slice(0, 6);
     headerRefs.current = headerRefs.current.slice(0, 6);
@@ -79,10 +79,14 @@ export default function CardsSection() {
       </div>
 
 
-      <img src="/images/Ellipse4.svg" alt=" ellipse" />
 
       {/* Cards section */}
-      <div className={styles.cardsSection}>
+        <div className={styles.cardsSection}>
+
+          <img src="/images/Ellipse4.svg"
+          alt=" ellipse"
+          className={styles.ellipse} />
+
         <div className={styles.cardsGrid}>
           {/* First row */}
           <div
@@ -225,6 +229,7 @@ export default function CardsSection() {
           </div>
         </div>
       </div>
+
     </div>
   )
 }
