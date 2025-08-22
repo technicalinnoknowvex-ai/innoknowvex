@@ -1,19 +1,10 @@
+@use ".../../../../../styles/variables" as v;
+
 .layout {
   display:flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
-  font-family: var(--font-sharp-20);
-  // background-color: #fff6e8;
-  // filter: brightness(26%);
-}
-
-.landingStyles {
-  &.biggerStar {
-    position: fixed;
-  top: 30;
-  left: 30;
-  width: 100;
-  height: auto;
-  }
+  // font-family: var(--font-sharp-20);
+  // background-color: v.$app-background-base;
 }

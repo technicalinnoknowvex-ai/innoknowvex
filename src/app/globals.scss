@@ -1,4 +1,4 @@
-@use "../styles/variables.module";
+@use "../styles/index" as *;
 
 * {
   box-sizing: border-box;
@@ -16,8 +16,8 @@ body {
   scrollbar-width: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: variables.$text-primary;
-  background: variables.$app-background-base;
+  background: $app-background-base;
+  cursor: none;
 }
 
 html::-webkit-scrollbar,
@@ -34,4 +34,23 @@ button {
   font-family: inherit;
 }
 
+html.lenis,
+html.lenis body {
+  height: auto;
+}
 
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}

@@ -1,129 +1,62 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import landingStyles from "./styles/landing.module.scss";
-import CircularText from "./HeroSection/CircularDisk/CircularText.jsx";
-import Image from "next/image";
+import Hero from "./Sections/Hero/Hero";
+import AboutUs from "./Sections/AboutUs/AboutUs";
+import Navbar from "./Sections/Navbar/Navbar";
+import Lenis from "lenis";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import Strip from "./HeroSection/Marque/Marque";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Programs from "./Sections/Programs/Programs";
 
-// Register ScrollTrigger plugin
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const LandingPage = () => {
-  const starLeftRef = useRef(null);
-  const starRightRef = useRef(null);
-  const circularTextRef = useRef(null);
+  const scrollContainerRef = useRef(null);
 
-  useEffect(() => {
-    // Ensure we're in the browser environment
-    if (starLeftRef.current && starRightRef.current) {
+  useGSAP(
+    () => {
+      if (scrollContainerRef.current) {
+        const lenis = new Lenis({
+          wrapper: scrollContainerRef.current,
+          duration: 2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+          syncTouch: true,
+        });
 
-      gsap.to(starLeftRef.current, {
-        rotateZ: 720,
-        duration: 2,
-        scrollTrigger: {
-          trigger: starLeftRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 0.5,
-        }
-      });
+        lenis.on("scroll", ScrollTrigger.update);
 
-      gsap.to(starRightRef.current, {
-        rotateZ: 720,
-        duration: 2,
-        scrollTrigger: {
-          trigger: starRightRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 0.5,
-        }
-      });
+        const raf = (time) => {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        };
+        requestAnimationFrame(raf);
 
-
-
-      // Animation for circular text (position at bottom)
-      gsap.to(circularTextRef.current, {
-        y: 100, // Moves it down
-        scrollTrigger: {
-          trigger: circularTextRef.current,
-          start: "top bottom",
-          end: "bottom bottom",
-          scrub: 0.5,
-        },
-      });
-
-      // Cleanup function
-      return () => {
-        tlLeft.kill();
-        tlRight.kill();
-        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-      };
-    }
-  }, []);
+        // Cleanup function - useGSAP automatically handles this
+        return () => lenis.destroy();
+      }
+    },
+    { scope: scrollContainerRef }
+  ); // Optional: scope to container
 
   return (
-    <>
-      <div className={landingStyles.landing}>
-        {/* Left Star (Top) - Smaller size */}
-        <div ref={starLeftRef} className={landingStyles.starContainerLeft}>
-          <Image
-            src="/images/SoftStar.svg"
-            width={60} // Smaller size
-            height={60}
-            alt="Soft Star"
-          />
-        </div>
-
-        {/* Right Star (Bottom) - Smaller size */}
-        <div ref={starRightRef} className={landingStyles.starContainerRight}>
-          <Image
-            src="/images/SoftStar.svg"
-            width={60} // Smaller size
-            height={60}
-            alt="Soft Star"
-          />
-        </div>
-
-        <Image className={landingStyles.bg}
-          src='/images/Ellipse4.svg'
-          width={600}
-          height={600}
-          alt='bg-image'
-        />
-
-        <div className={landingStyles.landing__text}>
-          <div>Transforming</div> 
-          <div>Aspirations</div>
-          
-          <div>into</div>
-         
-          <div>Achievements</div>
-        </div>
-
-
-        {/* Circular Text at Bottom */}
+    <div className={landingStyles.landing} ref={scrollContainerRef}>
+      <Navbar />
+      <Hero scrollContainerRef={scrollContainerRef} />
+      <AboutUs scrollContainerRef={scrollContainerRef} />
+      <Programs scrollContainerRef={scrollContainerRef} />
+      {Array.from({ length: 3 }).map((_, index) => (
         <div
-          ref={circularTextRef}
-          className={landingStyles.circularTextContainer}
-        >
-          <CircularText
-            text=" SCROLL TO EXPLORE SCROLL TO EXPLORE SCROLL TO EXPLORE"
-            onHover="speedUp"
-            spinDuration={20}
-            className="custom-class"
-          />
-        </div>
-
-      </div>
-
-      <div>
-        <Strip />
-      </div>
-    </>
+          key={index}
+          style={{
+            width: "100%",
+            height: "100vh",
+          }}
+        />
+      ))}
+    </div>
   );
 };
 
