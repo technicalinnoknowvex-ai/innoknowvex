@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import aboutUsStyles from "./styles/aboutUs.module.scss";
 import { Textfit } from "react-textfit";
 import { landingPageData } from "@/data/landing";
@@ -6,9 +6,16 @@ import Image from "next/image";
 import Sparkle from "@/components/Common/Icons/Sparkle";
 import Link from "next/link";
 import { useCursor } from "@/context/useCursor";
+import { useSectionObserver } from "@/hooks/useSectionObserver";
 const AboutUs = ({ scrollContainerRef }) => {
   const { heading, subheading, para, images } = landingPageData.aboutSection;
   const { resetCursor, transformCursor } = useCursor();
+  const sectionRef = useRef(null);
+  useSectionObserver(sectionRef, {
+    color: "#262c35",
+    threshold: 0.5,
+    rootMargin: "0px 0px 0px 0px",
+  });
 
   return (
     <section className={aboutUsStyles.sectionWrapper}>

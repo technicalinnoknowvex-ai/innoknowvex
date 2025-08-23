@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import styles from "./styles/footer.module.scss";
 import { useCursor } from "@/context/useCursor";
 import InnoknowvexFooterEmblem from "./InnoknowvexFooterEmblem";
@@ -7,14 +7,24 @@ import { landingPageData } from "@/data/landing";
 import Sparkle from "@/components/Common/Icons/Sparkle";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
+import { useSectionObserver } from "@/hooks/useSectionObserver";
 
 const Footer = () => {
   const { resetCursor, transformCursor } = useCursor();
+
+  const ref = useRef(null);
+  useSectionObserver(ref, {
+    color: "white",
+    threshold: 0.9,
+    rootMargin: "20px 0px 0px 0px",
+  });
+
   const { heading, subheading, email, address, socialLinks, footerLinks } =
     landingPageData.footerSection;
 
   return (
     <footer
+      ref={ref}
       className={styles.sectionWrapper}
       onMouseEnter={() =>
         transformCursor({

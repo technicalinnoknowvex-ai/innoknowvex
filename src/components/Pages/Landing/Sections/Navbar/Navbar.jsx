@@ -1,6 +1,8 @@
+"use client";
 import React from "react";
 import styles from "./styles/navbar.module.scss";
 import CompanyLogo from "./CompanyLogo";
+import { useNavColor } from "@/context/NavColorContext";
 
 const navLinks = [
   { label: "About Us", type: "link", href: "#" },
@@ -10,6 +12,8 @@ const navLinks = [
   { label: "Contact Us", type: "link", href: "#" },
 ];
 const Navbar = () => {
+  const { navColor } = useNavColor();
+
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbar__overlay}></div>
@@ -23,7 +27,13 @@ const Navbar = () => {
           {navLinks.map((link, lIndex) => (
             <div key={lIndex} className={styles.linkBtn}>
               <div className={styles.underLine}></div>
-              <p>{link.label}</p>
+              <p
+                style={{
+                  color: navColor,
+                }}
+              >
+                {link.label}
+              </p>
             </div>
           ))}
         </div>

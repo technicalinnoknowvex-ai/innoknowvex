@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import { CursorProvider } from "@/context/CursorProvider";
 import Cursor from "@/components/Common/Cursor/Cursor";
 import { ScrollProvider } from "@/context/ScrollContext";
+import { NavColorProvider } from "@/context/NavColorContext";
 
 const sharpGrotesk20 = localFont({
   src: [
@@ -184,8 +185,10 @@ export default function RootLayout({ children }) {
       >
         <CursorProvider>
           <ScrollProvider>
-            <Cursor />
-            <AppLayout>{children}</AppLayout>
+            <NavColorProvider>
+              <Cursor />
+              <AppLayout>{children}</AppLayout>
+            </NavColorProvider>
           </ScrollProvider>
         </CursorProvider>
       </body>
