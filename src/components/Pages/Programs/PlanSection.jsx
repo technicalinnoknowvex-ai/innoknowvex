@@ -12,22 +12,16 @@ export default function PlansSection() {
             alt="Soft Star"
             className={styles.starOrange}
           />
-        <div className={styles.staralign}>
-          
           <h1>Plans to fit your Learning needs</h1>
         </div>
-        </div>
-        
-
-
         <p>CHOOSE THAT FITS YOU</p>
       </div>
-
 
       <div className={styles.pricingCardLayout}>
         <img src="/images/Ellipse4.svg"
           alt=""
           className={styles.ellipse} />
+        
         <div className={styles.pricingCards}>
           <div className={styles.heading}>
             <img src="/images/SoftStar3.svg"
@@ -35,19 +29,21 @@ export default function PlansSection() {
               height={20}
               alt="Soft Star"
               className={styles.cardStar} />
-            <h1>Self</h1>
+            <h2>Self</h2>
           </div>
 
           <p className={styles.price}> Rs 5,999</p>
           <p className={styles.planDesc}>Learn at your own pace with all the resources you need to succeed independently.</p>
           <button>Enroll Now</button>
 
-          <p className={styles.plancontent}>
+          <div className={styles.plancontent}>
             <div className={styles.features}>
               <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
-              Recorded sesion </div>
+              Recorded session
+            </div>
             <div className={styles.features}>
-              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />Hand-on internship
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
+              Hand-on internship
             </div>
             <div className={styles.features}>
               <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
@@ -77,7 +73,7 @@ export default function PlansSection() {
               <img src="/images/redcross.svg" alt=" Cross" className={styles.featureimg} />
               Mock Interview
             </div>
-          </p>
+          </div>
         </div>
 
         <div className={styles.pricingCards}>
@@ -87,19 +83,21 @@ export default function PlansSection() {
               height={20}
               alt="Soft Star"
               className={styles.cardStar} />
-            <h1>Mentor</h1>
+            <h2>Mentor</h2>
           </div>
 
           <p className={styles.price}> Rs 8,999</p>
           <p className={styles.planDesc}>Learn at your own pace with all the resources you need to succeed independently.</p>
           <button>Enroll Now</button>
 
-          <p className={styles.plancontent}>
+          <div className={styles.plancontent}>
             <div className={styles.features}>
               <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
-              Recorded sesion </div>
+              Recorded session
+            </div>
             <div className={styles.features}>
-              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />Hand-on internship
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
+              Hand-on internship
             </div>
             <div className={styles.features}>
               <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
@@ -129,7 +127,7 @@ export default function PlansSection() {
               <img src="/images/redcross.svg" alt=" Cross" className={styles.featureimg} />
               Mock Interview
             </div>
-          </p>
+          </div>
         </div>
 
         <div className={styles.pricingCards}>
@@ -139,19 +137,21 @@ export default function PlansSection() {
               height={20}
               alt="Soft Star"
               className={styles.cardStar} />
-            <h1>Professional</h1>
+            <h2>Professional</h2>
           </div>
 
           <p className={styles.price}> Rs 11,999</p>
           <p className={styles.planDesc}>Learn at your own pace with all the resources you need to succeed independently.</p>
           <button>Enroll Now</button>
 
-          <p className={styles.plancontent}>
+          <div className={styles.plancontent}>
             <div className={styles.features}>
               <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
-              Recorded sesion </div>
+              Recorded session
+            </div>
             <div className={styles.features}>
-              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />Hand-on internship
+              <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
+              Hand-on internship
             </div>
             <div className={styles.features}>
               <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
@@ -181,8 +181,9 @@ export default function PlansSection() {
               <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
               Mock Interview
             </div>
-          </p>
+          </div>
         </div>
       </div>
-    </div>)
+    </div>
+  )
 }
