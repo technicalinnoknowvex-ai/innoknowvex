@@ -1,27 +1,59 @@
-import { useEffect } from "react";
+"use client";
+import { useRef } from "react";
 import { useNavColor } from "@/context/NavColorContext";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
-export const useSectionObserver = (ref, options = {}) => {
+// Register plugin outside component
+gsap.registerPlugin(ScrollTrigger);
+
+export const useSectionObserver = (sectionRef, options = {}) => {
   const {
-    color = "white",
-    threshold = 0,
-    rootMargin = "0px 0px 0px 0px",
+    color = "#262c35",
+    sectionId,
+    triggerDistance = "top center",
+    revertOnLeave = true,
   } = options;
-  const { setNavColor } = useNavColor();
 
-  useEffect(() => {
-    if (!ref.current) return;
+  const { updateNavColor } = useNavColor();
+  const defaultColor = "#262c35";
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setNavColor(color);
+  useGSAP(() => {
+    if (!sectionRef.current) return;
+
+    const element = sectionRef.current;
+
+    // Create ScrollTrigger
+    const scrollTrigger = ScrollTrigger.create({
+      trigger: element,
+      start: triggerDistance,
+      end: "bottom top",
+      onEnter: () => {
+        console.log(`Entered section: ${sectionId}`);
+        updateNavColor(color);
+      },
+      onEnterBack: () => {
+        console.log(`Entered back section: ${sectionId}`);
+        updateNavColor(color);
+      },
+      onLeave: () => {
+        if (revertOnLeave) {
+          console.log(`Left section: ${sectionId}`);
+          updateNavColor(defaultColor);
         }
       },
-      { threshold, rootMargin }
-    );
+      onLeaveBack: () => {
+        if (revertOnLeave) {
+          console.log(`Left back section: ${sectionId}`);
+          updateNavColor(defaultColor);
+        }
+      },
+    });
 
-    observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [ref, color, threshold, rootMargin, setNavColor]);
+    // Cleanup function
+    return () => {
+      scrollTrigger.kill();
+    };
+  }, [sectionRef, color, sectionId, triggerDistance, revertOnLeave]);
 };

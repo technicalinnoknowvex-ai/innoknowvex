@@ -3,8 +3,10 @@ import React, { useState, useRef } from "react";
 import styles from "./styles/faq.module.scss";
 import { landingPageData } from "@/data/landing";
 import Sparkle from "@/components/Common/Icons/Sparkle";
+import { useSectionObserver } from "@/hooks/useSectionObserver";
 
 const FAQ = () => {
+  const sectionRef = useRef();
   const { heading, subheading, para, faqs } = landingPageData.faqSection;
   const [activeFaq, setActiveFaq] = useState(0);
   const answerRefs = useRef([]);

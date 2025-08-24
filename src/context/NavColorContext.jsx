@@ -1,13 +1,17 @@
 "use client";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useCallback } from "react";
 
 const NavColorContext = createContext(undefined);
 
 export const NavColorProvider = ({ children }) => {
   const [navColor, setNavColor] = useState("#262c35");
 
+  const updateNavColor = useCallback((color) => {
+    setNavColor(color);
+  }, []);
+
   return (
-    <NavColorContext.Provider value={{ navColor, setNavColor }}>
+    <NavColorContext.Provider value={{ navColor, updateNavColor }}>
       {children}
     </NavColorContext.Provider>
   );

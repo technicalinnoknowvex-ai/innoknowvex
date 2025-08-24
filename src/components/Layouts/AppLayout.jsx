@@ -7,8 +7,10 @@ import { NavColorProvider } from "@/context/NavColorContext";
 const AppLayout = ({ children }) => {
   return (
     <div className={layoutStyles.layout}>
-      <Navbar />
-      <SmoothScroller>{children}</SmoothScroller>
+      <NavColorProvider>
+        <Navbar />
+        <SmoothScroller>{children}</SmoothScroller>
+      </NavColorProvider>
     </div>
   );
 };

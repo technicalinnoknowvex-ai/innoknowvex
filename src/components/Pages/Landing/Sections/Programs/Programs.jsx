@@ -14,12 +14,6 @@ const Programs = () => {
   const { scrollContainerRef } = useScroll();
   const programSectionRef = useRef();
 
-  useSectionObserver(programSectionRef, {
-    color: "white",
-    threshold: 0.9,
-    rootMargin: "20px 0px 0px 0px",
-  });
-
   const programRefs = useRef([]);
 
   const addToRefs = (el, refArray) => {
@@ -27,6 +21,7 @@ const Programs = () => {
       refArray.current.push(el);
     }
   };
+
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Create a single scroll trigger for pinning the section
@@ -92,10 +87,12 @@ const Programs = () => {
               <div className={styles.container__overLay}></div>
               <Image
                 src={program.image}
-                objectFit="cover"
                 fill
                 alt="program-image"
-                objectPosition="left"
+                style={{
+                  objectFit: "cover",
+                  objectPosition: "left",
+                }}
               />
               <div className={styles.contentWrapper}>
                 <div className={styles.titleContainer}>

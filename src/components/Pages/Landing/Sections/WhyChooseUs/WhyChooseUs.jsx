@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useRef } from "react";
 import styles from "./styles/whyChooseUs.module.scss";
 import Sparkle from "@/components/Common/Icons/Sparkle";
 import { Textfit } from "react-textfit";
 import { landingPageData } from "@/data/landing";
+import { useSectionObserver } from "@/hooks/useSectionObserver";
 
 const WhyChooseUs = ({ scrollContainerRef }) => {
+  const sectionRef = useRef();
   const { heading, subheading, para, reasons } =
     landingPageData.whyChooseUsSection;
+
   return (
-    <section className={styles.sectionWrapper}>
+    <section className={styles.sectionWrapper} ref={sectionRef}>
       <div className={styles.sectionWrapper__innerContainer}>
         <section className={styles.mainHeaderSection}>
           <div className={styles.sectionHeadingWrapper}>

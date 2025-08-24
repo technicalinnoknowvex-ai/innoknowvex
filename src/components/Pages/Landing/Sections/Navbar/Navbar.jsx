@@ -1,8 +1,9 @@
 "use client";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./styles/navbar.module.scss";
 import CompanyLogo from "./CompanyLogo";
 import { useNavColor } from "@/context/NavColorContext";
+import gsap from "gsap";
 
 const navLinks = [
   { label: "About Us", type: "link", href: "#" },

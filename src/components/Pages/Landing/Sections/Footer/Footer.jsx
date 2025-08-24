@@ -1,30 +1,52 @@
 "use client";
 import React, { useRef } from "react";
 import styles from "./styles/footer.module.scss";
-import { useCursor } from "@/context/useCursor";
+import { useCursor } from "@/hooks/useCursor";
 import InnoknowvexFooterEmblem from "./InnoknowvexFooterEmblem";
 import { landingPageData } from "@/data/landing";
 import Sparkle from "@/components/Common/Icons/Sparkle";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { useSectionObserver } from "@/hooks/useSectionObserver";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { useNavColor } from "@/context/NavColorContext";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useScroll } from "@/context/ScrollContext";
+gsap.registerPlugin(ScrollTrigger);
 
 const Footer = () => {
+  const footerRef = useRef(null);
   const { resetCursor, transformCursor } = useCursor();
-
-  const ref = useRef(null);
-  useSectionObserver(ref, {
-    color: "white",
-    threshold: 0.9,
-    rootMargin: "20px 0px 0px 0px",
-  });
+  const { updateNavColor } = useNavColor();
 
   const { heading, subheading, email, address, socialLinks, footerLinks } =
     landingPageData.footerSection;
+  const { scrollContainerRef } = useScroll();
+
+  useGSAP(
+    () => {
+      ScrollTrigger.create({
+        trigger: footerRef.current,
+        start: "top center",
+        end: "bottom center",
+        scroller: scrollContainerRef?.current,
+        onEnter: () => {
+          console.log("entered");
+          updateNavColor("white");
+        },
+        onEnterBack: () => updateNavColor("white"),
+        onLeave: () => updateNavColor("#262c35"),
+        onLeaveBack: () => updateNavColor("#262c35"),
+      });
+    },
+    { scope: footerRef }
+  );
 
   return (
     <footer
-      ref={ref}
+      ref={footerRef}
+      id="footer"
       className={styles.sectionWrapper}
       onMouseEnter={() =>
         transformCursor({

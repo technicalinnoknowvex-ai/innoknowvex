@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 import heroStyles from "./styles/hero.module.scss";
 import Marquee from "./Marquee/Marquee";
 import CircularText from "./RotatingRing/CircularText";
-import { useCursor } from "@/context/useCursor";
+import { useCursor } from "@/hooks/useCursor";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { MouseParallax, ScrollParallax } from "react-just-parallax";
