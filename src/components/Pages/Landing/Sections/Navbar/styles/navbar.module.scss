@@ -89,6 +89,9 @@ $navbar-height: 70px;
     aspect-ratio: 1/1;
     display: flex;
     // border: 1px solid red;
+    @include tablet-down {
+      display: none;
+    }
   }
 
   .toggleButton {

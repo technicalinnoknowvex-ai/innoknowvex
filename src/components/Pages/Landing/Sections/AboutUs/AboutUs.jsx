@@ -18,20 +18,23 @@ const AboutUs = ({ scrollContainerRef }) => {
   const { resetCursor, transformCursor } = useCursor();
   const sectionRef = useRef(null);
   const sparkleRef = useRef(null);
+  const headingRef = useRef(null);
+  const paraRef = useRef(null);
+  const buttonRef = useRef(null);
 
-  // Animate sparkle when section comes into view
-  // Enhanced pop animation with bounce and scale
   useGSAP(
     () => {
-      const timeline = gsap.timeline({
+      // Animate sparkle when section comes into view
+      const sparkleTl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 80%",
+          start: "top 60%",
+          end: "bottom 40%",
           toggleActions: "play none none reverse",
         },
       });
 
-      timeline
+      sparkleTl
         .fromTo(
           sparkleRef.current,
           {
@@ -40,7 +43,7 @@ const AboutUs = ({ scrollContainerRef }) => {
             rotation: -360,
           },
           {
-            scale: 1.2, // Overshoot for bounce effect
+            scale: 1.2,
             opacity: 1,
             rotation: 0,
             duration: 0.5,
@@ -48,19 +51,60 @@ const AboutUs = ({ scrollContainerRef }) => {
           }
         )
         .to(sparkleRef.current, {
-          scale: 1, // Settle to normal size
+          scale: 1,
           duration: 0.3,
           ease: "power2.out",
         })
+        .to(sparkleRef.current, {
+          rotation: 360,
+          duration: 0.8,
+          ease: "power1.inOut",
+        });
+
+      // Sequential animations triggered by heading when section is 50% in view
+      const contentTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 50%",
+          end: "bottom 20%", // Added end point for better reverse control
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      // Set initial states
+      gsap.set([headingRef.current, paraRef.current, buttonRef.current], {
+        y: 50,
+        opacity: 0,
+      });
+
+      // Sequential animations - all elements animate together for better reverse
+      contentTl
+        .to(headingRef.current, {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power2.out",
+        })
         .to(
-          sparkleRef.current,
+          paraRef.current,
           {
-            rotation: 360, // Final spin
+            y: 0,
+            opacity: 1,
             duration: 0.8,
-            ease: "power1.inOut",
+            ease: "power2.out",
           },
-          "<0.1"
-        ); // Start slightly after scale animation
+          "-=0.5" // Overlap more with heading for better reverse
+        )
+        .to(
+          buttonRef.current,
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power2.out",
+          },
+          "-=0.5" // Overlap more with paragraph for better reverse
+        );
     },
     { scope: sectionRef }
   );
@@ -73,7 +117,10 @@ const AboutUs = ({ scrollContainerRef }) => {
     >
       <div className={aboutUsStyles.sectionWrapper__innerContainer}>
         <section className={aboutUsStyles.leftSection}>
-          <div className={aboutUsStyles.sectionHeadingContainer}>
+          <div
+            className={aboutUsStyles.sectionHeadingContainer}
+            ref={headingRef}
+          >
             <div
               className={`${aboutUsStyles.gradientSpot} ${aboutUsStyles["gradientSpot--1"]}`}
             />
@@ -96,12 +143,12 @@ const AboutUs = ({ scrollContainerRef }) => {
               {subheading}
             </h3>
           </div>
-          <div className={aboutUsStyles.paraContainer}>
+          <div className={aboutUsStyles.paraContainer} ref={paraRef}>
             <p className={aboutUsStyles.paraContainer__paraText}>{para}</p>
           </div>
-          <div className={aboutUsStyles.linkContainer}>
+          <div className={aboutUsStyles.linkContainer} ref={buttonRef}>
             <Link
-              href={"#"}
+              href="#"
               className={aboutUsStyles.linkContainer__link}
               onMouseEnter={() =>
                 transformCursor({
