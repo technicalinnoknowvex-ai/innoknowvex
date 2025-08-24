@@ -111,7 +111,11 @@ const Programs = () => {
   );
 
   return (
-    <div className={styles.sectionWrapper} ref={programSectionRef}>
+    <div
+      className={styles.sectionWrapper}
+      ref={programSectionRef}
+      id="programs"
+    >
       <div className={styles.sectionInnerWrapper}>
         {programs.map((program, programIndex) => (
           <div

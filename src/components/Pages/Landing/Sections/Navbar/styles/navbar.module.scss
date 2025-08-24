@@ -43,8 +43,10 @@ $navbar-height: 70px;
 .linksWrapper {
   display: flex;
   align-items: center;
+  justify-content: center;
   height: 100%;
   margin-left: auto;
+  // border: 1px solid red;
 
   .linkBtn {
     position: relative;
@@ -52,14 +54,16 @@ $navbar-height: 70px;
     align-items: center;
     justify-content: center;
     width: fit-content;
-    height: auto;
     padding: 5px 0px;
     margin: 0px 10px;
+    // border: 1px solid red;
+    text-align: center;
     p {
       @include font($font-oldschool, $medium);
       font-size: 0.9rem;
       letter-spacing: 0.3px;
       mix-blend-mode: difference;
+      margin-top: 5px;
     }
     .underLine {
       bottom: 0;
@@ -78,6 +82,13 @@ $navbar-height: 70px;
     @include tablet-down {
       display: none;
     }
+  }
+
+  .sparkleDiv {
+    height: 15px;
+    aspect-ratio: 1/1;
+    display: flex;
+    // border: 1px solid red;
   }
 
   .toggleButton {

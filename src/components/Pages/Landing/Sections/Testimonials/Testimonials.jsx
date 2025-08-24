@@ -97,7 +97,11 @@ const Testimonials = () => {
     <TestimonialCard key={`bottom-${index}`} testimonial={testimonial} />
   ));
   return (
-    <section className={styles.sectionWrapper} ref={sectionRef}>
+    <section
+      className={styles.sectionWrapper}
+      ref={sectionRef}
+      id="testimonials"
+    >
       <div className={styles.sectionWrapper__innerContainer}>
         <section className={styles.mainHeaderSection}>
           <div className={styles.sectionHeadingWrapper}>

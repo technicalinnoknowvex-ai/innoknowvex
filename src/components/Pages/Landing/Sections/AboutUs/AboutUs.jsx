@@ -66,7 +66,11 @@ const AboutUs = ({ scrollContainerRef }) => {
   );
 
   return (
-    <section className={aboutUsStyles.sectionWrapper} ref={sectionRef}>
+    <section
+      className={aboutUsStyles.sectionWrapper}
+      ref={sectionRef}
+      id="about-us"
+    >
       <div className={aboutUsStyles.sectionWrapper__innerContainer}>
         <section className={aboutUsStyles.leftSection}>
           <div className={aboutUsStyles.sectionHeadingContainer}>
