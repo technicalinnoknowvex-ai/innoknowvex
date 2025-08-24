@@ -13,9 +13,10 @@ export const useScroll = () => {
 
 export const ScrollProvider = ({ children }) => {
   const scrollContainerRef = useRef(null);
+  const scrollerRef = useRef(null);
 
   return (
-    <ScrollContext.Provider value={{ scrollContainerRef }}>
+    <ScrollContext.Provider value={{ scrollContainerRef, scrollerRef }}>
       {children}
     </ScrollContext.Provider>
   );

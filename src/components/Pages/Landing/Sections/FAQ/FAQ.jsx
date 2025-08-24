@@ -4,7 +4,9 @@ import styles from "./styles/faq.module.scss";
 import { landingPageData } from "@/data/landing";
 import Sparkle from "@/components/Common/Icons/Sparkle";
 import { useSectionObserver } from "@/hooks/useSectionObserver";
-
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 const FAQ = () => {
   const sectionRef = useRef();
   const { heading, subheading, para, faqs } = landingPageData.faqSection;
@@ -14,8 +16,54 @@ const FAQ = () => {
     setActiveFaq(activeFaq === index ? null : index);
   };
 
+  const sparkleRef = useRef(null);
+
+  useGSAP(
+    () => {
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      timeline
+        .fromTo(
+          sparkleRef.current,
+          {
+            scale: 0,
+            opacity: 0,
+            rotation: -360,
+          },
+          {
+            scale: 1.2, // Overshoot for bounce effect
+            opacity: 1,
+            rotation: 0,
+            duration: 0.5,
+            ease: "power2.out",
+          }
+        )
+        .to(sparkleRef.current, {
+          scale: 1, // Settle to normal size
+          duration: 0.3,
+          ease: "power2.out",
+        })
+        .to(
+          sparkleRef.current,
+          {
+            rotation: 360, // Final spin
+            duration: 0.8,
+            ease: "power1.inOut",
+          },
+          "<0.1"
+        ); // Start slightly after scale animation
+    },
+    { scope: sectionRef }
+  );
+
   return (
-    <section className={styles.sectionWrapper}>
+    <section className={styles.sectionWrapper} ref={sectionRef}>
       <div className={styles.sectionWrapper__innerContainer}>
         <section className={styles.leftSection}>
           <div className={styles.sectionHeadingContainer}>
@@ -23,7 +71,9 @@ const FAQ = () => {
               className={`${styles.gradientSpot} ${styles["gradientSpot--1"]}`}
             />
             <div className={styles.sparkleDiv}>
-              <Sparkle />
+              <div ref={sparkleRef}>
+                <Sparkle />
+              </div>
             </div>
 
             <h2 className={styles.sectionHeadingContainer__primaryHeading}>

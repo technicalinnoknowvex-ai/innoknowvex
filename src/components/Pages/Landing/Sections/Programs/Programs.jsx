@@ -1,19 +1,21 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import styles from "./styles/program.module.scss";
 import { landingPageData } from "@/data/landing";
 import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useScroll } from "@/context/ScrollContext";
-import { useSectionObserver } from "@/hooks/useSectionObserver";
+import { useGSAP } from "@gsap/react";
+import { useNavColor } from "@/context/NavColorContext";
+import DoubleSparkle from "@/components/Common/Icons/DoubleSparkle";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const Programs = () => {
+  const { updateNavColor } = useNavColor();
   const { programs } = landingPageData.programsSection;
-  const { scrollContainerRef } = useScroll();
-  const programSectionRef = useRef();
-
+  const programSectionRef = useRef(null);
   const programRefs = useRef([]);
 
   const addToRefs = (el, refArray) => {
@@ -22,33 +24,57 @@ const Programs = () => {
     }
   };
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Create a single scroll trigger for pinning the section
+  useGSAP(
+    () => {
       ScrollTrigger.create({
         trigger: programSectionRef.current,
-        scroller: scrollContainerRef.current,
+        start: "top 100px",
+        end: "bottom -150%",
+        onEnter: () => {
+          // console.log("Programs section entered - navbar should be white");
+          updateNavColor("white");
+        },
+        onEnterBack: () => {
+          // console.log(
+          //   "Programs section entered from below - navbar should be white"
+          // );
+          updateNavColor("white");
+        },
+        onLeave: () => {
+          // console.log(
+          //   "Programs section left downward - navbar back to default"
+          // );
+          updateNavColor("#262c35");
+        },
+        onLeaveBack: () => {
+          // console.log("Programs section left upward - navbar back to default");
+          updateNavColor("#262c35");
+        },
+      });
+
+      ScrollTrigger.create({
+        trigger: programSectionRef.current,
         start: "top 0px",
         end: "bottom -50%",
         scrub: true,
         pin: true,
-        // markers: { startColor: "salmon", endColor: "salmon" },
       });
 
-      // Image Animation
+      // Image Animation Timeline
       const projectTimeline = gsap.timeline({
         scrollTrigger: {
           trigger: programSectionRef.current,
-          scroller: scrollContainerRef.current,
           start: "top 0px",
           end: "bottom -50%",
           scrub: 2,
         },
       });
 
-      gsap.set(programRefs.current[0], {
-        clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-      });
+      if (programRefs.current[0]) {
+        gsap.set(programRefs.current[0], {
+          clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+        });
+      }
 
       programRefs.current.forEach((project, index) => {
         if (index !== 0) {
@@ -60,13 +86,29 @@ const Programs = () => {
         }
       });
 
-      // Refresh ScrollTrigger
-      ScrollTrigger.refresh();
-    }, programSectionRef);
-
-    // Cleanup on unmount
-    return () => ctx.revert();
-  }, []);
+      gsap.fromTo(
+        programRefs.current,
+        {
+          scale: 0.8,
+          opacity: 0,
+        },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: programSectionRef.current,
+            start: "top 80%",
+            end: "top 20%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    },
+    { scope: programSectionRef }
+  );
 
   return (
     <div className={styles.sectionWrapper} ref={programSectionRef}>
@@ -95,9 +137,19 @@ const Programs = () => {
                 }}
               />
               <div className={styles.contentWrapper}>
+                <div className={styles.sectionHeaderWrapper}>
+                  <div className={styles.sparkleDiv}>
+                    <DoubleSparkle color={"white"} />
+                  </div>
+                  <h1>
+                    What <span>Programs</span>
+                    <br />
+                    We're Offering
+                  </h1>
+                </div>
                 <div className={styles.titleContainer}>
-                  <h1>{program.title}</h1>
-                  <h1>{program.subTitle}</h1>
+                  <h2>{program.title}</h2>
+                  <h2>{program.subTitle}</h2>
                 </div>
                 <p>{program.description}</p>
 

@@ -22,15 +22,14 @@ const Footer = () => {
 
   const { heading, subheading, email, address, socialLinks, footerLinks } =
     landingPageData.footerSection;
-  const { scrollContainerRef } = useScroll();
 
   useGSAP(
     () => {
       ScrollTrigger.create({
         trigger: footerRef.current,
-        start: "top center",
-        end: "bottom center",
-        scroller: scrollContainerRef?.current,
+        start: "top 60px",
+        end: "bottom bottom",
+        // markers: true,
         onEnter: () => {
           console.log("entered");
           updateNavColor("white");
