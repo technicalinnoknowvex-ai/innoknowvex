@@ -75,6 +75,10 @@ $desktop: 1440px;
     padding: 60px 0;
     margin-top: -250px;
   }
+
+  @include laptop{
+    margin-top: -100px;
+  }
 }
 
 .section3 {
@@ -93,6 +97,10 @@ $desktop: 1440px;
   @include tablet {
     padding: 60px 0;
     margin-top: -250px;
+  }
+
+  @include laptop{
+    margin-top: -100px;
   }
 }
 
@@ -454,7 +462,7 @@ $desktop: 1440px;
 
   @include laptop {
     scale: 0.75;
-    margin: -50px 100px;
+    margin: -50px -30px;
   }
 }
 
@@ -666,7 +674,7 @@ $desktop: 1440px;
   @include laptop {
     width: 280px;
     height: 280px;
-    margin: 200px -50px;
+    top: -10%;
   }
 }
 
