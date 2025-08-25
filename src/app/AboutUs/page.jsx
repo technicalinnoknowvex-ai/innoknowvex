@@ -181,7 +181,7 @@ const AboutUs = () => {
         </div>
       </div>
 
-      <div className={style.section}>
+      <div className={style.section3}>
         <div className={style.first}>
 
           <Image className={style.ellipse1}
@@ -192,7 +192,7 @@ const AboutUs = () => {
           />
 
           <div className={style.content1}>
-            <Image className={style.star1} ref={starRef2} width={50} height={50} src="/images/SoftStar.svg" alt='start-image' />
+            <Image className={style.star3} ref={starRef2} width={50} height={50} src="/images/SoftStar.svg" alt='start-image' />
 
             <h1 ref={headRef1}>Meet The</h1>
             <h4 ref={headSmallRef1}>TEAM.</h4>

@@ -1,6 +1,4 @@
-// aboutus.module.scss
 
-// Font faces
 @font-face {
   font-family: sharp-grotesk;
   src: url('/fonts/sharpGrotesk/SharpGrotesk-Medium25.otf');
@@ -11,36 +9,36 @@
   src: url('/fonts/oldSchoolGrotesk/OldschoolGroteskVar.ttf');
 }
 
-// Define breakpoints
-$mobile: 480px;
-$tablet: 768px;
-$laptop: 1024px;
-$desktop: 1200px;
+// Breakpoints
+$mobile: 393px;
+$tablet: 830px;
+$desktop: 1440px;
 
-// Mixins for media queries
+// Mixins
 @mixin mobile {
-  @media (max-width: #{$mobile - 1px}) {
+  @media (max-width: #{$mobile}) {
     @content;
   }
 }
 
 @mixin tablet {
-  @media (min-width: #{$mobile}) and (max-width: #{$tablet - 1px}) {
+  @media (min-width: #{$mobile + 1}) and (max-width: #{$tablet}) {
     @content;
   }
 }
 
 @mixin laptop {
-  @media (min-width: #{$tablet}) and (max-width: #{$laptop - 1px}) {
+  @media (min-width: #{$tablet + 1}) and (max-width: #{$desktop - 1}) {
     @content;
   }
 }
 
 @mixin desktop {
-  @media (min-width: #{$laptop}) {
+  @media (min-width: #{$desktop}) {
     @content;
   }
 }
+
 
 // Main styles
 .section {
@@ -53,6 +51,7 @@ $desktop: 1200px;
   @include mobile {
     padding: 40px 0;
     min-height: 250px;
+    margin-top: 40px;
   }
 
   @include tablet {
@@ -69,10 +68,31 @@ $desktop: 1200px;
   @include mobile {
     padding: 40px 0;
     min-height: 250px;
+    margin-top: -10px;
   }
 
   @include tablet {
     padding: 60px 0;
+    margin-top: -250px;
+  }
+}
+
+.section3 {
+  position: relative;
+  width: 100%;
+  background: transparent;
+  overflow: hidden;
+  min-height: 60vh;
+
+  @include mobile {
+    padding: 40px 0;
+    min-height: 250px;
+    margin-top: -10px;
+  }
+
+  @include tablet {
+    padding: 60px 0;
+    margin-top: -250px;
   }
 }
 
@@ -192,11 +212,10 @@ $desktop: 1200px;
   @include mobile {
     width: 250px;
     height: 250px;
-    top: 20%;
-    left: 50%;
+    top: 40%;
+    left: 10%;
     transform: translate(-50%, -50%);
     margin: 0;
-    opacity: 0.1;
   }
 
   @include tablet {
@@ -217,17 +236,56 @@ $desktop: 1200px;
   }
 }
 
+
+
 .star1 {
   scale: 0.8;
   margin: 2px -28px;
   z-index: 15;
   position: relative;
 
+  @media screen and (max-width:390px) {
+    & {
+      position: absolute;
+      top: 5px;
+    }
+  }
+
   @include mobile {
-    scale: 0.6;
+    scale: 0.5;
     position: absolute;
-    top: -20px;
-    left: -15px;
+    top: -25px;
+    left: 40px;
+    margin: 0;
+  }
+
+  @include tablet {
+    scale: 0.7;
+    position: absolute;
+    top: -29px;
+    left: 130px;
+    margin: 0;
+  }
+
+  @include laptop {
+    scale: 0.75;
+    margin: 2px -25px;
+  }
+}
+
+.star3 {
+  scale: 0.8;
+  margin: 2px -28px;
+  z-index: 15;
+  position: relative;
+
+  
+
+  @include mobile {
+    scale: 0.5;
+    position: absolute;
+    top: -29px;
+    left: 50px;
     margin: 0;
   }
 
@@ -235,7 +293,7 @@ $desktop: 1200px;
     scale: 0.7;
     position: absolute;
     top: -25px;
-    left: -20px;
+    left: 130px;
     margin: 0;
   }
 
@@ -349,11 +407,10 @@ $desktop: 1200px;
   @include mobile {
     width: 250px;
     height: 250px;
-    top: 20%;
-    left: 50%;
+    top: 50%;
+    right: -45%;
     transform: translate(-50%, -50%);
     margin: 0;
-    opacity: 0.1;
   }
 
   @include tablet {
@@ -383,15 +440,15 @@ $desktop: 1200px;
 
   @include mobile {
     scale: 0.6;
-    top: -20px;
-    right: -15px;
+    top: -32px;
+    right: 42px;
     margin: 0;
   }
 
   @include tablet {
     scale: 0.7;
     top: -25px;
-    right: -20px;
+    right: 150px;
     margin: 0;
   }
 
@@ -419,6 +476,7 @@ $desktop: 1200px;
     align-items: center;
     gap: 60px;
     padding: 40px;
+    margin-top: -180px;
   }
 
   @include laptop {
@@ -586,26 +644,23 @@ $desktop: 1200px;
 .bg {
   position: absolute;
   margin: 380px -90px;
-  z-index: -1;
 
   @include mobile {
     width: 200px;
     height: 200px;
-    top: 50%;
-    left: 50%;
+    top: 75%;
+    left: 15%;
     transform: translate(-50%, -50%);
     margin: 0;
-    opacity: 0.1;
   }
 
   @include tablet {
     width: 250px;
     height: 250px;
-    top: 50%;
-    left: 50%;
+    top: 70%;
+    left: 12%;
     transform: translate(-50%, -50%);
     margin: 0;
-    opacity: 0.1;
   }
 
   @include laptop {
@@ -622,16 +677,16 @@ $desktop: 1200px;
   @include mobile {
     scale: 0.4;
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 330px;
+    left: -25px;
     margin: 0;
   }
 
   @include tablet {
     scale: 0.5;
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 68%;
+    left: 10px;
     margin: 0;
   }
 
