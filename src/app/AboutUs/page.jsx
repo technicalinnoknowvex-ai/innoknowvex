@@ -1,6 +1,5 @@
 "use client"
 
-import Navbar from '@/components/Pages/Navbar/Navbar'
 import React, { useEffect, useRef } from 'react'
 import style from "./aboutus.module.scss"
 import Image from "next/image";
@@ -140,7 +139,6 @@ const AboutUs = () => {
 
   return (
     <>
-      <Navbar />
       <div className={style.section}>
         <div className={style.first}>
 
