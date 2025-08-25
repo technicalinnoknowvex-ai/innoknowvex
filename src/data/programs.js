@@ -23,7 +23,22 @@ export const courses = {
         'Data Modeling',
         'Database Management',
         'MongoDB',
-    ]
+    ],
+     curriculum: [
+    {
+      question: "What will I learn in the fundamentals module?",
+      answer: "You'll learn basic web concepts, how the internet works, and get introduced to HTML, CSS, and JavaScript fundamentals."
+    },
+    {
+      question: "How deep do we go into JavaScript?",
+      answer: "We cover JavaScript from basics to advanced concepts including ES6+ features, async programming, and modern frameworks."
+    },
+    {
+      question: "Do we work on real projects?",
+      answer: "Yes, you'll build multiple projects including a portfolio website, e-commerce site, and a full-stack application."
+    }
+    // Add more Q&A items as needed
+  ]
   },
   'python-programming': {
     id: 'python-programming',
