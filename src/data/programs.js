@@ -8,7 +8,22 @@ export const courses = {
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: '/brochures/web-development.jpg',
-    overview: 'Comprehensive training in front-end and back-end web technologies including HTML, CSS, JavaScript, and popular frameworks.'
+    overview: 'Comprehensive training in front-end and back-end web technologies including HTML, CSS, JavaScript, and popular frameworks.',
+   skills: [
+        'Web Fundamentals', 
+        'HTML & HTML5', 
+        'Web Design Basics', 
+        'CSS', 
+        'Javascript', 
+        'Node.js', 
+        'jQuery',
+        'Object-Oriented Programming',
+        'Error Handling',
+        'SQL',
+        'Data Modeling',
+        'Database Management',
+        'MongoDB',
+    ]
   },
   'python-programming': {
     id: 'python-programming',
