@@ -11,12 +11,13 @@ import KeyHighlights from './KeyHighlights'
 export default function CourseLayout({ course }) {
   return (
     <div className={styles.courseContainer}>
-      {/* <DescriptionSection course={course} />
-      <WhyLearnSection /> */}
+      <DescriptionSection course={course} />
       <KeyHighlights  course={course}/>
-      {/* <CardsSection /> */}
-      {/* <Certification  course={course} /> */}
-      {/* <PlansSection /> */}
+      <WhyLearnSection />
+      
+      <CardsSection /> 
+      <Certification  course={course} />
+       <PlansSection />
     </div>
   )
 }
