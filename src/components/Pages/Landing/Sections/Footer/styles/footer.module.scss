@@ -1,0 +1,317 @@
+@use "../../../../../../styles/index" as *;
+
+.sectionWrapper {
+  width: 100%;
+  height: 100vh;
+  background-color: $brand-primary;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 100px;
+
+  @include tablet-down {
+    height: auto;
+  }
+}
+
+.sectionInnerWrapper {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr) auto;
+  grid-template-areas:
+    "contactUsCell linksCell"
+    "addressSocialCell linksCell"
+    "legalCell legalCell";
+
+  @include tablet-down {
+    grid-template-columns: 50% 50%;
+    grid-template-rows: repeat(3, auto);
+    grid-template-areas:
+      "contactUsCell addressSocialCell"
+      "linksCell linksCell"
+      "legalCell legalCell";
+  }
+
+  @include mobile-down {
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(4, auto);
+    grid-template-areas:
+      "contactUsCell"
+      "addressSocialCell"
+      "linksCell"
+      "legalCell";
+  }
+
+  &__contactUsCell {
+    width: 100%;
+    height: 100%;
+    grid-area: contactUsCell;
+    display: flex;
+    flex-direction: column;
+    padding-left: 70px;
+
+    @include tablet-down {
+      height: fit-content;
+      padding-left: 8%;
+    }
+
+    @include mobile-down {
+      height: fit-content;
+      align-items: center;
+    }
+
+    .headingContainer {
+      position: relative;
+      width: 100%;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+
+      .sparkleDiv {
+        top: 0px;
+        left: 0px;
+        transform: translate(-80%, -80%);
+        position: absolute;
+        width: 40px;
+        aspect-ratio: 1/1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+
+        @include tablet-down {
+          transform: translate(-50%, -90%);
+        }
+      }
+
+      &__primaryHeading {
+        // border: 1px solid red;
+        @include font($font-sharp-25, $medium, white);
+        font-size: 2.2rem;
+        z-index: 2;
+        margin-bottom: 5px;
+      }
+      &__secondaryHeading {
+        @include font($font-sharp-25, $medium, #fff6c3);
+        font-size: 1rem;
+        text-transform: uppercase;
+        z-index: 2;
+      }
+    }
+    .emailContainer {
+      width: 100%;
+      height: auto;
+      // border: 1px solid red;
+      display: flex;
+      flex-direction: column;
+
+      .emailRow {
+        width: 100%;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+        p {
+          margin-top: 5px;
+          margin-left: 10px;
+          font-size: 1rem;
+          @include font($font-oldschool, $book, #fff6c3);
+        }
+      }
+      .sendMsgButton {
+        height: fit-content;
+        width: fit-content;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        background-color: #fff6c3;
+        border-radius: 15px 5px 15px 5px;
+        padding: 10px 15px;
+        margin-top: 10px;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        p {
+          margin-top: 2px;
+          @include font($font-oldschool, $medium, $text-brand);
+        }
+      }
+    }
+  }
+
+  &__addressSocialCell {
+    width: 100%;
+    height: 100%;
+    grid-area: addressSocialCell;
+    // border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    padding-left: 70px;
+
+    @include tablet-down {
+      height: fit-content;
+      padding-left: 0px;
+      padding-right: 8%;
+      align-items: flex-end;
+    }
+    @include mobile-down {
+      height: fit-content;
+      padding: 50px 0px;
+      align-items: center;
+    }
+
+    .addressLabel {
+      width: auto;
+      height: auto;
+      text-transform: uppercase;
+      @include font($font-sharp-25, $book, #fff6c3);
+      margin-bottom: 10px;
+    }
+    .address {
+      width: 70%;
+      // border: 1px solid red;
+      font-size: 0.9rem;
+      @include font($font-oldschool, $book, white);
+      line-height: 1.5;
+
+      @include tablet-down {
+        text-align: end;
+      }
+
+      @include mobile-down {
+        width: 90%;
+        text-align: center;
+      }
+    }
+    .socialLinksContainer {
+      display: flex;
+      align-items: center;
+      width: fit-content;
+      height: 40px;
+      margin-top: 20px;
+
+      .socialLinks {
+        height: 100%;
+        aspect-ratio: 1/1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 5px;
+        .socialIcons {
+          height: 30px;
+          width: 30px;
+          color: #fff6c3;
+        }
+      }
+    }
+  }
+
+  &__linksCell {
+    width: 100%;
+    height: 100%;
+    grid-area: linksCell;
+    padding: 0px 70px;
+    overflow: hidden;
+
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(13, auto);
+    padding-bottom: 40px;
+    column-gap: 20px;
+
+    @include tablet-down {
+      height: 50vh;
+      padding: 50px 5%;
+    }
+
+    @include mobile-down {
+      height: fit-content;
+      grid-template-rows: repeat(38, 35px);
+      grid-template-columns: 100%;
+      place-items: center;
+      padding: 0px 5%;
+    }
+
+    .itemContainer {
+      height: 100%;
+      width: fit-content;
+      display: flex;
+      align-items: center;
+      // border: 1px solid red;
+
+      &--label {
+        width: max-content;
+        @include font($font-sharp-25, $book, #fff6c3);
+        font-size: 0.8rem;
+        border-bottom: 1px solid #fff6c3;
+      }
+
+      &--link {
+        position: relative;
+        @include font($font-oldschool, $book, white);
+        font-size: 0.8rem;
+        // white-space: nowrap;
+
+        .animatedUnderline {
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 0%;
+          height: min-content;
+          border-bottom: 1px solid white;
+          transition: width 0.3s ease;
+
+          &--active {
+            width: 100%;
+          }
+        }
+        &:hover .animatedUnderline {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  &__legalCell {
+    width: 100%;
+    height: fit-content;
+    grid-area: legalCell;
+    // border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px 30px;
+
+    @include tablet-down {
+      padding: 0px 2%;
+      margin-top: 30px;
+    }
+
+    .companyEmblem {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .copywrite {
+      width: 100%;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      @include mobile-down {
+        justify-content: center;
+      }
+      p {
+        font-size: 0.9rem;
+        @include font($font-oldschool, $book, white);
+
+        @include mobile-down {
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
+}

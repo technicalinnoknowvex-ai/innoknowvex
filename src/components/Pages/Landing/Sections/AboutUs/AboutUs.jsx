@@ -1,49 +1,177 @@
-import React from "react";
+import React, { useRef } from "react";
 import aboutUsStyles from "./styles/aboutUs.module.scss";
 import { Textfit } from "react-textfit";
 import { landingPageData } from "@/data/landing";
 import Image from "next/image";
 import Sparkle from "@/components/Common/Icons/Sparkle";
+import Link from "next/link";
+import { useCursor } from "@/hooks/useCursor";
+import { useSectionObserver } from "@/hooks/useSectionObserver";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
+
 const AboutUs = ({ scrollContainerRef }) => {
   const { heading, subheading, para, images } = landingPageData.aboutSection;
+  const { resetCursor, transformCursor } = useCursor();
+  const sectionRef = useRef(null);
+  const sparkleRef = useRef(null);
+  const headingRef = useRef(null);
+  const paraRef = useRef(null);
+  const buttonRef = useRef(null);
+
+  useGSAP(
+    () => {
+      // Animate sparkle when section comes into view
+      const sparkleTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 60%",
+          end: "bottom 40%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      sparkleTl
+        .fromTo(
+          sparkleRef.current,
+          {
+            scale: 0,
+            opacity: 0,
+            rotation: -360,
+          },
+          {
+            scale: 1.2,
+            opacity: 1,
+            rotation: 0,
+            duration: 0.5,
+            ease: "power2.out",
+          }
+        )
+        .to(sparkleRef.current, {
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.out",
+        })
+        .to(sparkleRef.current, {
+          rotation: 360,
+          duration: 0.8,
+          ease: "power1.inOut",
+        });
+
+      // Sequential animations triggered by heading when section is 50% in view
+      const contentTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 50%",
+          end: "bottom 20%", // Added end point for better reverse control
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      // Set initial states
+      gsap.set([headingRef.current, paraRef.current, buttonRef.current], {
+        y: 50,
+        opacity: 0,
+      });
+
+      // Sequential animations - all elements animate together for better reverse
+      contentTl
+        .to(headingRef.current, {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power2.out",
+        })
+        .to(
+          paraRef.current,
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power2.out",
+          },
+          "-=0.5" // Overlap more with heading for better reverse
+        )
+        .to(
+          buttonRef.current,
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power2.out",
+          },
+          "-=0.5" // Overlap more with paragraph for better reverse
+        );
+    },
+    { scope: sectionRef }
+  );
 
   return (
-    <section className={aboutUsStyles.sectionWrapper}>
+    <section
+      className={aboutUsStyles.sectionWrapper}
+      ref={sectionRef}
+      id="about-us"
+    >
       <div className={aboutUsStyles.sectionWrapper__innerContainer}>
         <section className={aboutUsStyles.leftSection}>
-          <div className={aboutUsStyles.headingContainer}>
+          <div
+            className={aboutUsStyles.sectionHeadingContainer}
+            ref={headingRef}
+          >
             <div
               className={`${aboutUsStyles.gradientSpot} ${aboutUsStyles["gradientSpot--1"]}`}
             />
             <div className={aboutUsStyles.sparkleDiv}>
-              <Sparkle />
+              <div ref={sparkleRef}>
+                <Sparkle />
+              </div>
             </div>
 
-            <h2 className={aboutUsStyles.headingContainer__primaryHeading}>
+            <h2
+              className={aboutUsStyles.sectionHeadingContainer__primaryHeading}
+            >
               {heading}
             </h2>
-            <h3 className={aboutUsStyles.headingContainer__secondaryHeading}>
+            <h3
+              className={
+                aboutUsStyles.sectionHeadingContainer__secondaryHeading
+              }
+            >
               {subheading}
             </h3>
           </div>
-          <div className={aboutUsStyles.paraContainer}>
-            <Textfit
-              className={aboutUsStyles.paraContainer__paraTextFit}
-              mode="multi"
-              forceSingleModeWidth={false}
-            >
-              {para}
-            </Textfit>
+          <div className={aboutUsStyles.paraContainer} ref={paraRef}>
+            <p className={aboutUsStyles.paraContainer__paraText}>{para}</p>
           </div>
-          <div className={aboutUsStyles.actionBtnContainer}>
-            <button className={aboutUsStyles.callToActionBtn}>
+          <div className={aboutUsStyles.linkContainer} ref={buttonRef}>
+            <Link
+              href="#"
+              className={aboutUsStyles.linkContainer__link}
+              onMouseEnter={() =>
+                transformCursor({
+                  dot: {
+                    backgroundColor: "#ff6432",
+                    scale: 10,
+                    opacity: 0.5,
+                  },
+                  ring: {
+                    opacity: 0,
+                    scale: 0.5,
+                  },
+                })
+              }
+              onMouseLeave={() => resetCursor()}
+            >
               <Textfit
                 mode="single"
                 className={aboutUsStyles.buttonTextFitContainer}
               >
                 Know More
               </Textfit>
-            </button>
+            </Link>
           </div>
         </section>
         <section className={aboutUsStyles.rightSection}>
