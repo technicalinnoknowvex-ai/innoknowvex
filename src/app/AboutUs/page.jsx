@@ -29,113 +29,87 @@ const AboutUs = () => {
   const headSmallRef2 = useRef()
   const pRef2 = useRef()
 
-  const first=()=>{
-      const tl = gsap.timeline()
-      
-      tl.from(headRef.current,{
-        x:-600,
-        duration:1.5,
-        delay:0.6,
-        opacity:0,
-        ease:"bounce"
-      })
+  const animateContent1 = () => {
+    const tlStars = gsap.timeline()
+    tlStars.from([starRef.current, starRef1.current], {
+      opacity: 0,       // fade in
+      scale: 0,         // grow from 0
+      rotate: -720,      // start rotated
+      duration: 1,      // control overall timing
+      ease: "power2.out",
+    })
 
-      tl.from(headSmallRef.current,{
-        x:-600,
-        duration:1.5,
-        opacity:0,
-        ease:"bounce"
-      })
-
-      tl.from(pRef.current,{
-        x:-600,
-        duration:1.5,
-        opacity:0,
-        ease: "elastic.out(1,0.3)",
-      })
+    const tlText = gsap.timeline()
+    tlText.from([
+      headRef.current, headSmallRef.current, pRef.current,
+      headRef2.current, headSmallRef2.current, pRef2.current
+    ], {
+      y: 30,
+      opacity: 0,
+      duration: 0.6,
+      ease: "linear",
+      stagger: 0.2
+    })
   }
 
-  const second = () => {
+  const animateContent2 = () => {
+
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: headRef1.current, 
-        start: "top 80%",           
-        end: "bottom 20%",
-        toggleActions: "play none none",
-      }
-    })
-    
-    tl.from(headRef1.current,{
-      x:-600,
-      duration:1.5,
-      delay:0.3,
-      opacity:0,
-      ease:"bounce"
-    })
-
-    tl.from(headSmallRef1.current,{
-      x:-600,
-      duration:1.5,
-      opacity:0,
-      ease:"bounce"
-    })
-
-    tl.from(pRef1.current,{
-      x:-600,
-      duration:1.5,
-      opacity:0,
-      ease: "elastic.out(1,0.3)",
-    })
-  }
-
-  const third=()=>{
-      const tl = gsap.timeline()
-      
-      tl.from(headRef2.current,{
-        x:600,
-        duration:1.5,
-        delay:0.6,
-        opacity:0,
-        ease:"bounce"
-      })
-
-      tl.from(headSmallRef2.current,{
-        x:600,
-        duration:1.5,
-        opacity:0,
-        ease:"bounce"
-      })
-
-      tl.from(pRef2.current,{
-        x:600,
-        duration:1.5,
-        opacity:0,
-        ease: "elastic.out(1,0.3)",
-      })
-  }
-
-   useEffect(()=>{
-    // Star animations
-    [starRef, starRef1, starRef2, starRef3, starRef4, starRef5].forEach(ref => {
-      if (ref.current) {
-        gsap.to(ref.current,{
-          rotate:360,
-          duration:4,
-          repeat:-1,
-          ease:"linear"
-        })
+        trigger: headRef1.current,
+        start: "top 70%",
+        end: "top 40%",
+        toggleActions: "play none none reverse"
       }
     })
 
-    
-    first()
-    second()
-    third()
+    tl.from(starRef2.current, {
+      opacity: 0,       // fade in
+      scale: 0,         // grow from 0
+      rotate: -720,      // start rotated
+      duration: 1,      // control overall timing
+      ease: "power2.out",
+    })
 
-    // return () => {
-    //   ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    // }
-  },[])
+
+    gsap.from([headRef1.current, headSmallRef1.current, pRef1.current], {
+      y: 30,
+      opacity: 0,
+      duration: 0.6,
+      ease: "linear",
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: headRef1.current, // 👈 what element triggers the animation
+        start: "top 60%",          // when top of trigger hits 60% of viewport
+        end: "top 40%",            // when top of trigger hits 40% of viewport
+        toggleActions: "play none none reverse" // play on enter, reverse on leave
+      }
+    })
+  }
+
+  useEffect(() => {
+    animateContent1()
+    animateContent2()
+
+    gsap.from(
+      [starRef3.current, starRef4.current, starRef5.current],
+      {
+        opacity: 0,
+        scale: 0,   
+        rotate: -720,   
+        duration: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: starRef3.current,
+          start: "top 70%", 
+          end: "bottom 60%",
+          toggleActions: "play none none reverse",
+        }
+      }
+    )
+
+  }, [])
+
 
   return (
     <>
@@ -203,7 +177,7 @@ const AboutUs = () => {
         <div className={style.pic1}>
           <Image className={style.ceo} src="/images/aboutUsPage/CEO.jpeg" height={535} width={400} alt='CEO image' />
           <Image className={style.star} src="/images/SoftStar.svg" height={50} width={50} alt='star' ref={starRef3} />
-          <Image className={style.bg} src="/images/Ellipse4.svg" height={300} width={300} alt='bg'/>
+          <Image className={style.bg} src="/images/Ellipse4.svg" height={300} width={300} alt='bg' />
           <h1>FARUK</h1>
           <div></div>
           <h4>Founder and CEO</h4>
@@ -212,8 +186,8 @@ const AboutUs = () => {
 
         <div className={style.pic2}>
           <Image className={style.ceo} src="/images/aboutUsPage/CGO.jpeg" height={535} width={400} alt='CEO image' />
-          <Image className={style.star} src="/images/SoftStar.svg" height={50} width={50} alt='star' ref={starRef4}/>
-          <Image className={style.bg} src="/images/Ellipse4.svg" height={300} width={300} alt='bg'/>
+          <Image className={style.star} src="/images/SoftStar.svg" height={50} width={50} alt='star' ref={starRef4} />
+          <Image className={style.bg} src="/images/Ellipse4.svg" height={300} width={300} alt='bg' />
           <h1>DURGESH C.</h1>
           <div></div>
           <h4>CGO</h4>
@@ -222,8 +196,8 @@ const AboutUs = () => {
 
         <div className={style.pic3}>
           <Image className={style.ceo} src="/images/aboutUsPage/COO.jpeg" height={535} width={400} alt='CEO image' />
-          <Image className={style.star} src="/images/SoftStar.svg" height={50} width={50} alt='star' ref={starRef5}/>
-          <Image className={style.bg} src="/images/Ellipse4.svg" height={300} width={300} alt='bg'/>
+          <Image className={style.star} src="/images/SoftStar.svg" height={50} width={50} alt='star' ref={starRef5} />
+          <Image className={style.bg} src="/images/Ellipse4.svg" height={300} width={300} alt='bg' />
           <h1>Vamsi Krishna</h1>
           <div></div>
           <h4>COO</h4>

@@ -47,6 +47,7 @@ $desktop: 1440px;
   background: transparent;
   overflow: hidden;
   min-height: 60vh;
+  margin-top: 5%;
 
   @include mobile {
     padding: 40px 0;
@@ -64,6 +65,7 @@ $desktop: 1440px;
   position: relative;
   overflow: hidden;
   min-height: 60vh;
+  margin-top: -90px;
 
   @include mobile {
     padding: 40px 0;
@@ -73,13 +75,13 @@ $desktop: 1440px;
 
   @include tablet {
     padding: 60px 0;
-    margin-top: -190px;
+    margin-top: -270px;
     margin-bottom:0px;
     min-height: 650px;
   }
 
   @include laptop{
-    margin-top: -390px;
+    margin-top: -190px;
   }
 }
 
@@ -89,6 +91,7 @@ $desktop: 1440px;
   background: transparent;
   overflow: hidden;
   min-height: 60vh;
+  margin-top: -280px;
 
   @include mobile {
     padding: 40px 0;
@@ -98,11 +101,11 @@ $desktop: 1440px;
 
   @include tablet {
     padding: 60px 0;
-    margin-top: -180px;
+    margin-top: -280px;
   }
 
   @include laptop{
-    margin-top: -300px;
+    margin-top: -250px;
   }
 }
 
@@ -218,6 +221,7 @@ $desktop: 1440px;
   margin: -20px -150px;
   z-index: 1;
   pointer-events: none;
+  margin-top: 10%;
 
   @include mobile {
     width: 250px;
@@ -231,8 +235,8 @@ $desktop: 1440px;
   @include tablet {
     width: 350px;
     height: 350px;
-    top: 30%;
-    left: 10%;
+    top: 50%;
+    left: 30%;
     transform: translate(-50%, -50%);
     margin: 0;
     scale: 0.6;
@@ -242,6 +246,7 @@ $desktop: 1440px;
     width: 450px;
     height: 450px;
     margin: -50px -100px;
+    margin-top: 10%;
   }
 }
 
@@ -271,7 +276,7 @@ $desktop: 1440px;
     scale: 0.7;
     position: absolute;
     top: -29px;
-    left: 10px;
+    left: 20%;
     margin: 0;
   }
 
@@ -298,7 +303,7 @@ $desktop: 1440px;
   @include tablet {
     scale: 0.7;
     top: -30px;
-    // right: 5px;
+    right: 20%;
     margin: 0;
   }
 
@@ -314,8 +319,6 @@ $desktop: 1440px;
   z-index: 15;
   position: relative;
 
-  
-
   @include mobile {
     scale: 0.5;
     position: absolute;
@@ -328,7 +331,7 @@ $desktop: 1440px;
     scale: 0.7;
     position: absolute;
     top: -25px;
-    left: 10px;
+    left: 20%;
     margin: 0;
   }
 
@@ -465,8 +468,6 @@ $desktop: 1440px;
   }
 }
 
-
-
 // Team section
 .team {
   display: flex;
@@ -485,7 +486,7 @@ $desktop: 1440px;
     align-items: center;
     gap: 60px;
     padding: 40px;
-    margin-top: -180px;
+    margin-top: -250px;
   }
 
   @include laptop {
@@ -493,7 +494,7 @@ $desktop: 1440px;
     justify-content: space-around;
     align-items: flex-start;
     padding: 80px 50px;
-    margin-top: -400px;
+    margin-top: -200px;
   }
 }
 
@@ -524,6 +525,7 @@ $desktop: 1440px;
     max-width: 300px;
     align-items: flex-start;
     text-align: left;
+    scale: 0.9;
   }
 
   .ceo {
@@ -551,7 +553,7 @@ $desktop: 1440px;
   h1 {
     font-family: sharp-grotesk;
     font-weight: 100;
-    font-size: x-large;
+    font-size: 2rem;
 
     @include mobile {
       font-size: large;
@@ -569,6 +571,8 @@ $desktop: 1440px;
     height: 0.05rem;
     width: 25rem;
     opacity: 0.2;
+    margin-top: 1.5rem;
+    margin-bottom: 1.2rem;
 
     @include mobile {
       width: 15rem;
@@ -588,7 +592,7 @@ $desktop: 1440px;
   h4 {
     font-family: sharp-grotesk;
     font-weight: 100;
-    font-size: smaller;
+    font-size: 1.2rem;
     margin-top: 10px;
     opacity: 0.8;
 
@@ -598,15 +602,16 @@ $desktop: 1440px;
     }
 
     @include tablet {
-      font-size: smaller;
+      font-size: 1.5rem;
     }
   }
 
   p {
     margin-top: 20px;
     width: 350px;
-    font-size: smaller;
+    font-size:1.1rem;
     font-family: old-school-grotesk;
+    line-height: 1.5rem;
 
     @include mobile {
       width: 100%;
@@ -619,7 +624,7 @@ $desktop: 1440px;
     @include tablet {
       width: 100%;
       max-width: 300px;
-      font-size: smaller;
+      font-size: 1.2rem;
       line-height: 1.5;
     }
 
@@ -637,17 +642,22 @@ $desktop: 1440px;
   }
 
   @include laptop {
-    margin-top: 150px;
+    // margin-top: 150px;
   }
 }
 
 .pic3 {
+
+  @include tablet{
+    margin-bottom: 50px;
+  }
+
   @include desktop {
     margin-top: -150px;
   }
 
   @include laptop {
-    margin-top: 50px;
+    margin-top: -80px;
   }
 }
 
@@ -667,7 +677,7 @@ $desktop: 1440px;
   @include tablet {
     width: 250px;
     height: 250px;
-    top: 70%;
+    top: 65%;
     left: 12%;
     transform: translate(-50%, -50%);
     margin: 0;
@@ -695,8 +705,8 @@ $desktop: 1440px;
   @include tablet {
     scale: 0.5;
     position: absolute;
-    top: 68%;
-    left: 10px;
+    top: 61%;
+    left: 2px;
     margin: 0;
   }
 
