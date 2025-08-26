@@ -32,10 +32,10 @@ const AboutUs = () => {
   const animateContent1 = () => {
     const tlStars = gsap.timeline()
     tlStars.from([starRef.current, starRef1.current], {
-      opacity: 0,       // fade in
-      scale: 0,         // grow from 0
-      rotate: -720,      // start rotated
-      duration: 1,      // control overall timing
+      opacity: 0,       
+      scale: 0,         
+      rotate: -720,      
+      duration: 1,     
       ease: "power2.out",
     })
 
@@ -46,8 +46,8 @@ const AboutUs = () => {
     ], {
       y: 30,
       opacity: 0,
-      duration: 0.6,
-      ease: "linear",
+      duration: 0.5,
+      ease: "power2.out",
       stagger: 0.2
     })
   }
@@ -64,10 +64,11 @@ const AboutUs = () => {
     })
 
     tl.from(starRef2.current, {
-      opacity: 0,       // fade in
-      scale: 0,         // grow from 0
-      rotate: -720,      // start rotated
-      duration: 1,      // control overall timing
+      opacity: 0,   
+      scale: 0,       
+      rotate: -720,     
+      duration: 1,      
+      delay:0.2,
       ease: "power2.out",
     })
 

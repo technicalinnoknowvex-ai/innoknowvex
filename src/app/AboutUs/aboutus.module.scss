@@ -47,7 +47,7 @@ $desktop: 1440px;
   background: transparent;
   overflow: hidden;
   min-height: 60vh;
-  margin-top: 5%;
+  margin-top: 3%;
 
   @include mobile {
     padding: 40px 0;
@@ -196,8 +196,9 @@ $desktop: 1440px;
   p {
     font-family: old-school-grotesk;
     font-weight: 400;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     margin-top: 20px;
+    line-height: 2rem;
 
     @include mobile {
       font-size: 0.9rem;
@@ -408,10 +409,11 @@ $desktop: 1440px;
   p {
     font-family: old-school-grotesk;
     font-weight: 400;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     margin-top: 20px;
     text-align: right;
     padding: 0 0 0 550px;
+    line-height: 2rem;
 
     @include mobile {
       font-size: 0.9rem;
