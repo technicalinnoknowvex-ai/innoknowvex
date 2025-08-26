@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef } from "react";
 import Link from "next/link";
-import { useCursor } from "@/context/useCursor";
+import { useCursor } from "@/hooks/useCursor";
 
 const MagneticLink = ({ children, href, className }) => {
   const linkRef = useRef(null);

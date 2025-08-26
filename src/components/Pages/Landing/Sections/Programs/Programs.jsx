@@ -1,20 +1,20 @@
-import React, { useEffect, useRef } from "react";
-import programStyles from "./styles/program.module.scss";
-import Sparkle from "@/components/Common/Icons/Sparkle";
+"use client";
+import React, { useRef } from "react";
+import styles from "./styles/program.module.scss";
 import { landingPageData } from "@/data/landing";
-import { Textfit } from "react-textfit";
-import Link from "next/link";
-import { useCursor } from "@/context/useCursor";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useScroll } from "@/context/ScrollContext";
 import Image from "next/image";
+import Link from "next/link";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import { useNavColor } from "@/context/NavColorContext";
+import DoubleSparkle from "@/components/Common/Icons/DoubleSparkle";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const Programs = () => {
-  const { resetCursor, transformCursor } = useCursor();
-  const { scrollContainerRef } = useScroll();
-
+  const { updateNavColor } = useNavColor();
+  const { programs } = landingPageData.programsSection;
   const programSectionRef = useRef(null);
   const programRefs = useRef([]);
 
@@ -24,122 +24,148 @@ const Programs = () => {
     }
   };
 
-  const { heading, subheading, para, programs } =
-    landingPageData.programsSection;
+  useGSAP(
+    () => {
+      ScrollTrigger.create({
+        trigger: programSectionRef.current,
+        start: "top 100px",
+        end: "bottom -150%",
+        onEnter: () => {
+          // console.log("Programs section entered - navbar should be white");
+          updateNavColor("white");
+        },
+        onEnterBack: () => {
+          // console.log(
+          //   "Programs section entered from below - navbar should be white"
+          // );
+          updateNavColor("white");
+        },
+        onLeave: () => {
+          // console.log(
+          //   "Programs section left downward - navbar back to default"
+          // );
+          updateNavColor("#262c35");
+        },
+        onLeaveBack: () => {
+          // console.log("Programs section left upward - navbar back to default");
+          updateNavColor("#262c35");
+        },
+      });
 
-  const programsList = programs.slice(0, 4);
+      ScrollTrigger.create({
+        trigger: programSectionRef.current,
+        start: "top 0px",
+        end: "bottom -50%",
+        scrub: true,
+        pin: true,
+      });
+
+      // Image Animation Timeline
+      const projectTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: programSectionRef.current,
+          start: "top 0px",
+          end: "bottom -50%",
+          scrub: 2,
+        },
+      });
+
+      if (programRefs.current[0]) {
+        gsap.set(programRefs.current[0], {
+          clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+        });
+      }
+
+      programRefs.current.forEach((project, index) => {
+        if (index !== 0) {
+          projectTimeline.to(project, {
+            clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+            ease: "power2.inOut",
+            duration: 1,
+          });
+        }
+      });
+
+      gsap.fromTo(
+        programRefs.current,
+        {
+          scale: 0.8,
+          opacity: 0,
+        },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: programSectionRef.current,
+            start: "top 80%",
+            end: "top 20%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    },
+    { scope: programSectionRef }
+  );
 
   return (
-    <section className={programStyles.sectionWrapper} ref={programSectionRef}>
-      <div className={programStyles.sectionWrapper__innerContainer}>
-        <section className={programStyles.mainHeaderSection}>
-          <div className={programStyles.sectionHeadingWrapper}>
-            <div
-              className={`${programStyles.gradientSpot} ${programStyles["gradientSpot--1"]}`}
-            />
-            <div className={programStyles.sparkleDiv}>
-              <Sparkle />
-            </div>
-
-            <h2 className={programStyles.sectionHeadingWrapper__primaryHeading}>
-              {heading}
-            </h2>
-            <h3
-              className={programStyles.sectionHeadingWrapper__secondaryHeading}
-            >
-              {subheading}
-            </h3>
-          </div>
-          <div className={programStyles.sectionDescriptionWrapper}>
-            <div className={programStyles.descDiv}>
-              <p>{para}</p>
-            </div>
-          </div>
-        </section>
-
-        <section className={programStyles.subHeaderSection}>
-          <Textfit
-            mode="multi"
-            className={programStyles.subHeaderSection__textFit}
+    <div
+      className={styles.sectionWrapper}
+      ref={programSectionRef}
+      id="programs"
+    >
+      <div className={styles.sectionInnerWrapper}>
+        {programs.map((program, programIndex) => (
+          <div
+            key={program.title}
+            ref={(el) => addToRefs(el, programRefs)}
+            className={styles.clipContentWrapper}
+            style={{
+              clipPath:
+                programIndex === 0
+                  ? "polygon(0 0, 100% 0, 100% 100%, 0 100%)"
+                  : "polygon(0 0, 100% 0, 100% 0, 0 0)",
+            }}
           >
-            <h1>
-              What <span>Programs</span>
-              <br /> We'are Offering
-            </h1>
-          </Textfit>
-        </section>
-        <section className={programStyles.contentSection}>
-          <div className={programStyles.contentSection__left}>
-            {programsList.map((program, programIndex) => (
-              <div
-                key={program.title}
-                className={programStyles.programImageContainer}
-                ref={(el) => addToRefs(el, programRefs)}
+            <div className={styles.container}>
+              <div className={styles.container__overLay}></div>
+              <Image
+                src={program.image}
+                fill
+                alt="program-image"
                 style={{
-                  clipPath:
-                    programIndex === 0
-                      ? "polygon(0 0, 100% 0, 100% 100%, 0 100%)"
-                      : "polygon(0 0, 100% 0, 100% 0, 0 0)",
+                  objectFit: "cover",
+                  objectPosition: "left",
                 }}
-              >
-                <Image src={program.image} fill={true} alt={"program-banner"} />
-              </div>
-            ))}
-          </div>
-          <div className={programStyles.contentSection__right}>
-            <div className={programStyles.programGrid}>
-              <div className={programStyles.titleCell}>
-                <div className={programStyles.sparkleDiv}>
-                  <Sparkle />
+              />
+              <div className={styles.contentWrapper}>
+                <div className={styles.sectionHeaderWrapper}>
+                  <div className={styles.sparkleDiv}>
+                    <DoubleSparkle color={"white"} />
+                  </div>
+                  <h1>
+                    What <span>Programs</span>
+                    <br />
+                    We're Offering
+                  </h1>
                 </div>
-                <h3>
-                  Artificial
-                  <br />
-                  Intelligence
-                </h3>
-              </div>
-              <div className={programStyles.descriptionCell}>
-                <p>
-                  AI refers to the simulation of human intelligence in machines
-                  that are programmed to think like humans and mimic their
-                  actions. This encompasses the ability of machines to perform
-                  tasks commonly associated with human cognition, such as
-                  learning from experience, reasoning based on provided data,
-                  and adapting to new inputs to solve complex problems. AI can
-                  manifest in various forms, from basic rule-based systems to
-                  advanced neural networks capable of processing vast amounts of
-                  information and making decisions independently.
-                </p>
-              </div>
-              <div className={programStyles.linkCell}>
-                <Link
-                  onMouseEnter={() =>
-                    transformCursor({
-                      dot: {
-                        backgroundColor: "#ff6432",
-                        scale: 10,
-                        opacity: 0.5,
-                      },
-                      ring: {
-                        opacity: 0,
-                        scale: 0.5,
-                      },
-                    })
-                  }
-                  onMouseLeave={() => resetCursor()}
-                  className={programStyles.linkCell__link}
-                  href={"#"}
-                >
-                  <Textfit mode="single" className={programStyles.linkTextFit}>
-                    Learn More
-                  </Textfit>
+                <div className={styles.titleContainer}>
+                  <h2>{program.title}</h2>
+                  <h2>{program.subTitle}</h2>
+                </div>
+                <p>{program.description}</p>
+
+                <Link href={program.link} className={styles.link}>
+                  Learn More
                 </Link>
               </div>
             </div>
           </div>
-        </section>
+        ))}
       </div>
-    </section>
+    </div>
   );
 };
 

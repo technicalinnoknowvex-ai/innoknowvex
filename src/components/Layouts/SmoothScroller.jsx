@@ -1,45 +1,42 @@
 "use client";
 import React from "react";
 import styles from "./styles/smoothScroller.module.scss";
-import Lenis from "lenis";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { useScroll } from "@/context/ScrollContext";
 
-gsap.registerPlugin(ScrollTrigger, useGSAP);
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother, useGSAP);
 
 const SmoothScroller = ({ children }) => {
-  const { scrollContainerRef } = useScroll();
+  const { scrollContainerRef, scrollerRef } = useScroll();
 
   useGSAP(
     () => {
-      if (scrollContainerRef.current) {
-        const lenis = new Lenis({
-          wrapper: scrollContainerRef.current,
-          duration: 2,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          smoothWheel: true,
-          syncTouch: true,
-        });
+      // Create ScrollSmoother instance
+      const smoother = ScrollSmoother.create({
+        wrapper: scrollContainerRef.current,
+        content: scrollerRef.current,
+        smooth: 3, // Duration in seconds for scroll animation
+        effects: true, // Enable data-speed and data-lag effects
+        smoothTouch: 0.1, // Smooth scrolling on touch devices
+        normalizeScroll: true, // Normalize scroll across different devices
+        ignoreMobileResize: true, // Ignore mobile resize events
+      });
 
-        lenis.on("scroll", ScrollTrigger.update);
-
-        const raf = (time) => {
-          lenis.raf(time);
-          requestAnimationFrame(raf);
-        };
-        requestAnimationFrame(raf);
-
-        return () => lenis.destroy();
-      }
+      return () => {
+        smoother.kill();
+      };
     },
     { scope: scrollContainerRef }
   );
 
   return (
     <div className={styles.scrollWrapper} ref={scrollContainerRef}>
-      {children}
+      <div className={styles.scrollContent} ref={scrollerRef}>
+        {children}
+      </div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import styles from "./styles/cursor.module.scss";
-import { useCursor } from "../../../context/useCursor";
+import { useCursor } from "../../../hooks/useCursor";
 import gsap from "gsap";
 
 import { useGSAP } from "@gsap/react";
