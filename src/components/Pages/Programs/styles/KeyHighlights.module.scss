@@ -1,18 +1,43 @@
+
 .layout {
-    margin-top:100 ;
+  margin-top: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 2rem 1rem;
   position: relative;
+  width: 100%;
+  overflow: hidden;
+  z-index: 1;
 
   .ellipse {
-    position: absolute; 
-    right: 1%;
-    left: 15%;
-    width: 900;
-    height: 900;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    z-index: 0;
+    
+    .ellipseImage {
+      width: 900px;
+      height: 900px;
+      opacity: 0.1;
+      
+      @media (max-width: 768px) {
+        width: 600px;
+        height: 600px;
+      }
+      
+      @media (max-width: 480px) {
+        width: 400px;
+        height: 400px;
+      }
+    }
   }
 
   .headingContainer {
@@ -21,13 +46,32 @@
     justify-content: center;
     margin-bottom: 2rem;
     position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
 
     .starOrange {
       height: 80px;
       width: 50px;
       margin-right: 15px;
-      padding-bottom: 40;
-      padding-left: 10;
+      padding-bottom: 40px;
+      padding-left: 10px;
+      
+      @media (max-width: 768px) {
+        height: 60px;
+        width: 40px;
+        margin-right: 10px;
+        padding-bottom: 30px;
+        padding-left: 8px;
+      }
+      
+      @media (max-width: 480px) {
+        height: 50px;
+        width: 35px;
+        margin-right: 0;
+        margin-bottom: 10px;
+        padding-bottom: 20px;
+        padding-left: 0;
+      }
     }
 
     .headingText {
@@ -45,12 +89,24 @@
         color: #262c35;
         margin: 0;
         line-height: 1.2;
-        white-space: nowrap;
+        
+        @media (max-width: 768px) {
+          font-size: 28px;
+        }
+        
+        @media (max-width: 480px) {
+          font-size: 24px;
+        }
       }
 
       .programName {
         color: #ff6432;
       }
+    }
+    
+    @media (max-width: 480px) {
+      flex-direction: column;
+      text-align: center;
     }
   }
 
@@ -64,6 +120,15 @@
     max-width: 800px;
     position: relative;
     z-index: 1;
+    
+    @media (max-width: 768px) {
+      gap: 0.8rem;
+      max-width: 90%;
+    }
+    
+    @media (max-width: 480px) {
+      gap: 0.6rem;
+    }
   }
 
   .skillBox {
@@ -77,6 +142,19 @@
     color: #9c7f16;
     transition: all 0.3s ease;
     cursor: pointer;
+    white-space: nowrap;
+    
+    @media (max-width: 768px) {
+      padding: 0.6rem 1.2rem;
+      font-size: 13px;
+    }
+    
+    @media (max-width: 480px) {
+      padding: 0.5rem 1rem;
+      font-size: 12px;
+      white-space: normal;
+      text-align: center;
+    }
 
     &:hover {
       background: #ff6432;
@@ -84,58 +162,6 @@
       color: white;
       transform: translateY(-2px);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-  }
-
-  // Responsive adjustments
-  @media (max-width: 768px) {
-    .headingContainer {
-      .starOrange {
-        height: 60px;
-        width: 40px;
-        margin-right: 10px;
-      }
-
-      .headingText {
-        h1 {
-          font-size: 28px;
-          white-space: normal;
-        }
-      }
-    }
-
-    .skillsContainer {
-      gap: 0.8rem;
-    }
-
-    .skillBox {
-      padding: 0.6rem 1.2rem;
-      font-size: 13px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .headingContainer {
-      flex-direction: column;
-      text-align: center;
-
-      .starOrange {
-        margin-right: 0;
-        margin-bottom: 10px;
-      }
-
-      .headingText {
-        flex-direction: column;
-        gap: 0.2rem;
-
-        h1 {
-          font-size: 24px;
-        }
-      }
-    }
-
-    .skillsContainer {
-      gap: 0.6rem;
     }
   }
 }

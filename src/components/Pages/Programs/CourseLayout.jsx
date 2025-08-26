@@ -12,10 +12,10 @@ import Curriculum from './Curriculum'
 export default function CourseLayout({ course }) {
   return (
     <div className={styles.courseContainer}>
-      {/* <DescriptionSection course={course} />
-      <KeyHighlights course={course} /> */}
-      <Curriculum course={course} />
-      {/* <WhyLearnSection />
+      {/* <DescriptionSection course={course} /> */}
+      <KeyHighlights course={course} />
+      {/* <Curriculum course={course} />
+      <WhyLearnSection />
       <CardsSection />
       <Certification course={course} />
       <PlansSection /> */}

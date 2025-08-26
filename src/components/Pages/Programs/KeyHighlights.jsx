@@ -1,3 +1,4 @@
+
 import styles from './styles/KeyHighlights.module.scss'
 
 export default function KeyHighlights({ course }) {
@@ -7,7 +8,7 @@ export default function KeyHighlights({ course }) {
                 <img
                     src="/images/Ellipse4.svg"
                     alt=""
-                    className={styles.ellipse} />
+                    className={styles.ellipseImage} />
             </div>
             <div className={styles.headingContainer}>
                 <img
