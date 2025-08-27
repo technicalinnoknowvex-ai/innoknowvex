@@ -34,7 +34,7 @@ export const landingPageData = {
         subTitle: "Intelligence",
         description:
           "Dive into the world of Artificial Intelligence with a hands-on learning experience focused on machine learning, deep learning, and neural networks. Through interactive lessons, real-world projects, and expert guidance, you’ll move beyond theory into practical application. Whether you're starting out or upskilling, this course equips you for real-world challenges and success in an AI-driven future.",
-        link: "/programs/artificial-intelligence",
+        slug: "artificial-intelligence",
         image: "/assets/programs/ai.jpg",
       },
       {
@@ -42,7 +42,7 @@ export const landingPageData = {
         subTitle: "Science",
         description:
           "Explore the field of Data Science through a structured program covering statistics, data visualization, and predictive modeling. With guided projects, step-by-step lessons, and mentorship, you’ll build the ability to transform raw data into actionable insights. This course ensures you develop industry-ready skills to solve real problems in analytics and data-driven decision-making.",
-        link: "/programs/data-science",
+        slug: "data-science",
         image: "/assets/programs/data_science.png",
       },
       {
@@ -50,7 +50,7 @@ export const landingPageData = {
         subTitle: "Security",
         description:
           "Master the fundamentals of Cyber Security with a practical curriculum emphasizing threat detection, ethical hacking, and network defense. Learn through labs, simulations, and expert-led instruction that mirror real-world security challenges. Gain the confidence and skills required to protect digital environments and build a successful career in one of today’s most critical domains.",
-        link: "/programs/cyber-security",
+        slug: "cyber-security",
         image: "/assets/programs/cyber_security.png",
       },
       {
@@ -58,7 +58,7 @@ export const landingPageData = {
         subTitle: "Computing",
         description:
           "Step into Cloud Computing with comprehensive training on infrastructure, virtualization, and service deployment across leading platforms. Through hands-on labs, guided exercises, and applied projects, you’ll understand the backbone of modern digital solutions. Whether aiming for certifications or career growth, this program equips you to architect, deploy, and manage scalable cloud systems.",
-        link: "/programs/cloud-computing",
+        slug: "cloud-computing",
         image: "/assets/programs/python_programming.png",
       },
       {
@@ -66,7 +66,7 @@ export const landingPageData = {
         subTitle: "Learning",
         description:
           "Gain mastery in Machine Learning through a project-based curriculum emphasizing supervised, unsupervised, and reinforcement learning techniques. With real-world case studies, coding exercises, and expert mentorship, you’ll develop the ability to build intelligent models and deploy them in practice. This program prepares you to innovate and excel in AI-powered applications across industries.",
-        link: "/programs/machine-learning",
+        slug: "machine-learning",
         image: "/assets/programs/machine_learning.png",
       },
     ],
@@ -144,70 +144,80 @@ export const landingPageData = {
   testimonialsSection: {
     heading: "Testimonials",
     subheading: "Don't Just Take our word for it",
-  rowTop: [
-    {
-      testimonial: "I'm happy to announce the successful completion of my Certificate of Training and Internship in Finance with InnoKnowvex. This program gave me valuable exposure to financial concepts, investment analysis, portfolio management, and risk management, while also strengthening my analytical and decision-making skills. I'm grateful to Innoknowex for providing such an enriching experience and look forward to applying this knowledge in my professional journey and exploring more opportunities in the field of finance and investment.",
-      name: "Saniya Khanam",
-      profession: "Finance",
-      avatar: "/assets/testimonialSection/testimonial_image.png",
-    },
-    {
-      testimonial: "I recently took a web development course with innoknowvex technologies and it was a great experience! The content was perfect and easy to follow. The instructions were helpful, and the hands-on projects were very practical. I highly recommend it to anyone looking to learn web development. They are also providing certification.",
-      name: "Vignesh Ram Kodeti",
-      profession: "Web Development",
-      avatar: "/assets/testimonialSection/testimonial_image.png",
-    },
-    {
-      testimonial: "I'm thrilled to announce the successful completion of my training and internship at InnoKnowex in the finance. This experience has been a game-changer, equipping me with a robust skill set that has deepened my expertise in financial analysis and modeling. I gained hands-on proficiency in financial statement analysis, integrated financial modeling in Excel and data visualization.",
-      name: "Umme Uzma",
-      profession: "Finance",
-      avatar: "/assets/testimonialSection/testimonial_image.png",
-    },
-    {
-      testimonial: "I have taken a Data Science course with Innoknowvex and it was a great experience! The content was smooth and easy to follow. The instructors were helpful, and the hands-on projects were very practical. I highly recommend it to anyone looking to learn Data Science.",
-      name: "Yashwant Reddy",
-      profession: "Data Science",
-      avatar: "/assets/testimonialSection/testimonial_image.png",
-    },
-    {
-      testimonial: "I'm excited to share that I've been given the opportunity to upskill in Java and Data Structures & Algorithms (DSA) through a Self-Paced Learning Program offered by Innoknowvex. This structured and flexible learning experience is helping me strengthen my foundation in core Java concepts, problem-solving techniques, and DSA, which are essential for building efficient and scalable applications.",
-      name: "Nithin Sai",
-      profession: "Java + DSA",
-      avatar: "/assets/testimonialSection/testimonial_image.png",
-    }
-  ],
-  rowBottom: [
-    {
-      testimonial: "The Python course was beginner-friendly yet covered advanced concepts too. The teaching approach made coding easier to understand. Great course for learning Python from scratch! The mentors explained everything step by step and provided useful practice exercises.",
-      name: "Vishnu Vardhan Settipalli",
-      profession: "Python",
-      avatar: "/assets/testimonialSection/testimonial_image.png",
-    },
-    {
-      testimonial: "I'm thrilled to announce that I've been offered an internship opportunity in the Data Science Program at innoKnowvex Edutech Pvt. Ltd. This opportunity will help me strengthen my skills, gain real-world experience, and grow in the field of data science. Looking forward to learning, contributing, and making the most out of this journey!",
-      name: "Komal Kalyani",
-      profession: "Data Science",
-      avatar: "/assets/testimonialSection/testimonial_image.png",
-    },
-    {
-      testimonial: "The Al course provided in-depth knowledge of algorithms and techniques. The mentors were knowledgeable and always supportive. A great course that covered Al concepts with practical applications. The hands-on projects were very insightful.",
-      name: "Sashank Verma",
-      profession: "AI",
-      avatar: "/assets/testimonialSection/testimonial_image.png",
-    },
-    {
-      testimonial: "The Web Development course was excellent! It covered both frontend and backend technologies in depth with great practical assignments. I learned HTML, CSS, JavaScript, and backend technologies effectively in this course. The mentors were always supportive and ready to clear doubts.",
-      name: "Mansoor Ali",
-      profession: "Web Development",
-      avatar: "/assets/testimonialSection/testimonial_image.png",
-    },
-    {
-      testimonial: "I'm thrilled to announce that I've been offered an internship opportunity in the Data Science Program at innoKnowvex Edutech Pvt. Ltd. This opportunity will help me strengthen my skills, gain real-world experience, and grow in the field of data science. Looking forward to learning, contributing, and making the most out of this journey!",
-      name: "Komal Kalyani",
-      profession: "Data Science",
-      avatar: "/assets/testimonialSection/testimonial_image.png",
-    }
-  ]
+    rowTop: [
+      {
+        testimonial:
+          "I'm happy to announce the successful completion of my Certificate of Training and Internship in Finance with InnoKnowvex. This program gave me valuable exposure to financial concepts, investment analysis, portfolio management, and risk management, while also strengthening my analytical and decision-making skills. I'm grateful to Innoknowex for providing such an enriching experience and look forward to applying this knowledge in my professional journey and exploring more opportunities in the field of finance and investment.",
+        name: "Saniya Khanam",
+        profession: "Finance",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+      {
+        testimonial:
+          "I recently took a web development course with innoknowvex technologies and it was a great experience! The content was perfect and easy to follow. The instructions were helpful, and the hands-on projects were very practical. I highly recommend it to anyone looking to learn web development. They are also providing certification.",
+        name: "Vignesh Ram Kodeti",
+        profession: "Web Development",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+      {
+        testimonial:
+          "I'm thrilled to announce the successful completion of my training and internship at InnoKnowex in the finance. This experience has been a game-changer, equipping me with a robust skill set that has deepened my expertise in financial analysis and modeling. I gained hands-on proficiency in financial statement analysis, integrated financial modeling in Excel and data visualization.",
+        name: "Umme Uzma",
+        profession: "Finance",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+      {
+        testimonial:
+          "I have taken a Data Science course with Innoknowvex and it was a great experience! The content was smooth and easy to follow. The instructors were helpful, and the hands-on projects were very practical. I highly recommend it to anyone looking to learn Data Science.",
+        name: "Yashwant Reddy",
+        profession: "Data Science",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+      {
+        testimonial:
+          "I'm excited to share that I've been given the opportunity to upskill in Java and Data Structures & Algorithms (DSA) through a Self-Paced Learning Program offered by Innoknowvex. This structured and flexible learning experience is helping me strengthen my foundation in core Java concepts, problem-solving techniques, and DSA, which are essential for building efficient and scalable applications.",
+        name: "Nithin Sai",
+        profession: "Java + DSA",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+    ],
+    rowBottom: [
+      {
+        testimonial:
+          "The Python course was beginner-friendly yet covered advanced concepts too. The teaching approach made coding easier to understand. Great course for learning Python from scratch! The mentors explained everything step by step and provided useful practice exercises.",
+        name: "Vishnu Vardhan Settipalli",
+        profession: "Python",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+      {
+        testimonial:
+          "I'm thrilled to announce that I've been offered an internship opportunity in the Data Science Program at innoKnowvex Edutech Pvt. Ltd. This opportunity will help me strengthen my skills, gain real-world experience, and grow in the field of data science. Looking forward to learning, contributing, and making the most out of this journey!",
+        name: "Komal Kalyani",
+        profession: "Data Science",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+      {
+        testimonial:
+          "The Al course provided in-depth knowledge of algorithms and techniques. The mentors were knowledgeable and always supportive. A great course that covered Al concepts with practical applications. The hands-on projects were very insightful.",
+        name: "Sashank Verma",
+        profession: "AI",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+      {
+        testimonial:
+          "The Web Development course was excellent! It covered both frontend and backend technologies in depth with great practical assignments. I learned HTML, CSS, JavaScript, and backend technologies effectively in this course. The mentors were always supportive and ready to clear doubts.",
+        name: "Mansoor Ali",
+        profession: "Web Development",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+      {
+        testimonial:
+          "I'm thrilled to announce that I've been offered an internship opportunity in the Data Science Program at innoKnowvex Edutech Pvt. Ltd. This opportunity will help me strengthen my skills, gain real-world experience, and grow in the field of data science. Looking forward to learning, contributing, and making the most out of this journey!",
+        name: "Komal Kalyani",
+        profession: "Data Science",
+        avatar: "/assets/testimonialSection/testimonial_image.png",
+      },
+    ],
   },
   faqSection: {
     heading: "Frequently asked questions",
@@ -288,47 +298,60 @@ export const landingPageData = {
         listLabel: "OUR PROGRAMS",
         links: [
           { label: "Web Development", href: "/programs/web-development" },
-  { label: "Android Development", href: "/programs/android-development" },
-  { label: "Python Programming", href: "/programs/python-programming" },
-  { label: "Java & DSA", href: "/programs/java-dsa" },
-  { label: "Machine Learning", href: "/programs/machine-learning" },
-  { label: "Artificial Intelligence", href: "/programs/artificial-intelligence" },
-  { label: "Cloud Computing", href: "/programs/cloud-computing" },
-  { label: "Cyber Security", href: "/programs/cyber-security" },
-  { label: "Data Science", href: "/programs/data-science" },
-  { label: "Nanotechnology", href: "/programs/nanotechnology" },
-  { label: "Embedded Systems", href: "/programs/embedded-systems" },
-  { label: "Internet of Things (IoT)", href: "/programs/iot" },
-  { label: "Hybrid Electric Vehicles", href: "/programs/hev" },
-  { label: "VLSI", href: "/programs/vlsi" },
-  { label: "Fashion Designing", href: "/programs/fashion-designing" },
-  { label: "UI/UX Design", href: "/programs/ui-ux-design" },
-  { label: "Psychology", href: "/programs/psychology" },
-  { label: "Medical Coding", href: "/programs/medical-coding" },
-  { label: "Digital Marketing", href: "/programs/digital-marketing" },
-  { label: "Business Analytics", href: "/programs/business-analytics" },
-  { label: "Finance", href: "/programs/finance" },
-  { label: "Stock Trading", href: "/programs/stock-trading" },
-  { label: "Human Resources", href: "/programs/human-resources" },
-  { label: "Corporate Law", href: "/programs/corporate-law" },
-  { label: "Java", href: "/programs/java" },
-  { label: "MERN Stack Development", href: "/programs/mern-stack" },
-  { label: "Business & Management", href: "/programs/business-management" },
-  // { label: "Advanced Data Science", href: "/programs/advanced-data-science" },
-  // { label: "Advanced Web Development", href: "/programs/advanced-web-development" },
-  { label: "C & C++", href: "/programs/C-C++" },
-  { label: "AutoCad", href: "/programs/AutoCad" },
-  { label: "Automobile Design", href: "/programs/Automobile-Design" },
-  { label: "Data Structures & Algorithms", href: "/programs/DSA" }
+          {
+            label: "Android Development",
+            href: "/programs/android-development",
+          },
+          { label: "Python Programming", href: "/programs/python-programming" },
+          { label: "Java & DSA", href: "/programs/java-dsa" },
+          { label: "Machine Learning", href: "/programs/machine-learning" },
+          {
+            label: "Artificial Intelligence",
+            href: "/programs/artificial-intelligence",
+          },
+          { label: "Cloud Computing", href: "/programs/cloud-computing" },
+          { label: "Cyber Security", href: "/programs/cyber-security" },
+          { label: "Data Science", href: "/programs/data-science" },
+          { label: "Nanotechnology", href: "/programs/nanotechnology" },
+          { label: "Embedded Systems", href: "/programs/embedded-systems" },
+          { label: "Internet of Things (IoT)", href: "/programs/iot" },
+          { label: "Hybrid Electric Vehicles", href: "/programs/hev" },
+          { label: "VLSI", href: "/programs/vlsi" },
+          { label: "Fashion Designing", href: "/programs/fashion-designing" },
+          { label: "UI/UX Design", href: "/programs/ui-ux-design" },
+          { label: "Psychology", href: "/programs/psychology" },
+          { label: "Medical Coding", href: "/programs/medical-coding" },
+          { label: "Digital Marketing", href: "/programs/digital-marketing" },
+          { label: "Business Analytics", href: "/programs/business-analytics" },
+          { label: "Finance", href: "/programs/finance" },
+          { label: "Stock Trading", href: "/programs/stock-trading" },
+          { label: "Human Resources", href: "/programs/human-resources" },
+          { label: "Corporate Law", href: "/programs/corporate-law" },
+          { label: "Java", href: "/programs/java" },
+          { label: "MERN Stack Development", href: "/programs/mern-stack" },
+          {
+            label: "Business & Management",
+            href: "/programs/business-management",
+          },
+          // { label: "Advanced Data Science", href: "/programs/advanced-data-science" },
+          // { label: "Advanced Web Development", href: "/programs/advanced-web-development" },
+          { label: "C & C++", href: "/programs/C-C++" },
+          { label: "AutoCad", href: "/programs/AutoCad" },
+          { label: "Automobile Design", href: "/programs/Automobile-Design" },
+          { label: "Data Structures & Algorithms", href: "/programs/DSA" },
         ],
-
-        
       },
       {
         listLabel: "ADVANCED PROGRAMS",
         links: [
-          { label: "Advanced Data Science", href: "/programs/Advanced-Data-Science" },
-          { label: "Advanced Web Development", href: "/programs/Advanced-Web-Development" },
+          {
+            label: "Advanced Data Science",
+            href: "/programs/Advanced-Data-Science",
+          },
+          {
+            label: "Advanced Web Development",
+            href: "/programs/Advanced-Web-Development",
+          },
         ],
       },
       {

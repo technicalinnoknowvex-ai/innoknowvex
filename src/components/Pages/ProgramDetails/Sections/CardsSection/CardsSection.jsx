@@ -1,6 +1,6 @@
 "use client";
 import { useRef, useEffect } from "react";
-import styles from "./styles/CardsSection.module.scss";
+import styles from "./styles/cardSection.module.scss";
 
 export default function CardsSection() {
   const cardRefs = useRef([]);

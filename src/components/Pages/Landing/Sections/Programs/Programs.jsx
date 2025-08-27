@@ -157,7 +157,10 @@ const Programs = () => {
                 </div>
                 <p>{program.description}</p>
 
-                <Link href={program.link} className={styles.link}>
+                <Link
+                  href={`/programs/${program.slug}`}
+                  className={styles.link}
+                >
                   Learn More
                 </Link>
               </div>

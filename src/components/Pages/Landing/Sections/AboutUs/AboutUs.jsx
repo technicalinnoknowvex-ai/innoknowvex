@@ -148,7 +148,7 @@ const AboutUs = ({ scrollContainerRef }) => {
           </div>
           <div className={aboutUsStyles.linkContainer} ref={buttonRef}>
             <Link
-              href="#"
+              href="/about-us"
               className={aboutUsStyles.linkContainer__link}
               onMouseEnter={() =>
                 transformCursor({

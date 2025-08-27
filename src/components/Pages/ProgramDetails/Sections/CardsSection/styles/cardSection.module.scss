@@ -1,0 +1,458 @@
+@font-face {
+  font-family: sharp-grotesk;
+  src: url('/fonts/sharpGrotesk/SharpGrotesk-Medium25.otf');
+}
+
+@font-face {
+  font-family: old-school-grotesk;
+  src: url('/fonts/oldSchoolGrotesk/OldschoolGroteskVar.ttf');
+}
+
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+.ellipse {
+  position: absolute;
+  z-index: 0;
+  height: 800px;
+  width: 800px;
+  left: 80;
+  bottom: 20%;
+}
+
+.cardsContainer {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0;
+  margin-left: 0;
+  padding: 0 30px 0 4rem;
+  min-height: 100vh;
+  display: flex;
+  margin-top: 50px;
+  box-sizing: border-box;
+  justify-content: flex-start;
+  gap: 10rem;
+}
+
+.leftSection {
+  width: 40%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 2rem 0;
+  padding-top: 4rem;
+  min-width: 400px;
+}
+
+.careerBoostContent {
+  text-align: left;
+  max-width: 500px;
+
+  .careerBoostTitle {
+    font-size: 50px;
+    width: 500px;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    font-family: var(--font-sharp-25), Sharp Grotesk !important;
+    font-weight: 450;
+    line-height: 01;
+  }
+
+  .careerBoostDescription {
+    font-size: 1.2rem;
+    color: #5a6c7d;
+    line-height: 1.6;
+    font-family: sharp-grotesk;
+    padding-left: 0;
+  }
+}
+
+.cardsSection {
+  position: relative;
+  width: 65%;
+  padding: 2rem 0 2rem 0;
+  box-sizing: border-box;
+  margin-left: 0;
+}
+
+.cardsGrid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-left: 0;
+  max-width: 100%;
+  // background:#F8F1DE;
+}
+
+.card {
+  border-radius: 30px 30px 30px 70px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateX(100px);
+  transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+  border: 0.5px solid #9c7f16;
+  max-width: 100%;
+  background: #f8f1de;
+
+  &.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  &:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.softSkillsCard {
+  // border: 1px solid #9c7f16;
+
+  h3,
+  p {
+    color: #9c7f16 !important;
+    font-family: sharp-grotesk;
+    font-size: 1.2rem;
+  }
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.starImage {
+  position: relative;
+  width: 30px !important;
+  height: 30px !important;
+  max-width: 30px;
+  max-height: 30px;
+  object-fit: contain;
+  flex-shrink: 0;
+  bottom: 25px;
+}
+
+.card h3 {
+  position: relative;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  justify-content: center;
+  margin: 0;
+  color: #9c7f16;
+  font-family: var(--font-sharp-25), Sharp Grotesk !important;
+  font-weight: 500;
+  text-transform: uppercase;
+  line-height: 1.2;
+  left: -15px;
+}
+
+.card p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #9c7f16;
+  font-family: sharp-grotesk;
+  margin-top: auto;
+  padding-left: 0;
+}
+
+/* Staggered animations for cards */
+.card:nth-child(1) {
+  transition-delay: 0.1s;
+}
+.card:nth-child(2) {
+  transition-delay: 0.2s;
+}
+.card:nth-child(3) {
+  transition-delay: 0.3s;
+}
+.card:nth-child(4) {
+  transition-delay: 0.4s;
+}
+.card:nth-child(5) {
+  transition-delay: 0.5s;
+}
+.card:nth-child(6) {
+  transition-delay: 0.6s;
+}
+
+// Responsive design
+@media (max-width: 1440px) {
+  .cardsContainer {
+    max-width: 1200px;
+    padding: 0 2rem 0 3rem;
+    gap: 6rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  // .careerBoostTitle{
+  //   padding-left: 60px;
+  // }
+  .cardsContainer {
+    max-width: 1000px;
+
+    padding: 0 1.5rem 0 2rem;
+    margin-top: 30px;
+    gap: 4rem;
+  }
+
+  .cardsGrid {
+    gap: 1.5rem;
+  }
+
+  .card {
+    padding: 1.8rem;
+    min-height: 170px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .cardsContainer {
+    flex-direction: column;
+    padding: 0 2rem;
+    margin-top: 20px;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .leftSection {
+    width: 100%;
+    padding: 1rem 0;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 2rem;
+  }
+
+  .careerBoostContent {
+    text-align: center;
+    max-width: 600px;
+  }
+
+  .cardsSection {
+    width: 100%;
+    padding: 1rem 0 2rem 0;
+    margin-left: 0;
+  }
+
+  .cardsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    margin-left: 0;
+    gap: 1.5rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .card {
+    padding: 2rem;
+    min-height: 170px;
+  }
+  .careerBoostTitle {
+    justify-content: center;
+    align-items: center;
+    padding-left: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cardsContainer {
+    flex-direction: column;
+    padding: 0 1.5rem;
+    margin-top: 10px;
+    max-width: 100%;
+    align-items: center;
+  }
+
+  .leftSection {
+    width: 100%;
+    padding: 1rem 0;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2rem;
+    text-align: center;
+  }
+
+  .careerBoostContent {
+    text-align: center;
+    max-width: 500px;
+  }
+
+  .cardsSection {
+    width: 100%;
+    padding: 1rem 0;
+    margin-left: 0;
+  }
+
+  .cardsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .card {
+    min-height: 160px;
+    padding: 1.8rem;
+    border-radius: 25px 25px 25px 90px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .cardHeader {
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .starImage {
+    width: 35px !important;
+    height: 35px !important;
+    max-width: 35px;
+    max-height: 35px;
+    position: relative;
+  }
+  .ellipse {
+    padding-top: 50px;
+    padding-right: 200px;
+  }
+}
+
+// Single column for small screens
+@media (max-width: 600px) {
+    .careerBoostTitle {
+    font-family: var(--font-sharp-25), Sharp Grotesk !important;
+    font-size: 40 !important;
+    width: 400px;
+    padding-right: 80px;
+    justify-content: center;
+    align-items: center;
+  }
+  .cardsContainer {
+    padding: 0 1rem;
+    margin-top: 5px;
+    gap: 1rem;
+  }
+
+  .leftSection {
+    padding: 1rem 0 0.5rem 0;
+  }
+
+  .careerBoostContent {
+    max-width: 100%;
+  }
+
+  .cardsSection {
+    width: 100%;
+    padding: 0.5rem 0 1rem 0;
+  }
+
+  .cardsGrid {
+    grid-template-columns: 1fr; // Single column layout
+    gap: 1.5rem;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .card {
+    padding: 2rem;
+    min-height: 150px;
+    border-radius: 25px 25px 25px 80px;
+    width: 100%;
+  }
+
+  .cardHeader {
+    position: absolute;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .starImage {
+    width: 35px !important;
+    height: 35px !important;
+    max-width: 35px;
+    max-height: 35px;
+    bottom: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .careerBoostTitle {
+    font-family: var(--font-sharp-25), Sharp Grotesk !important;
+    font-size: 40 !important;
+    width: 200px;
+    padding-right: 150px;
+    justify-content: center;
+    align-items: center;
+  }
+  .cardsContainer {
+    padding: 0 0.8rem;
+    margin-top: 5px;
+  }
+
+  .card {
+    padding: 1.8rem;
+    min-height: 140px;
+    border-radius: 20px 20px 20px 70px;
+  }
+
+  .cardHeader {
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .starImage {
+    width: 30px !important;
+    height: 30px !important;
+    max-width: 30px;
+    max-height: 30px;
+  }
+
+  .cardsGrid {
+    gap: 1.2rem;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 320px) {
+  .cardsContainer {
+    padding: 0 0.5rem;
+  }
+
+  .card {
+    padding: 1.5rem;
+    min-height: 130px;
+    border-radius: 18px 18px 18px 60px;
+  }
+
+  .cardHeader {
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .starImage {
+    width: 25px !important;
+    height: 25px !important;
+    max-width: 25px;
+    max-height: 25px;
+  }
+
+  .cardsGrid {
+    gap: 1rem;
+  }
+}
