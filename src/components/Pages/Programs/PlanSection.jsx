@@ -93,7 +93,7 @@ export default function PlansSection() {
           <div className={styles.plancontent}>
             <div className={styles.features}>
               <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />
-              Recorded session
+              <p className={styles.featuresDesc}>Recorded session</p> 
             </div>
             <div className={styles.features}>
               <img src="/images/greentick.svg" alt=" tick" className={styles.featureimg} />

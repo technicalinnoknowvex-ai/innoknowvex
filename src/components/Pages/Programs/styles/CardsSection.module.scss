@@ -1,3 +1,13 @@
+@font-face {
+  font-family: sharp-grotesk;
+  src: url('/fonts/sharpGrotesk/SharpGrotesk-Medium25.otf');
+}
+
+@font-face {
+  font-family: old-school-grotesk;
+  src: url('/fonts/oldSchoolGrotesk/OldschoolGroteskVar.ttf');
+}
+
 @keyframes slideInFromRight {
   0% {
     opacity: 0;
@@ -58,10 +68,10 @@
   }
 
   .careerBoostDescription {
-    font-size: 14px;
+    font-size: 1.2rem;
     color: #5a6c7d;
     line-height: 1.6;
-    font-family: var(--font-sharp-25), Oldschool Grotesk !important;
+    font-family: sharp-grotesk;
     padding-left: 0;
   }
 }
@@ -116,6 +126,8 @@
   h3,
   p {
     color: #9c7f16 !important;
+    font-family: sharp-grotesk;
+    font-size: 1.2rem;
   }
 }
 
@@ -151,10 +163,10 @@
 }
 
 .card p {
-  font-size: clamp(0.8rem, 1.6vw, 0.95rem);
+  font-size: 0.9rem;
   line-height: 1.6;
   color: #9c7f16;
-  font-family: var(--font-sharp-22), Oldschool Grotesk !important;
+  font-family: sharp-grotesk;
   margin-top: auto;
   padding-left: 0;
 }

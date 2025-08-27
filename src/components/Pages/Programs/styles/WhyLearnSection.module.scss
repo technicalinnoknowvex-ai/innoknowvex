@@ -1,3 +1,14 @@
+@font-face {
+  font-family: sharp-grotesk;
+  src: url('/fonts/sharpGrotesk/SharpGrotesk-Medium25.otf');
+}
+
+@font-face {
+  font-family: old-school-grotesk;
+  src: url('/fonts/oldSchoolGrotesk/OldschoolGroteskVar.ttf');
+}
+
+
 .whyLearnSection {
   position: relative;
   overflow: hidden;
@@ -186,7 +197,7 @@
 
   > p {
     padding-left: 50px;
-    font-family: var(--font-sharp-22), Oldschool Grotesk;
+    font-family:  old-school-grotesk;
     font-size: 25px;
     color: #ff6432;
     width: 600px;
@@ -479,8 +490,8 @@
   }
 
   p {
-    font-family: var(--font-sharp-22), Oldschool Grotesk;
-    font-size: 16px;
+    font-family:  old-school-grotesk;
+    font-size: 1.2rem;
     color: #666;
     line-height: 1.6;
     padding-left: 0;

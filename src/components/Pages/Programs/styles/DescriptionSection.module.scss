@@ -1,3 +1,13 @@
+@font-face {
+  font-family: sharp-grotesk;
+  src: url('/fonts/sharpGrotesk/SharpGrotesk-Medium25.otf');
+}
+
+@font-face {
+  font-family: old-school-grotesk;
+  src: url('/fonts/oldSchoolGrotesk/OldschoolGroteskVar.ttf');
+}
+
 .descriptionContainer {
   max-width: 1600px;
   margin: 0 auto;
@@ -218,8 +228,8 @@
   p {
     padding-left: 4.375%;
     padding-right: 4.375%;
-    font-family: var(--font-sharp-22), Oldschool Grotesk;
-    font-size: 1rem;
+    font-family: old-school-grotesk;
+    font-size: 1.2rem;
     color: #262c35;
     line-height: 1.7;
     margin: 0;
@@ -299,6 +309,7 @@
     gap: 20px;
     flex-wrap: wrap;
     align-items: center;
+    font-family: old-school-grotesk;
 
     // Large Desktop
     @media (max-width: 1600px) and (min-width: 1447px) {
