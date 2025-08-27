@@ -314,11 +314,11 @@ export const landingPageData = {
   { label: "Java", href: "/programs/java" },
   { label: "MERN Stack Development", href: "/programs/mern-stack" },
   { label: "Business & Management", href: "/programs/business-management" },
-  { label: "Advanced Data Science", href: "/programs/advanced-data-science" },
-  { label: "Advanced Web Development", href: "/programs/advanced-web-development" },
+  // { label: "Advanced Data Science", href: "/programs/advanced-data-science" },
+  // { label: "Advanced Web Development", href: "/programs/advanced-web-development" },
   { label: "C & C++", href: "/programs/C-C++" },
   { label: "AutoCad", href: "/programs/AutoCad" },
-  { label: "Automobile Design", href: "/programs/Automobile Design" },
+  { label: "Automobile Design", href: "/programs/Automobile-Design" },
   { label: "Data Structures & Algorithms", href: "/programs/DSA" }
         ],
 
@@ -327,8 +327,8 @@ export const landingPageData = {
       {
         listLabel: "ADVANCED PROGRAMS",
         links: [
-          { label: "Advanced Data Science", href: "#" },
-          { label: "Advanced Web Development", href: "#" },
+          { label: "Advanced Data Science", href: "/programs/Advanced-Data-Science" },
+          { label: "Advanced Web Development", href: "/programs/Advanced-Web-Development" },
         ],
       },
       {

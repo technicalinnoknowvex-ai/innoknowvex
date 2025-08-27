@@ -209,10 +209,10 @@
   }
 
   &__linksCell {
-    width: 100%;
+    width: 90%;
     height: 100%;
     grid-area: linksCell;
-    padding: 0px 70px;
+    padding: 0px 90px;
     overflow: hidden;
 
     display: grid;
@@ -220,7 +220,7 @@
     grid-auto-flow: column;
     grid-template-rows: repeat(13, auto);
     padding-bottom: 40px;
-    column-gap: 20px;
+    // column-gap: 5px;
 
     @include tablet-down {
       height: 50vh;
