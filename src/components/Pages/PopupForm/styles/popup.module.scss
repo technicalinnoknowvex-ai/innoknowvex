@@ -1,0 +1,229 @@
+// components/PopupForm.module.scss
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.popup {
+  background-color: #FFF7E1;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  animation: slideIn 0.3s ease-out;
+  
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #9C7F16;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: rgba(156, 127, 22, 0.1);
+    transform: scale(1.1);
+  }
+  
+  &:focus {
+    outline: 2px solid #9C7F16;
+    outline-offset: 2px;
+  }
+}
+
+.header {
+  margin-bottom: 2rem;
+  text-align: center;
+  
+  h2 {
+    color: #9C7F16;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+  
+  p {
+    color: #666;
+    font-size: 1rem;
+    margin: 0;
+    line-height: 1.5;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  
+  label {
+    font-weight: 600;
+    color: #9C7F16;
+    font-size: 0.95rem;
+    letter-spacing: 0.025em;
+  }
+  
+  input,
+  select {
+    padding: 0.875rem 1rem;
+    border: 2px solid #9C7F16;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #FEFDF8;
+    color: #333;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    
+    &::placeholder {
+      color: #999;
+    }
+    
+    &:focus {
+      outline: none;
+      border-color: #7A6514;
+      box-shadow: 0 0 0 3px rgba(156, 127, 22, 0.1);
+      background-color: #FFF;
+    }
+    
+    &:hover:not(:focus) {
+      border-color: #7A6514;
+    }
+    
+    &:invalid {
+      border-color: #dc3545;
+    }
+    
+    &:valid:not(:placeholder-shown) {
+      border-color: #28a745;
+    }
+  }
+  
+  select {
+    cursor: pointer;
+    
+    option {
+      background-color: #FFF7E1;
+      color: #333;
+    }
+  }
+}
+
+.submitButton {
+  background: linear-gradient(135deg, #9C7F16, #B8951A);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  
+  &:hover:not(:disabled) {
+    background: linear-gradient(135deg, #7A6514, #9C7F16);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(156, 127, 22, 0.3);
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(156, 127, 22, 0.3);
+  }
+  
+  &:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .popup {
+    width: 95%;
+    padding: 1.5rem;
+  }
+  
+  .header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .inputGroup {
+    gap: 0.4rem;
+    
+    input,
+    select {
+      padding: 0.75rem;
+      font-size: 0.95rem;
+    }
+  }
+  
+  .submitButton {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+}

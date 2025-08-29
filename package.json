@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "framer-motion": "^12.23.12",
-    "gsap": "^3.13.0",
     "@gsap/react": "^2.1.2",
+    "file-saver": "^2.0.5",
+    "framer-motion": "^12.23.12",
+    "googleapis": "^159.0.0",
+    "gsap": "^3.13.0",
     "lenis": "^1.1.14-dev.5",
     "motion": "^12.23.12",
     "next": "15.4.5",
@@ -19,7 +21,8 @@
     "react-dom": "19.1.0",
     "react-just-parallax": "^3.1.16",
     "react-textfit": "^1.1.1",
-    "split-type": "^0.3.4"
+    "split-type": "^0.3.4",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
