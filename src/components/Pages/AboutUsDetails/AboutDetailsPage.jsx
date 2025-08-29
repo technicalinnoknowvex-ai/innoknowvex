@@ -4,6 +4,7 @@ import style from "./styles/aboutUs.module.scss";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Testimonials from "../Landing/Sections/Testimonials/Testimonials";
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -271,7 +272,7 @@ const AboutDetailsPage = () => {
           />
           <h1>DURGESH C.</h1>
           <div></div>
-          <h4>CGO</h4>
+          <h4>CGO (Co-Founder) </h4>
           <p>
             Builds client relationships, drives revenue growth, and ensures the
             company's solutions meet market needs.
@@ -303,13 +304,14 @@ const AboutDetailsPage = () => {
           />
           <h1>Vamsi Krishna</h1>
           <div></div>
-          <h4>COO</h4>
+          <h4>COO (Founder)</h4>
           <p>
             Shapes brand strategy, leading marketing efforts to connect with
             audiences and grow the company's reach.
           </p>
         </div>
       </div>
+      <Testimonials/>
     </>
   );
 };
