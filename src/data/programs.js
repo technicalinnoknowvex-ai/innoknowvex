@@ -2,7 +2,7 @@ export const programs = {
   "web-development": {
     id: "web-development",
     title: "Web Development",
-    image: "/assets/programsDetails/web dev.jpg",
+    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/web_dev_8k_resized.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/web-development.jpg",
@@ -1008,4 +1008,158 @@ export const programs = {
     overview:
       "Advanced concepts in web architecture, performance optimization, and security.",
   },
+  "clinical-data-management": {
+    id: "clinical-data-management",
+    title: "Web Development",
+    image: "/assets/programsDetails/web dev.jpg",
+    training: "/certificates/SampleTrainingCertificate.jpg",
+    internship: "/certificates/SampleInternshipCertificate.jpg",
+    brochure: "/brochures/web-development.jpg",
+    overview:
+      "Web development is the process of creating and maintaining websites, involving both front-end and back-end work. Front-end development focuses on the visual and interactive aspects using HTML, CSS, and JavaScript, while back-end development handles server-side operations and databases with languages like Python and PHP. The goal is to create functional, user-friendly websites that work seamlessly across devices and browsers.",
+    skills: [
+      "Web Fundamentals",
+      "HTML & HTML5",
+      "Web Design Basics",
+      "CSS",
+      "Javascript",
+      "Node.js",
+      "jQuery",
+      "Object-Oriented Programming",
+      "Error Handling",
+      "SQL",
+      "Data Modeling",
+      "Database Management",
+      "MongoDB",
+    ],
+    curriculum: [
+      {
+        question: "Introduction to Web Development",
+        answer:
+          "This module covers the fundamentals of web technologies and provides hands-on experience with using the command line for development tasks.",
+      },
+      {
+        question: "Hypertext Markup Language (HTML)",
+        answer:
+          "You will learn how to get started with HTML5, understand tags and metadata, create forms, compare HTML with HTML5, and utilize developer tools effectively.",
+      },
+      {
+        question: "Basics of Web Design",
+        answer:
+          "We cover the entire design process overview, provide an introduction to User Experience (UX) principles, and teach the creation and practical use of mockups.",
+      },
+      {
+        question: "Cascading Style Sheets (CSS)",
+        answer:
+          "This includes an introduction to CSS3, understanding its syntax (inline, internal, and external), working with media and animations, and mastering layout techniques like CSS Grid and Flexbox.",
+      },
+      {
+        question: "Node.js",
+        answer:
+          "The curriculum focuses on selectors, DOM traversing, and handling events, AJAX, and DOM manipulation within the Node.js environment.",
+      },
+      {
+        question: "Object-Oriented Programming (OOP)",
+        answer:
+          "You will gain a deep understanding of key OOP concepts including inheritance, constructors and destructors, encapsulation, and polymorphism.",
+      },
+      {
+        question: "jQuery",
+        answer:
+          "This section teaches how to use selectors for DOM traversing and how to handle events, AJAX calls, and DOM manipulation using the jQuery library.",
+      },
+      {
+        question: "Database Management",
+        answer:
+          "We introduce SQL for database queries, teach essential data modeling techniques, and cover how to work with PHP for server-side database interaction.",
+      },
+      {
+        question: "JavaScript Programming",
+        answer:
+          "This comprehensive module covers the fundamentals of coding, data types, flow control, looping, functional programming, working with objects and prototypes, error handling, and refactoring and debugging practices.",
+      },
+      {
+        question: "Database with MongoDB",
+        answer:
+          "You will learn to establish communication with MongoDB, read and write data to the database, utilize the aggregation framework for complex queries, and manage database configuration.",
+      },
+    ],
+  },
+  "clinical-trials-and-research": {
+    id: "wclinical-trials-and-research",
+    title: "Web Development",
+    image: "/assets/programsDetails/web dev.jpg",
+    training: "/certificates/SampleTrainingCertificate.jpg",
+    internship: "/certificates/SampleInternshipCertificate.jpg",
+    brochure: "/brochures/web-development.jpg",
+    overview:
+      "Web development is the process of creating and maintaining websites, involving both front-end and back-end work. Front-end development focuses on the visual and interactive aspects using HTML, CSS, and JavaScript, while back-end development handles server-side operations and databases with languages like Python and PHP. The goal is to create functional, user-friendly websites that work seamlessly across devices and browsers.",
+    skills: [
+      "Web Fundamentals",
+      "HTML & HTML5",
+      "Web Design Basics",
+      "CSS",
+      "Javascript",
+      "Node.js",
+      "jQuery",
+      "Object-Oriented Programming",
+      "Error Handling",
+      "SQL",
+      "Data Modeling",
+      "Database Management",
+      "MongoDB",
+    ],
+    curriculum: [
+      {
+        question: "Introduction to Web Development",
+        answer:
+          "This module covers the fundamentals of web technologies and provides hands-on experience with using the command line for development tasks.",
+      },
+      {
+        question: "Hypertext Markup Language (HTML)",
+        answer:
+          "You will learn how to get started with HTML5, understand tags and metadata, create forms, compare HTML with HTML5, and utilize developer tools effectively.",
+      },
+      {
+        question: "Basics of Web Design",
+        answer:
+          "We cover the entire design process overview, provide an introduction to User Experience (UX) principles, and teach the creation and practical use of mockups.",
+      },
+      {
+        question: "Cascading Style Sheets (CSS)",
+        answer:
+          "This includes an introduction to CSS3, understanding its syntax (inline, internal, and external), working with media and animations, and mastering layout techniques like CSS Grid and Flexbox.",
+      },
+      {
+        question: "Node.js",
+        answer:
+          "The curriculum focuses on selectors, DOM traversing, and handling events, AJAX, and DOM manipulation within the Node.js environment.",
+      },
+      {
+        question: "Object-Oriented Programming (OOP)",
+        answer:
+          "You will gain a deep understanding of key OOP concepts including inheritance, constructors and destructors, encapsulation, and polymorphism.",
+      },
+      {
+        question: "jQuery",
+        answer:
+          "This section teaches how to use selectors for DOM traversing and how to handle events, AJAX calls, and DOM manipulation using the jQuery library.",
+      },
+      {
+        question: "Database Management",
+        answer:
+          "We introduce SQL for database queries, teach essential data modeling techniques, and cover how to work with PHP for server-side database interaction.",
+      },
+      {
+        question: "JavaScript Programming",
+        answer:
+          "This comprehensive module covers the fundamentals of coding, data types, flow control, looping, functional programming, working with objects and prototypes, error handling, and refactoring and debugging practices.",
+      },
+      {
+        question: "Database with MongoDB",
+        answer:
+          "You will learn to establish communication with MongoDB, read and write data to the database, utilize the aggregation framework for complex queries, and manage database configuration.",
+      },
+    ],
+  }
 };
