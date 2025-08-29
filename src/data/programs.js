@@ -138,8 +138,39 @@ export const programs = {
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     overview:
-      "Combine Java programming with essential Data Structures and Algorithms knowledge.",
+      "Master Java fundamentals and core data structures & algorithms through an industry-focused curriculum. Build a solid foundation in OOP, concurrency, collections, and efficient algorithms. Prepare confidently for technical interviews with structured coding practice and expert mentorship ",
     brochure: "/brochures/INNOKNOWVEX Java with DSA brochure (1)",
+   skills: [
+  "Object-oriented design",
+  "classes",
+  "inheritance",
+  "polymorphism",
+  "Exception handling & error management",
+  "Collections framework",
+  "generics",
+  "File I/O",
+  "multithreading & concurrency",
+  "JDBC basics and clean code practices",
+  "Time & space complexity",
+  "arrays",
+  "strings",
+  "linked lists",
+  "stacks",
+  "queues",
+  "hash maps",
+  "binary trees",
+  "heaps",
+  "tries",
+  "graphs (BFS",
+  "DFS)",
+  "sorting (quick",
+  "merge)",
+  "searching (binary)",
+  "recursion",
+  "greedy strategies",
+  "dynamic programming",
+]
+
   },
   "machine-learning": {
     id: "machine-learning",
@@ -457,8 +488,18 @@ export const programs = {
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/vlsi.jpg",
     overview:
-      "Learn chip design, verification, and physical design in VLSI technology.",
-  },
+      "Very Large Scale Integration (VLSI) is the process of creating integrated circuits by combining millions of transistors into a single chip. It is the backbone of semiconductors, microprocessors, and digital systems, driving innovations in electronics, IoT, AI hardware, and telecommunications. This program provides hands-on knowledge in chip design, verification, and fabrication techniques aligned with industry standards. ",
+  skills: [
+  "Digital Electronics & CMOS Fundamentals",
+  "Verilog",
+  "VHDL",
+  "SystemVerilog",
+  "HDL Programming",
+  "RTL Design & Simulation",
+  "FPGA Implementation & Prototyping",
+  "ASIC Design Flow & Verification"
+],
+},
   nanotechnology: {
     id: "nanotechnology",
     title: "Nanotechnology",
@@ -467,8 +508,24 @@ export const programs = {
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/nanotechnology.jpg",
     overview:
-      "Introduction to nanomaterials, fabrication techniques, and applications.",
-  },
+      " Explore the science of the nanoscale (1–100 nm) and learn how nanomaterials and nano-devices revolutionize medicine, energy, electronics, and the environment. Gain hands-on exposure to cutting-edge tools and applications bridging academics with real-world industry needs.",
+  skills: [
+  "Nanomaterials synthesis & characterization",
+  "SEM",
+  "TEM",
+  "AFM",
+  "XRD",
+  "spectroscopy",
+  "Nanofabrication (lithography",
+  "bottom-up & top-down methods)",
+  "Applications in nanomedicine",
+  "sensors",
+  "energy systems",
+  "Research",
+  "innovation",
+  "interdisciplinary project work"
+]
+},
   "embedded-systems": {
     id: "embedded-systems",
     title: "Embedded Systems",
@@ -477,8 +534,22 @@ export const programs = {
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/embedded-systems.jpg",
     overview:
-      "Design and programming of microcontroller-based embedded systems.",
-  },
+      " Learn to design and program hardware–software integrated systems that power smart devices, IoT, robotics, and automotive applications. Build expertise in microcontrollers, real-time systems, and embedded programming to bridge academics with industry innovations.",
+  skills: [
+  "Microcontrollers & Embedded C/C++",
+  "Real-Time Operating Systems (RTOS)",
+  "UART",
+  "SPI",
+  "I²C",
+  "CAN",
+  "Circuit Design & PCB Development",
+  "Wi-Fi",
+  "Bluetooth",
+  "Zigbee",
+  "IoT & Wireless Communication",
+  "Debugging & Testing with industry tools"
+]
+},
   iot: {
     id: "iot",
     title: "Internet of Things (IoT)",
@@ -631,8 +702,18 @@ export const programs = {
     brochure: "/brouchure/INNOKNOWVEX BA brochure/pdf",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
-    overview: "Use data analytics to drive business decisions and strategy.",
-  },
+    overview: "Gain the expertise to master business analytics and transform raw data into actionable insights with InnoKNOWVEX. This program blends data analysis, statistical modeling, and business strategy to equip learners with the skills needed for decision-making, forecasting, and problem-solving in modern industries. Perfect for those aiming at careers in data-driven business roles across finance, marketing, operations, and consulting. ",
+  skills: [
+  "Data Analysis & Visualization",
+  "Excel",
+  "Power BI",
+  "Tableau",
+  "Statistical Modeling & Predictive Analytics",
+  "SQL & Database Management",
+  "Business Intelligence Tools & Dashboards",
+  "Data-Driven Decision Making & Forecasting"
+]
+},
   "digital-marketing": {
     id: "digital-marketing",
     title: "Digital Marketing",
@@ -771,8 +852,24 @@ export const programs = {
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     overview:
-      "Learn technical analysis, trading strategies, and risk management.",
-  },
+      "Master stock trading and make informed investment decisions with InnoKNOWVEX. This program equips learners with the essentials of financial markets, trading strategies, and risk management, combining theory with hands-on practice. Build confidence to trade in stocksderivatives, and other financial instruments, preparing for careers in investment, portfolio management, or independent trading.",
+  skills: [
+  "Fundamentals of Stock Markets & Exchanges",
+  "Technical Analysis",
+  "Charts",
+  "Patterns",
+  "Indicators",
+  "Fundamental Analysis",
+  "Balance Sheets",
+  "Ratios",
+  "Valuations",
+  "Trading Strategies",
+  "Intraday",
+  "Swing",
+  "Long-term Investing",
+  "Risk & Portfolio Management"
+]
+},
   "human-resources": {
     id: "human-resources",
     title: "Human Resources",
@@ -842,7 +939,20 @@ export const programs = {
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/ui-ux-design.jpg",
     overview:
-      "User interface and experience design principles and prototyping tools.",
+      "UI/UX design focuses on creating intuitive, engaging, and user-friendly digital experiences. While UI (User Interface) emphasizes visual design and interactivity, UX (User Experience) ensures usability, accessibility, and satisfaction. This program blends creativity, design thinking, and usability testing to prepare learners for careers in product design, web, and mobile applications.",
+skills: [
+  "Design Thinking & User-Centered Design",
+  "Wireframing & Prototyping",
+  "Figma",
+  "Adobe XD",
+  "Sketch",
+  "Visual Design Principles",
+  "Typography",
+  "Color Theory",
+  "Layouts",
+  "User Research & Usability Testing",
+  "Interaction Design & Microinteractions"
+]
   },
   "fashion-designing": {
     id: "fashion-designing",
@@ -861,8 +971,15 @@ export const programs = {
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/psychology.jpg",
     overview:
-      "Introduction to human behavior, cognition, and mental processes.",
-  },
+      "Gain deep insights into the human mind, emotions, and behavior with InnoKNOWVEX. This program helps you master core psychology concepts and practical applications, from understanding cognitive processes to applying counseling and research methods. Learners are equipped to apply psychology in mental health, education, workplaces, and social well-being, bridging academic knowledge with real-world practice. ",
+  skills: [
+  "Mastering Human Behavior & Cognitive Psychology",
+  "Counseling & Therapy Techniques",
+  "Emotional Intelligence & Stress Management",
+  "Developmental & Social Psychology",
+  "Organizational & Industrial Applications"
+]
+},
   "medical-coding": {
     id: "medical-coding",
     title: "Medical Coding",
@@ -880,7 +997,7 @@ export const programs = {
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     overview:
-      "Advanced techniques in machine learning, big data processing, and analytics.",
+      "Advanced ",
   },
   "advanced-web-development": {
     id: "advanced-web-development",
@@ -891,8 +1008,8 @@ export const programs = {
     overview:
       "Advanced concepts in web architecture, performance optimization, and security.",
   },
-  "C-C++": {
-    id: "C & C++",
+  "c-cpp": {
+    id: "c-cpp",
     title: "C & C++",
     image: "/assets/programsDetails/webdev.svg",
     training: "/certificates/SampleTrainingCertificate.jpg",
@@ -996,8 +1113,24 @@ export const programs = {
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/Automobile design.jpg",
     overview:
-      "Advanced concepts in web architecture, performance optimization, and security.",
-  },
+      "Gain the expertise to master automobile design and bring innovative vehicles to life with InnoKNOWVEX. This program combines mechanical engineering, aerodynamics, CAD modeling, and ergonomics to train learners in designing efficient, safe, and sustainable automobiles. With a balance of creativity and engineering precision, it prepares students for careers in automotive design, R&D, and manufacturing.",
+  skills: [
+  "Fundamentals of Stock Markets & Exchanges",
+  "Technical Analysis",
+  "Charts",
+  "Patterns",
+  "Indicators",
+  "Fundamental Analysis",
+  "Balance Sheets",
+  "Ratios",
+  "Valuations",
+  "Trading Strategies",
+  "Intraday",
+  "Swing",
+  "Long-term Investing",
+  "Risk & Portfolio Management"
+]
+},
   dsa: {
     id: "DSA",
     title: "Data Structures & Algorithms",

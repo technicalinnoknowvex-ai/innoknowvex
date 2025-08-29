@@ -332,10 +332,10 @@ export const landingPageData = {
           {label: "Business & Management", href: "/programs/business-management",},
           { label: "Clinical Data Management", href: "/programs/clinical-data-management" },
           { label: "Clinical Trials and Research", href: "/programs/clinical-trials-and-research" },
-          { label: "C & C++", href: "/programs/C-C++" },
-          { label: "AutoCad", href: "/programs/AutoCad" },
-          { label: "Automobile Design", href: "/programs/Automobile-Design" },
-          { label: "Data Structures & Algorithms", href: "/programs/DSA" },
+          { label: "C & C++", href: "/programs/c-cpp" },
+          { label: "AutoCad", href: "/programs/autoCad" },
+          { label: "Automobile Design", href: "/programs/automobile-design" },
+          { label: "Data Structures & Algorithms", href: "/programs/dsa" },
         ],
       },
       {
@@ -343,11 +343,11 @@ export const landingPageData = {
         links: [
           {
             label: "Advanced Data Science",
-            href: "/programs/Advanced-Data-Science",
+            href: "/programs/advanced-data-science",
           },
           {
             label: "Advanced Web Development",
-            href: "/programs/Advanced-Web-Development",
+            href: "/programs/advanced-web-development",
           },
         ],
       },
