@@ -8,6 +8,7 @@ import styles from "./styles/CourseLayout.module.scss";
 import Certification from "./Certification";
 import KeyHighlights from "./KeyHighlights";
 import Curriculum from "./Curriculum";
+import Testimonials from "../Landing/Sections/Testimonials/Testimonials";
 
 export default function CourseLayout({ course }) {
   return (
@@ -18,6 +19,7 @@ export default function CourseLayout({ course }) {
       <WhyLearnSection />
       <CardsSection />
       <Certification course={course} />
+      <Testimonials/>
       <PlansSection />
     </div>
   );
