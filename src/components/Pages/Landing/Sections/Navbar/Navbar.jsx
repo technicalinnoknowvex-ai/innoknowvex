@@ -1,3 +1,6 @@
+
+
+
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./styles/navbar.module.scss";
@@ -10,16 +13,17 @@ import { ScrollSmoother } from "gsap/ScrollSmoother";
 import Hamburger from "@/components/Common/Icons/Hamburger";
 import Sparkle from "@/components/Common/Icons/Sparkle";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 gsap.registerPlugin(useGSAP, ScrollToPlugin);
 
 const navLinks = [
-  { label: "About Us", type: "section", href: "#about-us" },
-  { label: "Programs", type: "section", href: "#programs" },
-  { label: "Blogs", type: "page", href: "/blogs" },
-  { label: "Testimonials", type: "section", href: "#testimonials" },
-  { label: "Contact Us", type: "section", href: "#footer" },
+  { label: "Home", type: "section", href: "#", sectionId: "home" },
+  { label: "About Us", type: "section", href: "#about-us", sectionId: "about-us" },
+  { label: "Programs", type: "section", href: "#programs", sectionId: "programs" },
+  { label: "Blogs", type: "page", href: "/blogs", sectionId: null },
+  { label: "Testimonials", type: "section", href: "#testimonials", sectionId: "testimonials" },
+  { label: "Contact Us", type: "section", href: "#footer", sectionId: "footer" },
 ];
 
 const Navbar = () => {
@@ -30,6 +34,10 @@ const Navbar = () => {
   const containerRef = useRef(null);
   const sparkleRefs = useRef([]);
   const router = useRouter();
+  const pathname = usePathname(); // Get current path
+
+  // Check if we're on the homepage
+  const isHomePage = pathname === "/";
 
   // Initialize menu to hidden state and sparkle animations
   useGSAP(
@@ -113,8 +121,13 @@ const Navbar = () => {
       // Navigate to page using Next.js router
       router.push(link.href);
     } else if (link.type === "section") {
-      // Scroll to section
-      handleScrollTo(link.href);
+      // If we're not on the homepage, navigate to homepage first with hash
+      if (!isHomePage) {
+        router.push(`/${link.href}`);
+      } else {
+        // If we're already on homepage, just scroll to section
+        handleScrollTo(link.href);
+      }
     }
   };
 
@@ -202,7 +215,7 @@ const Navbar = () => {
                   <Sparkle color={navColor} />
                 </div>
 
-                {/* Conditional rendering based on link type */}
+                
                 {link.type === "page" ? (
                   <Link
                     href={link.href}
