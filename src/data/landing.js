@@ -35,7 +35,7 @@ export const landingPageData = {
         description:
           "Dive into the world of Artificial Intelligence with a hands-on learning experience focused on machine learning, deep learning, and neural networks. Through interactive lessons, real-world projects, and expert guidance, you’ll move beyond theory into practical application. Whether you're starting out or upskilling, this course equips you for real-world challenges and success in an AI-driven future.",
         slug: "artificial-intelligence",
-        image: "/assets/programs/ai.jpg",
+        image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/AI.jpg",
       },
       {
         title: "Data",
@@ -43,7 +43,7 @@ export const landingPageData = {
         description:
           "Explore the field of Data Science through a structured program covering statistics, data visualization, and predictive modeling. With guided projects, step-by-step lessons, and mentorship, you’ll build the ability to transform raw data into actionable insights. This course ensures you develop industry-ready skills to solve real problems in analytics and data-driven decision-making.",
         slug: "data-science",
-        image: "/assets/programs/data_science.png",
+        image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Data%20Science.jpg",
       },
       {
         title: "Cyber",
@@ -51,7 +51,7 @@ export const landingPageData = {
         description:
           "Master the fundamentals of Cyber Security with a practical curriculum emphasizing threat detection, ethical hacking, and network defense. Learn through labs, simulations, and expert-led instruction that mirror real-world security challenges. Gain the confidence and skills required to protect digital environments and build a successful career in one of today’s most critical domains.",
         slug: "cyber-security",
-        image: "/assets/programs/cyber_security.png",
+        image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Cyber%20Security.jpg",
       },
       {
         title: "Cloud",
@@ -59,7 +59,7 @@ export const landingPageData = {
         description:
           "Step into Cloud Computing with comprehensive training on infrastructure, virtualization, and service deployment across leading platforms. Through hands-on labs, guided exercises, and applied projects, you’ll understand the backbone of modern digital solutions. Whether aiming for certifications or career growth, this program equips you to architect, deploy, and manage scalable cloud systems.",
         slug: "cloud-computing",
-        image: "/assets/programs/python_programming.png",
+        image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Cloud%20Computing.jpg",
       },
       {
         title: "Machine",
@@ -67,7 +67,7 @@ export const landingPageData = {
         description:
           "Gain mastery in Machine Learning through a project-based curriculum emphasizing supervised, unsupervised, and reinforcement learning techniques. With real-world case studies, coding exercises, and expert mentorship, you’ll develop the ability to build intelligent models and deploy them in practice. This program prepares you to innovate and excel in AI-powered applications across industries.",
         slug: "machine-learning",
-        image: "/assets/programs/machine_learning.png",
+        image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Machine%20Learning.jpg",
       },
     ],
   },
@@ -150,7 +150,7 @@ export const landingPageData = {
           "I'm happy to announce the successful completion of my Certificate of Training and Internship in Finance with InnoKnowvex. This program gave me valuable exposure to financial concepts, investment analysis, portfolio management, and risk management, while also strengthening my analytical and decision-making skills. I'm grateful to Innoknowex for providing such an enriching experience and look forward to applying this knowledge in my professional journey and exploring more opportunities in the field of finance and investment.",
         name: "Saniya Khanam",
         profession: "Finance",
-        avatar: "/assets/testimonialSection/testimonial_image.png",
+        avatar: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Saniya%20Khanam.jpg",
       },
       {
         testimonial:
@@ -164,7 +164,7 @@ export const landingPageData = {
           "I'm thrilled to announce the successful completion of my training and internship at InnoKnowex in the finance. This experience has been a game-changer, equipping me with a robust skill set that has deepened my expertise in financial analysis and modeling. I gained hands-on proficiency in financial statement analysis, integrated financial modeling in Excel and data visualization.",
         name: "Umme Uzma",
         profession: "Finance",
-        avatar: "/assets/testimonialSection/testimonial_image.png",
+        avatar: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Umme%20Uzma.jpg",
       },
       {
         testimonial:
@@ -178,7 +178,7 @@ export const landingPageData = {
           "I'm excited to share that I've been given the opportunity to upskill in Java and Data Structures & Algorithms (DSA) through a Self-Paced Learning Program offered by Innoknowvex. This structured and flexible learning experience is helping me strengthen my foundation in core Java concepts, problem-solving techniques, and DSA, which are essential for building efficient and scalable applications.",
         name: "Nithin Sai",
         profession: "Java + DSA",
-        avatar: "/assets/testimonialSection/testimonial_image.png",
+        avatar: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Nithin%20Sai.jpg",
       },
     ],
     rowBottom: [
@@ -194,7 +194,7 @@ export const landingPageData = {
           "I'm thrilled to announce that I've been offered an internship opportunity in the Data Science Program at innoKnowvex Edutech Pvt. Ltd. This opportunity will help me strengthen my skills, gain real-world experience, and grow in the field of data science. Looking forward to learning, contributing, and making the most out of this journey!",
         name: "Komal Kalyani",
         profession: "Data Science",
-        avatar: "/assets/testimonialSection/testimonial_image.png",
+        avatar: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Komal%20Kalyani.jpg",
       },
       {
         testimonial:
@@ -215,8 +215,22 @@ export const landingPageData = {
           "I'm thrilled to announce that I've been offered an internship opportunity in the Data Science Program at innoKnowvex Edutech Pvt. Ltd. This opportunity will help me strengthen my skills, gain real-world experience, and grow in the field of data science. Looking forward to learning, contributing, and making the most out of this journey!",
         name: "Komal Kalyani",
         profession: "Data Science",
-        avatar: "/assets/testimonialSection/testimonial_image.png",
+        avatar: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Komal%20Kalyani.jpg",
       },
+      {
+        testimonial:
+          "I’m happy to share that I’ve successfully completed my Internship Training and Project Internship with Innoknowvex. This journey has been a great learning experience where I got to work on real-world projects, improve my technical skills, and understand how things work in a professional environment. A big thank you to the entire Innoknowvex team for the support and guidance throughout this journey.",
+        name: "Venkata Kiran dometti",
+        profession: "Data Science",
+        avatar: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/VenkataKiran.jpg",
+      },
+      {
+        testimonial:
+          "Excited to share that I’ve completed my HR Training at InnoKnowvex and have now joined as an HR Associate Intern  The training experience here was truly amazing, and I’m grateful for this opportunity to learn, contribute, and grow in the field I’m passionate about.",
+        name: "Kushi T",
+        profession: "Data Science",
+        avatar: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Kushi%20T.jpg",
+      }
     ],
   },
   faqSection: {
@@ -249,7 +263,7 @@ export const landingPageData = {
   footerSection: {
     heading: "Contact Us.",
     subheading: "GET IN TOUCH",
-    email: "innoknowvex@gmail.com",
+    email: "support@innoknowvex.in",
     address:
       "Hustlehub SB01, WJ8G+XWP, 1st Cross Road, Santhosapuram, 1st Block Koramangala, HSR Layout 5th Sector, Bengaluru, Karnataka 560034",
     socialLinks: [

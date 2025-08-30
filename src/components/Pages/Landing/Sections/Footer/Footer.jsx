@@ -24,6 +24,10 @@ const Footer = () => {
   const { heading, subheading, email, address, socialLinks, footerLinks } =
     landingPageData.footerSection;
 
+    const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   useGSAP(
     () => {
       ScrollTrigger.create({
@@ -157,6 +161,7 @@ const Footer = () => {
                 key={sIndex}
                 href={social.href}
                 className={styles.socialLinks}
+                
                 onMouseEnter={() =>
                   transformCursor({
                     dot: {
@@ -201,6 +206,7 @@ const Footer = () => {
                 <Link
                   key={lIndex}
                   href={link.href}
+                  onClick={scrollToTop}
                   className={`${styles.itemContainer} ${styles["itemContainer--link"]}`}
                 >
                   <div className={styles.animatedUnderline}></div>

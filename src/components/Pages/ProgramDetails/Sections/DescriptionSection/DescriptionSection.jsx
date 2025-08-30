@@ -27,7 +27,7 @@ export default function DescriptionSection({ program }) {
           className={styles.courseImage}
         />
       </div>
-      <h2>Program Overview</h2>
+      <h2>{program.title} Program Overview</h2>
       <section>
         <p>{program.overview}</p>
         <div className={styles.buttons}>

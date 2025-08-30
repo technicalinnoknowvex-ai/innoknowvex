@@ -22,10 +22,9 @@ export default function WhyLearnSection() {
           <div className={styles.featureCard}>
             <div className={styles.featureNumber}>01</div>
             <div className={styles.featureContent}>
-              <h3>Online Billing, Invoicing & Contracts.</h3>
+              <h3> Industry-Focused Training</h3>
               <p>
-                Simple and secure control of your organization's financial and
-                legal transactions. Send customized invoices and contracts.
+               We don’t just teach theory — we equip you with practical, in-demand skills through hands-on projects and real-world scenarios.
               </p>
             </div>
           </div>
@@ -33,10 +32,9 @@ export default function WhyLearnSection() {
           <div className={styles.featureCard}>
             <div className={styles.featureNumber}>02</div>
             <div className={styles.featureContent}>
-              <h3>Easy Scheduling & Attendance tracking.</h3>
+              <h3>Internship Opportunities</h3>
               <p>
-                Simple and secure control of your organization's financial and
-                legal transactions. Send customized invoices and contracts.
+               Gain direct industry exposure with structured internships that help you apply what you’ve learned and build your professional portfolio.
               </p>
             </div>
           </div>
@@ -44,10 +42,9 @@ export default function WhyLearnSection() {
           <div className={styles.featureCard}>
             <div className={styles.featureNumber}>03</div>
             <div className={styles.featureContent}>
-              <h3>Customer Tracking.</h3>
+              <h3> Career-Ready Support.</h3>
               <p>
-                Simple and secure control of your organization's financial and
-                legal transactions. Send customized invoices and contracts.
+               From resume building to LinkedIn optimization and mentorship, we prepare you to step into your career with confidence and clarity.
               </p>
             </div>
           </div>

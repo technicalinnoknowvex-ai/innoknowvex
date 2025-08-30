@@ -235,6 +235,7 @@
         border-radius: 15px 5px 15px 5px;
         padding: 10px 15px;
         margin-top: 15px;
+        margin-bottom: 10px;
         outline: none;
         border: none;
         cursor: pointer;
@@ -423,7 +424,8 @@
 
       &--label {
         width: max-content;
-        @include font($font-sharp-25, $book, #fff6c3);
+        @include font($font-sharp-25, $book, #faec98);
+        //#fff6c3
         font-size: 0.8rem;
         border-bottom: 1px solid #fff6c3;
         margin-bottom: 5px;
