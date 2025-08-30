@@ -149,6 +149,7 @@ const Footer = () => {
             </button>
           </div>
         </div>
+
         <div className={styles.sectionInnerWrapper__addressSocialCell}>
           <label className={styles.addressLabel}>ADDRESS</label>
           <p className={styles.address}>{address}</p>
@@ -190,6 +191,7 @@ const Footer = () => {
             ))}
           </div>
         </div>
+
         <div className={styles.sectionInnerWrapper__linksCell}>
           {footerLinks.map((group, gIndex) => (
             <React.Fragment key={gIndex}>
@@ -211,6 +213,7 @@ const Footer = () => {
             </React.Fragment>
           ))}
         </div>
+
         <div className={styles.sectionInnerWrapper__legalCell}>
           <div className={styles.companyEmblem}>
             <InnoknowvexFooterEmblem />

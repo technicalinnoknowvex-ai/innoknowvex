@@ -245,14 +245,14 @@
       &--label {
         width: max-content;
         @include font($font-sharp-25, $book, #fff6c3);
-        font-size: 0.8rem;
+        font-size: 1.2rem;
         border-bottom: 1px solid #fff6c3;
       }
 
       &--link {
         position: relative;
         @include font($font-oldschool, $book, white);
-        font-size: 0.8rem;
+        font-size: 1.05rem;
         // white-space: nowrap;
 
         .animatedUnderline {

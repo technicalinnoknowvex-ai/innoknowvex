@@ -47,7 +47,6 @@ $desktop: 1440px;
   background: transparent;
   overflow: hidden;
   min-height: 60vh;
-  margin-top: 3%;
 
   @include mobile {
     padding: 40px 0;
@@ -65,7 +64,7 @@ $desktop: 1440px;
   position: relative;
   overflow: hidden;
   min-height: 60vh;
-  margin-top: -90px;
+//   margin-top: -90px;
 
   @include mobile {
     padding: 40px 0;
@@ -91,7 +90,6 @@ $desktop: 1440px;
   background: transparent;
   overflow: hidden;
   min-height: 60vh;
-  margin-top: -280px;
 
   @include mobile {
     padding: 40px 0;
