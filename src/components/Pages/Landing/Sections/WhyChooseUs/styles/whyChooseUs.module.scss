@@ -1,3 +1,4 @@
+
 @use "../../../../../../styles/index" as *;
 
 .sectionWrapper {
@@ -6,9 +7,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  // border: 1px solid #715c119e;
   padding: 70px 100px 10px 100px;
   margin-top: 100px;
+
+  @media (max-width: 1050px) {
+    padding: 70px 60px 10px 60px;
+  }
 
   @include tablet-down {
     height: auto;
@@ -20,7 +24,6 @@
     height: auto;
     display: flex;
     flex-direction: column;
-    // border: 1px solid seagreen;
 
     @include tablet-down {
       flex-direction: column;
@@ -31,7 +34,6 @@
 .mainHeaderSection {
   width: 100%;
   height: auto;
-  // border: 1px solid red;
   display: flex;
   flex-direction: column;
 
@@ -42,7 +44,6 @@
     flex-direction: column;
     position: relative;
     z-index: 1;
-    // border: 1px solid green;
 
     .sparkleDiv {
       top: 0px;
@@ -54,7 +55,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      // border: 1px solid red;
       z-index: 2;
 
       div {
@@ -65,23 +65,35 @@
         justify-content: center;
       }
 
+      @media (max-width: 1050px) {
+        width: 35px;
+        transform: translate(-70%, -70%);
+      }
+
       @include tablet-down {
         transform: translate(-50%, -90%);
       }
     }
 
     &__primaryHeading {
-      // border: 1px solid red;
       @include font($font-sharp-25, $medium);
       font-size: 2.2rem;
       z-index: 2;
       margin-bottom: 5px;
+      
+      @media (max-width: 1050px) {
+        font-size: 2rem;
+      }
     }
     &__secondaryHeading {
       @include font($font-sharp-25, $medium, $text-brand);
       font-size: 1rem;
       text-transform: uppercase;
       z-index: 2;
+      
+      @media (max-width: 1050px) {
+        font-size: 0.9rem;
+      }
     }
   }
 
@@ -96,11 +108,22 @@
       display: flex;
       align-items: center;
       padding: 20px 0px;
+      
+      @media (max-width: 1050px) {
+        width: 70%;
+      }
+      
       p {
         line-height: 2;
         @include font($font-oldschool, $medium);
         font-size: 1rem;
+        
+        @media (max-width: 1050px) {
+          font-size: 0.95rem;
+          line-height: 1.8;
+        }
       }
+      
       @include tablet-down {
         width: 100%;
       }
@@ -112,7 +135,6 @@
   margin-top: 20px;
   width: 100%;
   height: auto;
-  //   border: 1px solid red;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -124,29 +146,41 @@
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-template-rows: repeat(2, auto);
-    // border: 1px solid red;
     gap: 30px;
+    
+    @media (max-width: 1050px) {
+      width: 75%;
+      gap: 25px;
+    }
 
     @include tablet-down {
       width: 100%;
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
     }
+    
     @include mobile-down {
       width: 100%;
       grid-template-columns: 100%;
+      gap: 15px;
     }
 
     .reasonCard {
       width: 100%;
       aspect-ratio: 4/5.4;
-      background-color: salmon;
-      border-radius: 20px 20px 20px 60px;
       background: linear-gradient(168.99deg, #fff7e1 8.13%, #f8f1de 114.75%);
       border: 1px solid #715c1121;
+      border-radius: 20px 20px 20px 60px;
       display: grid;
       grid-template-columns: 100%;
-      grid-template-rows: 70px minmax((0, 1fr));
+      grid-template-rows: 70px minmax(0, 1fr);
       padding: 20px 30px;
+      
+      @media (max-width: 1050px) {
+        aspect-ratio: 4/5.6;
+        padding: 18px 25px;
+        grid-template-rows: 65px minmax(0, 1fr);
+      }
 
       &__titleCell {
         position: relative;
@@ -155,7 +189,6 @@
         height: 100%;
         flex-direction: column;
         justify-content: center;
-        // border: 1px solid red;
 
         .titleSparkleDiv {
           position: absolute;
@@ -164,26 +197,49 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          //   border: 1px solid red;
           top: 0;
           left: 0;
           transform: translate(-80%, -30%);
+          
+          @media (max-width: 1050px) {
+            width: 30px;
+            transform: translate(-70%, -25%);
+          }
         }
-
-        p {
+        
+        .titleContainer {
           display: flex;
-          align-items: center;
-          @include font($font-sharp-25, $medium, #9c7f16);
-          text-transform: uppercase;
-          white-space: nowrap;
-          font-size: 1rem;
+          flex-direction: column;
+          width: 100%;
+          overflow: hidden;
+          
+          .titleText, .subTitleText {
+            display: flex;
+            align-items: center;
+            @include font($font-sharp-25, $medium, #9c7f16);
+            text-transform: uppercase;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 1rem;
+            
+            @media (max-width: 1050px) {
+              font-size: 0.9rem;
+            }
+          }
+          
+          .subTitleText {
+            margin-top: 4px;
+          }
         }
       }
+      
       &__descriptionCell {
         width: 100%;
         height: 100%;
         display: flex;
         overflow: hidden;
+        
         p {
           height: 90%;
           @include font($font-oldschool, $book, #9c7f16);
@@ -195,6 +251,11 @@
           -webkit-box-orient: vertical;
           overflow: hidden;
           text-overflow: ellipsis;
+          
+          @media (max-width: 1050px) {
+            font-size: 0.75rem;
+            line-height: 1.8;
+          }
         }
       }
     }
