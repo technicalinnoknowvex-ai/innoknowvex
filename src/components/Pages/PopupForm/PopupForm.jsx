@@ -17,11 +17,47 @@ const PopupForm = ({ delaySeconds = 6 }) => {
   // Show popup after specified delay
   useEffect(() => {
     const timer = setTimeout(() => {
+      // Store current scroll position before freezing
+      const scrollY = window.scrollY;
+      
       setIsVisible(true);
+      
+      // Freeze background completely when popup appears
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
+      document.body.style.height = '100%';
+      
+      // Store scroll position for later restoration
+      document.body.setAttribute('data-scroll-y', scrollY.toString());
     }, delaySeconds * 1000);
 
     return () => clearTimeout(timer);
   }, [delaySeconds]);
+
+  // Clean up body overflow when component unmounts
+  useEffect(() => {
+    return () => {
+      // Restore scroll when component unmounts
+      const scrollY = document.body.getAttribute('data-scroll-y');
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
+      document.body.style.height = '';
+      document.body.removeAttribute('data-scroll-y');
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY));
+      }
+    };
+  }, []);
 
   // Handle input changes
   const handleInputChange = (e) => {
@@ -70,16 +106,7 @@ const PopupForm = ({ delaySeconds = 6 }) => {
       alert('Thank you! Your information has been saved.');
       
       // Close popup
-      setIsVisible(false);
-      
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        program: '',
-        timestamp: ''
-      });
+      handleClose();
       
     } catch (error) {
       console.error('Error saving data:', error);
@@ -91,22 +118,71 @@ const PopupForm = ({ delaySeconds = 6 }) => {
 
   // Close popup
   const handleClose = () => {
+    // Get stored scroll position
+    const scrollY = document.body.getAttribute('data-scroll-y');
+    
     setIsVisible(false);
+    
+    // Restore background scroll when popup closes
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+    document.body.style.height = '';
+    document.body.removeAttribute('data-scroll-y');
+    
+    // Restore scroll position
+    if (scrollY) {
+      window.scrollTo(0, parseInt(scrollY));
+    }
+    
+    // Reset form
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      program: '',
+      timestamp: ''
+    });
+  };
+
+  // Handle overlay click (close on outside click)
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      handleClose();
+    }
+  };
+
+  // Handle Escape key press (optional - remove if you want only outside click)
+  useEffect(() => {
+    const handleEscapeKey = (e) => {
+      if (e.key === 'Escape' && isVisible) {
+        handleClose();
+      }
+    };
+
+    if (isVisible) {
+      document.addEventListener('keydown', handleEscapeKey);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscapeKey);
+    };
+  }, [isVisible]);
+
+  // Prevent scroll on popup content
+  const preventScroll = (e) => {
+    e.preventDefault();
   };
 
   if (!isVisible) return null;
 
   return (
-    <div className={styles.overlay}>
-      <div className={styles.popup}>
-        <button 
-          className={styles.closeButton}
-          onClick={handleClose}
-          type="button"
-        >
-          ×
-        </button>
-        
+    <div className={styles.overlay} onClick={handleOverlayClick}>
+      <div className={styles.popup} onWheel={preventScroll} onTouchMove={preventScroll}>        
         <div className={styles.header}>
           <h2>Get Program Information</h2>
           <p>Fill out the form below and we'll get back to you!</p>
@@ -123,6 +199,7 @@ const PopupForm = ({ delaySeconds = 6 }) => {
               onChange={handleInputChange}
               placeholder="Enter your full name"
               required
+              autoComplete="name"
             />
           </div>
           
@@ -136,6 +213,7 @@ const PopupForm = ({ delaySeconds = 6 }) => {
               onChange={handleInputChange}
               placeholder="Enter your email"
               required
+              autoComplete="email"
             />
           </div>
           
@@ -149,6 +227,7 @@ const PopupForm = ({ delaySeconds = 6 }) => {
               onChange={handleInputChange}
               placeholder="Enter your phone number"
               required
+              autoComplete="tel"
             />
           </div>
           
@@ -162,6 +241,7 @@ const PopupForm = ({ delaySeconds = 6 }) => {
               onChange={handleInputChange}
               placeholder="Enter your program of interest"
               required
+              autoComplete="off"
             />
           </div>
           
