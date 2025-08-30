@@ -1,3 +1,4 @@
+
 "use client";
 import React, { useRef } from "react";
 import styles from "./styles/footer.module.scss";
@@ -29,9 +30,7 @@ const Footer = () => {
         trigger: footerRef.current,
         start: "top 60px",
         end: "bottom bottom",
-        // markers: true,
         onEnter: () => {
-          console.log("entered");
           updateNavColor("white");
         },
         onEnterBack: () => updateNavColor("white"),
