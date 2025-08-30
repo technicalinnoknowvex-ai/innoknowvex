@@ -3,7 +3,7 @@ import styles from "./styles/plansSection.module.scss";
 
 export default function PlansSection() {
   return (
-    <div className={styles.plansContainer}>
+    <div id="plans-section" className={styles.plansContainer}>
       <div className={styles.Plans}>
         <div className={styles.alignHeading}>
           <img

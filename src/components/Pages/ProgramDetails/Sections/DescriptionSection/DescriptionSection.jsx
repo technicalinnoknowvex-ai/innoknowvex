@@ -1,6 +1,7 @@
 "use client";
 import styles from "./styles/descriptionSection.module.scss";
 
+
 export default function DescriptionSection({ program }) {
   const handleDownloadBrochure = () => {
     if (!program.brochure) {
@@ -17,6 +18,12 @@ export default function DescriptionSection({ program }) {
     link.click();
     document.body.removeChild(link);
   };
+   const scrollToPlans = () => {
+    const plansSection = document.getElementById("plans-section");
+    if (plansSection) {
+      plansSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <div className={styles.descriptionContainer}>
@@ -31,7 +38,8 @@ export default function DescriptionSection({ program }) {
       <section>
         <p>{program.overview}</p>
         <div className={styles.buttons}>
-          <button className={styles.startnow}>Start Course Now</button>
+          <button className={styles.startnow} onClick={scrollToPlans}>
+           Start Course Now</button>
           <button
             className={styles.Brochure}
             onClick={handleDownloadBrochure}
