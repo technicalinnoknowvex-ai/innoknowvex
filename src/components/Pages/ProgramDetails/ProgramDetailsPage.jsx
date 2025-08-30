@@ -1,5 +1,6 @@
 "use client";
 
+import Footer from "../Landing/Sections/Footer/Footer";
 import CardsSection from "./Sections/CardsSection/CardsSection";
 import CertificationSection from "./Sections/CertificationSection/CertificationSection";
 import CurriculumSection from "./Sections/CurriculumSection/CurriculumSection";
@@ -19,6 +20,7 @@ export default function ProgramDetailsPage({ program }) {
       <CardsSection />
       <CertificationSection program={program} />
       <PlansSection />
+      <Footer/>
     </div>
   );
 }
