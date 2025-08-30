@@ -201,14 +201,14 @@ export const landingPageData = {
           "The Al course provided in-depth knowledge of algorithms and techniques. The mentors were knowledgeable and always supportive. A great course that covered Al concepts with practical applications. The hands-on projects were very insightful.",
         name: "Sashank Verma",
         profession: "AI",
-        avatar: "/assets/testimonialSection/testimonial_image.png",
+        avatar: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/2.jpg",
       },
       {
         testimonial:
           "The Web Development course was excellent! It covered both frontend and backend technologies in depth with great practical assignments. I learned HTML, CSS, JavaScript, and backend technologies effectively in this course. The mentors were always supportive and ready to clear doubts.",
         name: "Mansoor Ali",
         profession: "Web Development",
-        avatar: "/assets/testimonialSection/testimonial_image.png",
+        avatar: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/1.jpg",
       },
       {
         testimonial:
