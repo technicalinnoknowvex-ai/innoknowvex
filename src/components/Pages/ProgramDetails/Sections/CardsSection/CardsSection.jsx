@@ -1,37 +1,15 @@
 "use client";
 import { useRef, useEffect } from "react";
 import styles from "./styles/cardSection.module.scss";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function CardsSection() {
-  const cardRefs = useRef([]);
+    const cardRef = useRef()
 
-  useEffect(() => {
-    cardRefs.current = cardRefs.current.slice(0, 6);
-  }, []);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add(styles.visible);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    // Observe only card elements
-    cardRefs.current.forEach((card) => {
-      if (card) observer.observe(card);
-    });
-
-    return () => {
-      cardRefs.current.forEach((card) => {
-        if (card) observer.unobserve(card);
-      });
-    };
-  }, []);
 
   return (
     <div className={styles.cardsContainer}>
@@ -56,10 +34,7 @@ export default function CardsSection() {
 
         <div className={styles.cardsGrid}>
           {/* First row */}
-          <div
-            ref={(el) => (cardRefs.current[0] = el)}
-            className={`${styles.card} ${styles.softSkillsCard}`}
-          >
+          <div ref={cardRef} className={`${styles.card} ${styles.softSkillsCard}`}>
             <div className={styles.cardHeader}>
               <img
                 className={styles.starImage}
@@ -73,7 +48,7 @@ export default function CardsSection() {
             <p>Enhance your communications and interpersonal skills.</p>
           </div>
 
-          <div ref={(el) => (cardRefs.current[1] = el)} className={styles.card}>
+          <div  className={styles.card}>
             <div className={styles.cardHeader}>
               <img
                 className={styles.starImage}
@@ -87,7 +62,7 @@ export default function CardsSection() {
             <p>Prepare for interviews with realistic practice sessions.</p>
           </div>
 
-          <div ref={(el) => (cardRefs.current[2] = el)} className={styles.card}>
+          <div  className={styles.card}>
             <div className={styles.cardHeader}>
               <img
                 className={styles.starImage}
@@ -102,7 +77,7 @@ export default function CardsSection() {
           </div>
 
           {/* Second row */}
-          <div ref={(el) => (cardRefs.current[3] = el)} className={styles.card}>
+          <div  className={styles.card}>
             <div className={styles.cardHeader}>
               <img
                 className={styles.starImage}
@@ -116,7 +91,7 @@ export default function CardsSection() {
             <p>Build a professional resume that highlights your strengths.</p>
           </div>
 
-          <div ref={(el) => (cardRefs.current[4] = el)} className={styles.card}>
+          <div  className={styles.card}>
             <div className={styles.cardHeader}>
               <img
                 className={styles.starImage}
@@ -130,7 +105,7 @@ export default function CardsSection() {
             <p>Boost confidence with realistic, test-style practice.</p>
           </div>
 
-          <div ref={(el) => (cardRefs.current[5] = el)} className={styles.card}>
+          <div  className={styles.card}>
             <div className={styles.cardHeader}>
               <img
                 className={styles.starImage}

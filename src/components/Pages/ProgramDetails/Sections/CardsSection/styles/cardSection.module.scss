@@ -11,12 +11,12 @@
 @keyframes slideInFromRight {
   0% {
     opacity: 0;
-    transform: translateX(100px);
+    transform: translateY(100px);
   }
 
   100% {
     opacity: 1;
-    transform: translateX(0px);
+    transform: translateY(0px);
   }
 }
 
@@ -98,21 +98,22 @@
   border-radius: 30px 30px 30px 70px;
   padding: 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
+  // transition: all 0.3s ease;
   min-height: 180px;
   display: flex;
   flex-direction: column;
-  opacity: 0;
-  transform: translateX(100px);
-  transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+  // opacity: 0;
+  // transform: translateX(100px);
+  // transition: transform 0.8s ease-out, opacity 0.8s ease-out;
   border: 0.5px solid #9c7f16;
-  max-width: 100%;
+  width: 35vh;
+  // height: 35vh;
   background: #f8f1de;
 
-  &.visible {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  // &.visible {
+  //   // opacity: 1;
+  //   // transform: translateX(0);
+  // }
 
   &:hover {
     transform: translateY(-5px) scale(1.02);
@@ -136,6 +137,7 @@
   align-items: center;
   gap: 1rem;
   margin-bottom: 1rem;
+  margin-top: 10px;
 }
 
 .starImage {
@@ -147,28 +149,30 @@
   object-fit: contain;
   flex-shrink: 0;
   bottom: 25px;
+  left: -15px;
 }
 
 .card h3 {
   position: relative;
-  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
-  justify-content: center;
+  font-size: 1.3rem;
+  // justify-content: center;
+  width: 100%;
   margin: 0;
   color: #9c7f16;
   font-family: var(--font-sharp-25), Sharp Grotesk !important;
   font-weight: 500;
   text-transform: uppercase;
   line-height: 1.2;
-  left: -15px;
+  left: -35px;
 }
 
 .card p {
-  font-size: 0.9rem;
+  font-size: 1rem;
   line-height: 1.6;
   color: #9c7f16;
-  font-family: sharp-grotesk;
-  margin-top: auto;
-  padding-left: 0;
+  font-family: old-school-grotesk;
+  margin-left: 10px;
+  width: 100%;
 }
 
 /* Staggered animations for cards */
