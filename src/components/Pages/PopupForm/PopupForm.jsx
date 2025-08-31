@@ -1,18 +1,16 @@
+"use client";
 
-
-'use client';
-
-import { useState, useEffect } from 'react';
-import styles from './styles/popup.module.scss';
+import { useState, useEffect } from "react";
+import styles from "./styles/popup.module.scss";
 
 const PopupForm = ({ delaySeconds = 6 }) => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    program: '',
-    timestamp: '' // This will be set automatically
+    name: "",
+    email: "",
+    phone: "",
+    program: "",
+    timestamp: "", // This will be set automatically
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -28,55 +26,62 @@ const PopupForm = ({ delaySeconds = 6 }) => {
   // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Validate form
-    if (!formData.name || !formData.email || !formData.phone || !formData.program) {
-      alert('Please fill in all fields');
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.phone ||
+      !formData.program
+    ) {
+      alert("Please fill in all fields");
       return;
     }
-    
+
     setIsSubmitting(true);
-    
+
     try {
       // Add current timestamp to form data
       const dataWithTimestamp = {
         ...formData,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       };
-      
+
       // Send data to API route
-      const response = await fetch('/api/submit-form', {
-        method: 'POST',
+      const response = await fetch("/api/submit-form", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(dataWithTimestamp),
       });
-      
+
       const responseData = await response.json();
-      
+
       if (!response.ok) {
-        throw new Error(responseData.message || 'Failed to submit form');
+        throw new Error(responseData.message || "Failed to submit form");
       }
-      
+
       // Show success message
-      alert('Thank you! Your information has been saved.');
-      
+      alert("Thank you! Your information has been saved.");
+
       // Close popup
       handleClose();
-      
     } catch (error) {
-      console.error('Error saving data:', error);
-      alert(error.message || 'There was an error saving your information. Please try again.');
+      console.error("Error saving data:", error);
+      alert(
+        error.message ||
+          "There was an error saving your information. Please try again."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -85,14 +90,14 @@ const PopupForm = ({ delaySeconds = 6 }) => {
   // Close popup
   const handleClose = () => {
     setIsVisible(false);
-    
+
     // Reset form
     setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      program: '',
-      timestamp: ''
+      name: "",
+      email: "",
+      phone: "",
+      program: "",
+      timestamp: "",
     });
   };
 
@@ -106,17 +111,17 @@ const PopupForm = ({ delaySeconds = 6 }) => {
   // Handle Escape key press
   useEffect(() => {
     const handleEscapeKey = (e) => {
-      if (e.key === 'Escape' && isVisible) {
+      if (e.key === "Escape" && isVisible) {
         handleClose();
       }
     };
 
     if (isVisible) {
-      document.addEventListener('keydown', handleEscapeKey);
+      document.addEventListener("keydown", handleEscapeKey);
     }
 
     return () => {
-      document.removeEventListener('keydown', handleEscapeKey);
+      document.removeEventListener("keydown", handleEscapeKey);
     };
   }, [isVisible]);
 
@@ -124,12 +129,12 @@ const PopupForm = ({ delaySeconds = 6 }) => {
 
   return (
     <div className={styles.overlay} onClick={handleOverlayClick}>
-      <div className={styles.popup}>        
+      <div className={styles.popup}>
         <div className={styles.header}>
           <h2>Get Program Information</h2>
           <p>Fill out the form below and we'll get back to you!</p>
         </div>
-        
+
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.inputGroup}>
             <label htmlFor="name">Full Name *</label>
@@ -144,7 +149,7 @@ const PopupForm = ({ delaySeconds = 6 }) => {
               autoComplete="name"
             />
           </div>
-          
+
           <div className={styles.inputGroup}>
             <label htmlFor="email">Email Address *</label>
             <input
@@ -158,7 +163,7 @@ const PopupForm = ({ delaySeconds = 6 }) => {
               autoComplete="email"
             />
           </div>
-          
+
           <div className={styles.inputGroup}>
             <label htmlFor="phone">Phone Number *</label>
             <input
@@ -172,7 +177,7 @@ const PopupForm = ({ delaySeconds = 6 }) => {
               autoComplete="tel"
             />
           </div>
-          
+
           <div className={styles.inputGroup}>
             <label htmlFor="program">Program of Interest *</label>
             <input
@@ -186,13 +191,13 @@ const PopupForm = ({ delaySeconds = 6 }) => {
               autoComplete="off"
             />
           </div>
-          
-          <button 
-            type="submit" 
+
+          <button
+            type="submit"
             className={styles.submitButton}
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Saving...' : 'Submit'}
+            {isSubmitting ? "Saving..." : "Submit"}
           </button>
         </form>
       </div>
