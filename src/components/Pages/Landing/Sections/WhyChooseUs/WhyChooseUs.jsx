@@ -1,5 +1,3 @@
-
-
 import React, { useRef } from "react";
 import styles from "./styles/whyChooseUs.module.scss";
 import Sparkle from "@/components/Common/Icons/Sparkle";
@@ -9,6 +7,7 @@ import { useSectionObserver } from "@/hooks/useSectionObserver";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { ScrollParallax } from "react-just-parallax";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -147,13 +146,17 @@ const WhyChooseUs = ({ scrollContainerRef }) => {
           </div>
         </section>
 
-        <div className={styles.sparkle}>
-          <Sparkle/>
-        </div>
+        <ScrollParallax strength={0.08}>
+          <div className={styles.sparkle}>
+            <Sparkle />
+          </div>
+        </ScrollParallax>
 
-        <div className={styles.sparkle2}>
-          <Sparkle/>
-        </div>
+        <ScrollParallax strength={0.1}>
+          <div className={styles.sparkle2}>
+            <Sparkle />
+          </div>
+        </ScrollParallax>
 
         <section className={styles.contentSection}>
           <div className={styles.cardsGrid}>
