@@ -7,7 +7,7 @@ export async function POST(request) {
   try {
     // Parse the request body
     const { name, email, phone, program } = await request.json();
-    console.log('Parsed data:', { name, email, phone, program });
+    // console.log('Parsed data:', { name, email, phone, program });
     
     // Validate the data
     if (!name || !email || !phone || !program) {
@@ -19,10 +19,10 @@ export async function POST(request) {
     }
 
     // Check environment variables
-    console.log('Checking environment variables...');
-    console.log('GOOGLE_SERVICE_ACCOUNT_EMAIL exists:', !!process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL);
-    console.log('GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY exists:', !!process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY);
-    console.log('GOOGLE_SHEET_ID exists:', !!process.env.GOOGLE_SHEET_ID);
+    // console.log('Checking environment variables...');
+    // console.log('GOOGLE_SERVICE_ACCOUNT_EMAIL exists:', !!process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL);
+    // console.log('GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY exists:', !!process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY);
+    // console.log('GOOGLE_SHEET_ID exists:', !!process.env.GOOGLE_SHEET_ID);
     
     if (!process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || 
         !process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY || 
@@ -35,10 +35,10 @@ export async function POST(request) {
     }
 
     // Configure Google Sheets API
-    console.log('Configuring Google auth...');
-    const privateKey = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(/\\n/g, '\n');
-    console.log('Private key length:', privateKey.length);
-    console.log('Private key starts with:', privateKey.substring(0, 30));
+    // console.log('Configuring Google auth...');
+    // const privateKey = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(/\\n/g, '\n');
+    // console.log('Private key length:', privateKey.length);
+    // console.log('Private key starts with:', privateKey.substring(0, 30));
     
     const auth = new google.auth.JWT({
       email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
@@ -47,12 +47,12 @@ export async function POST(request) {
     });
 
     // Authenticate
-    console.log('Authenticating...');
+    // console.log('Authenticating...');
     await auth.authorize();
-    console.log('Authentication successful');
+    // console.log('Authentication successful');
 
     // Append data to Google Sheet
-    console.log('Appending to sheet...');
+    // console.log('Appending to sheet...');
     const sheets = google.sheets({ version: 'v4', auth });
     
     const response = await sheets.spreadsheets.values.append({
@@ -64,8 +64,8 @@ export async function POST(request) {
       },
     });
 
-    console.log('Google Sheets response:', response.status, response.statusText);
-    console.log('Data saved successfully');
+    // console.log('Google Sheets response:', response.status, response.statusText);
+    // console.log('Data saved successfully');
 
     return new Response(JSON.stringify({ message: 'Form submitted successfully' }), {
       status: 200,
@@ -73,9 +73,9 @@ export async function POST(request) {
     });
     
   } catch (error) {
-    console.error('Error in submit-form API:', error);
-    console.error('Error details:', error.message);
-    console.error('Error stack:', error.stack);
+    // console.error('Error in submit-form API:', error);
+    // console.error('Error details:', error.message);
+    // console.error('Error stack:', error.stack);
     
     return new Response(JSON.stringify({ 
       message: 'Internal server error',

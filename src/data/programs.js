@@ -1,10 +1,9 @@
-import { builtinRules } from "eslint/use-at-your-own-risk";
 
 export const programs = {
   "web-development": {
     id: "web-development",
     title: "Web Development",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Web%20Dev.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Web%20Dev.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/web-development.jpg",
@@ -81,7 +80,7 @@ export const programs = {
   "python-programming": {
     id: "python-programming",
     title: "Python Programming",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Python.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Python.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/python-programming.jpg",
@@ -109,7 +108,7 @@ export const programs = {
   java: {
     id: "java",
     title: "JAVA",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/JAVA.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/JAVA.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure:'brochures/INNOKNOWVEX Java- brochure.pdf',
@@ -137,7 +136,7 @@ export const programs = {
   "java-dsa": {
     id: "java-dsa",
     title: "JAVA + DSA",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/JAVA.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/JAVA.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     overview:
@@ -178,7 +177,7 @@ export const programs = {
   "machine-learning": {
     id: "machine-learning",
     title: "Machine Learning",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Machine%20Learning.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Machine%20Learning.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/machine-learning.jpg",
@@ -235,7 +234,7 @@ export const programs = {
   "artificial-intelligence": {
     id: "artificial-intelligence",
     title: "Artificial Intelligence (AI)",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/AI.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/AI.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/artificial-intelligence.jpg",
@@ -307,7 +306,7 @@ export const programs = {
   "cloud-computing": {
     id: "cloud-computing",
     title: "Cloud Computing",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Cloud%20Computing.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Cloud%20Computing.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     overview:
@@ -374,7 +373,7 @@ export const programs = {
   "cyber-security": {
     id: "cyber-security",
     title: "Cyber Security",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Cyber%20Security.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Cyber%20Security.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/cyber-security.jpg",
@@ -433,7 +432,7 @@ export const programs = {
   "data-science": {
     id: "data-science",
     title: "Data Science",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Data%20Science.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Data%20Science.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/data-science.jpg",
@@ -486,7 +485,7 @@ export const programs = {
   vlsi: {
     id: "vlsi",
     title: "Very Large Scale Integration (VLSI)",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/VLSI.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/VLSI.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/vlsi.jpg",
@@ -506,7 +505,7 @@ export const programs = {
   nanotechnology: {
     id: "nanotechnology",
     title: "Nanotechnology",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Nanotechnology.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Nanotechnology.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/nanotechnology.jpg",
@@ -532,7 +531,7 @@ export const programs = {
   "embedded-systems": {
     id: "embedded-systems",
     title: "Embedded Systems",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Embedded%20Systems.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Embedded%20Systems.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/embedded-systems.jpg",
@@ -556,7 +555,7 @@ export const programs = {
   iot: {
     id: "iot",
     title: "Internet of Things (IoT)",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/IoT.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/IoT.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/iot.jpg",
@@ -618,7 +617,7 @@ export const programs = {
   hev: {
     id: "hev",
     title: "Hybrid Electric Vehicles (HEV)",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Hybrid%20%26%20Electric.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Hybrid%20%26%20Electric.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/hev.jpg",
@@ -674,7 +673,7 @@ export const programs = {
   "mern-stack": {
     id: "mern-stack",
     title: "MERN Stack Development",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/MERN.png",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/MERN.png",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     overview:
@@ -683,7 +682,7 @@ export const programs = {
   "android-development": {
     id: "android-development",
     title: "Android Development",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/android.png",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/android.png",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     overview:
@@ -692,7 +691,7 @@ export const programs = {
   "business-management": {
     id: "business-management",
     title: "Business & Management",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/BM.png",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/BM.png",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     overview:
@@ -701,7 +700,7 @@ export const programs = {
   "business-analytics": {
     id: "business-analytics",
     title: "Business Analytics",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Business%20Analytics.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Business%20Analytics.jpg",
     brochure: "/brouchure/INNOKNOWVEX BA brochure/pdf",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
@@ -720,7 +719,7 @@ export const programs = {
   "digital-marketing": {
     id: "digital-marketing",
     title: "Digital Marketing",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/DM.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/DM.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     overview:
@@ -792,7 +791,7 @@ export const programs = {
   finance: {
     id: "finance",
     title: "Finance",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Finance.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Finance.jpg",
     brochure: "/brochure/INNOKNOWVEX Finance brochure.pdf",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
@@ -850,7 +849,7 @@ export const programs = {
   "stock-trading": {
     id: "stock-trading",
     title: "Stock Trading",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Stock%20Trading.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Stock%20Trading.jpg",
     brochure: "/brochure/INNOKNOWVEX Stock Trading - brochure/pdf",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
@@ -876,7 +875,7 @@ export const programs = {
   "human-resources": {
     id: "human-resources",
     title: "Human Resources",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/HR.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/HR.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/human-resources.jpg",
@@ -928,7 +927,7 @@ export const programs = {
   "corporate-law": {
     id: "corporate-law",
     title: "Corporate Law",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/corporate%20law.png",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/corporate%20law.png",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     overview:
@@ -937,7 +936,7 @@ export const programs = {
   "ui-ux-design": {
     id: "ui-ux-design",
     title: "UI/UX Design",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/UI-UX.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/UI-UX.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/ui-ux-design.jpg",
@@ -960,7 +959,7 @@ skills: [
   "fashion-designing": {
     id: "fashion-designing",
     title: "Fashion Designing",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/fashion%20design.png",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/fashion%20design.png",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     overview:
@@ -969,7 +968,7 @@ skills: [
   psychology: {
     id: "psychology",
     title: "Psychology",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Psychology.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Psychology.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/psychology.jpg",
@@ -986,7 +985,7 @@ skills: [
   "medical-coding": {
     id: "medical-coding",
     title: "Medical Coding",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Medical%20Coding.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Medical%20Coding.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/medical-coding.jpg",
@@ -996,7 +995,7 @@ skills: [
   "advanced-data-science": {
     id: "advanced-data-science",
     title: "Advanced Data Science",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Data%20Science.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Data%20Science.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure:'/brochures/data-science.pdf',
@@ -1006,7 +1005,7 @@ skills: [
   "advanced-web-development": {
     id: "advanced-web-development",
     title: "Advanced Web Development",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Web%20Dev.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Web%20Dev.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure:'/brochures/web-development.pdf',
@@ -1016,7 +1015,7 @@ skills: [
   "c-cpp": {
     id: "c-cpp",
     title: "C & C++",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/ccpp.png",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/ccpp.png",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/C & C++.jpg",
@@ -1026,7 +1025,7 @@ skills: [
   autocad: {
     id: "AutoCad",
     title: "AutoCad",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/Auto%20CAD.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Auto%20CAD.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/AutoCad.jpg",
@@ -1113,7 +1112,7 @@ skills: [
   "automobile-design": {
     id: "Automobile Design",
     title: "Automobile design",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/automobile%20design.png",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/automobile%20design.png",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/Automobile design.jpg",
@@ -1139,7 +1138,7 @@ skills: [
   dsa: {
     id: "DSA",
     title: "Data Structures & Algorithms",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/DSA%20%26%20Alg.jpg",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/DSA%20%26%20Alg.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     brochure: "/brochures/DSA.jpg",
@@ -1149,7 +1148,7 @@ skills: [
   "clinical-data-management": {
     id: "clinical-data-management",
     title: "Web Development",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/CDM.png",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/CDM.png",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     // brochure: "/brochures/web-development.jpg",
@@ -1226,7 +1225,7 @@ skills: [
   "clinical-trials-and-research": {
     id: "wclinical-trials-and-research",
     title: "Web Development",
-    image: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/CTR.png",
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/CTR.png",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     // brochure: "/brochures/web-development.jpg",
