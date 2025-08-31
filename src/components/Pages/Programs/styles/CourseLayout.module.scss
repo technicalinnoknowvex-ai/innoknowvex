@@ -1,0 +1,12 @@
+.courseContainer {
+  max-width: 1600px;
+  margin: auto;
+  padding-top: 100px;
+}
+
+@media (max-width: 768px) {
+  .courseContainer {
+    max-width: 100%;
+    padding: 15px;
+  }
+}

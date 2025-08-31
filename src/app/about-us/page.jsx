@@ -1,10 +1,8 @@
-import AboutUs from '@/components/Pages/AboutUsDetails/AboutDetailsPage'
-import React from 'react'
+import React from "react";
+import AboutDetailsPage from "@/components/Pages/AboutUsDetails/AboutDetailsPage";
 
 const page = () => {
-  return (
-    <AboutUs/>
-  )
-}
+  return <AboutDetailsPage />;
+};
 
-export default page
+export default page;

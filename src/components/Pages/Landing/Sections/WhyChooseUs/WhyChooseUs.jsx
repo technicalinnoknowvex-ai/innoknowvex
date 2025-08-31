@@ -1,3 +1,5 @@
+
+
 import React, { useRef } from "react";
 import styles from "./styles/whyChooseUs.module.scss";
 import Sparkle from "@/components/Common/Icons/Sparkle";
@@ -165,8 +167,10 @@ const WhyChooseUs = ({ scrollContainerRef }) => {
                   <div className={styles.titleSparkleDiv}>
                     <Sparkle color={"#9C7F16"} />
                   </div>
-                  <p>{reason.title}</p>
-                  <p>{reason.subTitle}</p>
+                  <div className={styles.titleContainer}>
+                    <p className={styles.titleText}>{reason.title}</p>
+                    <p className={styles.subTitleText}>{reason.subTitle}</p>
+                  </div>
                 </div>
                 <div className={styles.reasonCard__descriptionCell}>
                   <p>{reason.description}</p>

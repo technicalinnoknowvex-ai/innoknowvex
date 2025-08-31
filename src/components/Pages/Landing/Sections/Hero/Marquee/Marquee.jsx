@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 const stripTextArr = [
-  "Digital Agency",
+  
   "Web Design",
   "Cyber Security",
   "Artificial Agency",

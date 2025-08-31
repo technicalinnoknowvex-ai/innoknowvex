@@ -32,7 +32,7 @@
     }
     h1 {
       @include font($font-sharp-25, $medium, $text-brand);
-      font-size: 1rem;
+      font-size: 1.2rem;
       text-transform: uppercase;
       z-index: 2;
       margin: 20px 0px;
@@ -93,7 +93,7 @@
     }
     &__secondaryHeading {
       @include font($font-sharp-25, $medium, $text-brand);
-      font-size: 1rem;
+      font-size: 1.2rem;
       text-transform: uppercase;
       z-index: 2;
     }

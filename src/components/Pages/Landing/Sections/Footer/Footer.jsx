@@ -1,3 +1,4 @@
+
 "use client";
 import React, { useRef } from "react";
 import styles from "./styles/footer.module.scss";
@@ -23,15 +24,17 @@ const Footer = () => {
   const { heading, subheading, email, address, socialLinks, footerLinks } =
     landingPageData.footerSection;
 
+    const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   useGSAP(
     () => {
       ScrollTrigger.create({
         trigger: footerRef.current,
         start: "top 60px",
         end: "bottom bottom",
-        // markers: true,
         onEnter: () => {
-          console.log("entered");
           updateNavColor("white");
         },
         onEnterBack: () => updateNavColor("white"),
@@ -159,6 +162,7 @@ const Footer = () => {
                 key={sIndex}
                 href={social.href}
                 className={styles.socialLinks}
+                
                 onMouseEnter={() =>
                   transformCursor({
                     dot: {
@@ -204,6 +208,7 @@ const Footer = () => {
                 <Link
                   key={lIndex}
                   href={link.href}
+                  onClick={scrollToTop}
                   className={`${styles.itemContainer} ${styles["itemContainer--link"]}`}
                 >
                   <div className={styles.animatedUnderline}></div>

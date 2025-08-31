@@ -40,7 +40,7 @@ const Marquee = ({ items, direction = "left", duration = 30 }) => {
       <div className={styles.marquee__strip}>
         <div
           ref={marqueeContentRef}
-          style={{ display: "flex", alignItems: "center", height: "100%" }}
+          style={{ display: "flex", alignItems: "center", height: "150%" }}
         >
           {items.map((Logo, index) => (
             <div key={index} className={styles.brandLogo}>
