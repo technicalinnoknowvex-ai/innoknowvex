@@ -18,20 +18,18 @@ export async function POST(request) {
       process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY?.replace(/\\n/g, "\n") ||
       process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY;
 
-    console.log("privateKey", privateKey ? "Exists" : "Missing");
-    console.log("email", process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL);
-    console.log("google sheet ID", process.env.GOOGLE_SHEET_ID);
+    // console.log("privateKey", privateKey ? "Exists" : "Missing");
+    // console.log("email", process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL);
+    // console.log("google sheet ID", process.env.GOOGLE_SHEET_ID);
 
     const auth = new google.auth.JWT({
       email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
       key: privateKey,
       scopes: ["https://www.googleapis.com/auth/spreadsheets"],
     });
-    console.log("1");
 
     await auth.authorize();
     const sheets = google.sheets({ version: "v4", auth });
-    console.log("2");
 
     await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
@@ -41,7 +39,6 @@ export async function POST(request) {
         values: [[name, email, phone, program, new Date().toISOString()]],
       },
     });
-    console.log("3");
 
     return new Response(
       JSON.stringify({ message: "Form submitted successfully" }),
@@ -52,7 +49,6 @@ export async function POST(request) {
     );
   } catch (error) {
     // Added error parameter here
-    console.log("4");
     console.error("Full error details:", {
       message: error.message,
       stack: error.stack,
