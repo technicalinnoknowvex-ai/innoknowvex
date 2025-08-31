@@ -5,7 +5,7 @@ const page = () => {
   return (
     <div>
       <LandingPage />
-      {/* <PopupForm delaySeconds={4}/> */}
+      <PopupForm delaySeconds={4} />
     </div>
   );
 };
