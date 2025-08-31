@@ -144,6 +144,15 @@ const WhyChooseUs = ({ scrollContainerRef }) => {
             </div>
           </div>
         </section>
+
+        <div className={styles.sparkle}>
+          <Sparkle/>
+        </div>
+
+        <div className={styles.sparkle2}>
+          <Sparkle/>
+        </div>
+
         <section className={styles.contentSection}>
           <div className={styles.cardsGrid}>
             {reasons.map((reason, index) => (

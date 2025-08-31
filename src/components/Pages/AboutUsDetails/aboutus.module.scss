@@ -74,13 +74,13 @@ $desktop: 1440px;
 
   @include tablet {
     padding: 60px 0;
-    margin-top: -270px;
+    margin-top: -220px;
     margin-bottom:0px;
     min-height: 650px;
   }
 
   @include laptop{
-    margin-top: -190px;
+    margin-top: -10%;
   }
 }
 
@@ -99,11 +99,11 @@ $desktop: 1440px;
 
   @include tablet {
     padding: 60px 0;
-    margin-top: -280px;
+    margin-top: -40%;
   }
 
   @include laptop{
-    margin-top: -250px;
+    margin-top: -8%;
   }
 }
 
@@ -490,11 +490,11 @@ $desktop: 1440px;
   }
 
   @include laptop {
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-around;
-    align-items: flex-start;
+    align-items: center;
     padding: 80px 50px;
-    margin-top: -200px;
+    margin-top: -25%;
   }
 }
 
@@ -502,9 +502,7 @@ $desktop: 1440px;
   display: flex;
   flex-direction: column;
   position: relative;
-  margin-left: 180px;
   margin-bottom: 150px;
-  margin-top: 80px;
 
   @include mobile {
     margin: 0;
@@ -635,29 +633,50 @@ $desktop: 1440px;
   }
 }
 
-// Specific positioning adjustments for team members
+.pic1{
+  left: -7%;
+  margin-top: 10%;
+
+  @include laptop{
+    left: 3%;
+    scale: 1.1;
+  }
+
+  @include tablet{
+    left: 0;
+  }
+  
+}
+
 .pic2 {
+
   @include desktop {
-    margin-top: 280px;
+    margin-top: 18%
   }
 
   @include laptop {
-    // margin-top: 150px;
+    margin-top: 5%;
+    scale: 1.1;
   }
 }
 
 .pic3 {
 
+  right: -6%;
+
   @include tablet{
     margin-bottom: 50px;
+    right: 0%;
   }
 
   @include desktop {
-    margin-top: -150px;
+    // margin-top: -150px;
   }
 
   @include laptop {
-    margin-top: -80px;
+    // margin-top: -80px;
+    right: 1%;
+    scale: 1.1;
   }
 }
 
@@ -713,16 +732,5 @@ $desktop: 1440px;
   @include laptop {
     scale: 0.55;
     margin: 0px -25px;
-  }
-}
-
-// Container utility
-.container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 20px;
-
-  @include mobile {
-    padding: 0 15px;
   }
 }
