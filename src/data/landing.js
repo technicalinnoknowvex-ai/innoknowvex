@@ -157,7 +157,7 @@ export const landingPageData = {
           "I recently took a web development course with innoknowvex technologies and it was a great experience! The content was perfect and easy to follow. The instructions were helpful, and the hands-on projects were very practical. I highly recommend it to anyone looking to learn web development. They are also providing certification.",
         name: "Vignesh Ram Kodeti",
         profession: "Web Development",
-        avatar: "/assets/testimonialSection/testimonial_image.png",
+        avatar: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/3.jpg",
       },
       {
         testimonial:
@@ -171,7 +171,7 @@ export const landingPageData = {
           "I have taken a Data Science course with Innoknowvex and it was a great experience! The content was smooth and easy to follow. The instructors were helpful, and the hands-on projects were very practical. I highly recommend it to anyone looking to learn Data Science.",
         name: "Yashwant Reddy",
         profession: "Data Science",
-        avatar: "/assets/testimonialSection/testimonial_image.png",
+        avatar: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/4.jpg",
       },
       {
         testimonial:
@@ -187,7 +187,7 @@ export const landingPageData = {
           "The Python course was beginner-friendly yet covered advanced concepts too. The teaching approach made coding easier to understand. Great course for learning Python from scratch! The mentors explained everything step by step and provided useful practice exercises.",
         name: "Vishnu Vardhan Settipalli",
         profession: "Python",
-        avatar: "/assets/testimonialSection/testimonial_image.png",
+        avatar: "https://xqqofbl8jktih6ja.public.blob.vercel-storage.com/5.jpg",
       },
       {
         testimonial:

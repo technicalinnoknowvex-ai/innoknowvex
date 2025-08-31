@@ -9,6 +9,7 @@ import KeyHighlightsSection from "./Sections/KeyHighlightsSection/KeyHighlightsS
 import PlansSection from "./Sections/PlansSection/PlansSection";
 import WhyLearnSection from "./Sections/WhyLearnSection/WhyLearnSection";
 import styles from "./styles/programDetails.module.scss";
+import TestimonialSection from "../Landing/Sections/Testimonials/Testimonials";
 
 export default function ProgramDetailsPage({ program }) {
   return (
@@ -20,6 +21,7 @@ export default function ProgramDetailsPage({ program }) {
       <CardsSection />
       <CertificationSection program={program} />
       <PlansSection />
+      <TestimonialSection />
       <Footer/>
     </div>
   );

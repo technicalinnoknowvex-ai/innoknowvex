@@ -5,6 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Testimonials from "../Landing/Sections/Testimonials/Testimonials";
+import Footer from "../Landing/Sections/Footer/Footer";
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -312,6 +313,7 @@ const AboutDetailsPage = () => {
         </div>
       </div>
       <Testimonials/>
+      <Footer/>
     </>
   );
 };
