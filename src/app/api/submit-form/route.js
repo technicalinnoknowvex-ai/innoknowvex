@@ -26,9 +26,11 @@ export async function POST(request) {
       key: privateKey,
       scopes: ["https://www.googleapis.com/auth/spreadsheets"],
     });
+    console.log("1");
 
     await auth.authorize();
     const sheets = google.sheets({ version: "v4", auth });
+    console.log("2");
 
     await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
@@ -38,7 +40,7 @@ export async function POST(request) {
         values: [[name, email, phone, program, new Date().toISOString()]],
       },
     });
-
+    console.log("3");
     return new Response(
       JSON.stringify({ message: "Form submitted successfully" }),
       {
@@ -47,6 +49,7 @@ export async function POST(request) {
       }
     );
   } catch {
+    console.log("4");
     return new Response(JSON.stringify({ message: "Internal server error" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
