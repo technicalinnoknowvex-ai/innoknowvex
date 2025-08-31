@@ -17,6 +17,10 @@ export async function POST(request) {
       /\\n/g,
       "\n"
     );
+    console.log("privateKey", privateKey);
+    console.log("email", process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL);
+    console.log("google sheet ID", process.env.GOOGLE_SHEET_ID);
+
     const auth = new google.auth.JWT({
       email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
       key: privateKey,
