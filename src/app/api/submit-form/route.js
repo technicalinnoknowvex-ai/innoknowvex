@@ -13,11 +13,12 @@ export async function POST(request) {
       );
     }
 
-    const privateKey = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(
-      /\\n/g,
-      "\n"
-    );
-    console.log("privateKey", privateKey);
+    // Add optional chaining to prevent errors if env var is missing
+    const privateKey =
+      process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY?.replace(/\\n/g, "\n") ||
+      process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY;
+
+    console.log("privateKey", privateKey ? "Exists" : "Missing");
     console.log("email", process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL);
     console.log("google sheet ID", process.env.GOOGLE_SHEET_ID);
 
@@ -41,6 +42,7 @@ export async function POST(request) {
       },
     });
     console.log("3");
+
     return new Response(
       JSON.stringify({ message: "Form submitted successfully" }),
       {
@@ -48,7 +50,8 @@ export async function POST(request) {
         headers: { "Content-Type": "application/json" },
       }
     );
-  } catch {
+  } catch (error) {
+    // Added error parameter here
     console.log("4");
     console.error("Full error details:", {
       message: error.message,
@@ -56,9 +59,17 @@ export async function POST(request) {
       code: error.code,
     });
 
-    return new Response(JSON.stringify({ message: "Internal server error" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    });
+    return new Response(
+      JSON.stringify({
+        message: "Internal server error",
+        // Optional: include error details in development
+        error:
+          process.env.NODE_ENV === "development" ? error.message : undefined,
+      }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   }
 }
