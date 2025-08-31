@@ -438,7 +438,7 @@ $desktop: 1440px;
   position: absolute;
   right: 0%;
   margin: -20px -150px;
-  z-index: 1;
+  z-index: 0;
   pointer-events: none;
 
   @include mobile {
