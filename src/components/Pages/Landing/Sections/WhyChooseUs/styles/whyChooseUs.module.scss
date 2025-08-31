@@ -270,12 +270,22 @@
 .sparkle {
   position: absolute;
   height: 100px;
-  margin-top: 10%;
+  margin-top: 15%;
+
+  @include tablet-down{
+    display: none;
+  }
+
+
 }
 
 .sparkle2 {
   position: absolute;
-  height: 60px;
-  margin-top: 20%;
+  height: 100px;
+  margin-top: 37%;
   left: 23%;
+
+  @include tablet-down{
+    display: none;
+  }
 }
