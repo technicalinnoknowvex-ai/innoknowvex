@@ -36,7 +36,7 @@ export async function POST(request) {
 
     // Configure Google Sheets API
     // console.log('Configuring Google auth...');
-    // const privateKey = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(/\\n/g, '\n');
+    const privateKey = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(/\\n/g, '\n');
     // console.log('Private key length:', privateKey.length);
     // console.log('Private key starts with:', privateKey.substring(0, 30));
     
