@@ -19,6 +19,7 @@ const FormSchema = z.object({
 });
 
 const PopUpForm = () => {
+  const formRef = useRef(null);
   const { isFormOpen, closeForm } = usePopupForm();
 
   const {
@@ -72,6 +73,26 @@ const PopUpForm = () => {
     });
   }, [isSubmitting]);
 
+  useGSAP(() => {
+    if (isFormOpen && formRef.current) {
+      gsap.fromTo(
+        formRef.current,
+        {
+          y: -80,
+          opacity: 0,
+          scale: 0.95,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.7,
+          ease: "back.out(1.7)", // smooth bounce
+        }
+      );
+    }
+  }, [isFormOpen]);
+
   const onSubmit = async (data) => {
     const payload = { ...data, timestamp: new Date().toISOString() };
     try {
@@ -88,7 +109,11 @@ const PopUpForm = () => {
   }
   return (
     <div className={styles.formPage}>
-      <form className={styles.formWrapper} onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className={styles.formWrapper}
+        onSubmit={handleSubmit(onSubmit)}
+        ref={formRef}
+      >
         <div className={styles.formHeaderContainer}>
           <h1>
             Level Up Your
