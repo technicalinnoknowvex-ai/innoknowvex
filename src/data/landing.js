@@ -230,7 +230,7 @@ export const landingPageData = {
         testimonial:
           "Excited to share that I’ve completed my HR Training at InnoKnowvex and have now joined as an HR Associate Intern  The training experience here was truly amazing, and I’m grateful for this opportunity to learn, contribute, and grow in the field I’m passionate about.",
         name: "Kushi T",
-        profession: "Data Science",
+        profession: "Human Resources",
         avatar: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Kushi%20T.jpg",
       }
     ],
