@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useRef } from "react";
 import styles from "./styles/footer.module.scss";
@@ -14,9 +13,11 @@ import gsap from "gsap";
 import { useNavColor } from "@/context/NavColorContext";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useScroll } from "@/context/ScrollContext";
+import { usePopupForm } from "@/context/PopupFormContext";
 gsap.registerPlugin(ScrollTrigger);
 
 const Footer = () => {
+  const { openForm } = usePopupForm();
   const footerRef = useRef(null);
   const { resetCursor, transformCursor } = useCursor();
   const { updateNavColor } = useNavColor();
@@ -24,8 +25,8 @@ const Footer = () => {
   const { heading, subheading, email, address, socialLinks, footerLinks } =
     landingPageData.footerSection;
 
-    const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   useGSAP(
@@ -41,7 +42,14 @@ const Footer = () => {
         onLeave: () => updateNavColor("#262c35"),
         onLeaveBack: () => updateNavColor("#262c35"),
       });
+      ScrollTrigger.create({
+        trigger: footerRef.current,
+        start: "top 60px",
+        once: true,
+        onEnter: () => openForm(),
+      });
     },
+
     { scope: footerRef }
   );
 
@@ -121,6 +129,7 @@ const Footer = () => {
             </div>
             <button
               className={styles.sendMsgButton}
+              onClick={openForm}
               onMouseEnter={() =>
                 transformCursor({
                   dot: {
@@ -162,7 +171,6 @@ const Footer = () => {
                 key={sIndex}
                 href={social.href}
                 className={styles.socialLinks}
-                
                 onMouseEnter={() =>
                   transformCursor({
                     dot: {

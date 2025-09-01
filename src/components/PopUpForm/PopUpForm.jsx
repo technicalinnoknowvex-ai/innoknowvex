@@ -9,6 +9,7 @@ import Sparkle from "../Common/Icons/Sparkle";
 import styles from "./styles/popupForm.module.scss";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { usePopupForm } from "@/context/PopupFormContext";
 
 const FormSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -18,6 +19,8 @@ const FormSchema = z.object({
 });
 
 const PopUpForm = () => {
+  const { isFormOpen, closeForm } = usePopupForm();
+
   const {
     register,
     handleSubmit,
@@ -80,6 +83,9 @@ const PopUpForm = () => {
     }
   };
 
+  if (!isFormOpen) {
+    return null;
+  }
   return (
     <div className={styles.formPage}>
       <form className={styles.formWrapper} onSubmit={handleSubmit(onSubmit)}>
@@ -89,7 +95,11 @@ const PopUpForm = () => {
             <br />
             <span>Skills Today.</span>
           </h1>
-          <button type="button" className={styles.closeButton}>
+          <button
+            type="button"
+            className={styles.closeButton}
+            onClick={closeForm}
+          >
             <Icon
               icon="icon-park-solid:close-one"
               style={{ width: "100%", height: "100%", color: "#9c7f16" }}
