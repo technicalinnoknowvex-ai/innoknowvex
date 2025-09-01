@@ -151,8 +151,8 @@ export const landingPageData = {
         name: "Saniya Khanam",
         profession: "Finance",
         avatar: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Saniya%20Khanam.jpg",
-        
-        
+
+
       },
       {
         testimonial:
@@ -271,22 +271,22 @@ export const landingPageData = {
     socialLinks: [
       {
         label: "facebook",
-        href: "#",
+        href: "https://www.facebook.com/share/1AnpQTwzpC/?mibextid=wwXIfr",
         icon: "ic:baseline-facebook",
       },
       {
         label: "instagram",
-        href: "#",
+        href: "https://www.instagram.com/inno_knowvex?igsh=bWx6M2p3MXUwZGg3",
         icon: "ri:instagram-fill",
       },
       {
         label: "linkedin",
-        href: "#",
+        href: "https://www.linkedin.com/company/innoknowvex/",
         icon: "basil:linkedin-solid",
       },
       {
         label: "youtube",
-        href: "#",
+        href: "https://youtube.com/@innoknowvex?si=8aMECsrXU8ApW0WG",
         icon: "entypo-social:youtube",
       },
     ],
@@ -294,20 +294,11 @@ export const landingPageData = {
       {
         listLabel: "LINKS",
         links: [
-          { label: "About Us", href: "#" },
-          { label: "Programs", href: "#" },
-          { label: "Blogs", href: "#" },
-          { label: "Testimonials", href: "#" },
-          // { label: "", href: "#" },
-          // { label: "", href: "#" },
-          // { label: "", href: "#" },
-          // { label: "", href: "#" },
-          // { label: "", href: "#" },
-          // { label: "", href: "#" },
-          // { label: "", href: "#" },
-          // { label: "", href: "#" },
-          // { label: "", href: "#" },
-          // { label: "", href: "#" },
+          { label: "About Us", type: "section", href: "#about-us", sectionId: "about-us" },
+          { label: "Programs", type: "section", href: "#programs", sectionId: "programs" },
+          { label: "Blogs", type: "page", href: "/blogs", sectionId: null },
+          { label: "Testimonials", type: "section", href: "#testimonials", sectionId: "testimonials" },
+
         ],
       },
       {
@@ -345,7 +336,7 @@ export const landingPageData = {
           { label: "Corporate Law", href: "/programs/corporate-law" },
           { label: "Java", href: "/programs/java" },
           { label: "MERN Stack Development", href: "/programs/mern-stack" },
-          {label: "Business & Management", href: "/programs/business-management",},
+          { label: "Business & Management", href: "/programs/business-management", },
           { label: "Clinical Data Management", href: "/programs/clinical-data-management" },
           { label: "Clinical Trials and Research", href: "/programs/clinical-trials-and-research" },
           { label: "C & C++", href: "/programs/c-cpp" },
