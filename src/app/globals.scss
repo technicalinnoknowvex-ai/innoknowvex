@@ -7,7 +7,6 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-
 html,
 body {
   max-width: 100%;
@@ -38,4 +37,14 @@ button {
 html,
 body {
   height: auto;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #9c7f16 !important;
+  caret-color: white;
 }

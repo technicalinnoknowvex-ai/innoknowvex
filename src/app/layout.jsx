@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import { CursorProvider } from "@/context/CursorProvider";
 import Cursor from "@/components/Common/Cursor/Cursor";
 import { ScrollProvider } from "@/context/ScrollContext";
+import PopUpForm from "@/components/PopUpForm/PopUpForm";
 
 const sharpGrotesk20 = localFont({
   src: [
