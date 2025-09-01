@@ -6,7 +6,7 @@ export const programs = {
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Web%20Dev.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
-    brochure: "/brochures/web-development.jpg",
+    brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/web-development.pdf",
     overview:
       "Web development is the process of creating and maintaining websites, involving both front-end and back-end work. Front-end development focuses on the visual and interactive aspects using HTML, CSS, and JavaScript, while back-end development handles server-side operations and databases with languages like Python and PHP. The goal is to create functional, user-friendly websites that work seamlessly across devices and browsers.",
     skills: [
@@ -83,7 +83,7 @@ export const programs = {
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Python.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
-    brochure: "/brochures/python-programming.jpg",
+    brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/python-programming.pdf",
     overview:
       "Python program provides a thorough introduction to Python programming, focusing on key concepts such as syntax, data structures, algorithms, and object-oriented programming. Students will gain hands-on experience through practical projects, covering topics like web development, data analysis, and automation. The program also explores advanced areas such as machine learning and software engineering. Graduates will be equipped for careers in software development, data science, automation, and beyond.",
     skills: [
@@ -111,7 +111,7 @@ export const programs = {
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/JAVA.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
-    brochure:'brochures/INNOKNOWVEX Java- brochure.pdf',
+    brochure:'https://ectpbsj3skccab5d.public.blob.vercel-storage.com/INNOKNOWVEX%20Java-%20brochure.pdf',
     overview:
       "Java program offers comprehensive training in Java programming, covering essential concepts such as object-oriented programming, data structures, algorithms, and software development principles. Students will engage in hands-on projects, gaining practical experience in building robust, scalable applications. The curriculum also includes advanced topics like Java frameworks, web development, and mobile app development. Graduates will be well-prepared for careers in software development, enterprise solutions, web applications, and Android development.",
     skills: [
@@ -139,6 +139,7 @@ export const programs = {
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/JAVA.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
+    brouchure:'https://ectpbsj3skccab5d.public.blob.vercel-storage.com/INNOKNOWVEX%20Java%20with%20DSA%20brochure%20%281%29.pdf',
     overview:
       "Master Java fundamentals and core data structures & algorithms through an industry-focused curriculum. Build a solid foundation in OOP, concurrency, collections, and efficient algorithms. Prepare confidently for technical interviews with structured coding practice and expert mentorship ",
     brochure: "/brochures/INNOKNOWVEX Java with DSA brochure (1)",
@@ -180,7 +181,7 @@ export const programs = {
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Machine%20Learning.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
-    brochure: "/brochures/machine-learning.jpg",
+    brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/machine-learning.pdf",
     overview:
       "This program provides a foundational introduction to Machine Learning (ML) over five sessions. Participants will explore key ML concepts such as supervised and unsupervised learning, regression, classification, and clustering. Practical sessions using Python and Scikit-Learn will focus on implementing and evaluating ML algorithms. By the end of the program, participants will have gained essential skills to apply ML techniques to real-world datasets and scenarios effectively.",
     skills: [
@@ -237,7 +238,7 @@ export const programs = {
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/AI.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
-    brochure: "/brochures/artificial-intelligence.jpg",
+    brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/artificial-intelligence.pdf",
     overview:
       "AI refers to the simulation of human intelligence in machines that are programmed to think like humans and mimic their actions. This encompasses the ability of machines to perform tasks commonly associated with human cognition, such as learning from experience, reasoning based on provided data, and adapting to new inputs to solve complex problems. AI can manifest in various forms, from basic rule-based systems to advanced neural networks capable of processing vast amounts of information and making decisions independently.",
     skills: [
@@ -309,6 +310,7 @@ export const programs = {
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Cloud%20Computing.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
+    brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/INNOKNOWVEX%20Cloud%20Computing.pdf",
     overview:
       "This program introduces participants to the fundamentals of cloud computing in five sessions. Topics include cloud deployment models (public, private, hybrid), service models (IaaS, PaaS, SaaS), cloud architecture, virtualization, and security considerations. Practical exercises will cover using major cloud platforms (AWS, Azure, Google Cloud) to deploy applications and manage cloud resources. By the end of the program, participants will have gained essential skills to leverage cloud technologies effectively for various business and personal applications.",
     brochure: "/brochures/INNOKNOWVEX Cloud Computing",
@@ -376,7 +378,7 @@ export const programs = {
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Cyber%20Security.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
-    brochure: "/brochures/cyber-security.jpg",
+    brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/cyber-security.pdf",
     overview:
       "This program is designed to introduce participants to essential concepts and practices in cybersecurity over the course of five sessions. Beginning with an overview of cybersecurity importance and common threats, sessions progress to cover types of cyber threats and vulnerabilities, basic security measures like strong passwords and encryption, securing networks with firewalls and VPNs, and best practices for data management and incident response. By the end, participants will have gained foundational knowledge to enhance their personal and organizational cybersecurity practices effectively.",
     skills: [
@@ -435,7 +437,7 @@ export const programs = {
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Data%20Science.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
-    brochure: "/brochures/data-science.jpg",
+    brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/data-science.pdf",
     overview:
       "This program provides a foundational introduction to data science over five sessions. Participants will learn essential concepts such as data types, data cleaning, and exploratory data analysis using Python and visualization libraries. Statistical methods for data analysis and basic machine learning concepts will also be covered, offering participants practical skills to analyze data and make informed decisions in various domains.",
     skills: [
@@ -488,7 +490,7 @@ export const programs = {
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/VLSI.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
-    brochure: "/brochures/vlsi.jpg",
+    brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/vlsi.pdf",
     overview:
       "Very Large Scale Integration (VLSI) is the process of creating integrated circuits by combining millions of transistors into a single chip. It is the backbone of semiconductors, microprocessors, and digital systems, driving innovations in electronics, IoT, AI hardware, and telecommunications. This program provides hands-on knowledge in chip design, verification, and fabrication techniques aligned with industry standards. ",
   skills: [
@@ -508,7 +510,7 @@ export const programs = {
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Nanotechnology.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
-    brochure: "/brochures/nanotechnology.jpg",
+    brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/nanotechnology.pdf",
     overview:
       " Explore the science of the nanoscale (1–100 nm) and learn how nanomaterials and nano-devices revolutionize medicine, energy, electronics, and the environment. Gain hands-on exposure to cutting-edge tools and applications bridging academics with real-world industry needs.",
   skills: [
@@ -534,7 +536,7 @@ export const programs = {
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Embedded%20Systems.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
-    brochure: "/brochures/embedded-systems.jpg",
+    brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/embedded-systems.pdf",
     overview:
       " Learn to design and program hardware–software integrated systems that power smart devices, IoT, robotics, and automotive applications. Build expertise in microcontrollers, real-time systems, and embedded programming to bridge academics with industry innovations.",
   skills: [
@@ -558,7 +560,7 @@ export const programs = {
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/IoT.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
-    brochure: "/brochures/iot.jpg",
+    brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/iot.pdf",
     overview:
       "This program introduces participants to the fundamentals of Internet of Things (IoT) and Robotics in five sessions. Topics include sensor integration, microcontroller programming, robot design principles, and basic control algorithms. Practical exercises will cover building and programming simple IoT devices and robots, providing participants with foundational skills to explore and innovate in these exciting fields.",
     skills: [
@@ -620,7 +622,7 @@ export const programs = {
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Hybrid%20%26%20Electric.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
-    brochure: "/brochures/hev.jpg",
+    brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/hev.pdf",
     overview:
       "This course provides a comprehensive introduction to hybrid electric vehicles (HEVs), exploring their design, operation, and environmental impact. Students will learn about the fundamental principles of hybrid systems, including powertrains, energy management strategies, and the integration of traditional and electric propulsion systems.",
     skills: [
@@ -701,7 +703,7 @@ export const programs = {
     id: "business-analytics",
     title: "Business Analytics",
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Business%20Analytics.jpg",
-    brochure: "/brouchure/INNOKNOWVEX BA brochure/pdf",
+    brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/INNOKNOWVEX%20BA%20brochure.pdf",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     overview: "Gain the expertise to master business analytics and transform raw data into actionable insights with InnoKNOWVEX. This program blends data analysis, statistical modeling, and business strategy to equip learners with the skills needed for decision-making, forecasting, and problem-solving in modern industries. Perfect for those aiming at careers in data-driven business roles across finance, marketing, operations, and consulting. ",
@@ -724,7 +726,7 @@ export const programs = {
     internship: "/certificates/SampleInternshipCertificate.jpg",
     overview:
       "This program introduces participants to digital marketing essentials in five sessions. Topics include digital channels (websites, social media, email, search engines), key strategies (SEO, SEM, content marketing), and campaign management. Practical exercises cover creating and optimizing digital campaigns, analyzing metrics, and understanding consumer behavior online. By the end of the program, participants will have acquired foundational skills to implement effective digital marketing strategies and enhance online presence for businesses.",
-    brochure: "/brochures/INNOKNOWVEX DM brochure.pdf",
+    brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/INNOKNOWVEX%20DM%20brochure.pdf",
     skills: [
       "Search Engine Optimization (SEO)",
       "Content Marketing",
@@ -792,7 +794,7 @@ export const programs = {
     id: "finance",
     title: "Finance",
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Finance.jpg",
-    brochure: "/brochure/INNOKNOWVEX Finance brochure.pdf",
+    brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/INNOKNOWVEX%20Finance%20brochure.pdf",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     overview:
@@ -850,7 +852,7 @@ export const programs = {
     id: "stock-trading",
     title: "Stock Trading",
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Stock%20Trading.jpg",
-    brochure: "/brochure/INNOKNOWVEX Stock Trading - brochure/pdf",
+    brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/INNOKNOWVEX%20Stock%20Trading%20-%20brochure.pdf",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
     overview:
@@ -878,7 +880,7 @@ export const programs = {
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/HR.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
-    brochure: "/brochures/human-resources.jpg",
+    brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/human-resources.pdf",
     overview:
       "This program introduces participants to fundamental concepts in Human Resources across five sessions. Topics include recruitment, employee relations, performance management, legal compliance, and workplace diversity. Practical exercises will involve applying HR strategies to scenarios, enhancing skills in hiring, managing, and developing talent. By the programs conclusion, participants will have gained essential knowledge and skills to contribute effectively to HR functions within organizations.",
     skills: [
@@ -939,7 +941,7 @@ export const programs = {
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/UI-UX.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
-    brochure: "/brochures/ui-ux-design.jpg",
+    brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/ui-ux-design.pdf",
     overview:
       "UI/UX design focuses on creating intuitive, engaging, and user-friendly digital experiences. While UI (User Interface) emphasizes visual design and interactivity, UX (User Experience) ensures usability, accessibility, and satisfaction. This program blends creativity, design thinking, and usability testing to prepare learners for careers in product design, web, and mobile applications.",
 skills: [
@@ -971,7 +973,7 @@ skills: [
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Psychology.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
-    brochure: "/brochures/psychology.jpg",
+    brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/psychology.pdf",
     overview:
       "Gain deep insights into the human mind, emotions, and behavior with InnoKNOWVEX. This program helps you master core psychology concepts and practical applications, from understanding cognitive processes to applying counseling and research methods. Learners are equipped to apply psychology in mental health, education, workplaces, and social well-being, bridging academic knowledge with real-world practice. ",
   skills: [
@@ -988,7 +990,7 @@ skills: [
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Medical%20Coding.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
-    brochure: "/brochures/medical-coding.jpg",
+    brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/medical-coding.pdf",
     overview:
       "Learn medical classification systems and healthcare billing codes.",
   },
@@ -998,7 +1000,7 @@ skills: [
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Data%20Science.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
-    brochure:'/brochures/data-science.pdf',
+    brochure:'https://ectpbsj3skccab5d.public.blob.vercel-storage.com/data-science.pdf',
     overview:
       "Advanced ",
   },
@@ -1008,7 +1010,7 @@ skills: [
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Web%20Dev.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
-    brochure:'/brochures/web-development.pdf',
+    brochure:'https://ectpbsj3skccab5d.public.blob.vercel-storage.com/web-development.pdf',
     overview:
       "Advanced concepts in web architecture, performance optimization, and security.",
   },
@@ -1018,7 +1020,7 @@ skills: [
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/ccpp.png",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
-    brochure: "/brochures/C & C++.jpg",
+    brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/C%20%26%20C%2B%2B.pdf",
     overview:
       "Advanced concepts in web architecture, performance optimization, and security.",
   },
@@ -1028,7 +1030,7 @@ skills: [
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Auto%20CAD.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
-    brochure: "/brochures/AutoCad.jpg",
+    brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/AutoCad.pdf",
     overview:
       "This program introduces participants to AutoCAD, a leading software for 2D drafting and design, in five sessions. Topics include basic interface navigation, drawing tools, editing commands, and annotation features. Participants will learn to create technical drawings and layouts efficiently, incorporating industry standards. Practical exercises will cover tasks such as creating geometric shapes, applying dimensions, and organizing drawings using layers. By the end of the program, participants will have acquired foundational skills in AutoCAD essential for various design disciplines.",
     skills: [
@@ -1115,7 +1117,7 @@ skills: [
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/automobile%20design.png",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
-    brochure: "/brochures/Automobile design.jpg",
+    brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/Automobile%20design.pdf",
     overview:
       "Gain the expertise to master automobile design and bring innovative vehicles to life with InnoKNOWVEX. This program combines mechanical engineering, aerodynamics, CAD modeling, and ergonomics to train learners in designing efficient, safe, and sustainable automobiles. With a balance of creativity and engineering precision, it prepares students for careers in automotive design, R&D, and manufacturing.",
   skills: [
@@ -1141,7 +1143,7 @@ skills: [
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/DSA%20%26%20Alg.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
-    brochure: "/brochures/DSA.jpg",
+    brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/DSA.pdf",
     overview:
       "Advanced concepts in web architecture, performance optimization, and security.",
   },
