@@ -1,0 +1,47 @@
+@use "../../../../styles/mixins" as m;
+
+.landing {
+  width: 100%;
+  height: auto;
+}
+.starContainerLeft {
+  position: absolute;
+  top: 20%;
+  left: 25%;
+  width: 60px;
+  height: 60px;
+  pointer-events: none;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+  }
+}
+
+.starContainerRight {
+  position: absolute;
+  bottom: 46%;
+  right: 25%;
+  width: 60px;
+  height: 60px;
+  pointer-events: none;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+  }
+}
+.bg{
+  
+  position: absolute;
+  height: 100vh;
+  width: 100vh;
+  top:20%;
+}
+
+.circularTextContainer{
+  margin-top: -125px;
+}

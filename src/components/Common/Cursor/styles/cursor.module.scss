@@ -1,0 +1,47 @@
+@use "../../../../styles/variables" as v;
+
+.cursorRing {
+  position: fixed;
+  width: 30px;
+  aspect-ratio: 1/1;
+  z-index: 9999;
+  border-radius: 100%;
+  border: 1.5px solid #9c7f16a7;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cursorDot {
+  position: fixed;
+  width: 15px;
+  aspect-ratio: 1/1;
+  z-index: 9999;
+  border-radius: 100%;
+  background-color: v.$brand-primary;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .cursorContentDiv {
+    position: relative;
+    width: 30%;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
+  .svgDiv {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid red;
+  }
+}

@@ -1,0 +1,35 @@
+// Variables for consistent styling
+$content-width: 1200px;
+$section-padding: 2rem;
+
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  
+  // This ensures your landing page stays centered
+  > :first-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; // Full viewport height
+    width: 100%;
+    padding: $section-padding;
+  }
+  
+  // Scrollable sections after landing page
+  > :not(:first-child) {
+    width: 100%;
+    max-width: $content-width;
+    margin: 0 auto;
+    padding: $section-padding;
+    
+    // Add space between sections
+    & + * {
+      margin-top: 2rem;
+    }
+  }
+}
+

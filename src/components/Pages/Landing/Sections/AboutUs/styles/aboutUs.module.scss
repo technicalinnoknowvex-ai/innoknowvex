@@ -1,0 +1,290 @@
+@use "../../../../../../styles/index" as *;
+
+.sectionWrapper {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 70px 100px 0px 100px;
+
+  @include large-tablet-down {
+    height: auto;
+    padding: 70px 8% 70px 8%;
+  }
+
+  &__innerContainer {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @include tablet-down {
+      height: auto;
+      flex-direction: column;
+    }
+  }
+}
+
+.leftSection {
+  position: relative;
+  width: 50%;
+  aspect-ratio: 3/2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 1;
+
+  @include tablet-down {
+    width: 100%;
+  }
+
+  .sectionHeadingContainer {
+    width: 100%;
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+    // border: 1px solid green;
+
+    .sparkleDiv {
+      top: 0px;
+      left: 0px;
+      transform: translate(-80%, -80%);
+      position: absolute;
+      width: 40px;
+      aspect-ratio: 1/1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+
+      div {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      @include tablet-down {
+        transform: translate(-50%, -90%);
+      }
+    }
+
+    &__primaryHeading {
+      // border: 1px solid red;
+      @include font($font-sharp-25, $medium);
+      font-size: 2.2rem;
+      z-index: 2;
+      margin-bottom: 5px;
+    }
+    &__secondaryHeading {
+      @include font($font-sharp-25, $medium, $text-brand);
+      font-size: 1rem;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+  }
+
+  .paraContainer {
+    width: 100%;
+    // flex: 1 1 auto;
+    height: fit-content;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    z-index: 2;
+    padding: 20px 0px;
+    // border: 1px solid green;
+
+    @include tablet-down {
+      padding: 5px 0px;
+    }
+
+    &__paraText {
+      line-height: 2;
+      @include font($font-oldschool, $medium);
+      font-size: 1rem;
+    }
+  }
+
+  .linkContainer {
+    width: 100%;
+    height: 50px;
+    min-height: 50px;
+    // border: 1px solid red;
+    display: flex;
+    align-items: center;
+
+    &__link {
+      height: 90%;
+      aspect-ratio: 3/2;
+      // border: 1px solid red;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @include font($font-oldschool, $book, white);
+      background-color: $brand-primary;
+      border-radius: 5px 15px 5px 15px;
+
+      .buttonTextFitContainer {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0px 20px;
+      }
+    }
+  }
+}
+
+.rightSection {
+  position: relative;
+  width: 50%;
+  aspect-ratio: 3/2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include tablet-down {
+    margin-top: 30px;
+    width: 100%;
+  }
+
+  &__collageGrid {
+    width: 80%;
+    aspect-ratio: 3/2;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-areas:
+      "cell1 cell1 cell2 cell3 cell3 cell3"
+      "cell1 cell1 cell4 cell3 cell3 cell3"
+      "cell5 cell7 cell7 cell3 cell3 cell3"
+      "cell6 cell7 cell7 cell8 cell9 cell10";
+    gap: 1px;
+
+    @include large-tablet-down {
+      height: 100%;
+      width: unset;
+    }
+
+    .cell1 {
+      grid-area: cell1;
+      // background-color: lightgreen;
+      border-radius: 50px 3px 50px 3px;
+      position: relative;
+      overflow: hidden;
+
+      @include tablet-down {
+        border-radius: 30px 2px 30px 2px !important;
+      }
+    }
+    .cell2 {
+      grid-area: cell2;
+      background-color: #ff6a4c;
+      border-radius: 35px 3px 35px 3px;
+
+      @include tablet-down {
+        border-radius: 20px 2px 20px 2px;
+      }
+    }
+    .cell3 {
+      grid-area: cell3;
+      background-color: lightblue;
+      border-radius: 50px 3px 50px 3px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cell4 {
+      grid-area: cell4;
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+    }
+    .cell5 {
+      grid-area: cell5;
+      background-color: #ff6432;
+      border-radius: 3px 35px 3px 35px;
+
+      @include tablet-down {
+        border-radius: 2px 20px 2px 20px;
+      }
+    }
+    .cell6 {
+      grid-area: cell6;
+      background-color: #fe964f;
+      border-radius: 35px 3px 35px 3px;
+      @include tablet-down {
+        border-radius: 20px 2px 20px 2px;
+      }
+    }
+    .cell7 {
+      grid-area: cell7;
+      background-color: khaki;
+      border-radius: 50px 3px 50px 3px;
+      position: relative;
+      overflow: hidden;
+
+      @include tablet-down {
+        border-radius: 30px 2px 30px 2px;
+      }
+    }
+    .cell8 {
+      grid-area: cell8;
+      background-color: #ff6a4c;
+      border-radius: 35px 3px 35px 3px;
+
+      @include tablet-down {
+        border-radius: 2px 20px 2px 20px;
+      }
+    }
+    .cell9 {
+      grid-area: cell9;
+      background-color: thistle;
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+    }
+    .cell10 {
+      grid-area: cell10;
+      background-color: #fe964f;
+      border-radius: 35px 3px 35px 3px;
+
+      @include tablet-down {
+        border-radius: 20px 3px 20px 3px;
+      }
+    }
+  }
+}
+
+.gradientSpot {
+  position: absolute;
+  align-self: start;
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(250, 152, 5, 0.74);
+
+  &--1 {
+    height: 200px;
+    top: -80px;
+    left: -150px;
+    margin-top: auto;
+    margin-bottom: auto;
+    filter: blur(5rem);
+    z-index: 1;
+  }
+  &--2 {
+    height: 70%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(10rem);
+  }
+}

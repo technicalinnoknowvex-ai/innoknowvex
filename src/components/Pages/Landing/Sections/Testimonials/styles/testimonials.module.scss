@@ -1,0 +1,193 @@
+@use "../../../../../../styles/index" as *;
+
+.sectionWrapper {
+  margin-top: 100px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //   border: 1px solid #715c119e;
+  padding: 70px 0px 0px 0px;
+  overflow: hidden;
+
+  @include tablet-down {
+    height: auto;
+    padding: 70px 0% 0px 0%;
+  }
+
+  &__innerContainer {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    // border: 1px solid #715c119e;
+
+    @include tablet-down {
+      height: auto;
+      flex-direction: column;
+    }
+  }
+}
+
+.mainHeaderSection {
+  width: 100%;
+  height: auto;
+  //   border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+
+  .sectionHeadingWrapper {
+    position: relative;
+    width: 100%;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1;
+    // border: 1px solid green;
+
+    &__primaryHeading {
+      position: relative;
+      // border: 1px solid red;
+      @include font($font-sharp-25, $medium);
+      font-size: 2.2rem;
+      z-index: 2;
+      margin-bottom: 5px;
+
+      .sparkleDiv {
+        top: 0px;
+        left: 0px;
+        transform: translate(-80%, -80%);
+        position: absolute;
+        width: 40px;
+        aspect-ratio: 1/1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        // border: 1px solid red;
+        z-index: 2;
+
+        div {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        @include tablet-down {
+          transform: translate(-50%, -90%);
+        }
+      }
+    }
+    &__secondaryHeading {
+      @include font($font-sharp-25, $medium, $text-brand);
+      font-size: 1rem;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+  }
+}
+
+.marqueeSection {
+  width: 100%;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  //   border: 1px solid red;
+  margin: 20px 0px;
+}
+
+.testimonialCard {
+  height: 100%;
+  aspect-ratio: 16/9;
+  background: linear-gradient(180deg, #fff7e1 0%, #f8f1de 100%);
+  border: 1px solid #715c1121;
+  border-radius: 20px 20px 20px 60px;
+  padding: 30px 30px 30px 50px;
+  margin: 0px 20px;
+  display: flex;
+  flex-direction: column;
+
+  &__contentContainer {
+    position: relative;
+    flex: 1;
+    p {
+      height: 90%;
+      @include font($font-oldschool, $book);
+      line-height: 2;
+      font-size: 0.8rem;
+      display: -webkit-box;
+      line-clamp: 4;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .iconDiv {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 20px;
+      aspect-ratio: 3/2;
+      transform: translate(-110%, -10%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      //   border: 1px solid red;
+    }
+  }
+
+  &__userInfoGrid {
+    width: 100%;
+    height: 50px;
+    // border: 1px solid red;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: 50% 50%;
+    column-gap: 10px;
+    grid-template-areas:
+      "avatarCell nameCell"
+      "avatarCell professionCell";
+
+    .avatarCell {
+      position: relative;
+      grid-area: avatarCell;
+      height: 100%;
+      aspect-ratio: 1/1;
+      // border: 1px solid red;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    .nameCell {
+      grid-area: nameCell;
+      width: 100%;
+      height: 100%;
+      //   border: 1px solid red;
+      display: flex;
+      align-items: flex-end;
+      p {
+        @include font($font-oldschool, $medium, #715c11);
+        font-size: 0.9rem;
+      }
+    }
+    .professionCell {
+      grid-area: professionCell;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      //   border: 1px solid red;
+      p {
+        @include font($font-oldschool, $medium);
+        font-size: 0.8rem;
+      }
+    }
+  }
+}

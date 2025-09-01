@@ -1,0 +1,110 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+
+  h1 {
+    font-family: var(--font-sharp-25), Sharp Grotesk;
+    font-size: 36px;
+    font-weight: 500;
+    text-align: center;
+    color: #262c35;
+    margin-bottom: 20px;
+  }
+}
+
+.starImg {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  .starOrange {
+    height: 60px;
+    width: 60px;
+    padding-bottom: 30;
+    padding-left: 30;
+  }
+  p {
+    font-family: var(--font-sharp-25), Oldschool Grotesk;
+    font-size: 36px;
+    font-weight: 500;
+    text-align: center;
+    color: #ff6432;
+    top: 50px;
+  }
+}
+.images {
+  z-index: 1;
+  padding: 30px;
+  display: flex;
+  flex-direction: row;
+  gap: 30;
+  img {
+    height: 450;
+    width: 700;
+  }
+
+  @media (min-width: 1200px) and (max-width: 1440px) {
+    padding: 10px;
+    gap: 10px;
+    img {
+      height: 350;
+      width: 550;
+    }
+  }
+
+  @media (min-width: 930) and (max-width: 1200px) {
+    padding: 10px;
+    gap: 10px;
+
+    img {
+      height: 250;
+      width: 450;
+    }
+  }
+
+  @media (min-width: 770px) and (max-width: 930) {
+    padding: 10px;
+    padding-bottom: 0;
+    gap: 10px;
+    flex-direction: column;
+    img {
+      height: 250;
+      width: 450;
+    }
+  }
+    @media (min-width: 480px) and (max-width: 770) {
+    padding: 10px;
+    gap: 10px;
+    flex-direction: column;
+    
+    img {
+      height: 250;
+      width: 450;
+    }
+  }
+  @media (min-width: 360) and (max-width: 480) {
+  .layout{
+  justify-content: center;
+  align-items: center;
+  }
+    padding: 10px;
+    margin: 20px;
+    gap: 10px;
+    flex-direction: column;
+    
+    img {
+      height: 150;
+      width: 350;
+    }
+  }
+}
+
+.ellipse {
+  z-index: 0;
+  position: absolute;
+  height: 900px;
+  width: 900px;
+}

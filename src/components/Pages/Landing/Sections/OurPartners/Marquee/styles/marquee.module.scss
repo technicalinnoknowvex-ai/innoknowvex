@@ -1,0 +1,42 @@
+@use "../../../../../../../styles/variables" as v;
+@use "../../../../../../../styles/mixins" as m;
+@use "../../../../../../../styles/fonts" as f;
+
+.marquee {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+
+  &__strip {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    will-change: transform;
+  }
+}
+
+.brandLogo {
+  height: 100%;
+  aspect-ratio: 3/2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: grayscale(0%);
+    opacity: 1;
+    transition: filter 0.3s ease, opacity 0.3s ease;
+
+    &:hover {
+      filter: grayscale(0%);
+      opacity: 0.7;
+    }
+  }
+}
