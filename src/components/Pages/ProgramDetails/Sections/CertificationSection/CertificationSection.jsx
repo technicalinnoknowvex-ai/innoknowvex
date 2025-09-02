@@ -24,7 +24,6 @@ export default function CertificationSection({ program }) {
           alt="Sample Internship Certificate"
           width={600} 
           height={400} 
-          priority
         />
 
         <Image
@@ -32,7 +31,6 @@ export default function CertificationSection({ program }) {
           alt="Sample Training Certificate"
           width={600}
           height={400}
-          priority
         />
       </div>
     </div>
