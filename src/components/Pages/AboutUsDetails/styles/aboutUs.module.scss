@@ -471,8 +471,10 @@ $desktop: 1440px;
 // Team section
 .team {
   display: flex;
-  flex-wrap: wrap;
+  // flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
   @include mobile {
     flex-direction: column;
@@ -494,15 +496,47 @@ $desktop: 1440px;
     justify-content: space-around;
     align-items: center;
     padding: 80px 50px;
-    margin-top: -25%;
+    margin-top: -15%;
+
+  }margin-bottom: -12%;
+}
+
+.cell1{
+  display: flex;
+  flex-direction: row;
+  gap: 12rem;
+
+  @include laptop{
+    gap: 6rem;
+  }
+
+  @include tablet{
+    flex-direction: column;
   }
 }
 
-.pic1, .pic2, .pic3 {
+.cell2{
+  display: flex;
+  flex-direction: row;
+  gap: 12rem;
+  margin-bottom: 150px;
+  margin-top: 100px;
+
+  @include laptop{
+    gap: 6rem;
+  }
+
+  @include tablet{
+    flex-direction: column;
+  }
+}
+
+
+.pic1, .pic2, .pic3, .pic4 {
   display: flex;
   flex-direction: column;
   position: relative;
-  margin-bottom: 150px;
+  // margin-bottom: 150px;
 
   @include mobile {
     margin: 0;
@@ -633,50 +667,15 @@ $desktop: 1440px;
   }
 }
 
-.pic1{
-  left: -7%;
-  margin-top: 10%;
-
-  @include laptop{
-    left: 3%;
-    scale: 1.1;
-  }
-
+.pic2{
   @include tablet{
-    left: 0;
-  }
-  
-}
-
-.pic2 {
-
-  @include desktop {
-    margin-top: 18%
-  }
-
-  @include laptop {
-    margin-top: 5%;
-    scale: 1.1;
+    margin-top: -35%;
   }
 }
 
-.pic3 {
-
-  right: -6%;
-
+.pic4{
   @include tablet{
-    margin-bottom: 50px;
-    right: 0%;
-  }
-
-  @include desktop {
-    // margin-top: -150px;
-  }
-
-  @include laptop {
-    // margin-top: -80px;
-    right: 1%;
-    scale: 1.1;
+    margin-top: -35%;
   }
 }
 
