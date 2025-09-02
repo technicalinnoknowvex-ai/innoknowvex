@@ -1,4 +1,6 @@
 import styles from "./styles/certificationSection.module.scss";
+import Image from "next/image";
+
 export default function CertificationSection({ program }) {
   return (
     <div className={styles.layout}>
@@ -17,8 +19,8 @@ export default function CertificationSection({ program }) {
       <h1>Prove What You've Achieved</h1>
 
       <div className={styles.images}>
-        <img src={program.internship} alt="SampleInternshipCertificate" />
-        <img src={program.training} alt="SampleTrainingCertificate" />
+        <Image width={600} height={400}  src={program.internship} alt="SampleInternshipCertificate" />
+        <Image width={600} height={400} src={program.training} alt="SampleTrainingCertificate" />
       </div>
     </div>
   );

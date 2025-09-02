@@ -4,6 +4,7 @@
   justify-content: center;
   align-items: center;
   padding: 0;
+  margin-top: -20%;
 
   h1 {
     font-family: var(--font-sharp-25), Sharp Grotesk;
@@ -41,11 +42,7 @@
   display: flex;
   flex-direction: row;
   gap: 30;
-  img {
-    height: 450;
-    width: 700;
-  }
-
+ 
   @media (min-width: 1200px) and (max-width: 1440px) {
     padding: 10px;
     gap: 10px;
