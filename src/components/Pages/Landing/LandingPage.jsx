@@ -9,6 +9,7 @@ import OurPartners from "./Sections/OurPartners/OurPartners";
 import Testimonials from "./Sections/Testimonials/Testimonials";
 import FAQ from "./Sections/FAQ/FAQ";
 import Footer from "./Sections/Footer/Footer";
+import Blogs from "./Sections/Blogs/BlogCard";
 
 const LandingPage = () => {
   return (
@@ -19,8 +20,11 @@ const LandingPage = () => {
       <WhyChooseUs />
       <OurPartners />
       <Testimonials />
+      <Blogs />
       <FAQ />
       <Footer />
+
+     
     </div>
   );
 };

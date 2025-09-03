@@ -290,72 +290,7 @@ export const landingPageData = {
         icon: "entypo-social:youtube",
       },
     ],
-     blogsData : [
-  {
-    id: 1,
-    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/1blog.png",
-    title: "How InnoKNOWVEX is Preparing the Next Generation of Tech Experts",
-    description: "The Fourth Industrial Revolution is here, transforming how we work, learn, and innovate. Discover how InnoKNOWVEX bridges the skills gap with industry-driven curriculum, hands-on learning, and career guidance.",
-    link: "/blogs/how-innoknowvex-preparing-next-generation-tech-experts"
-  },
-  {
-    id: 2,
-    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/2blog.png",
-    title: "Unlock Your Career Potential with InnoKNOWVEX!",
-    description: "An innovative edtech platform based in Bengaluru dedicated to bridging the gap between formal education and industry requirements through professional training, internships, and career guidance.",
-    link: "/blogs/unlock-career-potential-with-innoknowvex"
-  },
-  {
-    id: 3,
-    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/3blog.png",
-    title: "Master Web Development: Build, Innovate & Future-Proof Your Career!",
-    description: "Learn why web development is a must-have skill in 2025 and how InnoKNOWVEX trains you to become a job-ready developer with HTML, CSS, JavaScript, React, Node.js and real-world projects.",
-    link: "/blogs/master-web-development-with-innoknowvex"
-  },
-  {
-    id: 4,
-    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/4blog.png",
-    title: "Empowering Students for the Future of Work",
-    description: "As automation and AI reshape industries, discover how InnoKNOWVEX helps students develop future-ready skillsets through industry-relevant training, mentorship, and AI-powered job matching.",
-    link: "/blogs/empowering-students-for-future-work"
-  },
-  {
-    id: 5,
-    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/5blog.png",
-    title: "Empowering Futures Through Practical Learning",
-    description: "Learn how INNOKNOWVEX prepares students for real-world job market demands with career-oriented courses, expert-led training, and internship opportunities in high-demand domains.",
-    link: "/blogs/empowering-futures-through-practical-learning"
-  },
-  {
-    id: 6,
-    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/6blog.png",
-    title: "Transforming Aspirations into Careers: Master Medical Coding with InnoKnowvex",
-    description: "Discover our 3-month Medical Coding Program that provides in-depth knowledge of ICD, CPT, HCPCS systems with hands-on coding experience and 100% job assistance.",
-    link: "/blogs/master-medical-coding-with-innoknowvex"
-  },
-  {
-    id: 7,
-    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/7blog.png",
-    title: "Master the Art of Digital Influence — Learn Skills That Drive Results!",
-    description: "At InnoKNOWVEX, we don't just teach digital marketing—we live it. Learn how we build communities and help students master the same tools we use in our campaigns.",
-    link: "/blogs/master-digital-influence-with-innoknowvex"
-  },
-  {
-    id: 8,
-    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/8blog.png",
-    title: "Ready to Market Like a Pro? Learn Digital Marketing the Smart Way",
-    description: "Our modern, results-driven Digital Marketing program prepares you for real-world campaigns with practical curriculum, career-driven outcomes, and flexible learning paths.",
-    link: "/blogs/learn-digital-marketing-with-innoknowvex"
-  },
-  {
-    id: 9,
-    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/9blog.png",
-    title: "AI: Welcome to the Future — And Your Career",
-    description: "The age of Artificial Intelligence is here. Discover how InnoKnowvex prepares learners for an AI-driven world with hands-on, industry-aligned programs that future-proof your career.",
-    link: "/blogs/ai-future-career-with-innoknowvex"
-  }
-],
-
+     
     footerLinks: [
       {
         listLabel: "LINKS",
@@ -434,4 +369,74 @@ export const landingPageData = {
       },
     ],
   },
+
+  blogsData :{ 
+      blogs: [
+  {
+    id: 1,
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/1blog.png",
+    title: "How InnoKNOWVEX is Preparing the Next Generation of Tech Experts",
+    description: "The Fourth Industrial Revolution is here, transforming how we work, learn, and innovate. Discover how InnoKNOWVEX bridges the skills gap with industry-driven curriculum, hands-on learning, and career guidance.",
+    link: "https://www.linkedin.com/feed/update/urn:li:activity:7302288713005314048/"
+  },
+  {
+    id: 2,
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/2blog.png",
+    title: "Unlock Your Career Potential with InnoKNOWVEX!",
+    description: "An innovative edtech platform based in Bengaluru dedicated to bridging the gap between formal education and industry requirements through professional training, internships, and career guidance.",
+    link: "https://www.linkedin.com/feed/update/urn:li:activity:7303325886412398592/"
+  },
+  {
+    id: 3,
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/3blog.png",
+    title: "Master Web Development: Build, Innovate & Future-Proof Your Career!",
+    description: "Learn why web development is a must-have skill in 2025 and how InnoKNOWVEX trains you to become a job-ready developer with HTML, CSS, JavaScript, React, Node.js and real-world projects.",
+    link: "https://www.linkedin.com/feed/update/urn:li:activity:7305169702077505536/"
+  },
+  {
+    id: 4,
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/4blog.png",
+    title: "Empowering Students for the Future of Work",
+    description: "As automation and AI reshape industries, discover how InnoKNOWVEX helps students develop future-ready skillsets through industry-relevant training, mentorship, and AI-powered job matching.",
+    link: "https://www.linkedin.com/feed/update/urn:li:activity:7315275820061597696/"
+  },
+  {
+    id: 5,
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/5blog.png",
+    title: "Empowering Futures Through Practical Learning",
+    description: "Learn how INNOKNOWVEX prepares students for real-world job market demands with career-oriented courses, expert-led training, and internship opportunities in high-demand domains.",
+    link: "https://www.linkedin.com/feed/update/urn:li:activity:7340989149048446978/"
+  },
+  {
+    id: 6,
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/6blog.png",
+    title: "Transforming Aspirations into Careers: Master Medical Coding with InnoKnowvex",
+    description: "Discover our 3-month Medical Coding Program that provides in-depth knowledge of ICD, CPT, HCPCS systems with hands-on coding experience and 100% job assistance.",
+    link: "https://www.linkedin.com/feed/update/urn:li:activity:7347206330161557505/"
+  },
+  {
+    id: 7,
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/7blog.png",
+    title: "Master the Art of Digital Influence — Learn Skills That Drive Results!",
+    description: "At InnoKNOWVEX, we don't just teach digital marketing—we live it. Learn how we build communities and help students master the same tools we use in our campaigns.",
+    link: "https://www.linkedin.com/feed/update/urn:li:activity:7344343404975136768/"
+  },
+  {
+    id: 8,
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/8blog.png",
+    title: "Ready to Market Like a Pro? Learn Digital Marketing the Smart Way",
+    description: "Our modern, results-driven Digital Marketing program prepares you for real-world campaigns with practical curriculum, career-driven outcomes, and flexible learning paths.",
+    link: "https://www.linkedin.com/feed/update/urn:li:activity:7354409380789833728/"
+  },
+  {
+    id: 9,
+    image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/9blog.png",
+    title: "AI: Welcome to the Future — And Your Career",
+    description: "The age of Artificial Intelligence is here. Discover how InnoKnowvex prepares learners for an AI-driven world with hands-on, industry-aligned programs that future-proof your career.",
+    link: "https://www.linkedin.com/feed/update/urn:li:activity:7359160858712715264/"
+  }
+,
+
+]},
+
 };
