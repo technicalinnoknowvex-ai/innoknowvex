@@ -1,3 +1,5 @@
+
+
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
@@ -14,17 +16,13 @@ const BlogCardCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardWidth, setCardWidth] = useState(0);
   const [containerWidth, setContainerWidth] = useState(0);
-  const [gap, setGap] = useState(25); // Default gap from CSS
+  const [gap, setGap] = useState(40); // Set a static gap value
   const containerRef = useRef(null);
   const sectionRef = useRef();
-
-  // Refs for animations
   const sparkleRef = useRef(null);
 
-  // Access blogsData from landingPageData
   const blogsData = landingPageData.blogsData.blogs || [];
 
-  // Calculate card width and container dimensions
   useEffect(() => {
     const calculateDimensions = () => {
       if (containerRef.current) {
@@ -32,24 +30,10 @@ const BlogCardCarousel = () => {
         const containerWidth = container.offsetWidth;
         setContainerWidth(containerWidth);
         
-        // Find a card to measure its width
         const card = container.querySelector(`.${styles.blogCard}`);
         if (card) {
           const cardWidth = card.offsetWidth;
           setCardWidth(cardWidth);
-          
-          // Calculate gap by checking the difference between cards
-          const cards = container.querySelectorAll(`.${styles.blogCard}`);
-          if (cards.length > 1) {
-            const firstCard = cards[0];
-            const secondCard = cards[1];
-            const firstRect = firstCard.getBoundingClientRect();
-            const secondRect = secondCard.getBoundingClientRect();
-            const calculatedGap = secondRect.left - firstRect.right;
-            if (calculatedGap > 0) {
-              setGap(calculatedGap);
-            }
-          }
         }
       }
     };
@@ -62,10 +46,8 @@ const BlogCardCarousel = () => {
     };
   }, [blogsData.length]);
 
-  // GSAP animations - only for sparkle
   useGSAP(
     () => {
-      // Animate sparkle when section comes into view
       const sparkleTl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -109,23 +91,21 @@ const BlogCardCarousel = () => {
     { scope: sectionRef }
   );
 
-  // Calculate how many cards are visible based on container width
   const cardsToShow = containerWidth > 0 && cardWidth > 0 
     ? Math.floor(containerWidth / (cardWidth + gap))
-    : 3; // Default fallback
+    : 3;
 
-  // Calculate maxIndex for single card movement - FIXED
   const maxIndex = Math.max(0, blogsData.length - cardsToShow);
 
   const nextSlide = () => {
     if (currentIndex < maxIndex) {
-      setCurrentIndex(prevIndex => Math.min(prevIndex + 1, maxIndex));
+      setCurrentIndex(prevIndex => Math.min(prevIndex + cardsToShow, maxIndex));
     }
   };
 
   const prevSlide = () => {
     if (currentIndex > 0) {
-      setCurrentIndex(prevIndex => Math.max(prevIndex - 1, 0));
+      setCurrentIndex(prevIndex => Math.max(prevIndex - cardsToShow, 0));
     }
   };
 
@@ -146,23 +126,18 @@ const BlogCardCarousel = () => {
     return <div className={styles.noData}>No Blogs available</div>;
   }
 
-  // Only show navigation if there are more cards than visible cards
   const showNavigation = blogsData.length > cardsToShow;
   const canNavigateLeft = showNavigation && currentIndex > 0;
   const canNavigateRight = showNavigation && currentIndex < maxIndex;
 
-  // Calculate the translation amount
   const translateX = -(currentIndex * (cardWidth + gap));
 
   return (
     <div className={styles.landing} ref={sectionRef}>
-      {/* Heading Section with Sparkle */}
       <div className={styles.headingSection}>
         <div className={styles.sectionHeadingContainer}>
-          <div className={styles.sparkleDiv}>
-            <div ref={sparkleRef}>
-              <Sparkle />
-            </div>
+          <div className={styles.sparkleDiv} ref={sparkleRef}>
+            <Sparkle />
           </div>
           <h2 className={styles.sectionHeadingContainer__primaryHeading}>
             Blog
@@ -174,7 +149,6 @@ const BlogCardCarousel = () => {
       </div>
       
       <div className={styles.carouselContainer} ref={containerRef}>
-        {/* Navigation Buttons */}
         {showNavigation && (
           <>
             <button
@@ -184,7 +158,6 @@ const BlogCardCarousel = () => {
             >
               <ChevronLeft size={24} />
             </button>
-
             <button
               className={`${styles.navButton} ${styles.navButtonRight}`}
               onClick={nextSlide}
@@ -194,7 +167,6 @@ const BlogCardCarousel = () => {
             </button>
           </>
         )}
-
         <div className={styles.cardsContainer}>
           <div
             className={styles.cardsWrapper}
@@ -208,7 +180,6 @@ const BlogCardCarousel = () => {
                 key={blog.id || index} 
                 className={styles.blogCard}
               >
-                {/* Image Container */}
                 <div className={styles.imageContainer}>
                   <img
                     src={blog.image}
@@ -218,7 +189,6 @@ const BlogCardCarousel = () => {
                   />
                 </div>
                 
-                {/* Card Content */}
                 <div className={styles.cardContent}>
                   <div className={styles.cardInfo}>
                     <span className={styles.page}>
