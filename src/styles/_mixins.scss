@@ -75,7 +75,7 @@ $breakpoints: (
   // Large screens
   xl: 1280px,
   // Extra large
-  2xl: 1536px // 2x extra large,
+  2xl: 1536px // 2x extra large,,
 );
 
 @mixin screen($size) {

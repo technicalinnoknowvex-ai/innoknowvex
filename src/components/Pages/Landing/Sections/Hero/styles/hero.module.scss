@@ -60,29 +60,37 @@
       overflow: hidden;
       padding: 2px 0px;
       h1 {
-        @include font($font-sharp-25, $medium);
-        font-size:clamp(3.5rem , 1.2634730538922154rem + 4.311377245508982vw, 8.0rem) !important;
         z-index: 2;
         line-height: 1.2;
+        @include font($font-sharp-25, $medium);
+        font-size: 2.2rem;
 
-
-        @include tablet-down {
+        @include screen(sm) {
           font-size: clamp(
-            2.25rem,
-            0.22654462242562934rem + 8.237986270022883vw,
-            4.5rem
+            2.8rem,
+            1.0795698924731179rem + 4.301075268817205vw,
+            7.8rem
           ) !important;
+          background-color: palevioletred;
         }
 
-        @include mobile-down {
-          font-size: 1.75rem;
-          font-size: 2.25rem;
-          font-size: clamp(
-            1.75rem,
-            0.13709677419354827rem + 8.60215053763441vw,
-            2.25rem
-          ) !important;
-        }
+        // @include screen(md) {
+        //   font-size: 4.5rem;
+        //   background-color: skyblue;
+        // }
+        // @include screen(lg) {
+        //   font-size: 5.5rem;
+        //   background-color: salmon;
+        // }
+        // @include screen(xl) {
+        //   font-size: 6.5rem;
+        //   background-color: goldenrod;
+        // }
+
+        // @include screen(2xl) {
+        //   font-size: 8.5rem;
+        //   background-color: lightgreen;
+        // }
       }
     }
 
