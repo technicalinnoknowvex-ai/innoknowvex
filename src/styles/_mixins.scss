@@ -1,5 +1,5 @@
 // HIDE SCROLLER
-
+@use "sass:map";
 @use "./variables" as v;
 
 @mixin hide-scrollbar {
@@ -78,8 +78,9 @@ $breakpoints: (
   2xl: 1536px // 2x extra large,,
 );
 
+// Mixin with map.get instead of map-get
 @mixin screen($size) {
-  $width: map-get($breakpoints, $size);
+  $width: map.get($breakpoints, $size);
 
   @if $width {
     @media (min-width: $width) {
