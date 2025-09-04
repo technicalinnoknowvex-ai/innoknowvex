@@ -318,19 +318,19 @@ const AboutDetailsPage = () => {
           <div className={style.pic4}>
             <Image
               className={style.ceo}
-              src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/about.jpg"
+              src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/about_us.png"
               height={535}
               width={400}
               alt="CEO image"
             />
-            {/* <Image
+            <Image
               className={style.star}
               src="/images/SoftStar.svg"
               height={50}
               width={50}
               alt="star"
               ref={starRef5}
-            /> */}
+            />
             <Image
               className={style.bg}
               src="/images/Ellipse4.svg"
@@ -338,14 +338,109 @@ const AboutDetailsPage = () => {
               width={300}
               alt="bg"
             />
-            {/* <h1>Vamsi Krishna</h1>
-            <div></div>
-            <h4>COO (Founder)</h4>
-            <p>
-              Shapes brand strategy, leading marketing efforts to connect with
-              audiences and grow the company's reach.
-            </p> */}
+              <h4>Logesh <br /> (Assistant Team Leader)</h4>
+              <h4>Vimalraj <br /> (Team Leader)</h4>
+              <h4>Bhumika <br /> (Assistant Team Leader)</h4>
           </div>
+        </div>
+
+      </div>
+
+      <div className={style.images}>
+        <div className={style.shell}>
+          <Image
+            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.44%20AM.jpeg"
+            alt="Certificate 1"
+            width={600}
+            height={400}
+            className={style.photo}
+          />
+
+          <Image
+            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.45%20AM.jpeg"
+            alt="Certificate 2"
+            width={600}
+            height={400}
+            className={style.photo}
+          />
+        </div>
+
+        <div className={style.shell}>
+          <Image
+            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.45%20AM%20%281%29.jpeg"
+            alt="Certificate 3"
+            width={600}
+            height={400}
+            className={style.photo}
+          />
+          <Image
+            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.46%20AM.jpeg"
+            alt="Certificate 4"
+            width={600}
+            height={400}
+            className={style.photo}
+          />
+        </div>
+
+        <div className={style.shell}>
+          <Image
+            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.46%20AM%20%281%29.jpeg"
+            alt="Certificate 5"
+            width={600}
+            height={400}
+            className={style.photo}
+          />
+          <Image
+            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.47%20AM.jpeg"
+            alt="Certificate 6"
+            width={600}
+            height={400}
+            className={style.photo}
+          />
+        </div>
+
+        <div className={style.shell}>
+          <Image
+            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.47%20AM%20%281%29.jpeg"
+            alt="Certificate 7"
+            width={600}
+            height={400}
+            className={style.photo}
+          />
+          <Image
+            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.48%20AM.jpeg"
+            alt="Certificate 8"
+            width={600}
+            height={400}
+            className={style.photo}
+          />
+        </div>
+
+        <div className={style.shell}>
+          <Image
+            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.48%20AM%20%281%29.jpeg"
+            alt="Certificate 9"
+            width={600}
+            height={400}
+            className={style.photo}
+          />
+          <Image
+            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.49%20AM.jpeg"
+            alt="Certificate 10"
+            width={600}
+            height={400}
+            className={style.photo}
+          />
+        </div>
+
+        <div className={style.shell}>
+          <Image
+            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.49%20AM%20%281%29.jpeg"
+            alt="Certificate 11"
+            width={600}
+            height={400}
+            className={style.photo}
+          />
         </div>
 
       </div>

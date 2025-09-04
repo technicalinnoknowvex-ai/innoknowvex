@@ -513,6 +513,10 @@ $desktop: 1440px;
   @include tablet{
     flex-direction: column;
   }
+
+  @include mobile{
+    flex-direction: column;
+  }
 }
 
 .cell2{
@@ -524,9 +528,14 @@ $desktop: 1440px;
 
   @include laptop{
     gap: 6rem;
+    margin-top: -5%;
   }
 
   @include tablet{
+    flex-direction: column;
+  }
+
+  @include mobile{
     flex-direction: column;
   }
 }
@@ -679,6 +688,16 @@ $desktop: 1440px;
   }
 }
 
+.pic4 h4{
+  margin: 10px;
+  // width: 100vh;
+
+  @include tablet{
+    // margin-top: 10%;
+  }
+}
+
+
 .bg {
   position: absolute;
   margin: 380px -90px;
@@ -732,4 +751,42 @@ $desktop: 1440px;
     scale: 0.55;
     margin: 0px -25px;
   }
+}
+
+.images{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 120px;
+
+  @include laptop{
+    margin-top: -25%;
+  }
+}
+
+.shell{
+  display: flex;
+  flex-direction: row;
+  gap: 60px;
+  margin-top: 60px;
+
+  @include laptop{
+    flex-direction: column;
+  }
+
+  @include tablet{
+    flex-direction: column;
+    scale: 0.8;
+    margin-top: -120px;
+  }
+
+  @include mobile{
+    flex-direction: column;
+    scale: 0.5;
+  }
+}
+
+.photo{
+  border-radius: 20px 60px 20px 60px;
 }
