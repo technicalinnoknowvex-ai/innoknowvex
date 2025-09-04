@@ -1,5 +1,3 @@
-
-
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
@@ -16,7 +14,7 @@ const BlogCardCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardWidth, setCardWidth] = useState(0);
   const [containerWidth, setContainerWidth] = useState(0);
-  const [gap, setGap] = useState(40); // Set a static gap value
+  const [gap, setGap] = useState(50); // Match the new gap from the SCSS
   const containerRef = useRef(null);
   const sectionRef = useRef();
   const sparkleRef = useRef(null);
@@ -98,14 +96,14 @@ const BlogCardCarousel = () => {
   const maxIndex = Math.max(0, blogsData.length - cardsToShow);
 
   const nextSlide = () => {
-    if (currentIndex < maxIndex) {
-      setCurrentIndex(prevIndex => Math.min(prevIndex + cardsToShow, maxIndex));
+    if (currentIndex < blogsData.length - 1) {
+      setCurrentIndex(prevIndex => prevIndex + 1);
     }
   };
 
   const prevSlide = () => {
     if (currentIndex > 0) {
-      setCurrentIndex(prevIndex => Math.max(prevIndex - cardsToShow, 0));
+      setCurrentIndex(prevIndex => prevIndex - 1);
     }
   };
 
@@ -126,9 +124,9 @@ const BlogCardCarousel = () => {
     return <div className={styles.noData}>No Blogs available</div>;
   }
 
-  const showNavigation = blogsData.length > cardsToShow;
+  const showNavigation = blogsData.length > 1; // Show navigation if there's more than one card
   const canNavigateLeft = showNavigation && currentIndex > 0;
-  const canNavigateRight = showNavigation && currentIndex < maxIndex;
+  const canNavigateRight = showNavigation && currentIndex < blogsData.length - 1;
 
   const translateX = -(currentIndex * (cardWidth + gap));
 
