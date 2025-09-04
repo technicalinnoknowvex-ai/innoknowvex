@@ -38,11 +38,12 @@
  gap: 5px;
 
  .sparkleDiv {
+    border: 1px solid black;
   position: relative;
-  width: 60px;
+  width: 40px;
   height: 80px;
-  padding-bottom: 40px;
-  padding-left: 25px;
+  margin-bottom: 40px;
+  margin-left: 25px;
   display: flex;
   align-items: center;
   justify-content: center;
