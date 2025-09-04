@@ -65,3 +65,27 @@ $desktop: 1440px;
 @mixin border($thickness: 1, $color: black) {
   border: $thickness solid $color;
 }
+
+$breakpoints: (
+  sm: 640px,
+  // Small screens
+  md: 768px,
+  // Medium screens
+  lg: 1024px,
+  // Large screens
+  xl: 1280px,
+  // Extra large
+  2xl: 1536px // 2x extra large,
+);
+
+@mixin screen($size) {
+  $width: map-get($breakpoints, $size);
+
+  @if $width {
+    @media (min-width: $width) {
+      @content;
+    }
+  } @else {
+    @warn "No breakpoint found for `#{$size}`";
+  }
+}

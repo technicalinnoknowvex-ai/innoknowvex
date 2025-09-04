@@ -61,9 +61,10 @@
       padding: 2px 0px;
       h1 {
         @include font($font-sharp-25, $medium);
-        font-size: 4.5rem;
+        font-size:clamp(3.5rem , 1.2634730538922154rem + 4.311377245508982vw, 8.0rem) !important;
         z-index: 2;
         line-height: 1.2;
+
 
         @include tablet-down {
           font-size: clamp(

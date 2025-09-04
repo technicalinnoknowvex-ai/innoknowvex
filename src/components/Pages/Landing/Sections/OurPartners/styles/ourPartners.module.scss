@@ -125,4 +125,8 @@
   // border: 1px solid red;
   display: flex;
   align-items: center;
+
+  @include mobile-down {
+    height: 70px;
+  }
 }

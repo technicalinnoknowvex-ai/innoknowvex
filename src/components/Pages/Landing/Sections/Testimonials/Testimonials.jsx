@@ -6,7 +6,6 @@ import Marquee from "./Marquee/Marquee";
 import Image from "next/image";
 import QuoteIcon from "./Marquee/QuoteIcon";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
 const TestimonialCard = ({ testimonial }) => {

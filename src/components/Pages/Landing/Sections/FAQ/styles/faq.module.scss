@@ -105,7 +105,7 @@
     // border: 1px solid green;
 
     @include tablet-down {
-      padding: 5px 0px;
+      padding: 20px 0px;
     }
 
     p {
@@ -193,7 +193,7 @@
         transition: color 0.2s ease;
 
         @include tablet-down {
-          font-size: 0.75rem;
+          font-size: 0.8rem;
           line-height: 1.5;
         }
       }
@@ -215,8 +215,9 @@
       transition: opacity 0.2s ease 0.1s;
 
       @include tablet-down {
-        font-size: 0.7rem;
+        font-size: 0.8rem;
         line-height: 1.5;
+        margin-top: 10px;
       }
     }
 

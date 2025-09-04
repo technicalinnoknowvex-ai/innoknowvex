@@ -36,7 +36,7 @@
   flex-direction: column;
   justify-content: center;
   z-index: 1;
-
+  // border: 1px solid red;
   @include tablet-down {
     width: 100%;
   }
@@ -77,13 +77,22 @@
     &__primaryHeading {
       // border: 1px solid red;
       @include font($font-sharp-25, $medium);
-      font-size: 2.2rem;
+      font-size: clamp(
+        1.5rem,
+        0.2574850299401197rem + 2.3952095808383236vw,
+        4rem
+      ) !important;
+
       z-index: 2;
       margin-bottom: 5px;
     }
     &__secondaryHeading {
       @include font($font-sharp-25, $medium, $text-brand);
-      font-size: 1rem;
+      font-size: clamp(
+        0.8rem,
+        0.20359281437125754rem + 1.1497005988023952vw,
+        2rem
+      ) !important;
       text-transform: uppercase;
       z-index: 2;
     }
@@ -107,7 +116,13 @@
     &__paraText {
       line-height: 2;
       @include font($font-oldschool, $medium);
-      font-size: 1rem;
+      // font-size: 0.7rem;
+      // font-size: 2rem;
+      font-size: clamp(
+        0.7rem,
+        0.053892215568862256rem + 1.2455089820359282vw,
+        2rem
+      ) !important;
     }
   }
 
@@ -121,23 +136,28 @@
 
     &__link {
       height: 90%;
-      aspect-ratio: 3/2;
-      // border: 1px solid red;
+      width: fit-content;
+      height: fit-content;
       display: flex;
+      margin-top: 40px;
       align-items: center;
       justify-content: center;
       @include font($font-oldschool, $book, white);
       background-color: $brand-primary;
       border-radius: 5px 15px 5px 15px;
+      white-space: nowrap;
 
-      .buttonTextFitContainer {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0px 20px;
-      }
+      padding: clamp(
+          0.8rem,
+          0.4520958083832336rem + 0.6706586826347305vw,
+          1.5rem
+        )
+        clamp(1rem, 0.5029940119760479rem + 0.9580838323353293vw, 2rem);
+      font-size: clamp(
+        0.7rem,
+        0.053892215568862256rem + 1.2455089820359282vw,
+        2rem
+      ) !important;
     }
   }
 }

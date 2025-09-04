@@ -165,12 +165,7 @@ const AboutUs = ({ scrollContainerRef }) => {
               }
               onMouseLeave={() => resetCursor()}
             >
-              <Textfit
-                mode="single"
-                className={aboutUsStyles.buttonTextFitContainer}
-              >
-                Know More
-              </Textfit>
+              Know More
             </Link>
           </div>
         </section>
