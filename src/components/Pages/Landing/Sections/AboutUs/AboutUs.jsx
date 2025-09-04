@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import aboutUsStyles from "./styles/aboutUs.module.scss";
-import { Textfit } from "react-textfit";
 import { landingPageData } from "@/data/landing";
 import Image from "next/image";
 import Sparkle from "@/components/Common/Icons/Sparkle";

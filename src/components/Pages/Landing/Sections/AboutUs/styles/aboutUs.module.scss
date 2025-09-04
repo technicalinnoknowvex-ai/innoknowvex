@@ -37,6 +37,7 @@
   justify-content: center;
   z-index: 1;
   // border: 1px solid red;
+  padding: 2px;
   @include tablet-down {
     width: 100%;
   }
@@ -77,30 +78,36 @@
     &__primaryHeading {
       // border: 1px solid red;
       @include font($font-sharp-25, $medium);
-      font-size: clamp(
-        1.5rem,
-        0.2574850299401197rem + 2.3952095808383236vw,
-        4rem
-      ) !important;
+      font-size: 2rem;
+
+      @include screen(sm) {
+        font-size: clamp(
+          2rem,
+          1.3333333333333335rem + 1.6666666666666667vw,
+          4rem
+        ) !important;
+      }
 
       z-index: 2;
       margin-bottom: 5px;
     }
     &__secondaryHeading {
       @include font($font-sharp-25, $medium, $text-brand);
-      font-size: clamp(
-        0.8rem,
-        0.20359281437125754rem + 1.1497005988023952vw,
-        2rem
-      ) !important;
       text-transform: uppercase;
       z-index: 2;
+      font-size: 1rem;
+      @include screen(sm) {
+        font-size: clamp(
+          1rem,
+          0.6666666666666667rem + 0.8333333333333334vw,
+          2rem
+        ) !important;
+      }
     }
   }
 
   .paraContainer {
     width: 100%;
-    // flex: 1 1 auto;
     height: fit-content;
     overflow: hidden;
     display: flex;
@@ -116,30 +123,36 @@
     &__paraText {
       line-height: 2;
       @include font($font-oldschool, $medium);
-      // font-size: 0.7rem;
-      // font-size: 2rem;
-      font-size: clamp(
-        0.7rem,
-        0.053892215568862256rem + 1.2455089820359282vw,
-        2rem
-      ) !important;
+      font-size: 0.9rem;
+      margin-top: 3%;
+
+      @include screen(lg) {
+        font-size: 1rem;
+      }
+      @include screen(xl) {
+        font-size: 1rem;
+      }
+      @include screen(2xl) {
+        font-size: clamp(
+          1.2rem,
+          -0.3000000000000005rem + 1.5625000000000004vw,
+          2.2rem
+        ) !important;
+      }
     }
   }
 
   .linkContainer {
     width: 100%;
-    height: 50px;
-    min-height: 50px;
+    height: auto;
     // border: 1px solid red;
     display: flex;
     align-items: center;
 
     &__link {
-      height: 90%;
       width: fit-content;
       height: fit-content;
       display: flex;
-      margin-top: 40px;
       align-items: center;
       justify-content: center;
       @include font($font-oldschool, $book, white);
@@ -169,6 +182,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  // border: 1px solid blue;
 
   @include tablet-down {
     margin-top: 30px;

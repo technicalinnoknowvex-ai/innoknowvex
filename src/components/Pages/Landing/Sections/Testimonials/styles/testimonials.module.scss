@@ -53,9 +53,16 @@
 
     &__primaryHeading {
       position: relative;
-      // border: 1px solid red;
       @include font($font-sharp-25, $medium);
-      font-size: 2.2rem;
+      font-size: 2rem;
+      @include screen(sm) {
+        font-size: clamp(
+          2rem,
+          1.3333333333333335rem + 1.6666666666666667vw,
+          4rem
+        ) !important;
+      }
+
       z-index: 2;
       margin-bottom: 5px;
 
@@ -87,9 +94,16 @@
     }
     &__secondaryHeading {
       @include font($font-sharp-25, $medium, $text-brand);
-      font-size: 1rem;
       text-transform: uppercase;
       z-index: 2;
+      font-size: 1rem;
+      @include screen(sm) {
+        font-size: clamp(
+          1rem,
+          0.6666666666666667rem + 0.8333333333333334vw,
+          2rem
+        ) !important;
+      }
     }
   }
 }

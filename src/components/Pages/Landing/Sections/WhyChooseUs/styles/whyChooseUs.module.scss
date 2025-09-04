@@ -35,6 +35,7 @@
   height: auto;
   display: flex;
   flex-direction: column;
+  // border: 1px solid red;
 
   .sectionHeadingWrapper {
     width: 100%;
@@ -55,7 +56,6 @@
       align-items: center;
       justify-content: center;
       z-index: 2;
-
       div {
         width: 100%;
         height: 100%;
@@ -63,36 +63,33 @@
         align-items: center;
         justify-content: center;
       }
-
-      @media (max-width: 1050px) {
-        width: 35px;
-        transform: translate(-70%, -70%);
-      }
-
-      @include tablet-down {
-        transform: translate(-50%, -90%);
-      }
     }
 
     &__primaryHeading {
       @include font($font-sharp-25, $medium);
       z-index: 2;
       margin-bottom: 5px;
-      font-size: clamp(
-        1.5rem,
-        0.2574850299401197rem + 2.3952095808383236vw,
-        4rem
-      ) !important;
+      font-size: 2rem;
+      @include screen(sm) {
+        font-size: clamp(
+          2rem,
+          1.3333333333333335rem + 1.6666666666666667vw,
+          4rem
+        ) !important;
+      }
     }
     &__secondaryHeading {
       @include font($font-sharp-25, $medium, $text-brand);
       text-transform: uppercase;
       z-index: 2;
-      font-size: clamp(
-        0.8rem,
-        0.20359281437125754rem + 1.1497005988023952vw,
-        2rem
-      ) !important;
+      font-size: 1rem;
+      @include screen(sm) {
+        font-size: clamp(
+          1rem,
+          0.6666666666666667rem + 0.8333333333333334vw,
+          2rem
+        ) !important;
+      }
     }
   }
 
@@ -103,114 +100,121 @@
     z-index: 5;
 
     .descDiv {
-      width: 60%;
+      width: 100%;
       height: 100%;
       display: flex;
       align-items: center;
       padding: 20px 0px;
 
-      @media (max-width: 1050px) {
-        width: 70%;
+      @include screen(lg) {
+        width: 60%;
       }
 
       p {
         line-height: 2;
         @include font($font-oldschool, $medium);
-        font-size: clamp(
-          0.7rem,
-          0.053892215568862256rem + 1.2455089820359282vw,
-          2rem
-        ) !important;
-      }
+        font-size: 1rem;
 
-      @include tablet-down {
-        width: 100%;
+        @include screen(md) {
+          font-size: 1.2rem;
+        }
+        @include screen(lg) {
+          font-size: 1rem;
+        }
+        @include screen(xl) {
+          font-size: 1rem;
+        }
+        @include screen(2xl) {
+          font-size: 2rem;
+        }
       }
     }
   }
 }
 
 .contentSection {
-  margin-top: 20px;
   width: 100%;
   height: auto;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  border: 1px solid red;
+  // border: 1px solid red;
 
   .cardsGrid {
     position: relative;
-    width: 70%;
+    width: 100%;
     height: auto;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(1, minmax(0, 1fr));
     grid-template-rows: repeat(2, auto);
     gap: 30px;
+    // border: 1px solid green;
 
-    @include large-tablet-down {
-      width: 100%;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 20px;
-    }
-
-    @include tablet-down {
-      width: 100%;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 20px;
-    }
-
-    @include mobile-down {
+    @include screen(sm) {
       grid-template-columns: repeat(1, minmax(0, 1fr));
-      width: 100%;
-      grid-template-columns: 100%;
-      gap: 15px;
+    }
+    @include screen(md) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    @include screen(lg) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    @include screen(xl) {
+      width: 80%;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     .reasonCard {
       width: 100%;
-      height: auto;
+      aspect-ratio: 4/5;
       background: linear-gradient(168.99deg, #fff7e1 8.13%, #f8f1de 114.75%);
       border: 1px solid #715c1121;
-      border-radius: 20px 20px 20px 60px;
       display: grid;
       grid-template-columns: 100%;
-      grid-template-rows: 70px minmax(0, 1fr);
-      padding: 4rem;
-      padding: 1.5rem;
-      padding: clamp(
-        1.5rem,
-        0.2574850299401197rem + 2.3952095808383236vw,
-        4rem
-      ) !important;
+      grid-template-rows: auto minmax(0, 1fr);
+      row-gap: 1rem;
+      padding: 12%;
+      border-radius: 2rem 2rem 2rem 3.5rem;
 
-      @include tablet-down {
-        height: auto;
-        aspect-ratio: unset;
+      @include screen(md) {
+        border-radius: 2rem 2rem 2rem 3rem;
+      }
+
+      @include screen(lg) {
+        border-radius: 1rem 1rem 1rem 3rem;
+        border-radius: clamp(
+            1rem,
+            0.33333333333333337rem + 1.0416666666666665vw,
+            2rem
+          )
+          clamp(3rem, 1rem + 3.125vw, 6rem);
       }
 
       &__titleCell {
         position: relative;
         display: flex;
         width: 100%;
-        height: 100%;
+        height: fit-content;
         flex-direction: column;
         justify-content: center;
+        // border: 1px solid red;
 
         .titleSparkleDiv {
           position: absolute;
-          width: 35px;
+          width: 2rem;
           aspect-ratio: 1/1;
           display: flex;
           align-items: center;
           justify-content: center;
           top: 0;
           left: 0;
-          transform: translate(-80%, -30%);
+          transform: translate(-80%, -60%);
 
-          @media (max-width: 1050px) {
-            width: 30px;
-            transform: translate(-70%, -25%);
+          @include screen(lg) {
+            width: 1rem;
+          }
+          @include screen(xl) {
+            width: 2.5rem;
           }
         }
 
@@ -219,9 +223,11 @@
           flex-direction: column;
           width: 100%;
           overflow: hidden;
+          // border: 1px solid red;
 
           .titleText,
           .subTitleText {
+            position: relative;
             display: flex;
             align-items: center;
             @include font($font-sharp-25, $medium, #9c7f16);
@@ -229,17 +235,21 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            font-size: 2rem;
-            font-size: 1rem;
-            font-size: clamp(
-              1rem,
-              0.5029940119760479rem + 0.9580838323353293vw,
-              2rem
-            ) !important;
-          }
+            font-size: 1.3rem;
 
-          .subTitleText {
-            margin-top: 4px;
+            @include screen(md) {
+              font-size: 1rem;
+            }
+            @include screen(lg) {
+              font-size: 1.2rem;
+            }
+            @include screen(2xl) {
+              font-size: clamp(
+                1rem,
+                0.19999999999999984rem + 1.2500000000000002vw,
+                2.2rem
+              ) !important;
+            }
           }
         }
       }
@@ -247,26 +257,24 @@
       &__descriptionCell {
         width: 100%;
         max-width: 100%;
-        padding: 2rem 0;
         p {
           @include font($font-oldschool, $book, #9c7f16);
-          line-height: 2;
-          font-size: 1.5rem;
-          font-size: 0.8rem;
-          font-size: clamp(
-            0.8rem,
-            0.4520958083832336rem + 0.6706586826347305vw,
-            1.5rem
-          ) !important;
+          line-height: 1.8;
+          font-size: 0.95rem;
 
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
-          -webkit-line-clamp: 9;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: normal;
-
-          max-height: calc(2em * 9);
+          @include screen(lg) {
+            font-size: 0.8rem;
+          }
+          @include screen(xl) {
+            font-size: 0.9rem;
+          }
+          @include screen(2xl) {
+            font-size: clamp(
+              1.2rem,
+              0.2999999999999998rem + 0.9375000000000001vw,
+              1.8rem
+            ) !important;
+          }
         }
       }
     }

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./styles/whyChooseUs.module.scss";
 import Sparkle from "@/components/Common/Icons/Sparkle";
 import { Textfit } from "react-textfit";
@@ -114,6 +114,32 @@ const WhyChooseUs = ({ scrollContainerRef }) => {
     { scope: sectionRef }
   );
 
+  useEffect(() => {
+    function clampToContainer(p) {
+      if (!p) return;
+      const containerHeight = p.parentElement.offsetHeight;
+      const lineHeight = parseFloat(getComputedStyle(p).lineHeight);
+      const maxLines = Math.floor(containerHeight / lineHeight);
+
+      p.style.display = "-webkit-box";
+      p.style.overflow = "hidden";
+      p.style.webkitBoxOrient = "vertical";
+      p.style.textOverflow = "ellipsis";
+      p.style.webkitLineClamp = maxLines;
+    }
+
+    const paras = document.querySelectorAll(".para");
+    paras.forEach((p) => clampToContainer(p));
+
+    // re-run on resize
+    const handleResize = () => {
+      paras.forEach((p) => clampToContainer(p));
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <section
       className={styles.sectionWrapper}
@@ -176,7 +202,7 @@ const WhyChooseUs = ({ scrollContainerRef }) => {
                   </div>
                 </div>
                 <div className={styles.reasonCard__descriptionCell}>
-                  <p>{reason.description}</p>
+                  <p className="para">{reason.description}</p>
                 </div>
               </div>
             ))}
