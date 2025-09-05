@@ -69,7 +69,7 @@ $desktop: 1440px;
   @include mobile {
     padding: 40px 0;
     min-height: 250px;
-    margin-top: -10px;
+    // margin-top: -70px;
   }
 
   @include tablet {
@@ -99,7 +99,7 @@ $desktop: 1440px;
 
   @include tablet {
     padding: 60px 0;
-    margin-top: -40%;
+    margin-top: -10%;
   }
 
   @include laptop{
@@ -162,12 +162,13 @@ $desktop: 1440px;
     }
 
     @include tablet {
-      font-size: 2.2rem;
+      font-size: 3rem;
     }
 
     @include laptop {
       font-size: 2.6rem;
     }
+
   }
 
   h4 {
@@ -183,7 +184,7 @@ $desktop: 1440px;
     }
 
     @include tablet {
-      font-size: 1.2rem;
+      font-size: 2rem;
     }
 
     @include laptop {
@@ -205,7 +206,7 @@ $desktop: 1440px;
     }
 
     @include tablet {
-      font-size: 1rem;
+      font-size: 1.5rem;
       line-height: 1.6;
     }
 
@@ -272,10 +273,10 @@ $desktop: 1440px;
   }
 
   @include tablet {
-    scale: 0.7;
+    scale: 0.6;
     position: absolute;
-    top: -29px;
-    left: 20%;
+    top: -38px;
+    left: 6%;
     margin: 0;
   }
 
@@ -300,9 +301,9 @@ $desktop: 1440px;
   }
 
   @include tablet {
-    scale: 0.7;
-    top: -30px;
-    right: 20%;
+    scale: 0.6;
+    top: -38px;
+    right: 1%;
     margin: 0;
   }
 
@@ -327,10 +328,10 @@ $desktop: 1440px;
   }
 
   @include tablet {
-    scale: 0.7;
+    scale: 0.6;
     position: absolute;
-    top: -25px;
-    left: 20%;
+    top: -35px;
+    left: 8%;
     margin: 0;
   }
 
@@ -375,7 +376,7 @@ $desktop: 1440px;
     }
 
     @include tablet {
-      font-size: 2.2rem;
+      font-size: 3rem;
     }
 
     @include laptop {
@@ -391,7 +392,7 @@ $desktop: 1440px;
     margin-top: 10px;
 
     @include mobile {
-      font-size: 1rem;
+      font-size: 2rem;
       margin-top: 8px;
     }
 
@@ -422,7 +423,7 @@ $desktop: 1440px;
     }
 
     @include tablet {
-      font-size: 1rem;
+      font-size: 1.5rem;
       text-align: center;
       padding: 0 50px;
       line-height: 1.6;
@@ -488,7 +489,7 @@ $desktop: 1440px;
     align-items: center;
     gap: 60px;
     padding: 40px;
-    margin-top: -250px;
+    margin-top: -160px;
   }
 
   @include laptop {
@@ -516,6 +517,8 @@ $desktop: 1440px;
 
   @include mobile{
     flex-direction: column;
+    gap: 3rem;
+    margin-bottom: -90px;
   }
 }
 
@@ -537,6 +540,8 @@ $desktop: 1440px;
 
   @include mobile{
     flex-direction: column;
+    gap: 3rem;
+    margin-bottom: -280px;
   }
 }
 
@@ -559,6 +564,7 @@ $desktop: 1440px;
     align-items: center;
     text-align: center;
     max-width: 350px;
+    scale: 1.1;
   }
 
   @include laptop {
@@ -690,11 +696,16 @@ $desktop: 1440px;
 
 .pic4 h4{
   margin: 10px;
-  // width: 100vh;
 
   @include tablet{
-    // margin-top: 10%;
+    margin-top: 30px;
   }
+}
+
+.pic4 li{
+  list-style: none;
+  font-family: old-school-grotesk;
+  font-size: 1.1rem;
 }
 
 
@@ -753,6 +764,62 @@ $desktop: 1440px;
   }
 }
 
+// just for team members image 
+.starP {
+  scale: 0.6;
+  margin: 0px -29px;
+
+  @include mobile {
+    scale: 0.4;
+    position: absolute;
+    top: 330px;
+    left: -25px;
+    margin: 0;
+  }
+
+  @include tablet {
+    scale: 0.5;
+    position: absolute;
+    top: 76%;
+    left: 2px;
+    margin: 0;
+  }
+
+  @include laptop {
+    scale: 0.55;
+    margin: 0px -25px;
+  }
+}
+
+.bgP {
+  position: absolute;
+  margin: 380px -90px;
+
+  @include mobile {
+    width: 200px;
+    height: 200px;
+    top: 75%;
+    left: 15%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+  }
+
+  @include tablet {
+    width: 250px;
+    height: 250px;
+    top: 77%;
+    left: 12%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+  }
+
+  @include laptop {
+    width: 280px;
+    height: 280px;
+    top: -10%;
+  }
+}
+
 .images{
   display: flex;
   flex-direction: column;
@@ -763,6 +830,16 @@ $desktop: 1440px;
   @include laptop{
     margin-top: -25%;
   }
+
+  @include tablet{
+    // margin-top: -10px;
+  }
+
+  @include mobile{
+    margin-top: 35rem;
+    margin-bottom: -10rem;
+  }
+
 }
 
 .shell{
@@ -777,13 +854,37 @@ $desktop: 1440px;
 
   @include tablet{
     flex-direction: column;
-    scale: 0.8;
-    margin-top: -120px;
+    scale: 0.7;
+    margin-top: -12rem;
   }
 
   @include mobile{
     flex-direction: column;
     scale: 0.5;
+    margin-top: -25rem;
+  }
+}
+
+.shell1 {
+  display: flex;
+  flex-direction: row;
+  gap: 60px;
+  margin-top: 60px;
+
+  @include laptop{
+    flex-direction: column;
+  }
+
+  @include tablet{
+    flex-direction: column;
+    scale: 0.7;
+    margin-top: -10rem;
+  }
+
+  @include mobile{
+    flex-direction: column;
+    scale: 0.5;
+    margin-top: -18rem;
   }
 }
 

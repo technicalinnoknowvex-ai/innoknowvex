@@ -324,7 +324,7 @@ const AboutDetailsPage = () => {
               alt="CEO image"
             />
             <Image
-              className={style.star}
+              className={style.starP}
               src="/images/SoftStar.svg"
               height={50}
               width={50}
@@ -332,15 +332,19 @@ const AboutDetailsPage = () => {
               ref={starRef5}
             />
             <Image
-              className={style.bg}
+              className={style.bgP}
               src="/images/Ellipse4.svg"
               height={300}
               width={300}
               alt="bg"
             />
-              <h4>Logesh <br /> (Assistant Team Leader)</h4>
-              <h4>Vimalraj <br /> (Team Leader)</h4>
-              <h4>Bhumika <br /> (Assistant Team Leader)</h4>
+            <h4>Team Members</h4>
+            <ul>
+              <li>Logesh (Assistant Team Leader)</li>
+              <li>Vimalraj (Team Leader)</li>
+              <li>Bhumika (Assistant Team Leader)</li>
+            </ul>
+
           </div>
         </div>
 
@@ -433,7 +437,7 @@ const AboutDetailsPage = () => {
           />
         </div>
 
-        <div className={style.shell}>
+        <div className={style.shell1}>
           <Image
             src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.49%20AM%20%281%29.jpeg"
             alt="Certificate 11"
