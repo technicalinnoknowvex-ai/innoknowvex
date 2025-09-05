@@ -297,7 +297,7 @@ export const landingPageData = {
         links: [
           { label: "About Us", type: "section", href: "#about-us", sectionId: "about-us" },
           { label: "Programs", type: "section", href: "#programs", sectionId: "programs" },
-          { label: "Blogs", type: "page", href: "/blogs", sectionId: null },
+          { label: "Blogs", type: "section", href: "#blogs", sectionId: "blogs" },
           { label: "Testimonials", type: "section", href: "#testimonials", sectionId: "testimonials" },
 
         ],

@@ -131,7 +131,7 @@ const BlogCardCarousel = () => {
   const translateX = -(currentIndex * (cardWidth + gap));
 
   return (
-    <div className={styles.landing} ref={sectionRef}>
+    <div className={styles.landing} ref={sectionRef} id="blogs">
       <div className={styles.headingSection}>
         <div className={styles.sectionHeadingContainer}>
           <div className={styles.sparkleDiv} ref={sparkleRef}>
