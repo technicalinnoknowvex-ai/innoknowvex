@@ -31,87 +31,105 @@ const AboutDetailsPage = () => {
   const pRef2 = useRef();
 
   const animateContent1 = () => {
-    const tlStars = gsap.timeline();
-    tlStars.from([starRef.current, starRef1.current], {
-      opacity: 0,
-      scale: 0,
-      rotate: -720,
-      duration: 1,
-      ease: "power2.out",
-    });
-
-    const tlText = gsap.timeline();
-    tlText.from(
-      [
-        headRef.current,
-        headSmallRef.current,
-        pRef.current,
-        headRef2.current,
-        headSmallRef2.current,
-        pRef2.current,
-      ],
+    // ⭐ Animate stars
+    gsap.fromTo(
+      [starRef.current, starRef1.current],
+      { opacity: 0, scale: 0, rotate: -720 },
       {
-        y: 30,
-        opacity: 0,
-        duration: 0.5,
+        opacity: 1,
+        scale: 1,
+        rotate: 0,
+        duration: 1,
         ease: "power2.out",
+        scrollTrigger: {
+          trigger: starRef.current,
+          start: "top 90%",
+          once: true,
+        },
+      }
+    );
+
+    // ✨ Animate text
+    gsap.fromTo(
+      [headRef.current, headSmallRef.current, pRef.current,headRef2.current,headSmallRef2.current,pRef2.current],
+      { y: 30, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
         stagger: 0.2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: headRef.current,
+          start: "top 90%",
+          once: true,
+        },
       }
     );
   };
 
   const animateContent2 = () => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: headRef1.current,
-        start: "top 70%",
-        end: "top 40%",
-        toggleActions: "play none none reverse",
-      },
-    });
+    // ⭐ Animate star
+    gsap.fromTo(
+      starRef2.current,
+      { opacity: 0, scale: 0, rotate: -720 },
+      {
+        opacity: 1,
+        scale: 1,
+        rotate: 0,
+        duration: 1,
+        ease: "power2.out",
+        delay: 0.2,
+        scrollTrigger: {
+          trigger: headRef1.current,
+          start: "top 90%",
+          once: true,
+        },
+      }
+    );
 
-    tl.from(starRef2.current, {
-      opacity: 0,
-      scale: 0,
-      rotate: -720,
-      duration: 1,
-      delay: 0.2,
-      ease: "power2.out",
-    });
-
-    gsap.from([headRef1.current, headSmallRef1.current, pRef1.current], {
-      y: 30,
-      opacity: 0,
-      duration: 0.6,
-      ease: "linear",
-      stagger: 0.2,
-      scrollTrigger: {
-        trigger: headRef1.current, // 👈 what element triggers the animation
-        start: "top 60%", // when top of trigger hits 60% of viewport
-        end: "top 40%", // when top of trigger hits 40% of viewport
-        toggleActions: "play none none reverse", // play on enter, reverse on leave
-      },
-    });
+    // ✨ Animate text
+    gsap.fromTo(
+      [headRef1.current, headSmallRef1.current, pRef1.current],
+      { y: 30, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+        ease: "power2.out",
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: headRef1.current,
+          start: "top 90%",
+          once: true,
+        },
+      }
+    );
   };
 
   useEffect(() => {
     animateContent1();
     animateContent2();
 
-    gsap.from([starRef3.current, starRef4.current, starRef5.current], {
-      opacity: 0,
-      scale: 0,
-      rotate: -720,
-      duration: 1,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: starRef3.current,
-        start: "top 70%",
-        end: "bottom 60%",
-        toggleActions: "play none none reverse",
-      },
-    });
+    // ⭐ Animate remaining stars
+    gsap.fromTo(
+      [starRef3.current, starRef4.current, starRef5.current],
+      { opacity: 0, scale: 0, rotate: -720 },
+      {
+        opacity: 1,
+        scale: 1,
+        rotate: 0,
+        duration: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: starRef3.current,
+          start: "top 90%",
+          once: true,
+        },
+      }
+    );
   }, []);
+
 
   return (
     <>
