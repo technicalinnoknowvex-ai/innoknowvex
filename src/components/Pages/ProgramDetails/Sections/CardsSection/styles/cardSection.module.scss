@@ -1,5 +1,4 @@
 
-
 @font-face {
   font-family: sharp-grotesk;
   src: url('/fonts/sharpGrotesk/SharpGrotesk-Medium25.otf');
@@ -15,63 +14,149 @@
   z-index: 0;
   height: 800px;
   width: 800px;
-  left: 80;
-  bottom: 20%;
-  display: none;
+  left: -200px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: block;
 }
 
 .cardsContainer {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 30px 0 4rem;
+  padding: 0; /* Removed padding from parent container */
   min-height: 100vh;
   display: flex;
   margin-top: 50px;
   box-sizing: border-box;
-  justify-content: flex-start;
-  gap: 10rem;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: flex-start;
+
+  @media (max-width: 1440px) {
+    max-width: 1400px;
+    padding: 0;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 1200px) {
+    max-width: 1400px;
+    padding: 0;
+    margin-top: 30px;
+    gap: 1rem;
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    padding: 0 2rem;
+    margin-top: 20px;
+    gap: 3rem;
+    align-items: center;
+    min-height: auto;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0 1.5rem;
+    margin-top: 10px;
+  }
+
+  @media (max-width: 600px) {
+    padding: 0 1rem;
+    margin-top: 5px;
+    gap: 1.5rem;
+  }
 }
 
 .leftSection {
-  width: 40%;
+  flex-grow: 1;
+  flex-shrink: 1;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  padding: 2rem 0;
   padding-top: 4rem;
-  min-width: 400px;
+  padding-left: 2rem; /* Added padding to this specific section */
+  min-width: 250px;
+  max-width: 500px;
+
+  @media (max-width: 1440px) {
+    padding-left: 1.5rem;
+  }
+
+  @media (max-width: 1024px) {
+    flex-grow: unset;
+    flex-shrink: unset;
+    width: 100%;
+    padding: 1rem 0 0 0;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-width: auto;
+  }
 }
 
 .careerBoostContent {
   text-align: left;
   max-width: 500px;
 
+  @media (max-width: 1024px) {
+    text-align: center;
+    max-width: 600px;
+  }
+
   .careerBoostTitle {
-    font-size: 50px;
-    width: 500px;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    width: 100%;
     color: #2c3e50;
     margin-bottom: 2rem;
     font-family: var(--font-sharp-25), Sharp Grotesk !important;
     font-weight: 450;
     line-height: 1.1;
+    white-space: nowrap;
+    word-wrap: normal;
+    
+    @media (max-width: 1024px) {
+      text-align: center;
+      white-space: normal;
+    }
+
+    @media (max-width: 600px) {
+      margin-bottom: 1rem;
+    }
   }
 
   .careerBoostDescription {
-    font-size: 1.2rem;
+    font-size: clamp(0.9rem, 1.2vw, 1.2rem);
     color: #5a6c7d;
     line-height: 1.6;
     font-family: sharp-grotesk;
-    padding-left: 0;
+    word-wrap: break-word;
+
+    @media (max-width: 1024px) {
+      padding: 0 1rem;
+    }
+
+    @media (max-width: 600px) {
+      padding: 0;
+    }
   }
 }
 
 .cardsSection {
   position: relative;
-  width: 65%;
-  padding: 2rem 0 2rem 0;
+  flex-grow: 2;
+  flex-shrink: 1;
+  padding: 2rem; /* Added padding to push cards inward */
   box-sizing: border-box;
-  margin-left: 0;
+  display: flex;
+  justify-content: flex-end;
+
+  @media (max-width: 1024px) {
+    flex-grow: unset;
+    flex-shrink: unset;
+    width: 100%;
+    padding: 0 0 2rem 0;
+    justify-content: center;
+  }
 }
 
 .cardsGrid {
@@ -79,8 +164,41 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
-  margin-left: 0;
-  max-width: 100%;
+  max-width: clamp(600px, 60vw, 800px);
+  z-index: 1;
+
+  @media (max-width: 1200px) {
+    max-width: clamp(500px, 55vw, 700px);
+    gap: 1.2rem;
+  }
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    max-width: 600px;
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 400px;
+  }
+
+  @media (max-width: 480px) {
+    gap: 1.2rem;
+    max-width: 100%;
+  }
+
+  @media (max-width: 320px) {
+    gap: 1rem;
+  }
 }
 
 .card {
@@ -96,10 +214,44 @@
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
     transform: translateY(-5px) scale(1.02);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  @media (max-width: 1200px) {
+    padding: 1.2rem;
+    min-height: 180px;
+  }
+
+  @media (max-width: 1024px) {
+    padding: 1.5rem;
+    min-height: 170px;
+  }
+
+  @media (max-width: 768px) {
+    min-height: 160px;
+    padding: 1.2rem;
+    border-radius: 25px 25px 25px 70px;
+  }
+
+  @media (max-width: 600px) {
+    min-height: 150px;
+    padding: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.2rem;
+    min-height: 140px;
+    border-radius: 20px 20px 20px 60px;
+  }
+
+  @media (max-width: 320px) {
+    padding: 1rem;
+    min-height: 130px;
+    border-radius: 18px 18px 18px 50px;
   }
 }
 
@@ -108,22 +260,35 @@
   p {
     color: #9c7f16 !important;
     font-family: sharp-grotesk;
-    font-size: 1.2rem;
   }
 }
 
 .cardHeader {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.5rem;
-  margin-bottom: 1rem;
-  margin-top: 0;
+  margin-bottom: 0.5rem;
   position: relative;
+  line-height: 1.2;
+
+  @media (max-width: 768px) {
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  @media (max-width: 480px) {
+    gap: 0.6rem;
+    margin-bottom: 0.6rem;
+  }
+
+  @media (max-width: 320px) {
+    gap: 0.5rem;
+  }
 }
 
 .starImage {
-  width: 30px !important;
-  height: 30px !important;
+  width: clamp(20px, 4vw, 30px) !important;
+  height: clamp(20px, 4vw, 30px) !important;
   max-width: 30px;
   max-height: 30px;
   object-fit: contain;
@@ -132,7 +297,7 @@
 }
 
 .card h3 {
-  font-size: 1.1rem;
+  font-size: clamp(0.9rem, 1.2vw, 1.1rem);
   margin: 0;
   color: #9c7f16;
   font-family: var(--font-sharp-25), Sharp Grotesk !important;
@@ -145,7 +310,7 @@
 }
 
 .card p {
-  font-size: 0.95rem;
+  font-size: clamp(0.8rem, 1vw, 0.95rem);
   line-height: 1.5;
   color: #9c7f16;
   font-family: old-school-grotesk;
@@ -153,313 +318,5 @@
   width: 100%;
   margin-top: auto;
   padding-top: 0.5rem;
-}
-
-// Responsive design
-@media (max-width: 1440px) {
-  .cardsContainer {
-    max-width: 1200px;
-    padding: 0 2rem 0 3rem;
-    gap: 6rem;
-  }
-}
-
-@media (max-width: 1200px) {
-  .cardsContainer {
-    max-width: 1000px;
-    padding: 0 1.5rem 0 2rem;
-    margin-top: 30px;
-    gap: 4rem;
-  }
-
-  .cardsGrid {
-    gap: 1.2rem;
-  }
-
-  .card {
-    padding: 1.5rem;
-    min-height: 190px;
-  }
-  
-  .card h3 {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 1024px) {
-  .cardsContainer {
-    flex-direction: column;
-    padding: 0 2rem;
-    margin-top: 20px;
-    gap: 2rem;
-    align-items: center;
-  }
-
-  .leftSection {
-    width: 100%;
-    padding: 1rem 0;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding-top: 2rem;
-    min-width: auto;
-  }
-
-  .careerBoostContent {
-    text-align: center;
-    max-width: 600px;
-    
-    .careerBoostTitle {
-      width: 100%;
-      padding-left: 0;
-      text-align: center;
-    }
-  }
-
-  .cardsSection {
-    width: 100%;
-    padding: 1rem 0 2rem 0;
-    margin-left: 0;
-  }
-
-  .cardsGrid {
-    grid-template-columns: repeat(2, 1fr);
-    margin-left: 0;
-    gap: 1.5rem;
-    max-width: 700px;
-    margin: 0 auto;
-  }
-
-  .card {
-    padding: 1.8rem;
-    min-height: 180px;
-  }
-  
-  .ellipse {
-    display: none;
-  }
-}
-
-@media (max-width: 768px) {
-  .cardsContainer {
-    flex-direction: column;
-    padding: 0 1.5rem;
-    margin-top: 10px;
-    max-width: 100%;
-    align-items: center;
-  }
-
-  .leftSection {
-    width: 100%;
-    padding: 1rem 0;
-    align-items: center;
-    justify-content: center;
-    padding-top: 2rem;
-    text-align: center;
-  }
-
-  .careerBoostContent {
-    text-align: center;
-    max-width: 500px;
-    
-    .careerBoostTitle {
-      font-size: 2.5rem;
-      width: 100%;
-      padding-right: 0;
-    }
-    
-    .careerBoostDescription {
-      font-size: 1.1rem;
-    }
-  }
-
-  .cardsSection {
-    width: 100%;
-    padding: 1rem 0;
-    margin-left: 0;
-  }
-
-  .cardsGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.2rem;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 0;
-  }
-
-  .card {
-    min-height: 170px;
-    padding: 1.5rem;
-    border-radius: 25px 25px 25px 70px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .cardHeader {
-    gap: 0.8rem;
-    margin-bottom: 1rem;
-  }
-
-  .starImage {
-    width: 28px !important;
-    height: 28px !important;
-    max-width: 28px;
-    max-height: 28px;
-  }
-  
-  .card h3 {
-    font-size: 0.95rem;
-  }
-  
-  .card p {
-    font-size: 0.9rem;
-  }
-}
-
-// Single column for small screens
-@media (max-width: 600px) {
-  .cardsContainer {
-    padding: 0 1rem;
-    margin-top: 5px;
-    gap: 1.5rem;
-  }
-
-  .leftSection {
-    padding: 0.5rem 0;
-  }
-
-  .careerBoostContent {
-    max-width: 100%;
-    
-    .careerBoostTitle {
-      font-size: 2.2rem;
-      margin-bottom: 1rem;
-      width: 100%;
-      padding-right: 0;
-    }
-    
-    .careerBoostDescription {
-      font-size: 1rem;
-      padding: 0 0.5rem;
-    }
-  }
-
-  .cardsSection {
-    width: 100%;
-    padding: 0.5rem 0 1rem 0;
-  }
-
-  .cardsGrid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    max-width: 400px;
-    margin: 0 auto;
-  }
-
-  .card {
-    padding: 1.8rem;
-    min-height: 160px;
-    border-radius: 25px 25px 25px 70px;
-    width: 100%;
-  }
-
-  .cardHeader {
-    gap: 0.8rem;
-    margin-bottom: 1rem;
-  }
-
-  .starImage {
-    width: 26px !important;
-    height: 26px !important;
-    max-width: 26px;
-    max-height: 26px;
-  }
-  
-  .card h3 {
-    font-size: 1rem;
-  }
-  
-  .card p {
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .cardsContainer {
-    padding: 0 0.8rem;
-    margin-top: 5px;
-  }
-  
-  .careerBoostContent {
-    .careerBoostTitle {
-      font-size: 2rem;
-    }
-  }
-
-  .card {
-    padding: 1.5rem;
-    min-height: 150px;
-    border-radius: 20px 20px 20px 60px;
-  }
-
-  .cardHeader {
-    gap: 0.6rem;
-    margin-bottom: 0.8rem;
-  }
-
-  .starImage {
-    width: 24px !important;
-    height: 24px !important;
-    max-width: 24px;
-    max-height: 24px;
-  }
-
-  .cardsGrid {
-    gap: 1.2rem;
-    max-width: 100%;
-  }
-  
-  .card h3 {
-    font-size: 0.95rem;
-  }
-  
-  .card p {
-    font-size: 0.85rem;
-  }
-}
-
-@media (max-width: 320px) {
-  .cardsContainer {
-    padding: 0 0.5rem;
-  }
-
-  .card {
-    padding: 1.2rem;
-    min-height: 140px;
-    border-radius: 18px 18px 18px 50px;
-  }
-
-  .cardHeader {
-    gap: 0.5rem;
-    margin-bottom: 0.8rem;
-  }
-
-  .starImage {
-    width: 22px !important;
-    height: 22px !important;
-    max-width: 22px;
-    max-height: 22px;
-  }
-
-  .cardsGrid {
-    gap: 1rem;
-  }
-  
-  .card h3 {
-    font-size: 0.9rem;
-  }
-  
-  .card p {
-    font-size: 0.8rem;
-  }
+  word-wrap: break-word;
 }

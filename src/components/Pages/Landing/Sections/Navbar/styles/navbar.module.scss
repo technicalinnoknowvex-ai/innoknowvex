@@ -75,7 +75,6 @@ $navbar-height: 70px;
       mix-blend-mode: difference;
       margin-top: 5px;
     }
-
     .underLine {
       bottom: 0;
       left: 0;
@@ -90,7 +89,6 @@ $navbar-height: 70px;
     &:hover .underLine {
       width: 100%;
     }
-
     @include tablet-down {
       display: none;
     }
@@ -100,7 +98,6 @@ $navbar-height: 70px;
     height: 15px;
     aspect-ratio: 1/1;
     display: flex;
-
     @include tablet-down {
       display: none;
     }
