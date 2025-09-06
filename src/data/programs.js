@@ -82,8 +82,8 @@ export const programs = {
     title: "Python Programming",
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Python.jpg",
     training: "/certificates/SampleTrainingCertificate.jpg",
-    internship: "/certificates/SampleInternshipCertificate.jpg",
-    brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/python-programming.pdf",
+    internship: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/SampleInternshipCertificate.jpg",
+    brochure: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/SampleTrainingCertificate.jpg",
     overview:
       "Python program provides a thorough introduction to Python programming, focusing on key concepts such as syntax, data structures, algorithms, and object-oriented programming. Students will gain hands-on experience through practical projects, covering topics like web development, data analysis, and automation. The program also explores advanced areas such as machine learning and software engineering. Graduates will be equipped for careers in software development, data science, automation, and beyond.",
     skills: [
