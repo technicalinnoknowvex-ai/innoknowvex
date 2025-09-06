@@ -392,7 +392,11 @@ const Navbar = () => {
   };
 
   // Handle navigation - IMPROVED VERSION
-  const handleNavigation = (link) => {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+  
+ const handleNavigation = (link) => {
     // Animate clicked sparkle
     const clickedIndex = navLinks.findIndex(
       (navLink) => navLink.href === link.href
@@ -421,29 +425,29 @@ const Navbar = () => {
       if (timer) clearTimeout(timer);
     });
 
+    // Ensure scroll is unlocked
+    resetScrollLock();
+
     // Handle section links (like #blogs, #testimonials)
     if (link.type === "section" && link.href.startsWith("#")) {
-      // Ensure scroll is unlocked before scrolling
-      resetScrollLock();
-
       // Check if we're not on the home page
       if (pathname !== '/') {
         // Navigate to home page first, then scroll to section
         router.push('/');
-
+        
         // Wait for navigation to complete, then scroll
         const checkHomePageLoad = () => {
           if (window.location.pathname === '/') {
             setTimeout(() => {
               const sectionId = link.href.substring(1);
               const element = document.getElementById(sectionId);
-
+              
               if (element) {
                 // Calculate offset for fixed navbar
                 const navbarHeight = 70; // Your navbar height
                 const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
                 const offsetPosition = elementPosition - navbarHeight - 20; // Extra 20px for spacing
-
+                
                 window.scrollTo({
                   top: offsetPosition,
                   behavior: 'smooth'
@@ -455,7 +459,7 @@ const Navbar = () => {
             setTimeout(checkHomePageLoad, 100);
           }
         };
-
+        
         // Start checking after a small delay
         setTimeout(checkHomePageLoad, 100);
       } else {
@@ -463,13 +467,13 @@ const Navbar = () => {
         setTimeout(() => {
           const sectionId = link.href.substring(1);
           const element = document.getElementById(sectionId);
-
+          
           if (element) {
             // Calculate offset for fixed navbar
             const navbarHeight = 70; // Your navbar height
             const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
             const offsetPosition = elementPosition - navbarHeight - 20; // Extra 20px for spacing
-
+            
             window.scrollTo({
               top: offsetPosition,
               behavior: 'smooth'
@@ -478,11 +482,16 @@ const Navbar = () => {
         }, 100); // Small delay to ensure cleanup is complete
       }
     } else {
-      // For regular page navigation
-      resetScrollLock();
-      router.push(link.href);
+      // For regular page navigation - scroll to top first, then navigate
+      scrollToTop();
+      
+      // Add small delay before navigation to allow scroll to start
+      setTimeout(() => {
+        router.push(link.href);
+      }, 100);
     }
   };
+
 
   // Handle link hover animations
   const handleLinkHover = (index, isEnter) => {
