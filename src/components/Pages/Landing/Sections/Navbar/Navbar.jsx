@@ -98,8 +98,9 @@ const navLinks = [
   {
     label: "Programs",
     type: "dropdown",
-    href: "/programs",
+    href: "",
     categories: programsCategory
+    // sectionId: "programs"
   },
    { label: "Blogs", type: "section", href: "#blogs", sectionId: "blogs" },
   { label: "Testimonials", type: "section", href: "#testimonials", sectionId: "testimonials" },
