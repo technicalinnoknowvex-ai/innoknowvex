@@ -22,7 +22,7 @@ export const landingPageData = {
       // "/assets/aboutUsSection/about_us_cell_4.jpg",
       // "/assets/aboutUsSection/about_us_cell_7.jpg",
       // "/assets/aboutUsSection/about_us_cell_9.jpg",
-     " https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/about_us_cell_1.jpg",
+     "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/about_us_cell_1.jpg",
      "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/about_us_cell_3.jpg",
      "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/about_us_cell_4.jpg",
       "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/about_us_cell_7.jpg",
