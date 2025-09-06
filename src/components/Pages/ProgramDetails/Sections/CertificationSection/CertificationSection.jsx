@@ -19,8 +19,19 @@ export default function CertificationSection({ program }) {
       <h1>Prove What You've Achieved</h1>
 
       <div className={styles.images}>
-        <Image width={600} height={400}  src={program.internship} alt="SampleInternshipCertificate" />
-        <Image width={600} height={400} src={program.training} alt="SampleTrainingCertificate" />
+        <Image
+          src={program.internship}
+          alt="Sample Internship Certificate"
+          width={600} 
+          height={400} 
+        />
+
+        <Image
+          src={program.training}
+          alt="Sample Training Certificate"
+          width={600}
+          height={400}
+        />
       </div>
     </div>
   );

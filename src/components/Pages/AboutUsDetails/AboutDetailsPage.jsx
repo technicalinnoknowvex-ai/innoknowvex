@@ -31,87 +31,105 @@ const AboutDetailsPage = () => {
   const pRef2 = useRef();
 
   const animateContent1 = () => {
-    const tlStars = gsap.timeline();
-    tlStars.from([starRef.current, starRef1.current], {
-      opacity: 0,
-      scale: 0,
-      rotate: -720,
-      duration: 1,
-      ease: "power2.out",
-    });
-
-    const tlText = gsap.timeline();
-    tlText.from(
-      [
-        headRef.current,
-        headSmallRef.current,
-        pRef.current,
-        headRef2.current,
-        headSmallRef2.current,
-        pRef2.current,
-      ],
+    // ⭐ Animate stars
+    gsap.fromTo(
+      [starRef.current, starRef1.current],
+      { opacity: 0, scale: 0, rotate: -720 },
       {
-        y: 30,
-        opacity: 0,
-        duration: 0.5,
+        opacity: 1,
+        scale: 1,
+        rotate: 0,
+        duration: 1,
         ease: "power2.out",
+        scrollTrigger: {
+          trigger: starRef.current,
+          start: "top 90%",
+          once: true,
+        },
+      }
+    );
+
+    // ✨ Animate text
+    gsap.fromTo(
+      [headRef.current, headSmallRef.current, pRef.current,headRef2.current,headSmallRef2.current,pRef2.current],
+      { y: 30, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
         stagger: 0.2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: headRef.current,
+          start: "top 90%",
+          once: true,
+        },
       }
     );
   };
 
   const animateContent2 = () => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: headRef1.current,
-        start: "top 70%",
-        end: "top 40%",
-        toggleActions: "play none none reverse",
-      },
-    });
+    // ⭐ Animate star
+    gsap.fromTo(
+      starRef2.current,
+      { opacity: 0, scale: 0, rotate: -720 },
+      {
+        opacity: 1,
+        scale: 1,
+        rotate: 0,
+        duration: 1,
+        ease: "power2.out",
+        delay: 0.2,
+        scrollTrigger: {
+          trigger: headRef1.current,
+          start: "top 90%",
+          once: true,
+        },
+      }
+    );
 
-    tl.from(starRef2.current, {
-      opacity: 0,
-      scale: 0,
-      rotate: -720,
-      duration: 1,
-      delay: 0.2,
-      ease: "power2.out",
-    });
-
-    gsap.from([headRef1.current, headSmallRef1.current, pRef1.current], {
-      y: 30,
-      opacity: 0,
-      duration: 0.6,
-      ease: "linear",
-      stagger: 0.2,
-      scrollTrigger: {
-        trigger: headRef1.current, // 👈 what element triggers the animation
-        start: "top 60%", // when top of trigger hits 60% of viewport
-        end: "top 40%", // when top of trigger hits 40% of viewport
-        toggleActions: "play none none reverse", // play on enter, reverse on leave
-      },
-    });
+    // ✨ Animate text
+    gsap.fromTo(
+      [headRef1.current, headSmallRef1.current, pRef1.current],
+      { y: 30, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+        ease: "power2.out",
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: headRef1.current,
+          start: "top 90%",
+          once: true,
+        },
+      }
+    );
   };
 
   useEffect(() => {
     animateContent1();
     animateContent2();
 
-    gsap.from([starRef3.current, starRef4.current, starRef5.current], {
-      opacity: 0,
-      scale: 0,
-      rotate: -720,
-      duration: 1,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: starRef3.current,
-        start: "top 70%",
-        end: "bottom 60%",
-        toggleActions: "play none none reverse",
-      },
-    });
+    // ⭐ Animate remaining stars
+    gsap.fromTo(
+      [starRef3.current, starRef4.current, starRef5.current],
+      { opacity: 0, scale: 0, rotate: -720 },
+      {
+        opacity: 1,
+        scale: 1,
+        rotate: 0,
+        duration: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: starRef3.current,
+          start: "top 90%",
+          once: true,
+        },
+      }
+    );
   }, []);
+
 
   return (
     <>
@@ -216,104 +234,241 @@ const AboutDetailsPage = () => {
       </div>
 
       <div className={style.team}>
-        <div className={style.pic1}>
-          <Image
-            className={style.ceo}
-            src="/images/aboutUsPage/CEO.jpeg"
-            height={535}
-            width={400}
-            alt="CEO image"
-          />
-          <Image
-            className={style.star}
-            src="/images/SoftStar.svg"
-            height={50}
-            width={50}
-            alt="star"
-            ref={starRef3}
-          />
-          <Image
-            className={style.bg}
-            src="/images/Ellipse4.svg"
-            height={300}
-            width={300}
-            alt="bg"
-          />
-          <h1>FARUK</h1>
-          <div></div>
-          <h4>Founder and CEO</h4>
-          <p>
-            Guides the company's vision and strategy, inspiring the team to
-            innovate, grow, and deliver exceptional results.
-          </p>
+        <div className={style.cell1}>
+          <div className={style.pic1}>
+            <Image
+              className={style.ceo}
+              src="/images/aboutUsPage/CEO.jpeg"
+              height={535}
+              width={400}
+              alt="CEO image"
+            />
+            <Image
+              className={style.star}
+              src="/images/SoftStar.svg"
+              height={50}
+              width={50}
+              alt="star"
+              ref={starRef3}
+            />
+            <Image
+              className={style.bg}
+              src="/images/Ellipse4.svg"
+              height={300}
+              width={300}
+              alt="bg"
+            />
+            <h1>FARUK</h1>
+            <div></div>
+            <h4>Founder and CEO</h4>
+            <p>
+              Guides the company's vision and strategy, inspiring the team to
+              innovate, grow, and deliver exceptional results.
+            </p>
+          </div>
+
+          <div className={style.pic2}>
+            <Image
+              className={style.ceo}
+              src="/images/aboutUsPage/COO.jpeg"
+              height={535}
+              width={400}
+              alt="CEO image"
+            />
+            <Image
+              className={style.star}
+              src="/images/SoftStar.svg"
+              height={50}
+              width={50}
+              alt="star"
+              ref={starRef5}
+            />
+            <Image
+              className={style.bg}
+              src="/images/Ellipse4.svg"
+              height={300}
+              width={300}
+              alt="bg"
+            />
+            <h1>Vamsi Krishna</h1>
+            <div></div>
+            <h4>COO (Founder)</h4>
+            <p>
+              Shapes brand strategy, leading marketing efforts to connect with
+              audiences and grow the company's reach.
+            </p>
+          </div>
         </div>
 
-        <div className={style.pic2}>
-          <Image
-            className={style.ceo}
-            src="/images/aboutUsPage/CGO.jpeg"
-            height={535}
-            width={400}
-            alt="CEO image"
-          />
-          <Image
-            className={style.star}
-            src="/images/SoftStar.svg"
-            height={50}
-            width={50}
-            alt="star"
-            ref={starRef4}
-          />
-          <Image
-            className={style.bg}
-            src="/images/Ellipse4.svg"
-            height={300}
-            width={300}
-            alt="bg"
-          />
-          <h1>DURGESH C.</h1>
-          <div></div>
-          <h4>CGO (Co-Founder) </h4>
-          <p>
-            Builds client relationships, drives revenue growth, and ensures the
-            company's solutions meet market needs.
-          </p>
+        <div className={style.cell2}>
+          <div className={style.pic3}>
+            <Image
+              className={style.ceo}
+              src="/images/aboutUsPage/CGO.jpeg"
+              height={535}
+              width={400}
+              alt="CEO image"
+            />
+            <Image
+              className={style.star}
+              src="/images/SoftStar.svg"
+              height={50}
+              width={50}
+              alt="star"
+              ref={starRef4}
+            />
+            <Image
+              className={style.bg}
+              src="/images/Ellipse4.svg"
+              height={300}
+              width={300}
+              alt="bg"
+            />
+            <h1>DURGESH C.</h1>
+            <div></div>
+            <h4>CGO (Co-Founder) </h4>
+            <p>
+              Builds client relationships, drives revenue growth, and ensures the
+              company's solutions meet market needs.
+            </p>
+          </div>
+
+          <div className={style.pic4}>
+            <Image
+              className={style.ceo}
+              src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/about_us.png"
+              height={535}
+              width={400}
+              alt="CEO image"
+            />
+            <Image
+              className={style.starP}
+              src="/images/SoftStar.svg"
+              height={50}
+              width={50}
+              alt="star"
+              ref={starRef5}
+            />
+            <Image
+              className={style.bgP}
+              src="/images/Ellipse4.svg"
+              height={300}
+              width={300}
+              alt="bg"
+            />
+            <h4>Team Members</h4>
+            <ul>
+              <li>Logesh (Assistant Team Leader)</li>
+              <li>Vimalraj (Team Leader)</li>
+              <li>Bhumika (Assistant Team Leader)</li>
+            </ul>
+
+          </div>
         </div>
 
-        <div className={style.pic3}>
-          <Image
-            className={style.ceo}
-            src="/images/aboutUsPage/COO.jpeg"
-            height={535}
-            width={400}
-            alt="CEO image"
-          />
-          <Image
-            className={style.star}
-            src="/images/SoftStar.svg"
-            height={50}
-            width={50}
-            alt="star"
-            ref={starRef5}
-          />
-          <Image
-            className={style.bg}
-            src="/images/Ellipse4.svg"
-            height={300}
-            width={300}
-            alt="bg"
-          />
-          <h1>Vamsi Krishna</h1>
-          <div></div>
-          <h4>COO (Founder)</h4>
-          <p>
-            Shapes brand strategy, leading marketing efforts to connect with
-            audiences and grow the company's reach.
-          </p>
-        </div>
       </div>
-      <Testimonials/>
-      <Footer/>
+
+      <div className={style.images}>
+        <div className={style.shell}>
+          <Image
+            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.44%20AM.jpeg"
+            alt="Certificate 1"
+            width={600}
+            height={400}
+            className={style.photo}
+          />
+
+          <Image
+            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.45%20AM.jpeg"
+            alt="Certificate 2"
+            width={600}
+            height={400}
+            className={style.photo}
+          />
+        </div>
+
+        <div className={style.shell}>
+          <Image
+            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.45%20AM%20%281%29.jpeg"
+            alt="Certificate 3"
+            width={600}
+            height={400}
+            className={style.photo}
+          />
+          <Image
+            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.46%20AM.jpeg"
+            alt="Certificate 4"
+            width={600}
+            height={400}
+            className={style.photo}
+          />
+        </div>
+
+        <div className={style.shell}>
+          <Image
+            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.46%20AM%20%281%29.jpeg"
+            alt="Certificate 5"
+            width={600}
+            height={400}
+            className={style.photo}
+          />
+          <Image
+            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.47%20AM.jpeg"
+            alt="Certificate 6"
+            width={600}
+            height={400}
+            className={style.photo}
+          />
+        </div>
+
+        <div className={style.shell}>
+          <Image
+            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.47%20AM%20%281%29.jpeg"
+            alt="Certificate 7"
+            width={600}
+            height={400}
+            className={style.photo}
+          />
+          <Image
+            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.48%20AM.jpeg"
+            alt="Certificate 8"
+            width={600}
+            height={400}
+            className={style.photo}
+          />
+        </div>
+
+        <div className={style.shell}>
+          <Image
+            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.48%20AM%20%281%29.jpeg"
+            alt="Certificate 9"
+            width={600}
+            height={400}
+            className={style.photo}
+          />
+          <Image
+            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.49%20AM.jpeg"
+            alt="Certificate 10"
+            width={600}
+            height={400}
+            className={style.photo}
+          />
+        </div>
+
+        <div className={style.shell1}>
+          <Image
+            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.49%20AM%20%281%29.jpeg"
+            alt="Certificate 11"
+            width={600}
+            height={400}
+            className={style.photo}
+          />
+        </div>
+
+      </div>
+
+      <Testimonials />
+      <Footer />
     </>
   );
 };

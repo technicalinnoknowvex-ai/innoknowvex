@@ -1,3 +1,4 @@
+
 @font-face {
   font-family: sharp-grotesk;
   src: url("/fonts/sharpGrotesk/SharpGrotesk-Medium25.otf");
@@ -12,22 +13,11 @@
   position: relative;
   overflow: hidden;
   margin-top: 50px;
-  max-width: 100%;
-  padding: 0 300px;
+  
+  // Basic padding for all devices, preventing content from touching edges
+  padding: 0 16px;
 
-  // Width constraint for problem range - Enhanced for 1024x550
-  @media (max-width: 1446px) and (min-width: 770px) {
-    max-width: 100vw;
-    margin: 50px 0 0 0;
-    padding: 0;
-    overflow-x: hidden;
-  }
-
-  // Specific fix for 1024x550 range
-  @media (max-width: 1024px) and (min-width: 770px) {
-    max-width: 100vw;
-    margin: 40px 0 0 0;
-  }
+  // No specific media query for this. The styles below will handle responsiveness.
 }
 
 .ellipse1 {
@@ -35,43 +25,34 @@
   width: 800px;
   height: 800px;
   left: -200px;
-  transform: transform(-50%);
   z-index: 0;
 
-  // Large Desktop
-  @media (max-width: 1600px) and (min-width: 1447px) {
-    width: 700px;
-    height: 700px;
-    left: -300px;
-    bottom: 5%;
-  }
-
-  // Medium Desktop - Fixed for your range
-  @media (max-width: 1446px) and (min-width: 1200px) {
+  // Responsive adjustments for the ellipse
+  @media (max-width: 1600px) {
     width: 700px;
     height: 700px;
     left: -300px;
   }
 
-  // Small Desktop - Fixed for your range
-  @media (max-width: 1199px) and (min-width: 1025px) {
-    width: 700px;
-    height: 700px;
-    left: -300px;
+  @media (max-width: 1200px) {
+    width: 600px;
+    height: 600px;
+    left: -250px;
   }
-
-  // Tablet Landscape - Your problem range
-  @media (max-width: 1024px) and (min-width: 770px) {
-    width: 500px;
-    height: 500px;
-    left: -300px;
+  
+  // This is the key fix for the tablet and mobile viewports.
+  // The negative left value is reduced to keep the ellipse from being cut off.
+  @media (max-width: 768px) {
+    width: 450px;
+    height: 450px;
+    left: -150px; // Adjusted for better visibility on smaller screens
   }
-
-  // Below your range
-  @media (max-width: 769px) {
-    width: 500px;
-    height: 500px;
-    left: -200px;
+  
+  // Further adjustment for smaller mobile screens
+  @media (max-width: 480px) {
+    width: 350px;
+    height: 350px;
+    left: -120px;
   }
 }
 
@@ -81,70 +62,51 @@
   padding-bottom: 100px;
   z-index: 1;
 
-  // Large Desktop
-  @media (max-width: 1600px) and (min-width: 1447px) {
+  // Responsive adjustments for padding
+  @media (max-width: 1600px) {
     padding-top: 90px;
     padding-bottom: 90px;
   }
 
-  // Medium Desktop - Fixed for your range
-  @media (max-width: 1446px) and (min-width: 1200px) {
+  @media (max-width: 1200px) {
     padding-top: 70px;
     padding-bottom: 70px;
   }
-
-  // Small Desktop - Fixed for your range
-  @media (max-width: 1199px) and (min-width: 1025px) {
-    padding-top: 60px;
-    padding-bottom: 60px;
-  }
-
-  // Tablet Landscape - Your problem range (Enhanced for 1024x550)
-  @media (max-width: 1024px) and (min-width: 770px) {
-    padding-top: 30px;
-    padding-bottom: 30px;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  // Below your range
-  @media (max-width: 769px) {
+  
+  @media (max-width: 768px) {
     padding-top: 40px;
     padding-bottom: 40px;
   }
-
+  
+  @media (max-width: 480px) {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  
   > img {
     height: 6vh;
     width: 6vh;
     margin-left: 50px;
 
-    // Medium Desktop - Fixed for your range
-    @media (max-width: 1446px) and (min-width: 1200px) {
+    @media (max-width: 1600px) {
       height: 5vh;
       width: 5vh;
       margin-left: 30px;
     }
 
-    // Small Desktop - Fixed for your range
-    @media (max-width: 1199px) and (min-width: 1025px) {
+    @media (max-width: 1200px) {
       height: 4.5vh;
       width: 4.5vh;
       margin-left: 25px;
     }
-
-    // Tablet Landscape - Your problem range (Fixed for 1024x550)
-    @media (max-width: 1024px) and (min-width: 770px) {
+    
+    @media (max-width: 768px) {
       height: 3.5vh;
       width: 3.5vh;
       margin-left: 15px;
     }
-
-    // Below your range
-    @media (max-width: 769px) {
-      margin-left: 20px;
-    }
   }
-
+  
   h1 {
     padding-left: 50px;
     font-family: var(--font-sharp-25), Sharp Grotesk;
@@ -154,41 +116,28 @@
     color: #262c35;
     margin-bottom: 20px;
 
-    // Large Desktop
-    @media (max-width: 1600px) and (min-width: 1447px) {
+    @media (max-width: 1600px) {
       font-size: 48px;
       width: 650px;
     }
-
-    // Medium Desktop - Fixed for your range
-    @media (max-width: 1446px) and (min-width: 1200px) {
+    
+    @media (max-width: 1200px) {
       padding-left: 30px;
       font-size: 40px;
       width: 500px;
       margin-bottom: 15px;
     }
-
-    // Small Desktop - Fixed for your range
-    @media (max-width: 1199px) and (min-width: 1025px) {
-      padding-left: 25px;
-      font-size: 36px;
-      width: 450px;
-      margin-bottom: 12px;
-    }
-
-    // Tablet Landscape - Your problem range (Fixed for 1024x550)
-    @media (max-width: 1024px) and (min-width: 770px) {
-      padding-left: 15px;
-      font-size: 26px;
-      width: 280px;
-      margin-bottom: 8px;
-    }
-
-    // Below your range
-    @media (max-width: 769px) {
+    
+    @media (max-width: 768px) {
+      padding-left: 20px;
       font-size: 36px;
       width: 100%;
-      padding-left: 20px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 28px;
     }
   }
 
@@ -201,103 +150,56 @@
     font-weight: 450;
     padding-bottom: 80px;
 
-    // Large Desktop
-    @media (max-width: 1600px) and (min-width: 1447px) {
+    @media (max-width: 1600px) {
       font-size: 24px;
       width: 550px;
       padding-bottom: 70px;
     }
-
-    // Medium Desktop - Fixed for your range
-    @media (max-width: 1446px) and (min-width: 1200px) {
+    
+    @media (max-width: 1200px) {
       padding-left: 30px;
       font-size: 20px;
       width: 450px;
       padding-bottom: 50px;
     }
-
-    // Small Desktop - Fixed for your range
-    @media (max-width: 1199px) and (min-width: 1025px) {
-      padding-left: 25px;
-      font-size: 18px;
-      width: 400px;
-      padding-bottom: 40px;
-    }
-
-    // Tablet Landscape - Your problem range (Fixed for 1024x550)
-    @media (max-width: 1024px) and (min-width: 770px) {
-      padding-left: 15px;
-      font-size: 14px;
-      width: 250px;
-      padding-bottom: 25px;
-    }
-
-    // Below your range
-    @media (max-width: 769px) {
+    
+    @media (max-width: 768px) {
+      padding-left: 20px;
       font-size: 20px;
       width: 100%;
-      padding-left: 20px;
+      text-align: center;
+      padding-bottom: 30px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 16px;
     }
   }
 }
 
 .featuresGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
+  grid-template-columns: repeat(2, 1fr);
   gap: 60px;
   padding: 0 20px;
   width: 100%;
   max-width: 100%;
+  box-sizing: border-box;
 
-  // Large Desktop
-  @media (max-width: 1600px) and (min-width: 1447px) {
+  @media (max-width: 1600px) {
     gap: 50px;
-    padding: 0 30px;
   }
-
-  // Medium Desktop - Fixed for your range
-  @media (max-width: 1446px) and (min-width: 1200px) {
+  
+  @media (max-width: 1200px) {
     gap: 35px;
     padding: 0 15px;
   }
 
-  // Small Desktop - Fixed for your range
-  @media (max-width: 1199px) and (min-width: 1025px) {
-    gap: 30px;
-    padding: 0 12px;
-  }
-
-  // Tablet Landscape - Your problem range (Fixed for 1024x550)
-  @media (max-width: 1024px) and (min-width: 770px) {
-    gap: 20px;
-    padding: 0 15px;
-    max-width: calc(100vw - 30px);
-  }
-
-  // Tablet Portrait
-  @media (max-width: 769px) and (min-width: 481px) {
+  // Tablet and mobile layout
+  @media (max-width: 768px) {
     grid-template-columns: 1fr;
     gap: 25px;
     padding: 0 10px;
-  }
-
-  // Mobile
-  @media (max-width: 480px) {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    padding: 0 8px;
-  }
-
-  .featureCard:nth-child(3) {
-    grid-column: 1;
-    grid-row: 2;
-
-    // Below tablet landscape
-    @media (max-width: 769px) {
-      grid-column: 1;
-      grid-row: auto;
-    }
   }
 }
 
@@ -307,50 +209,20 @@
   gap: 30px;
   padding: 20px;
   width: 100%;
-
-  // Large Desktop
-  @media (max-width: 1600px) and (min-width: 1447px) {
-    gap: 25px;
-    padding: 18px;
-  }
-
-  // Medium Desktop - Fixed for your range
-  @media (max-width: 1446px) and (min-width: 1200px) {
+  
+  @media (max-width: 1200px) {
     gap: 20px;
     padding: 15px;
   }
-
-  // Small Desktop - Fixed for your range
-  @media (max-width: 1199px) and (min-width: 1025px) {
-    gap: 18px;
-    padding: 12px;
-  }
-
-  // Tablet Landscape - Your problem range (Fixed for 1024x550)
-  @media (max-width: 1024px) and (min-width: 770px) {
-    gap: 12px;
-    padding: 8px;
-    max-width: 100%;
-  }
-
-  // Tablet Portrait
-  @media (max-width: 769px) and (min-width: 481px) {
+  
+  @media (max-width: 768px) {
     flex-direction: column;
     text-align: center;
     padding: 15px;
     gap: 20px;
-  }
-
-  // Mobile
-  @media (max-width: 480px) {
-    flex-direction: column;
-    text-align: center;
-    padding: 12px;
-    gap: 15px;
   }
 }
 
-// Enhanced responsive number div with smoother transitions
 .featureNumber {
   background: #ff6432;
   color: white;
@@ -364,72 +236,24 @@
   font-weight: bold;
   font-family: var(--font-sharp-25), Sharp Grotesk;
   flex-shrink: 0;
-  transition: all 0.3s ease;
-
-  // Extra Large Desktop (above 1600px)
-  @media (min-width: 1601px) {
-    width: 75px;
-    height: 85px;
-    font-size: 26px;
-    border-radius: 12px 38px 12px 38px;
-  }
-
-  // Large Desktop
-  @media (max-width: 1600px) and (min-width: 1447px) {
-    width: 65px;
-    height: 75px;
-    font-size: 22px;
-    border-radius: 10px 32px 10px 32px;
-  }
-
-  // Medium Desktop - Enhanced for your range
-  @media (max-width: 1446px) and (min-width: 1200px) {
+  
+  @media (max-width: 1200px) {
     width: 58px;
     height: 68px;
     font-size: 20px;
-    border-radius: 9px 30px 9px 30px;
   }
-
-  // Small Desktop - Enhanced for your range
-  @media (max-width: 1199px) and (min-width: 1025px) {
-    width: 52px;
-    height: 62px;
+  
+  @media (max-width: 768px) {
+    width: 50px;
+    height: 60px;
     font-size: 18px;
-    border-radius: 8px 27px 8px 27px;
-  }
-
-  // Tablet Landscape - Your problem range (Enhanced for 1024x550)
-  @media (max-width: 1024px) and (min-width: 770px) {
-    width: 40px;
-    height: 50px;
-    font-size: 14px;
-    border-radius: 6px 20px 6px 20px;
-  }
-
-  // Tablet Portrait - New responsive step
-  @media (max-width: 769px) and (min-width: 481px) {
-    width: 42px;
-    height: 52px;
-    font-size: 15px;
-    border-radius: 6px 22px 6px 22px;
     align-self: center;
   }
-
-  // Mobile - Enhanced smaller size
+  
   @media (max-width: 480px) {
-    width: 38px;
-    height: 48px;
-    font-size: 14px;
-    border-radius: 5px 20px 5px 20px;
-    align-self: center;
-  }
-
-  // Extra small mobile
-  @media (max-width: 360px) {
-    width: 35px;
-    height: 45px;
-    font-size: 13px;
-    border-radius: 5px 18px 5px 18px;
+    width: 45px;
+    height: 55px;
+    font-size: 16px;
   }
 }
 
@@ -444,45 +268,14 @@
     margin-bottom: 15px;
     line-height: 1.3;
 
-    // Large Desktop
-    @media (max-width: 1600px) and (min-width: 1447px) {
-      font-size: 22px;
-      margin-bottom: 12px;
-    }
-
-    // Medium Desktop - Fixed for your range
-    @media (max-width: 1446px) and (min-width: 1200px) {
+    @media (max-width: 1200px) {
       font-size: 19px;
       margin-bottom: 10px;
-      line-height: 1.25;
     }
-
-    // Small Desktop - Fixed for your range
-    @media (max-width: 1199px) and (min-width: 1025px) {
-      font-size: 17px;
-      margin-bottom: 8px;
-      line-height: 1.2;
-    }
-
-    // Tablet Landscape - Your problem range (Fixed for 1024x550)
-    @media (max-width: 1024px) and (min-width: 770px) {
-      font-size: 13px;
-      margin-bottom: 4px;
-      line-height: 1.1;
-    }
-
-    // Tablet Portrait
-    @media (max-width: 769px) and (min-width: 481px) {
+    
+    @media (max-width: 768px) {
       font-size: 18px;
       margin-bottom: 8px;
-      line-height: 1.2;
-    }
-
-    // Mobile
-    @media (max-width: 480px) {
-      font-size: 16px;
-      margin-bottom: 6px;
-      line-height: 1.15;
     }
   }
 
@@ -493,40 +286,14 @@
     line-height: 1.6;
     padding-left: 0;
 
-    // Large Desktop
-    @media (max-width: 1600px) and (min-width: 1447px) {
-      font-size: 15px;
-      line-height: 1.55;
-    }
-
-    // Medium Desktop - Fixed for your range
-    @media (max-width: 1446px) and (min-width: 1200px) {
+    @media (max-width: 1200px) {
       font-size: 14px;
       line-height: 1.5;
     }
 
-    // Small Desktop - Fixed for your range
-    @media (max-width: 1199px) and (min-width: 1025px) {
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    // Tablet Landscape - Your problem range (Fixed for 1024x550)
-    @media (max-width: 1024px) and (min-width: 770px) {
-      font-size: 10px;
-      line-height: 1.3;
-    }
-
-    // Tablet Portrait
-    @media (max-width: 769px) and (min-width: 481px) {
+    @media (max-width: 768px) {
       font-size: 14px;
       line-height: 1.5;
-    }
-
-    // Mobile
-    @media (max-width: 480px) {
-      font-size: 13px;
-      line-height: 1.45;
     }
   }
 }

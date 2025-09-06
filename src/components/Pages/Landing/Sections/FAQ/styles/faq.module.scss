@@ -82,15 +82,29 @@
     &__primaryHeading {
       // border: 1px solid red;
       @include font($font-sharp-25, $medium);
-      font-size: 2.2rem;
       z-index: 2;
       margin-bottom: 5px;
+      font-size: 2rem;
+      @include screen(sm) {
+        font-size: clamp(
+          2rem,
+          1.3333333333333335rem + 1.6666666666666667vw,
+          4rem
+        ) !important;
+      }
     }
     &__secondaryHeading {
       @include font($font-sharp-25, $medium, $text-brand);
-      font-size: 1rem;
       text-transform: uppercase;
       z-index: 2;
+      font-size: 1rem;
+      @include screen(sm) {
+        font-size: clamp(
+          1rem,
+          0.6666666666666667rem + 0.8333333333333334vw,
+          2rem
+        ) !important;
+      }
     }
   }
 
@@ -105,7 +119,7 @@
     // border: 1px solid green;
 
     @include tablet-down {
-      padding: 5px 0px;
+      padding: 20px 0px;
     }
 
     p {
@@ -193,7 +207,7 @@
         transition: color 0.2s ease;
 
         @include tablet-down {
-          font-size: 0.75rem;
+          font-size: 0.8rem;
           line-height: 1.5;
         }
       }
@@ -215,8 +229,9 @@
       transition: opacity 0.2s ease 0.1s;
 
       @include tablet-down {
-        font-size: 0.7rem;
+        font-size: 0.8rem;
         line-height: 1.5;
+        margin-top: 10px;
       }
     }
 

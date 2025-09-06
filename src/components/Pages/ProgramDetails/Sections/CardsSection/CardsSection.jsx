@@ -1,7 +1,7 @@
 
-
 "use client";
 import styles from "./styles/cardSection.module.scss";
+import Image from "next/image";
 
 export default function CardsSection() {
   return (
@@ -19,17 +19,19 @@ export default function CardsSection() {
 
       {/* Cards section */}
       <div className={styles.cardsSection}>
-        <img
+        <Image
           src="/images/Ellipse4.svg"
           alt="ellipse"
           className={styles.ellipse}
+          width={800}
+          height={800}
         />
 
         <div className={styles.cardsGrid}>
           {/* First row */}
           <div className={`${styles.card} ${styles.softSkillsCard}`}>
             <div className={styles.cardHeader}>
-              <img
+              <Image
                 className={styles.starImage}
                 src="/images/SoftStar3.svg"
                 width={20}
@@ -43,7 +45,7 @@ export default function CardsSection() {
 
           <div className={styles.card}>
             <div className={styles.cardHeader}>
-              <img
+              <Image
                 className={styles.starImage}
                 src="/images/SoftStar3.svg"
                 width={40}
@@ -57,7 +59,7 @@ export default function CardsSection() {
 
           <div className={styles.card}>
             <div className={styles.cardHeader}>
-              <img
+              <Image
                 className={styles.starImage}
                 src="/images/SoftStar3.svg"
                 width={20}
@@ -72,7 +74,7 @@ export default function CardsSection() {
           {/* Second row */}
           <div className={styles.card}>
             <div className={styles.cardHeader}>
-              <img
+              <Image
                 className={styles.starImage}
                 src="/images/SoftStar3.svg"
                 width={20}
@@ -86,7 +88,7 @@ export default function CardsSection() {
 
           <div className={styles.card}>
             <div className={styles.cardHeader}>
-              <img
+              <Image
                 className={styles.starImage}
                 src="/images/SoftStar3.svg"
                 width={40}
@@ -100,7 +102,7 @@ export default function CardsSection() {
 
           <div className={styles.card}>
             <div className={styles.cardHeader}>
-              <img
+              <Image
                 className={styles.starImage}
                 src="/images/SoftStar3.svg"
                 width={40}

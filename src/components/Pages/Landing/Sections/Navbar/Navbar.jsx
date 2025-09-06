@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./styles/navbar.module.scss";
@@ -93,15 +92,15 @@ const programsCategory = [
 ];
 
 const navLinks = [
- { label: "Home", type: "section", href: "#", sectionId: "home" },
-  { label: "About Us", type: "section", href: "#about-us", sectionId: "about-us" },
+  { label: "Home", type: "section", href: "/", sectionId: "home" },
+  { label: "About Us", type: "section", href: "about-us", sectionId: "about-us" },
   {
     label: "Programs",
     type: "dropdown",
-    href: "/programs",
+    href: "",
     categories: programsCategory
   },
-   { label: "Blogs", type: "page", href: "/blogs", sectionId: null },
+  { label: "Blogs", type: "section", href: "#blogs", sectionId: "blogs" },
   { label: "Testimonials", type: "section", href: "#testimonials", sectionId: "testimonials" },
   { label: "Contact Us", type: "section", href: "#footer", sectionId: "footer" },
 ];
@@ -118,22 +117,82 @@ const Navbar = () => {
   const categoryDropdownRefs = useRef({});
   const dropdownTimers = useRef({});
   const categoryTimers = useRef({});
+  const scrollPosition = useRef(0);
   const router = useRouter();
   const pathname = usePathname();
 
-  // Prevent background scrolling when dropdown is open
+  // Utility function to reset scroll lock
+  const resetScrollLock = () => {
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+  };
+
+  // Utility function to apply scroll lock
+  const applyScrollLock = () => {
+    scrollPosition.current = window.pageYOffset;
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollPosition.current}px`;
+    document.body.style.width = '100%';
+  };
+
+  // Utility function to remove scroll lock and restore position
+  const removeScrollLock = () => {
+    const currentScrollPosition = scrollPosition.current;
+    resetScrollLock();
+    window.scrollTo(0, currentScrollPosition);
+  };
+
+  // Only apply scroll lock for mobile menu, not dropdowns
   useEffect(() => {
-    if (activeDropdown !== null) {
-      document.body.style.overflow = 'hidden';
+    if (isOpen) {
+      applyScrollLock();
     } else {
-      document.body.style.overflow = 'unset';
+      removeScrollLock();
     }
 
     // Cleanup on component unmount
     return () => {
-      document.body.style.overflow = 'unset';
+      resetScrollLock();
     };
-  }, [activeDropdown]);
+  }, [isOpen]);
+
+  // Reset states when pathname changes
+  useEffect(() => {
+    resetScrollLock();
+    setActiveDropdown(null);
+    setActiveCategory(null);
+    setIsOpen(false);
+  }, [pathname]);
+
+  // Global click handler to close dropdowns when clicking outside
+  useEffect(() => {
+    const handleGlobalClick = (event) => {
+      if (containerRef.current && !containerRef.current.contains(event.target)) {
+        setActiveDropdown(null);
+        setActiveCategory(null);
+        setIsOpen(false);
+      }
+    };
+
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        setActiveDropdown(null);
+        setActiveCategory(null);
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleGlobalClick);
+    document.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.removeEventListener('click', handleGlobalClick);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, []);
 
   // Initialize menu to hidden state and sparkle animations
   useGSAP(
@@ -332,8 +391,12 @@ const Navbar = () => {
     }
   };
 
-  // Handle navigation
-  const handleNavigation = (link) => {
+  // Handle navigation - IMPROVED VERSION
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+  
+ const handleNavigation = (link) => {
     // Animate clicked sparkle
     const clickedIndex = navLinks.findIndex(
       (navLink) => navLink.href === link.href
@@ -349,20 +412,86 @@ const Navbar = () => {
       });
     }
 
-    // Close mobile menu if it's open
-    if (isOpen) {
-      setIsOpen(false);
-    }
+    // Force cleanup of all states
+    setIsOpen(false);
+    setActiveDropdown(null);
+    setActiveCategory(null);
 
-    // Close dropdown if open
-    if (activeDropdown !== null) {
-      setActiveDropdown(null);
-      setActiveCategory(null);
-    }
+    // Clear all timers
+    Object.values(dropdownTimers.current).forEach(timer => {
+      if (timer) clearTimeout(timer);
+    });
+    Object.values(categoryTimers.current).forEach(timer => {
+      if (timer) clearTimeout(timer);
+    });
 
-    // Navigate to page using Next.js router
-    router.push(link.href);
+    // Ensure scroll is unlocked
+    resetScrollLock();
+
+    // Handle section links (like #blogs, #testimonials)
+    if (link.type === "section" && link.href.startsWith("#")) {
+      // Check if we're not on the home page
+      if (pathname !== '/') {
+        // Navigate to home page first, then scroll to section
+        router.push('/');
+        
+        // Wait for navigation to complete, then scroll
+        const checkHomePageLoad = () => {
+          if (window.location.pathname === '/') {
+            setTimeout(() => {
+              const sectionId = link.href.substring(1);
+              const element = document.getElementById(sectionId);
+              
+              if (element) {
+                // Calculate offset for fixed navbar
+                const navbarHeight = 70; // Your navbar height
+                const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+                const offsetPosition = elementPosition - navbarHeight - 20; // Extra 20px for spacing
+                
+                window.scrollTo({
+                  top: offsetPosition,
+                  behavior: 'smooth'
+                });
+              }
+            }, 300); // Wait a bit longer for page to fully load
+          } else {
+            // Keep checking if navigation hasn't completed
+            setTimeout(checkHomePageLoad, 100);
+          }
+        };
+        
+        // Start checking after a small delay
+        setTimeout(checkHomePageLoad, 100);
+      } else {
+        // We're already on the home page, just scroll to the section
+        setTimeout(() => {
+          const sectionId = link.href.substring(1);
+          const element = document.getElementById(sectionId);
+          
+          if (element) {
+            // Calculate offset for fixed navbar
+            const navbarHeight = 70; // Your navbar height
+            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = elementPosition - navbarHeight - 20; // Extra 20px for spacing
+            
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
+        }, 100); // Small delay to ensure cleanup is complete
+      }
+    } else {
+      // For regular page navigation - scroll to top first, then navigate
+      scrollToTop();
+      
+      // Add small delay before navigation to allow scroll to start
+      setTimeout(() => {
+        router.push(link.href);
+      }, 100);
+    }
   };
+
 
   // Handle link hover animations
   const handleLinkHover = (index, isEnter) => {
@@ -425,22 +554,28 @@ const Navbar = () => {
                 </div>
 
                 {link.type === "page" || link.type === "section" ? (
-                  <Link
-                    href={link.href}
+                  <div
                     className={styles.linkBtn}
                     onMouseEnter={() => handleLinkHover(lIndex, true)}
                     onMouseLeave={() => handleLinkHover(lIndex, false)}
                     onClick={() => handleNavigation(link)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        handleNavigation(link);
+                      }
+                    }}
+                    style={{ cursor: "pointer" }}
                   >
                     <div className={styles.underLine}></div>
                     <p style={{ color: navColor }}>{link.label}</p>
-                  </Link>
+                  </div>
                 ) : link.type === "dropdown" ? (
                   <div className={styles.dropdownWrapper}>
                     <div
                       className={`${styles.linkBtn} ${pathname === link.href ? styles.activeLink : ""
                         }`}
-                      onClick={() => handleNavigation(link)}
                       role="button"
                       tabIndex={0}
                       onKeyDown={(e) => {
@@ -533,6 +668,7 @@ const Navbar = () => {
                                         onClick={() => {
                                           setActiveDropdown(null);
                                           setActiveCategory(null);
+                                          resetScrollLock();
                                         }}
                                       >
                                         <span className={styles.programIcon}>→</span>
