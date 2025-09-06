@@ -94,7 +94,7 @@ const programsCategory = [
 
 const navLinks = [
  { label: "Home", type: "section", href: "#", sectionId: "home" },
-  { label: "About Us", type: "section", href: "#about-us", sectionId: "about-us" },
+  { label: "About Us", type: "section", href: "/about-us", sectionId: "about-us" },
   {
     label: "Programs",
     type: "dropdown",
