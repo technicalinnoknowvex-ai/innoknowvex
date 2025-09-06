@@ -238,7 +238,7 @@ const AboutDetailsPage = () => {
           <div className={style.pic1}>
             <Image
               className={style.ceo}
-              src="/images/aboutUsPage/CEO.jpeg"
+              src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/CEO.jpeg"
               height={535}
               width={400}
               alt="CEO image"
@@ -270,7 +270,7 @@ const AboutDetailsPage = () => {
           <div className={style.pic2}>
             <Image
               className={style.ceo}
-              src="/images/aboutUsPage/COO.jpeg"
+              src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/COO.jpeg"
               height={535}
               width={400}
               alt="CEO image"
@@ -304,7 +304,7 @@ const AboutDetailsPage = () => {
           <div className={style.pic3}>
             <Image
               className={style.ceo}
-              src="/images/aboutUsPage/CGO.jpeg"
+              src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/CGO.jpeg"
               height={535}
               width={400}
               alt="CEO image"
