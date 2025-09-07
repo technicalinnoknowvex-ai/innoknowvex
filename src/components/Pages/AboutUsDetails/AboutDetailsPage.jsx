@@ -6,6 +6,10 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Testimonials from "../Landing/Sections/Testimonials/Testimonials";
 import Footer from "../Landing/Sections/Footer/Footer";
+import Ellipse1 from "./svgImages/Ellipse1";
+import Ellipse2 from "./svgImages/Ellipse2";
+import StarIcon from "./svgImages/Star";
+import Bg from "./svgImages/Bg";
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -17,6 +21,7 @@ const AboutDetailsPage = () => {
   const starRef3 = useRef();
   const starRef4 = useRef();
   const starRef5 = useRef();
+  const starRef6 = useRef();
 
   const headRef = useRef();
   const headSmallRef = useRef();
@@ -113,18 +118,35 @@ const AboutDetailsPage = () => {
 
     // ⭐ Animate remaining stars
     gsap.fromTo(
-      [starRef3.current, starRef4.current, starRef5.current],
+      [starRef3.current,starRef6.current],
       { opacity: 0, scale: 0, rotate: -720 },
       {
         opacity: 1,
-        scale: 1,
+        scale: 0.55,
         rotate: 0,
         duration: 1,
         ease: "power2.out",
         scrollTrigger: {
           trigger: starRef3.current,
           start: "top 90%",
-          once: true,
+          toggleActions: "play reverse play reverse", 
+        },
+      }
+    );
+
+    gsap.fromTo(
+      [starRef4.current, starRef5.current],
+      { opacity: 0, scale: 0, rotate: -720 },
+      {
+        opacity: 1,
+        scale: 0.55,
+        rotate: 0,
+        duration: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: starRef4.current,
+          start: "top 70%",
+          toggleActions: "play reverse play reverse", 
         },
       }
     );
@@ -135,23 +157,10 @@ const AboutDetailsPage = () => {
     <>
       <div className={style.section}>
         <div className={style.first}>
-          <Image
-            className={style.ellipse1}
-            src="/images/Ellipse4.svg"
-            width={600}
-            height={600}
-            alt="bg-image"
-          />
+          <Ellipse1/>
 
           <div className={style.content1}>
-            <Image
-              className={style.star1}
-              ref={starRef}
-              width={50}
-              height={50}
-              src="/images/SoftStar.svg"
-              alt="start-image"
-            />
+            <StarIcon ref={starRef} className={style.star1} width={50} height={50} />
 
             <h1 ref={headRef}>Our vision.</h1>
             <h4 ref={headSmallRef}>What Drive Us Forward</h4>
@@ -167,23 +176,10 @@ const AboutDetailsPage = () => {
 
       <div className={style.section2}>
         <div className={style.second}>
-          <Image
-            className={style.ellipse2}
-            src="/images/Ellipse4.svg"
-            width={600}
-            height={600}
-            alt="bg-image"
-          />
+          <Ellipse2/>
 
           <div className={style.content2}>
-            <Image
-              className={style.star2}
-              ref={starRef1}
-              width={50}
-              height={50}
-              src="/images/SoftStar.svg"
-              alt="start-image"
-            />
+            <StarIcon ref={starRef1} className={style.star2} width={50} height={50} />
 
             <h1 ref={headRef2}>Our mission</h1>
             <h4 ref={headSmallRef2}>GUIDED BY PURPOSE</h4>
@@ -203,23 +199,10 @@ const AboutDetailsPage = () => {
 
       <div className={style.section3}>
         <div className={style.first}>
-          <Image
-            className={style.ellipse1}
-            src="/images/Ellipse4.svg"
-            width={600}
-            height={600}
-            alt="bg-image"
-          />
+          <Ellipse1/>
 
           <div className={style.content1}>
-            <Image
-              className={style.star3}
-              ref={starRef2}
-              width={50}
-              height={50}
-              src="/images/SoftStar.svg"
-              alt="start-image"
-            />
+            <StarIcon ref={starRef2} className={style.star3} width={50} height={50} />
 
             <h1 ref={headRef1}>Meet The</h1>
             <h4 ref={headSmallRef1}>TEAM.</h4>
@@ -235,6 +218,7 @@ const AboutDetailsPage = () => {
 
       <div className={style.team}>
         <div className={style.cell1}>
+
           <div className={style.pic1}>
             <Image
               className={style.ceo}
@@ -243,21 +227,8 @@ const AboutDetailsPage = () => {
               width={400}
               alt="CEO image"
             />
-            <Image
-              className={style.star}
-              src="/images/SoftStar.svg"
-              height={50}
-              width={50}
-              alt="star"
-              ref={starRef3}
-            />
-            <Image
-              className={style.bg}
-              src="/images/Ellipse4.svg"
-              height={300}
-              width={300}
-              alt="bg"
-            />
+            <StarIcon ref={starRef3} className={style.star} width={50} height={50} />
+            <Bg className={style.bg} width={300} height={300}/>
             <h1>FARUK</h1>
             <div></div>
             <h4>Founder and CEO</h4>
@@ -275,21 +246,9 @@ const AboutDetailsPage = () => {
               width={400}
               alt="CEO image"
             />
-            <Image
-              className={style.star}
-              src="/images/SoftStar.svg"
-              height={50}
-              width={50}
-              alt="star"
-              ref={starRef5}
-            />
-            <Image
-              className={style.bg}
-              src="/images/Ellipse4.svg"
-              height={300}
-              width={300}
-              alt="bg"
-            />
+
+            <StarIcon ref={starRef6} className={style.star} width={50} height={50} />
+            <Bg className={style.bg} width={300} height={300}/>
             <h1>Vamsi Krishna</h1>
             <div></div>
             <h4>COO (Founder)</h4>
@@ -298,6 +257,7 @@ const AboutDetailsPage = () => {
               audiences and grow the company's reach.
             </p>
           </div>
+          
         </div>
 
         <div className={style.cell2}>
