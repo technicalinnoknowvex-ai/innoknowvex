@@ -7,10 +7,10 @@
   justify-content: center;
   align-items: center;
   padding: 0;
-  margin-top: -20%;
+  margin-top: 20;
 
   // Reduced margin for larger screens (desktop)
-  margin-top: 20px;
+  // margin-top: 10px;
 
   // Responsive adjustments for smaller devices
   @media (min-width: 1200px) and (max-width: 1440px) {
