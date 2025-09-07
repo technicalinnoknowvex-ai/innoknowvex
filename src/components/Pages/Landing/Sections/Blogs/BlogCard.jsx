@@ -1,12 +1,12 @@
 "use client";
-import React, { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import React, { useState, useEffect, useRef } from "react";
 import { landingPageData } from "@/data/landing";
 import Sparkle from "@/components/Common/Icons/Sparkle";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import styles from './styles/blogs.module.scss';
+import styles from "./styles/blogs.module.scss";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -27,7 +27,7 @@ const BlogCardCarousel = () => {
         const container = containerRef.current;
         const containerWidth = container.offsetWidth;
         setContainerWidth(containerWidth);
-        
+
         const card = container.querySelector(`.${styles.blogCard}`);
         if (card) {
           const cardWidth = card.offsetWidth;
@@ -37,10 +37,10 @@ const BlogCardCarousel = () => {
     };
 
     calculateDimensions();
-    window.addEventListener('resize', calculateDimensions);
-    
+    window.addEventListener("resize", calculateDimensions);
+
     return () => {
-      window.removeEventListener('resize', calculateDimensions);
+      window.removeEventListener("resize", calculateDimensions);
     };
   }, [blogsData.length]);
 
@@ -89,34 +89,35 @@ const BlogCardCarousel = () => {
     { scope: sectionRef }
   );
 
-  const cardsToShow = containerWidth > 0 && cardWidth > 0 
-    ? Math.floor(containerWidth / (cardWidth + gap))
-    : 3;
+  const cardsToShow =
+    containerWidth > 0 && cardWidth > 0
+      ? Math.floor(containerWidth / (cardWidth + gap))
+      : 3;
 
   const maxIndex = Math.max(0, blogsData.length - cardsToShow);
 
   const nextSlide = () => {
     if (currentIndex < blogsData.length - 1) {
-      setCurrentIndex(prevIndex => prevIndex + 1);
+      setCurrentIndex((prevIndex) => prevIndex + 1);
     }
   };
 
   const prevSlide = () => {
     if (currentIndex > 0) {
-      setCurrentIndex(prevIndex => prevIndex - 1);
+      setCurrentIndex((prevIndex) => prevIndex - 1);
     }
   };
 
   const truncateDescription = (text, maxLength = 150) => {
-    if (!text) return '';
+    if (!text) return "";
     if (text.length <= maxLength) return text;
-    return text.substring(0, maxLength) + '...';
+    return text.substring(0, maxLength) + "...";
   };
 
   const handleReadMore = (blog, e) => {
-    if (!blog.link || blog.link === '#') {
+    if (!blog.link || blog.link === "#") {
       e.preventDefault();
-      console.log('Blog details:', blog);
+      console.log("Blog details:", blog);
     }
   };
 
@@ -126,7 +127,8 @@ const BlogCardCarousel = () => {
 
   const showNavigation = blogsData.length > 1; // Show navigation if there's more than one card
   const canNavigateLeft = showNavigation && currentIndex > 0;
-  const canNavigateRight = showNavigation && currentIndex < blogsData.length - 1;
+  const canNavigateRight =
+    showNavigation && currentIndex < blogsData.length - 1;
 
   const translateX = -(currentIndex * (cardWidth + gap));
 
@@ -145,7 +147,7 @@ const BlogCardCarousel = () => {
           Discover our latest insights and stories
         </h3>
       </div>
-      
+
       <div className={styles.carouselContainer} ref={containerRef}>
         {showNavigation && (
           <>
@@ -154,30 +156,39 @@ const BlogCardCarousel = () => {
               onClick={prevSlide}
               disabled={!canNavigateLeft}
             >
-              <ChevronLeft size={24} />
+              <Icon
+                icon="famicons:chevron-back"
+                style={{
+                  width: "24px",
+                  height: "24px",
+                }}
+              />
             </button>
             <button
               className={`${styles.navButton} ${styles.navButtonRight}`}
               onClick={nextSlide}
               disabled={!canNavigateRight}
             >
-              <ChevronRight size={24} />
+              <Icon
+                icon="famicons:chevron-forward"
+                style={{
+                  width: "24px",
+                  height: "24px",
+                }}
+              />
             </button>
           </>
         )}
         <div className={styles.cardsContainer}>
           <div
             className={styles.cardsWrapper}
-            style={{ 
+            style={{
               transform: `translateX(${translateX}px)`,
-              gap: `${gap}px`
+              gap: `${gap}px`,
             }}
           >
             {blogsData.map((blog, index) => (
-              <div 
-                key={blog.id || index} 
-                className={styles.blogCard}
-              >
+              <div key={blog.id || index} className={styles.blogCard}>
                 <div className={styles.imageContainer}>
                   <img
                     src={blog.image}
@@ -186,27 +197,27 @@ const BlogCardCarousel = () => {
                     loading="lazy"
                   />
                 </div>
-                
+
                 <div className={styles.cardContent}>
                   <div className={styles.cardInfo}>
                     <span className={styles.page}>
-                      {blog.source || blog.author || 'Blog Post'}
+                      {blog.source || blog.author || "Blog Post"}
                     </span>
                     <h3 className={styles.blogTitle}>{blog.title}</h3>
                     <p className={styles.blogDescription}>
                       {truncateDescription(blog.description)}
                     </p>
                   </div>
-                  
+
                   <div className={styles.cardFooter}>
                     <a
-                      href={blog.link || '#'}
+                      href={blog.link || "#"}
                       className={styles.readMoreBtn}
                       onClick={(e) => handleReadMore(blog, e)}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <ExternalLink size={16} className={styles.linkIcon} />
+                      <Icon icon="quill:link-out" className={styles.linkIcon} />
                       Read More
                     </a>
                   </div>
