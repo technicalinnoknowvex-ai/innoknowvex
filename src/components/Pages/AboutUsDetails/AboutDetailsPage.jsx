@@ -269,21 +269,8 @@ const AboutDetailsPage = () => {
               width={400}
               alt="CEO image"
             />
-            <Image
-              className={style.star}
-              src="/images/SoftStar.svg"
-              height={50}
-              width={50}
-              alt="star"
-              ref={starRef4}
-            />
-            <Image
-              className={style.bg}
-              src="/images/Ellipse4.svg"
-              height={300}
-              width={300}
-              alt="bg"
-            />
+            <StarIcon ref={starRef4} className={style.star} width={50} height={50} />
+            <Bg className={style.bg} width={300} height={300}/>
             <h1>DURGESH C.</h1>
             <div></div>
             <h4>CGO (Co-Founder) </h4>
@@ -301,21 +288,9 @@ const AboutDetailsPage = () => {
               width={400}
               alt="CEO image"
             />
-            <Image
-              className={style.starP}
-              src="/images/SoftStar.svg"
-              height={50}
-              width={50}
-              alt="star"
-              ref={starRef5}
-            />
-            <Image
-              className={style.bgP}
-              src="/images/Ellipse4.svg"
-              height={300}
-              width={300}
-              alt="bg"
-            />
+
+            <StarIcon ref={starRef5} className={style.star} width={50} height={50} />
+            <Bg className={style.bg} width={300} height={300}/>
             <h4>Team Members</h4>
             <ul>
               <li>Vimalraj (Team leader)</li>
