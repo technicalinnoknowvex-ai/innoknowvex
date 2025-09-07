@@ -2,6 +2,7 @@
   "name": "innoknowvex",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack -p 4000",
     "build": "next build",
@@ -11,6 +12,8 @@
   "dependencies": {
     "@gsap/react": "^2.1.2",
     "@hookform/resolvers": "^5.2.1",
+    "boxen": "^8.0.1",
+    "chalk": "^5.6.0",
     "file-saver": "^2.0.5",
     "framer-motion": "^12.23.12",
     "googleapis": "^159.0.0",
