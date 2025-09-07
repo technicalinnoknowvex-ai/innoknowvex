@@ -3,10 +3,10 @@ import React from "react";
 import styles from "./styles/cursor.module.scss";
 import { useCursor } from "../../../hooks/useCursor";
 import gsap from "gsap";
-
 import { useGSAP } from "@gsap/react";
+
 const Cursor = () => {
-  const { cursorRingRef, cursorDotRef, cursorContent } = useCursor();
+  const { cursorDotRef, cursorContent } = useCursor();
 
   const { contextSafe } = useGSAP(() => {
     const mouseMove = contextSafe((e) => {
@@ -15,18 +15,11 @@ const Cursor = () => {
         top: e.clientY,
       };
 
-      gsap.to(cursorRingRef?.current, {
-        left: cursorPosition.left,
-        top: cursorPosition.top,
-        duration: 0.5,
-        ease: "power2.out",
-      });
-
       gsap.to(cursorDotRef?.current, {
         left: cursorPosition.left,
         top: cursorPosition.top,
-        duration: 0.9,
-        ease: "power2.out",
+        duration: 0, // instant (no lag)
+        ease: "none", // no easing
       });
     });
 
@@ -39,7 +32,7 @@ const Cursor = () => {
 
   return (
     <>
-      <div className={styles.cursorRing} ref={cursorRingRef} />
+      {/* Removed the cursorRing */}
       <div className={styles.cursorDot} ref={cursorDotRef}>
         <div className={styles.cursorContentDiv}>{cursorContent}</div>
       </div>
