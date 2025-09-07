@@ -1,13 +1,5 @@
+@use "../../../../styles/fonts" as *;
 
-@font-face {
-  font-family: sharp-grotesk;
-  src: url('/fonts/sharpGrotesk/SharpGrotesk-Medium25.otf');
-}
-
-@font-face {
-  font-family: old-school-grotesk;
-  src: url('/fonts/oldSchoolGrotesk/OldschoolGroteskVar.ttf');
-}
 
 // Breakpoints
 $mobile: 393px;
@@ -153,8 +145,8 @@ $desktop: 1440px;
   }
 
   h1 {
-    font-family: sharp-grotesk;
-    font-weight: 100;
+    font-family: $font-sharp-25;
+    font-weight: 500;
     font-size: 3rem;
 
     @include mobile {
@@ -172,8 +164,8 @@ $desktop: 1440px;
   }
 
   h4 {
-    font-family: sharp-grotesk;
-    font-weight: 100;
+    font-family: $font-sharp-25;
+    font-weight: 500;
     font-size: 1.5rem;
     color: #FF6432;
     margin-top: 10px;
@@ -193,8 +185,8 @@ $desktop: 1440px;
   }
 
   p {
-    font-family: old-school-grotesk;
-    font-weight: 400;
+    font-family: $font-oldschool;
+    font-weight: 500;
     font-size: 1.3rem;
     margin-top: 20px;
     line-height: 2rem;
@@ -367,8 +359,8 @@ $desktop: 1440px;
   }
 
   h1 {
-    font-family: sharp-grotesk;
-    font-weight: 100;
+    font-family: $font-sharp-25;
+    font-weight: 500;
     font-size: 3rem;
 
     @include mobile {
@@ -385,8 +377,8 @@ $desktop: 1440px;
   }
 
   h4 {
-    font-family: sharp-grotesk;
-    font-weight: 100;
+    font-family: $font-sharp-25;
+    font-weight: 500;
     font-size: 1.5rem;
     color: #FF6432;
     margin-top: 10px;
@@ -406,8 +398,8 @@ $desktop: 1440px;
   }
 
   p {
-    font-family: old-school-grotesk;
-    font-weight: 400;
+    font-family: $font-oldschool;
+    font-weight: 500;
     font-size: 1.3rem;
     margin-top: 20px;
     text-align: right;
@@ -598,8 +590,8 @@ $desktop: 1440px;
   }
 
   h1 {
-    font-family: sharp-grotesk;
-    font-weight: 100;
+    font-family: $font-sharp-25;
+    font-weight: 500;
     font-size: 2rem;
 
     @include mobile {
@@ -637,8 +629,8 @@ $desktop: 1440px;
   }
 
   h4 {
-    font-family: sharp-grotesk;
-    font-weight: 100;
+    font-family: $font-sharp-25;
+    font-weight: 500;
     font-size: 1.2rem;
     margin-top: 10px;
     opacity: 0.8;
@@ -657,7 +649,7 @@ $desktop: 1440px;
     margin-top: 20px;
     width: 350px;
     font-size:1.1rem;
-    font-family: old-school-grotesk;
+    font-family: $font-oldschool;
     line-height: 1.5rem;
 
     @include mobile {
@@ -704,7 +696,7 @@ $desktop: 1440px;
 
 .pic4 li{
   list-style: none;
-  font-family: old-school-grotesk;
+  font-family: $font-oldschool;
   font-size: 1.1rem;
 }
 
