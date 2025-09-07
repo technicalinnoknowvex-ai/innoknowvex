@@ -17,11 +17,7 @@ export const landingPageData = {
     subheading: "Get to Know Us Better",
     para: `Innoknowvex is a cutting-edge EdTech platform designed to seamlessly connect students with internships, professional training, career development, and expert mentorship. Our mission is to bridge the gap between academic education and industry requirements by providing students with access to industry-relevant programs hands-on training, and specialized mentorship. Through a structured, expert-driven approach, we empower aspiring professionals with the practical skills and industry insights necessary to excel in their chosen fields.`,
     images: [
-      // "/assets/aboutUsSection/about_us_cell_1.jpg",
-      // "/assets/aboutUsSection/about_us_cell_3.jpg",
-      // "/assets/aboutUsSection/about_us_cell_4.jpg",
-      // "/assets/aboutUsSection/about_us_cell_7.jpg",
-      // "/assets/aboutUsSection/about_us_cell_9.jpg",
+     
      "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/about_us_cell_1.jpg",
      "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/about_us_cell_3.jpg",
      "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/about_us_cell_4.jpg",
