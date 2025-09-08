@@ -1,5 +1,6 @@
 "use client";
 import styles from "./styles/plansSection.module.scss";
+import Image from "next/image";
 
 export default function PlansSection() {
   return (
@@ -19,7 +20,10 @@ export default function PlansSection() {
       </div>
 
       <div className={styles.pricingCardLayout}>
-        <Image src="/images/Ellipse4.svg" alt="" className={styles.ellipse} />
+        <Image src="/images/Ellipse4.svg"
+        width={60} 
+        height={60} 
+         alt="" className={styles.ellipse} />
 
         <div className={styles.pricingCards}>
           <div className={styles.heading}>
@@ -45,6 +49,8 @@ export default function PlansSection() {
               <Image
                 src="/images/greentick.svg"
                 alt=" tick"
+                width={20}
+                height={20}
                 className={styles.featureimg}
               />
               Recorded session
@@ -53,6 +59,8 @@ export default function PlansSection() {
               <Image
                 src="/images/greentick.svg"
                 alt=" tick"
+                 width={20}
+                height={20}
                 className={styles.featureimg}
               />
               Hand-on internship
@@ -61,6 +69,8 @@ export default function PlansSection() {
               <Image
                 src="/images/greentick.svg"
                 alt=" tick"
+                 width={20}
+                height={20}
                 className={styles.featureimg}
               />
               Hands-on Project
@@ -69,46 +79,58 @@ export default function PlansSection() {
               <Image
                 src="/images/greentick.svg"
                 alt=" tick"
+                height={20}
+                  width={20}
                 className={styles.featureimg}
               />
               Certification
             </div>
             <div className={styles.features}>
-              <Image
+            <Image
                 src="/images/redcross.svg"
                 alt=" Cross"
+                height={20}
+                  width={20}
                 className={styles.featureimg}
               />
               Doubt Clearing
             </div>
             <div className={styles.features}>
-              <Image
+             <Image
                 src="/images/redcross.svg"
                 alt=" Cross"
+                height={20}
+                  width={20}
                 className={styles.featureimg}
               />
               Live Session
             </div>
             <div className={styles.features}>
-              <Image
+             <Image
                 src="/images/redcross.svg"
                 alt=" Cross"
+                height={20}
+                  width={20}
                 className={styles.featureimg}
               />
               Mentor Guidance
             </div>
             <div className={styles.features}>
-              <Image
+            <Image
                 src="/images/redcross.svg"
                 alt=" Cross"
+                height={20}
+                  width={20}
                 className={styles.featureimg}
               />
               Placement
             </div>
             <div className={styles.features}>
-              <Image
+            <Image
                 src="/images/redcross.svg"
                 alt=" Cross"
+                height={20}
+                  width={20}
                 className={styles.featureimg}
               />
               Mock Interview
@@ -140,6 +162,8 @@ export default function PlansSection() {
               <Image
                 src="/images/greentick.svg"
                 alt=" tick"
+                height={20}
+                  width={20}
                 className={styles.featureimg}
               />
               <p className={styles.featuresDesc}>Recorded session</p>
@@ -148,6 +172,8 @@ export default function PlansSection() {
               <Image
                 src="/images/greentick.svg"
                 alt=" tick"
+                height={20}
+                  width={20}
                 className={styles.featureimg}
               />
               Hand-on internship
@@ -156,6 +182,8 @@ export default function PlansSection() {
               <Image
                 src="/images/greentick.svg"
                 alt=" tick"
+                height={20}
+                  width={20}
                 className={styles.featureimg}
               />
               Hands-on Project
@@ -164,6 +192,8 @@ export default function PlansSection() {
               <Image
                 src="/images/greentick.svg"
                 alt=" tick"
+                height={20}
+                  width={20}
                 className={styles.featureimg}
               />
               Certification
@@ -172,6 +202,8 @@ export default function PlansSection() {
               <Image
                 src="/images/greentick.svg"
                 alt=" tick"
+                height={20}
+                  width={20}
                 className={styles.featureimg}
               />
               Doubt Clearing
@@ -180,6 +212,8 @@ export default function PlansSection() {
               <Image
                 src="/images/greentick.svg"
                 alt=" tick"
+                height={20}
+                  width={20}
                 className={styles.featureimg}
               />
               Live Session
@@ -188,6 +222,8 @@ export default function PlansSection() {
               <Image
                 src="/images/greentick.svg"
                 alt=" tick"
+                height={20}
+                  width={20}
                 className={styles.featureimg}
               />
               Mentor Guidance
@@ -196,14 +232,18 @@ export default function PlansSection() {
               <Image
                 src="/images/redcross.svg"
                 alt=" Cross"
+                height={20}
+                  width={20}
                 className={styles.featureimg}
               />
               Placement
             </div>
             <div className={styles.features}>
-              <Image
+             <Image
                 src="/images/redcross.svg"
                 alt=" Cross"
+                height={20}
+                  width={20}
                 className={styles.featureimg}
               />
               Mock Interview
@@ -235,6 +275,8 @@ export default function PlansSection() {
               <Image
                 src="/images/greentick.svg"
                 alt=" tick"
+                height={20}
+                  width={20}
                 className={styles.featureimg}
               />
               Recorded session
@@ -243,6 +285,8 @@ export default function PlansSection() {
               <Image
                 src="/images/greentick.svg"
                 alt=" tick"
+                height={20}
+                  width={20}
                 className={styles.featureimg}
               />
               Hand-on internship
@@ -251,6 +295,8 @@ export default function PlansSection() {
               <Image
                 src="/images/greentick.svg"
                 alt=" tick"
+                height={20}
+                  width={20}
                 className={styles.featureimg}
               />
               Hands-on Project
@@ -259,6 +305,8 @@ export default function PlansSection() {
               <Image
                 src="/images/greentick.svg"
                 alt=" tick"
+                height={20}
+                  width={20}
                 className={styles.featureimg}
               />
               Certification
@@ -267,6 +315,8 @@ export default function PlansSection() {
               <Image
                 src="/images/greentick.svg"
                 alt=" tick"
+                height={20}
+                  width={20}
                 className={styles.featureimg}
               />
               Doubt Clearing
@@ -275,6 +325,8 @@ export default function PlansSection() {
               <Image
                 src="/images/greentick.svg"
                 alt=" tick"
+                height={20}
+                  width={20}
                 className={styles.featureimg}
               />
               Live Session
@@ -283,6 +335,8 @@ export default function PlansSection() {
               <Image
                 src="/images/greentick.svg"
                 alt=" tick"
+                height={20}
+                  width={20}
                 className={styles.featureimg}
               />
               Mentor Guidance
@@ -291,6 +345,8 @@ export default function PlansSection() {
               <Image
                 src="/images/greentick.svg"
                 alt=" tick"
+                height={20}
+                  width={20}
                 className={styles.featureimg}
               />
               Placement
@@ -299,6 +355,8 @@ export default function PlansSection() {
               <Image
                 src="/images/greentick.svg"
                 alt=" tick"
+                height={20}
+                  width={20}
                 className={styles.featureimg}
               />
               Mock Interview

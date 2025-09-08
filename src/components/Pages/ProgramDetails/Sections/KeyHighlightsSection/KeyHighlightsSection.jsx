@@ -8,6 +8,8 @@ export default function KeyHighlightsSection({ program }) {
         <img
           src="/images/Ellipse4.svg"
           alt=""
+          width={60} 
+        height={60} 
           className={styles.ellipseImage}
         />
       </div>
@@ -15,6 +17,8 @@ export default function KeyHighlightsSection({ program }) {
         <Image
           src="/images/SoftStar.svg"
           alt="Soft Star"
+          width={50}
+          height={50}
           className={styles.starOrange}
         />
         <div className={styles.headingText}>

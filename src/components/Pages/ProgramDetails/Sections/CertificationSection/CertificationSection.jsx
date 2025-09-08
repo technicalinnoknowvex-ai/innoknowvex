@@ -5,13 +5,18 @@ export default function CertificationSection({ program }) {
   return (
     <div className={styles.layout}>
       <div className={styles.ellipse}>
-        <Image src="/images/Ellipse4.svg" alt="" className={styles.ellipse} />
+        <Image src="/images/Ellipse4.svg"
+        width={60} 
+        height={60}  
+        alt="" className={styles.ellipse} />
       </div>
 
       <div className={styles.starImg}>
         <Image
           src="/images/SoftStar.svg"
           alt="Soft Star"
+          width={50}
+          height={50}
           className={styles.starOrange}
         />
         <p> Certificate</p>
