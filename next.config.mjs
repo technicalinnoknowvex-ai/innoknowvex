@@ -1,4 +1,4 @@
-import "./src/db.js"
+import "./src/lib/db.js"
 
 const nextConfig = {
   images: {
