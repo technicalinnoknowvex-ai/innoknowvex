@@ -9,7 +9,7 @@ export default function CertificationSection({ program }) {
       </div>
 
       <div className={styles.starImg}>
-        <img
+        <Image
           src="/images/SoftStar.svg"
           alt="Soft Star"
           className={styles.starOrange}

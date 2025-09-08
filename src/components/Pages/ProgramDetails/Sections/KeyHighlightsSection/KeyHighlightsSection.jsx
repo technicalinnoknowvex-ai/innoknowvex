@@ -1,4 +1,5 @@
 import styles from "./styles/keyHighlightsSection.module.scss";
+import Image from "next/image";
 
 export default function KeyHighlightsSection({ program }) {
   return (
@@ -11,7 +12,7 @@ export default function KeyHighlightsSection({ program }) {
         />
       </div>
       <div className={styles.headingContainer}>
-        <img
+        <Image
           src="/images/SoftStar.svg"
           alt="Soft Star"
           className={styles.starOrange}

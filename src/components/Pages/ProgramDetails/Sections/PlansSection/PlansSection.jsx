@@ -1,12 +1,13 @@
 "use client";
 import styles from "./styles/plansSection.module.scss";
+import Image from "next/image";
 
 export default function PlansSection() {
   return (
     <div id="plans-section" className={styles.plansContainer}>
       <div className={styles.Plans}>
         <div className={styles.alignHeading}>
-          <img
+          <Image
             src="/images/SoftStar.svg"
             width={50}
             height={50}
@@ -19,11 +20,11 @@ export default function PlansSection() {
       </div>
 
       <div className={styles.pricingCardLayout}>
-        <img src="/images/Ellipse4.svg" alt="" className={styles.ellipse} />
+        <Image src="/images/Ellipse4.svg" alt="" className={styles.ellipse} />
 
         <div className={styles.pricingCards}>
           <div className={styles.heading}>
-            <img
+            <imImageg
               src="/images/SoftStar3.svg"
               width={20}
               height={20}
@@ -42,7 +43,7 @@ export default function PlansSection() {
 
           <div className={styles.plancontent}>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/greentick.svg"
                 alt=" tick"
                 className={styles.featureimg}
@@ -50,7 +51,7 @@ export default function PlansSection() {
               Recorded session
             </div>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/greentick.svg"
                 alt=" tick"
                 className={styles.featureimg}
@@ -58,7 +59,7 @@ export default function PlansSection() {
               Hand-on internship
             </div>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/greentick.svg"
                 alt=" tick"
                 className={styles.featureimg}
@@ -66,7 +67,7 @@ export default function PlansSection() {
               Hands-on Project
             </div>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/greentick.svg"
                 alt=" tick"
                 className={styles.featureimg}
@@ -74,7 +75,7 @@ export default function PlansSection() {
               Certification
             </div>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/redcross.svg"
                 alt=" Cross"
                 className={styles.featureimg}
@@ -82,7 +83,7 @@ export default function PlansSection() {
               Doubt Clearing
             </div>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/redcross.svg"
                 alt=" Cross"
                 className={styles.featureimg}
@@ -90,7 +91,7 @@ export default function PlansSection() {
               Live Session
             </div>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/redcross.svg"
                 alt=" Cross"
                 className={styles.featureimg}
@@ -98,7 +99,7 @@ export default function PlansSection() {
               Mentor Guidance
             </div>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/redcross.svg"
                 alt=" Cross"
                 className={styles.featureimg}
@@ -106,7 +107,7 @@ export default function PlansSection() {
               Placement
             </div>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/redcross.svg"
                 alt=" Cross"
                 className={styles.featureimg}
@@ -118,7 +119,7 @@ export default function PlansSection() {
 
         <div className={styles.pricingCards}>
           <div className={styles.heading}>
-            <img
+            <Image
               src="/images/SoftStar3.svg"
               width={20}
               height={20}
@@ -137,7 +138,7 @@ export default function PlansSection() {
 
           <div className={styles.plancontent}>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/greentick.svg"
                 alt=" tick"
                 className={styles.featureimg}
@@ -145,7 +146,7 @@ export default function PlansSection() {
               <p className={styles.featuresDesc}>Recorded session</p>
             </div>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/greentick.svg"
                 alt=" tick"
                 className={styles.featureimg}
@@ -153,7 +154,7 @@ export default function PlansSection() {
               Hand-on internship
             </div>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/greentick.svg"
                 alt=" tick"
                 className={styles.featureimg}
@@ -161,7 +162,7 @@ export default function PlansSection() {
               Hands-on Project
             </div>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/greentick.svg"
                 alt=" tick"
                 className={styles.featureimg}
@@ -169,7 +170,7 @@ export default function PlansSection() {
               Certification
             </div>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/greentick.svg"
                 alt=" tick"
                 className={styles.featureimg}
@@ -177,7 +178,7 @@ export default function PlansSection() {
               Doubt Clearing
             </div>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/greentick.svg"
                 alt=" tick"
                 className={styles.featureimg}
@@ -185,7 +186,7 @@ export default function PlansSection() {
               Live Session
             </div>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/greentick.svg"
                 alt=" tick"
                 className={styles.featureimg}
@@ -193,7 +194,7 @@ export default function PlansSection() {
               Mentor Guidance
             </div>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/redcross.svg"
                 alt=" Cross"
                 className={styles.featureimg}
@@ -201,7 +202,7 @@ export default function PlansSection() {
               Placement
             </div>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/redcross.svg"
                 alt=" Cross"
                 className={styles.featureimg}
@@ -213,7 +214,7 @@ export default function PlansSection() {
 
         <div className={styles.pricingCards}>
           <div className={styles.heading}>
-            <img
+            <Image
               src="/images/SoftStar3.svg"
               width={20}
               height={20}
@@ -232,7 +233,7 @@ export default function PlansSection() {
 
           <div className={styles.plancontent}>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/greentick.svg"
                 alt=" tick"
                 className={styles.featureimg}
@@ -240,7 +241,7 @@ export default function PlansSection() {
               Recorded session
             </div>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/greentick.svg"
                 alt=" tick"
                 className={styles.featureimg}
@@ -248,7 +249,7 @@ export default function PlansSection() {
               Hand-on internship
             </div>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/greentick.svg"
                 alt=" tick"
                 className={styles.featureimg}
@@ -256,7 +257,7 @@ export default function PlansSection() {
               Hands-on Project
             </div>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/greentick.svg"
                 alt=" tick"
                 className={styles.featureimg}
@@ -264,7 +265,7 @@ export default function PlansSection() {
               Certification
             </div>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/greentick.svg"
                 alt=" tick"
                 className={styles.featureimg}
@@ -272,7 +273,7 @@ export default function PlansSection() {
               Doubt Clearing
             </div>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/greentick.svg"
                 alt=" tick"
                 className={styles.featureimg}
@@ -280,7 +281,7 @@ export default function PlansSection() {
               Live Session
             </div>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/greentick.svg"
                 alt=" tick"
                 className={styles.featureimg}
@@ -288,7 +289,7 @@ export default function PlansSection() {
               Mentor Guidance
             </div>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/greentick.svg"
                 alt=" tick"
                 className={styles.featureimg}
@@ -296,7 +297,7 @@ export default function PlansSection() {
               Placement
             </div>
             <div className={styles.features}>
-              <img
+              <Image
                 src="/images/greentick.svg"
                 alt=" tick"
                 className={styles.featureimg}
