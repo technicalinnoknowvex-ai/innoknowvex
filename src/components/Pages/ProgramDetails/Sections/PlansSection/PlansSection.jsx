@@ -20,26 +20,41 @@ export default function PlansSection() {
     async function fetchPricingData() {
       try {
         setLoading(true);
-        const response = await fetch(`/api/pricing/${courseName}`);
+        setError(null);
+        
+        console.log('Fetching pricing data for course:', courseName);
+        
+        const response = await fetch(`/api/pricing/${courseName}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
         
         if (!response.ok) {
-          throw new Error('Failed to fetch pricing data');
+          const errorData = await response.json().catch(() => ({}));
+          throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
         }
         
         const data = await response.json();
+        console.log('Pricing data received:', data);
+        
         setPricingData(data);
       } catch (err) {
-        setError(err.message);
         console.error('Error fetching pricing:', err);
+        setError(err.message);
       } finally {
         setLoading(false);
       }
     }
 
-    fetchPricingData();
+    if (courseName) {
+      fetchPricingData();
+    }
   }, [courseName]);
 
   const handleEnrollClick = (plan, price) => {
+    console.log('Enrolling in plan:', plan, 'Price:', price);
     setSelectedPlan(plan);
     setSelectedPlanPrice(price);
     setIsFormOpen(true);
@@ -51,10 +66,23 @@ export default function PlansSection() {
     setSelectedPlanPrice(0);
   };
 
+  const formatCourseName = (name) => {
+    return name.split('-').map(word => 
+      word.charAt(0).toUpperCase() + word.slice(1)
+    ).join(' ');
+  };
+
+  const formatPrice = (price) => {
+    return typeof price === 'number' ? price.toLocaleString('en-IN') : price;
+  };
+
   if (loading) {
     return (
       <div id="plans-section" className={styles.plansContainer}>
-        <div className={styles.loading}>Loading pricing information...</div>
+        <div className={styles.loading}>
+          <div className={styles.loadingSpinner}></div>
+          <p>Loading pricing information...</p>
+        </div>
       </div>
     );
   }
@@ -65,7 +93,13 @@ export default function PlansSection() {
         <div className={styles.error}>
           <h2>Error Loading Pricing</h2>
           <p>{error || 'No pricing data available'}</p>
-          <button onClick={() => window.location.reload()}>Try Again</button>
+          <p>Course: {formatCourseName(courseName)}</p>
+          <button 
+            onClick={() => window.location.reload()}
+            className={styles.retryButton}
+          >
+            Try Again
+          </button>
         </div>
       </div>
     );
@@ -77,7 +111,7 @@ export default function PlansSection() {
         isOpen={isFormOpen} 
         onClose={closeForm} 
         plan={selectedPlan} 
-        course={courseName} 
+        course={formatCourseName(courseName)} 
         price={selectedPlanPrice} 
       />
       
@@ -93,6 +127,7 @@ export default function PlansSection() {
           <h1>Plans to fit your Learning needs</h1>
         </div>
         <p>CHOOSE THAT FITS YOU</p>
+        <p className={styles.courseTitle}>Course: {formatCourseName(courseName)}</p>
       </div>
 
       <div className={styles.pricingCardLayout}>
@@ -118,14 +153,19 @@ export default function PlansSection() {
           </div>
 
           <p className={styles.price}>
-            Rs {pricingData.self_current_price}
-            <span className={styles.originalPrice}>Rs {pricingData.self_actual_price}</span>
+            ₹{formatPrice(pricingData.self_current_price)}
+            <span className={styles.originalPrice}>₹{formatPrice(pricingData.self_actual_price)}</span>
           </p>
           <p className={styles.planDesc}>
             Learn at your own pace with all the resources you need to succeed
             independently.
           </p>
-          <button onClick={() => handleEnrollClick('Self', pricingData.self_current_price)}>Enroll Now</button>
+          <button 
+            onClick={() => handleEnrollClick('Self', pricingData.self_current_price)}
+            className={styles.enrollButton}
+          >
+            Enroll Now
+          </button>
 
           <div className={styles.plancontent}>
             <div className={styles.features}>
@@ -235,14 +275,19 @@ export default function PlansSection() {
           </div>
 
           <p className={styles.price}>
-            Rs {pricingData.mentor_current_price}
-            <span className={styles.originalPrice}>Rs {pricingData.mentor_actual_price}</span>
+            ₹{formatPrice(pricingData.mentor_current_price)}
+            <span className={styles.originalPrice}>₹{formatPrice(pricingData.mentor_actual_price)}</span>
           </p>
           <p className={styles.planDesc}>
-            Learn at your own pace with all the resources you need to succeed
-            independently.
+            Get personalized guidance with mentor support and live sessions for
+            accelerated learning.
           </p>
-          <button onClick={() => handleEnrollClick('Mentor', pricingData.mentor_current_price)}>Enroll Now</button>
+          <button 
+            onClick={() => handleEnrollClick('Mentor', pricingData.mentor_current_price)}
+            className={styles.enrollButton}
+          >
+            Enroll Now
+          </button>
 
           <div className={styles.plancontent}>
             <div className={styles.features}>
@@ -352,14 +397,19 @@ export default function PlansSection() {
           </div>
 
           <p className={styles.price}>
-            Rs {pricingData.professional_current_price}
-            <span className={styles.originalPrice}>Rs {pricingData.professional_actual_price}</span>
+            ₹{formatPrice(pricingData.professional_current_price)}
+            <span className={styles.originalPrice}>₹{formatPrice(pricingData.professional_actual_price)}</span>
           </p>
           <p className={styles.planDesc}>
-            Learn at your own pace with all the resources you need to succeed
-            independently.
+            Complete career transformation with placement support, mock interviews,
+            and comprehensive mentorship.
           </p>
-          <button onClick={() => handleEnrollClick('Professional', pricingData.professional_current_price)}>Enroll Now</button>
+          <button 
+            onClick={() => handleEnrollClick('Professional', pricingData.professional_current_price)}
+            className={styles.enrollButton}
+          >
+            Enroll Now
+          </button>
 
           <div className={styles.plancontent}>
             <div className={styles.features}>
