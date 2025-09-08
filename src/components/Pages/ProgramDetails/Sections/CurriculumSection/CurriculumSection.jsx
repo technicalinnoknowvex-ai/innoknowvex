@@ -27,7 +27,7 @@ export default function CurriculumSection({ program }) {
     <section className={styles.sectionWrapper}>
       {/* Ellipse Background */}
       <div className={styles.ellipse}>
-        <img
+        <Image
           src="/images/Ellipse4.svg"
           alt=""
           className={styles.ellipseImage}
@@ -37,7 +37,7 @@ export default function CurriculumSection({ program }) {
       <div className={styles.sectionWrapper__innerContainer}>
         {/* Heading with Star */}
         <div className={styles.headingContainer}>
-          <img
+          <Image
             src="/images/SoftStar.svg"
             alt="Soft Star"
             className={styles.starOrange}

@@ -1,6 +1,5 @@
 "use client";
 import styles from "./styles/plansSection.module.scss";
-import Image from "next/image";
 
 export default function PlansSection() {
   return (
@@ -24,7 +23,7 @@ export default function PlansSection() {
 
         <div className={styles.pricingCards}>
           <div className={styles.heading}>
-            <imImageg
+            <Image
               src="/images/SoftStar3.svg"
               width={20}
               height={20}

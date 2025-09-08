@@ -28,7 +28,7 @@ export default function DescriptionSection({ program }) {
   return (
     <div className={styles.descriptionContainer}>
       <div className={styles.imageWrapper}>
-        <img
+        <Image
           src={program.image}
           alt={program.title}
           className={styles.courseImage}
