@@ -11,7 +11,7 @@ export async function POST(request) {
   try {
     const body = await request.json();
     const { amount, currency = 'INR', course, plan, studentData } = body;
-    
+        
     console.log('Create order request:', { amount, currency, course, plan, studentData });
 
     // Validate required fields
@@ -33,7 +33,7 @@ export async function POST(request) {
 
     // Ensure amount is a number and convert to integer (paise)
     const amountInPaise = Math.round(Number(amount));
-    
+        
     if (isNaN(amountInPaise) || amountInPaise <= 0) {
       return NextResponse.json(
         { message: 'Invalid amount', success: false },

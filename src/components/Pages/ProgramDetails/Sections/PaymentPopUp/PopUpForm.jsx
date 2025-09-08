@@ -171,7 +171,7 @@ const PopUpForm = ({ isOpen, onClose, plan, course, price }) => {
         order_id: orderData.id,
         handler: async function(response) {
           try {
-            // Verify payment
+            // Verify payment and save to Google Sheets
             const verificationResponse = await fetch(`/api/verify-payment`, {
               method: 'POST',
               headers: {
@@ -190,7 +190,18 @@ const PopUpForm = ({ isOpen, onClose, plan, course, price }) => {
 
             if (verificationResponse.ok) {
               const verificationData = await verificationResponse.json();
-              alert("Payment successful! You are now enrolled.");
+              
+              // Show success message
+              alert(`🎉 Payment successful! 
+              
+Welcome to ${course} - ${plan} Plan!
+              
+Your enrollment details have been recorded and you should receive a confirmation email shortly.
+              
+Payment ID: ${verificationData.paymentId}
+              
+Thank you for choosing Innoknowvex!`);
+              
               reset(); // Reset form
               onClose();
             } else {
@@ -199,7 +210,13 @@ const PopUpForm = ({ isOpen, onClose, plan, course, price }) => {
             }
           } catch (verificationError) {
             console.error('Payment verification error:', verificationError);
-            alert("Payment verification failed. Please contact support.");
+            alert(`Payment completed but verification failed. 
+            
+Please contact support with your payment details:
+Payment ID: ${response.razorpay_payment_id}
+Order ID: ${response.razorpay_order_id}
+
+We will resolve this issue promptly.`);
           } finally {
             setIsProcessing(false);
           }
@@ -222,7 +239,7 @@ const PopUpForm = ({ isOpen, onClose, plan, course, price }) => {
       const rzp = new window.Razorpay(options);
       rzp.on('payment.failed', function (response) {
         console.error('Payment failed:', response.error);
-        alert(`Payment failed: ${response.error.description}`);
+        alert(`Payment failed: ${response.error.description || response.error.reason || 'Unknown error occurred'}`);
         setIsProcessing(false);
       });
       
@@ -277,7 +294,11 @@ const PopUpForm = ({ isOpen, onClose, plan, course, price }) => {
 
         <fieldset className={`${styles.inputGroup} ${styles["inputGroup--name"]}`}>
           <label className={styles.formLabel}>Name</label>
-          <input className={styles.formInput} {...register("name")} />
+          <input 
+            className={styles.formInput} 
+            {...register("name")} 
+            placeholder="Enter your full name"
+          />
           <div className={styles.errorDiv}>
             {errors.name && <p className={styles.error}>{errors.name.message}</p>}
           </div>
@@ -285,7 +306,12 @@ const PopUpForm = ({ isOpen, onClose, plan, course, price }) => {
 
         <fieldset className={`${styles.inputGroup} ${styles["inputGroup--email"]}`}>
           <label className={styles.formLabel}>Email</label>
-          <input className={styles.formInput} {...register("email")} />
+          <input 
+            className={styles.formInput} 
+            {...register("email")} 
+            placeholder="Enter your email address"
+            type="email"
+          />
           <div className={styles.errorDiv}>
             {errors.email && <p className={styles.error}>{errors.email.message}</p>}
           </div>
@@ -293,7 +319,12 @@ const PopUpForm = ({ isOpen, onClose, plan, course, price }) => {
 
         <fieldset className={`${styles.inputGroup} ${styles["inputGroup--phone"]}`}>
           <label className={styles.formLabel}>Phone</label>
-          <input className={styles.formInput} {...register("phone")} />
+          <input 
+            className={styles.formInput} 
+            {...register("phone")} 
+            placeholder="Enter 10-digit phone number"
+            type="tel"
+          />
           <div className={styles.errorDiv}>
             {errors.phone && <p className={styles.error}>{errors.phone.message}</p>}
           </div>

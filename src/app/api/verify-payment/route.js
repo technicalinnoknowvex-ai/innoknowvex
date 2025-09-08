@@ -1,9 +1,7 @@
 // src/app/api/verify-payment/route.js
 import crypto from 'crypto';
 import { NextResponse } from 'next/server';
-
-// Uncomment and adjust the import path for your database
-// import sql from '@/lib/db';
+import { google } from 'googleapis';
 
 export async function POST(request) {
   try {
@@ -73,47 +71,60 @@ export async function POST(request) {
       );
     }
 
-    // Database insertion - uncomment and modify as needed
-    /*
+    // Save to Google Sheets
     try {
-      await sql`
-        INSERT INTO enrolled_students (
-          student_name, 
-          student_email, 
-          student_phone, 
-          course_name, 
-          plan_name, 
-          payment_status,
-          amount_paid,
-          payment_id,
-          order_id,
-          created_at
-        ) VALUES (
-          ${name}, 
-          ${email}, 
-          ${phone}, 
-          ${course}, 
-          ${plan}, 
-          'SUCCESS',
-          ${amount},
-          ${razorpay_payment_id},
-          ${razorpay_order_id},
-          ${new Date().toISOString()}
-        )
-      `;
-      console.log('Student enrollment recorded in database');
-    } catch (dbError) {
-      console.error('Database error:', dbError);
-      return NextResponse.json(
-        {
-          message: 'Payment verified but failed to record enrollment',
-          error: dbError.message,
-          success: false
+      // Set up Google Sheets authentication
+      const privateKey = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(/\\n/g, '\n');
+      const auth = new google.auth.JWT({
+        email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+        key: privateKey,
+        scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+      });
+
+      await auth.authorize();
+      const sheets = google.sheets({ version: 'v4', auth });
+
+      // Prepare data for Google Sheets
+      const enrollmentData = [
+        name,                           // Student Name
+        email,                          // Student Email
+        phone,                          // Student Phone
+        course,                         // Course Name
+        plan,                           // Plan Name
+        `₹${amount}`,                   // Amount Paid
+        razorpay_payment_id,            // Payment ID
+        razorpay_order_id,              // Order ID
+        'SUCCESS',                      // Payment Status
+        new Date().toLocaleString('en-IN', { 
+          timeZone: 'Asia/Kolkata',
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true
+        })                              // Date & Time
+      ];
+
+      // Append data to Google Sheets
+      await sheets.spreadsheets.values.append({
+        spreadsheetId: process.env.GOOGLE_SHEET_ID,
+        range: 'Enrollments!A:J', // Using 'Enrollments' sheet, adjust range as needed
+        valueInputOption: 'USER_ENTERED',
+        requestBody: {
+          values: [enrollmentData],
         },
-        { status: 500 }
-      );
+      });
+
+      console.log('Enrollment data saved to Google Sheets successfully');
+
+    } catch (sheetsError) {
+      console.error('Error saving to Google Sheets:', sheetsError);
+      // Don't fail the payment verification if Google Sheets fails
+      // You might want to implement a retry mechanism or alternative storage
+      console.warn('Payment verified but failed to save to Google Sheets');
     }
-    */
 
     console.log('Payment verified successfully for:', email);
 
