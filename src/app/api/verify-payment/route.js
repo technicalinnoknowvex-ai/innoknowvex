@@ -2,6 +2,9 @@
 import crypto from 'crypto';
 import { NextResponse } from 'next/server';
 import { google } from 'googleapis';
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request) {
   try {
@@ -38,6 +41,14 @@ export async function POST(request) {
       console.error('Missing RAZORPAY_KEY_SECRET');
       return NextResponse.json(
         { message: 'Server configuration error', success: false },
+        { status: 500 }
+      );
+    }
+
+    if (!process.env.RESEND_API_KEY) {
+      console.error('Missing RESEND_API_KEY');
+      return NextResponse.json(
+        { message: 'Email service configuration error', success: false },
         { status: 500 }
       );
     }
@@ -122,8 +133,66 @@ export async function POST(request) {
     } catch (sheetsError) {
       console.error('Error saving to Google Sheets:', sheetsError);
       // Don't fail the payment verification if Google Sheets fails
-      // You might want to implement a retry mechanism or alternative storage
       console.warn('Payment verified but failed to save to Google Sheets');
+    }
+
+    // Send confirmation email using Resend
+    try {
+      const emailHtml = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+            <h1 style="color: white; margin: 0; font-size: 28px;">Welcome to Innoknowvex!</h1>
+          </div>
+          
+          <div style="background-color: #f8f9fa; padding: 30px; border-radius: 0 0 10px 10px; border: 1px solid #e9ecef;">
+            <h2 style="color: #333; margin-top: 0;">Thank you for your purchase, ${name}! 🎉</h2>
+            
+            <p style="color: #666; font-size: 16px; line-height: 1.6;">
+              We are excited to have you on board. Your enrollment has been confirmed successfully!
+            </p>
+            
+            <div style="background-color: white; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #667eea;">
+              <h3 style="color: #333; margin-top: 0;">Purchase Details:</h3>
+              <p style="margin: 5px 0;"><strong>Course:</strong> ${course}</p>
+              <p style="margin: 5px 0;"><strong>Plan:</strong> ${plan}</p>
+              <p style="margin: 5px 0;"><strong>Amount Paid:</strong> ₹${amount}</p>
+              <p style="margin: 5px 0;"><strong>Payment ID:</strong> ${razorpay_payment_id}</p>
+              <p style="margin: 5px 0;"><strong>Order ID:</strong> ${razorpay_order_id}</p>
+            </div>
+            
+            <p style="color: #666; font-size: 16px; line-height: 1.6;">
+              Our team at <strong>Innoknowvex</strong> will be contacting you shortly with the next steps and course access details.
+            </p>
+            
+            <p style="color: #666; font-size: 16px; line-height: 1.6;">
+              Congratulations on taking the first step toward your learning journey! 🚀
+            </p>
+            
+            <div style="text-align: center; margin-top: 30px;">
+              <p style="color: #999; font-size: 14px;">
+                If you have any questions, feel free to reach out to our support team.
+              </p>
+              <p style="color: #999; font-size: 14px;">
+                <strong>Innoknowvex Team</strong>
+              </p>
+            </div>
+          </div>
+        </div>
+      `;
+
+      await resend.emails.send({
+        from: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
+        to: email,
+        subject: `Welcome to ${course} - ${plan} | Innoknowvex`,
+        html: emailHtml,
+      });
+
+      console.log('Confirmation email sent successfully to:', email);
+
+    } catch (emailError) {
+      console.error('Error sending confirmation email:', emailError);
+      // Don't fail the payment verification if email fails
+      console.warn('Payment verified but failed to send confirmation email');
     }
 
     console.log('Payment verified successfully for:', email);
