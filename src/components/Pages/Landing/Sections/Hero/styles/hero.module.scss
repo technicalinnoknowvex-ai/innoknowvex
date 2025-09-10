@@ -189,10 +189,14 @@
 .scrollWheelWrapper {
   width: 100%;
   min-height: 7rem;
-  @include screen(sm) {
-    min-height: clamp(5rem, 4.090909090909091rem + 4.545454545454546vw, 15rem) !important;
-  }
   display: flex;
   align-items: center;
   justify-content: center;
+  @include screen(sm) {
+    min-height: clamp(
+      5rem,
+      4.090909090909091rem + 4.545454545454546vw,
+      15rem
+    ) !important;
+  }
 }
