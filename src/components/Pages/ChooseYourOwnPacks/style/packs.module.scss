@@ -1,0 +1,140 @@
+@use "../../../../styles/fonts" as *;
+
+.headDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem; // space between items
+  margin-top: 8%;
+}
+
+.headstar1 {
+  transform: translateY(-40px); // moves star 1 up
+}
+
+.headstar2 {
+  transform: translateY(40px); // moves star 2 down
+}
+
+.heading{
+    text-align: center;
+    font-family: $font-sharp-25;
+    font-weight: 350;
+    font-size: 3rem;
+    color: #A38907;
+}
+
+.courses {
+  display: grid;
+  grid-template-columns: 1fr; // default mobile (1 card)
+  gap: 3rem;
+  padding: 0 12rem;
+  margin-top: 5%;
+  margin-bottom: 10%;
+  
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr); // tablet (2 cards)
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr); // desktop (3 cards)
+  }
+}
+
+.courseCard {
+  background: #FFF9E1;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 400px;
+  border-radius: 1rem 3rem 1rem 5rem;
+  height: 400px;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .imageContainer {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    padding: 1rem;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 1rem 3rem 1rem 5rem;
+    }
+  }
+
+  .content {
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    margin-top: -2%;
+    justify-content: center;
+    align-items: center;
+
+    .star1{
+        margin-top: -22%;
+        position: absolute;
+        margin-left: -88%;
+    }
+
+
+    h1 {
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+      color: #A38907;
+      font-family: $font-oldschool;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+
+      .skill {
+        background: #f3f4f6;
+        padding: 0.4rem 0.8rem;
+        border-radius: 0.5rem;
+        font-size: 0.85rem;
+        color: #555;
+        transition: background 0.2s;
+
+        &:hover {
+          background: #e5e7eb;
+        }
+      }
+    }
+  }
+}
+
+.price{
+    text-align: center;
+    font-family: $font-oldschool;
+    font-weight: 500;
+    color: #9F8310;
+    margin-top: -5%;
+}
+
+.btn{
+    text-align: center;
+    margin-left: 150px;
+    margin-top: 2%;
+    font-size: 1.2rem;
+    padding: 0.6rem;
+    font-family: $font-oldschool;
+    background-color: #FF3A30;
+    border: none;
+    border-radius: 0.5rem 1.1rem;
+    color: white;
+}

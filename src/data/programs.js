@@ -105,7 +105,7 @@ export const programs = {
       "Lambda Functions",
     ],
   },
-  java: {
+  "java": {
     id: "java",
     title: "JAVA",
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/JAVA.jpg",
@@ -484,7 +484,7 @@ export const programs = {
       },
     ],
   },
-  vlsi: {
+  "vlsi": {
     id: "vlsi",
     title: "Very Large Scale Integration (VLSI)",
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/VLSI.jpg",
@@ -504,7 +504,7 @@ export const programs = {
   "ASIC Design Flow & Verification"
 ],
 },
-  nanotechnology: {
+  "nanotechnology": {
     id: "nanotechnology",
     title: "Nanotechnology",
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Nanotechnology.jpg",
@@ -554,7 +554,7 @@ export const programs = {
   "Debugging & Testing with industry tools"
 ]
 },
-  iot: {
+  "iot": {
     id: "iot",
     title: "Internet of Things (IoT)",
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/IoT.jpg",
@@ -616,7 +616,7 @@ export const programs = {
       },
     ],
   },
-  hev: {
+  "hev": {
     id: "hev",
     title: "Hybrid Electric Vehicles (HEV)",
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Hybrid%20%26%20Electric.jpg",
@@ -790,7 +790,7 @@ export const programs = {
       },
     ],
   },
-  finance: {
+  "finance": {
     id: "finance",
     title: "Finance",
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Finance.jpg",
@@ -967,7 +967,7 @@ skills: [
     overview:
       "Fundamentals of fashion design, trends, and garment construction.",
   },
-  psychology: {
+  "psychology": {
     id: "psychology",
     title: "Psychology",
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Psychology.jpg",
@@ -1024,7 +1024,7 @@ skills: [
     overview:
       "Advanced concepts in web architecture, performance optimization, and security.",
   },
-  autocad: {
+  "autocad": {
     id: "AutoCad",
     title: "AutoCad",
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Auto%20CAD.jpg",
@@ -1137,7 +1137,7 @@ skills: [
   "Risk & Portfolio Management"
 ]
 },
-  dsa: {
+  "dsa": {
     id: "DSA",
     title: "Data Structures & Algorithms",
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/DSA%20%26%20Alg.jpg",
