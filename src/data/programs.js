@@ -1149,7 +1149,7 @@ skills: [
   },
   "clinical-data-management": {
     id: "clinical-data-management",
-    title: "Web Development",
+    title: "Clinical Data Management",
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/CDM.png",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",
@@ -1226,7 +1226,7 @@ skills: [
   },
   "clinical-trials-and-research": {
     id: "wclinical-trials-and-research",
-    title: "Web Development",
+    title: "Clinical Trial & Research",
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/CTR.png",
     training: "/certificates/SampleTrainingCertificate.jpg",
     internship: "/certificates/SampleInternshipCertificate.jpg",

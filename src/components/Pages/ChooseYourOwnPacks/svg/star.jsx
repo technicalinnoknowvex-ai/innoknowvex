@@ -1,8 +1,9 @@
-import React from "react";
+import React, { forwardRef } from "react";
 
-const StarShape = ({ height = 200, width = 200, className = "", fill = "#FF6432" }) => {
+const StarShape = forwardRef(({ height = 200, width = 200, className = "", fill = "#FF6432" }, ref) => {
   return (
     <svg
+      ref={ref} 
       width={width}
       height={height}
       viewBox="0 0 200 200"
@@ -16,6 +17,6 @@ const StarShape = ({ height = 200, width = 200, className = "", fill = "#FF6432"
       />
     </svg>
   );
-};
+});
 
 export default StarShape;
