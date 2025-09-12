@@ -14,6 +14,14 @@ const Packs = () => {
   const headingStar = useRef()
   const headingStar1 = useRef()
 
+  let cartItems =  [];
+
+  const handleClick = (item) => {
+    cartItems.push(item);
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  };
+
+
   useEffect(() => {
     if (headingStar.current) {
       const tl = gsap.timeline();
@@ -83,19 +91,17 @@ const Packs = () => {
         });
     }
 
-    gsap.fromTo(".courseCard", 
+    gsap.fromTo(".courseCard",
       {
-      opacity:0,
-      y:-80,
-      stagger:0.5
-    },
-  {
-    y:0,
-    opacity:1
-  });
+        opacity: 0,
+        y: -80,
+        stagger: 0.5
+      },
+      {
+        y: 0,
+        opacity: 1
+      });
   }, []);
-
-
 
   return (
     <>
@@ -124,7 +130,7 @@ const Packs = () => {
               <h1>{item.title}</h1>
             </div>
             <h3 className={style.price}>Rs. 5000</h3>
-            <button className={style.btn}>Add to cart</button>
+            <button className={style.btn} onClick={() => handleClick(item)}>Add to cart</button>
           </div>
         ))}
       </div>

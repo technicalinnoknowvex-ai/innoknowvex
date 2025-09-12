@@ -186,7 +186,9 @@ export default function RootLayout({ children }) {
         <CursorProvider>
           <ScrollProvider>
             <Cursor />
-            <AppLayout>{children}</AppLayout>
+              <AppLayout>
+                {children}
+              </AppLayout>
           </ScrollProvider>
         </CursorProvider>
       </body>

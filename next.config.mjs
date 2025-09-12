@@ -1,4 +1,3 @@
-import "./src/db.js"
 
 const nextConfig = {
   images: {

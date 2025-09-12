@@ -45,7 +45,7 @@ $desktop: 1440px;
 
   @include mobile{
     margin-top: 3%;
-    margin-left: -80%;
+    margin-left: -85%;
   }
 
   @include laptop{
@@ -64,8 +64,8 @@ $desktop: 1440px;
   position:absolute;
 
   @include mobile{
-    margin-top: 35%;
-    margin-right: -80%;
+    margin-top: 38%;
+    margin-right: -88%;
   }
 
   @include laptop{
@@ -125,6 +125,7 @@ $desktop: 1440px;
     scale: 0.8;
     margin-top: -95rem;
     margin-bottom: -93rem;
+    margin-left: -5%;
   }
 
   @include tablet{
