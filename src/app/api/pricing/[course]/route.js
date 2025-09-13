@@ -4,8 +4,10 @@ import { NextResponse } from 'next/server';
 
 export async function GET(request, { params }) {
   try {
-    const { course } = params;
-    
+    // Await the params object (Next.js 15+ requirement)
+    const resolvedParams = await params;
+    const { course } = resolvedParams;
+
     if (!course) {
       return NextResponse.json(
         { message: 'Course parameter is required', success: false },
@@ -14,8 +16,8 @@ export async function GET(request, { params }) {
     }
 
     // Validate environment variables
-    if (!process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || 
-        !process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY || 
+    if (!process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL ||
+        !process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY ||
         !process.env.GOOGLE_SHEET_ID) {
       console.error('Missing Google Sheets configuration');
       return NextResponse.json(
@@ -42,7 +44,7 @@ export async function GET(request, { params }) {
     });
 
     const rows = response.data.values;
-    
+        
     if (!rows || rows.length === 0) {
       return NextResponse.json(
         { message: 'No pricing data found', success: false },
@@ -54,16 +56,43 @@ export async function GET(request, { params }) {
     const headers = rows[0];
     const dataRows = rows.slice(1);
 
-    // Find the course data
+    // Find the course data with more flexible matching
     const courseData = dataRows.find(row => {
       const courseName = row[0]?.toLowerCase().replace(/[-\s]/g, '-');
-      const searchCourse = course.toLowerCase();
-      return courseName === searchCourse;
+      const searchCourse = course.toLowerCase().replace(/[-\s]/g, '-');
+      
+      // Try exact match first
+      if (courseName === searchCourse) return true;
+      
+      // Try partial matches for common variations
+      if (courseName && searchCourse) {
+        // Check if either contains the other
+        if (courseName.includes(searchCourse) || searchCourse.includes(courseName)) {
+          return true;
+        }
+        
+        // Handle specific course name variations
+        const normalizedCourseName = courseName.replace(/[^a-z]/g, '');
+        const normalizedSearchCourse = searchCourse.replace(/[^a-z]/g, '');
+        
+        if (normalizedCourseName === normalizedSearchCourse) {
+          return true;
+        }
+      }
+      
+      return false;
     });
 
     if (!courseData) {
+      console.log(`No pricing data found for course: ${course}`);
+      console.log('Available courses:', dataRows.map(row => row[0]).filter(Boolean));
+      
       return NextResponse.json(
-        { message: `Pricing data not found for course: ${course}`, success: false },
+        { 
+          message: `Pricing data not found for course: ${course}`, 
+          success: false,
+          availableCourses: dataRows.map(row => row[0]).filter(Boolean)
+        },
         { status: 404 }
       );
     }

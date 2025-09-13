@@ -9,31 +9,313 @@ import styles from "./styles/popupForm.module.scss";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
+// Import your programs object
+import { programs } from "@/data/programs"; // Update this path accordingly
+
 const FormSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email"),
   phone: z.string().regex(/^\d{10}$/, "Phone must be 10 digits"),
+  couponCode: z.string().optional(),
 });
 
-const PopUpForm = ({ isOpen, onClose, plan, course, price }) => {
+const PopUpForm = ({ isOpen, onClose, plan, course, price, courseId: propCourseId }) => {
   const formRef = useRef(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [razorpayKeyId, setRazorpayKeyId] = useState(null);
+  const [couponValidating, setCouponValidating] = useState(false);
+  const [couponDiscount, setCouponDiscount] = useState(0);
+  const [couponDiscountPercentage, setCouponDiscountPercentage] = useState(0);
+  const [couponError, setCouponError] = useState("");
+  const [appliedCoupon, setAppliedCoupon] = useState(null);
+  const [finalPrice, setFinalPrice] = useState(price);
+  const [courseId, setCourseId] = useState(null);
+  const [actualCourseName, setActualCourseName] = useState(course); // Add state for actual course name
+
+  // Enhanced course ID extraction using programs object
+  useEffect(() => {
+    const extractCourseId = () => {
+      console.log('Starting enhanced course ID extraction...');
+      console.log('Available programs:', Object.keys(programs));
+      
+      // Method 1: Use prop if provided and valid
+      if (propCourseId && propCourseId.trim() && propCourseId !== 'programs') {
+        console.log('Using courseId from props:', propCourseId);
+        // Validate against programs object
+        if (programs[propCourseId]) {
+          return propCourseId;
+        }
+      }
+
+      // Method 2: Extract from current URL with programs validation
+      if (typeof window !== 'undefined') {
+        const currentUrl = window.location.href;
+        console.log('Current URL:', currentUrl);
+
+        const url = new URL(currentUrl);
+        const urlParams = url.searchParams;
+        
+        // Check common parameter names first
+        const paramNames = ['courseId', 'course_id', 'id', 'cid', 'courseID', 'course'];
+        for (const param of paramNames) {
+          const value = urlParams.get(param);
+          if (value && value.trim() && value.toLowerCase() !== 'programs') {
+            // Check if this value exists in programs
+            if (programs[value.trim()]) {
+              console.log(`Found valid courseId in URL param '${param}':`, value);
+              return value.trim();
+            }
+          }
+        }
+
+        // Extract from pathname with programs validation
+        const pathname = url.pathname;
+        console.log('Pathname:', pathname);
+        
+        const pathParts = pathname.split('/').filter(part => part && part.trim());
+        console.log('Path parts:', pathParts);
+        
+        // Look for exact matches in programs object
+        for (const part of pathParts) {
+          if (programs[part]) {
+            console.log('Found exact program match in path:', part);
+            return part;
+          }
+        }
+
+        // Try hash parameters
+        if (url.hash) {
+          const hashParams = new URLSearchParams(url.hash.substring(1));
+          for (const param of paramNames) {
+            const value = hashParams.get(param);
+            if (value && value.trim() && programs[value.trim()]) {
+              console.log(`Found valid courseId in hash param '${param}':`, value);
+              return value.trim();
+            }
+          }
+        }
+      }
+
+      // Method 3: Map course name to program ID using enhanced mapping
+      if (course && typeof course === 'string') {
+        console.log('Mapping course name to program ID:', course);
+        
+        const courseLower = course.toLowerCase().trim();
+        
+        // Direct title matching
+        for (const [programId, programData] of Object.entries(programs)) {
+          if (programData.title && programData.title.toLowerCase() === courseLower) {
+            console.log('Found direct title match:', programId);
+            return programId;
+          }
+        }
+        
+        // Enhanced course name to program ID mapping
+        const courseNameMappings = {
+          // Direct program matches
+          'web development': 'web-development',
+          'python programming': 'python-programming', 
+          'python': 'python-programming',
+          'java': 'java',
+          'java + dsa': 'java-dsa',
+          'java dsa': 'java-dsa',
+          'machine learning': 'machine-learning',
+          'ml': 'machine-learning',
+          'artificial intelligence': 'artificial-intelligence',
+          'ai': 'artificial-intelligence',
+          'cloud computing': 'cloud-computing',
+          'cyber security': 'cyber-security',
+          'cybersecurity': 'cyber-security',
+          'data science': 'data-science',
+          'vlsi': 'vlsi',
+          'very large scale integration': 'vlsi',
+          'nanotechnology': 'nanotechnology',
+          'nano technology': 'nanotechnology',
+          'embedded systems': 'embedded-systems',
+          'iot': 'iot',
+          'internet of things': 'iot',
+          'hybrid electric vehicles': 'hev',
+          'hev': 'hev',
+          'mern stack': 'mern-stack',
+          'mern': 'mern-stack',
+          'android development': 'android-development',
+          'business management': 'business-management',
+          'business analytics': 'business-analytics',
+          'digital marketing': 'digital-marketing',
+          'finance': 'finance',
+          'stock trading': 'stock-trading',
+          'human resources': 'human-resources',
+          'hr': 'human-resources',
+          'corporate law': 'corporate-law',
+          'ui/ux design': 'ui-ux-design',
+          'ui ux design': 'ui-ux-design',
+          'ux design': 'ui-ux-design',
+          'ui design': 'ui-ux-design',
+          'fashion designing': 'fashion-designing',
+          'fashion design': 'fashion-designing',
+          'psychology': 'psychology',
+          'medical coding': 'medical-coding',
+          'advanced data science': 'advanced-data-science',
+          'advanced web development': 'advanced-web-development',
+          'c & c++': 'c-cpp',
+          'c and c++': 'c-cpp',
+          'c++': 'c-cpp',
+          'c programming': 'c-cpp',
+          'autocad': 'autocad',
+          'auto cad': 'autocad',
+          'automobile design': 'automobile-design',
+          'data structures & algorithms': 'dsa',
+          'data structures and algorithms': 'dsa',
+          'dsa': 'dsa',
+          'algorithms': 'dsa',
+          'clinical data management': 'clinical-data-management',
+          'cdm': 'clinical-data-management',
+          'clinical trials and research': 'clinical-trials-and-research',
+          'clinical trials': 'clinical-trials-and-research',
+          'ctr': 'clinical-trials-and-research',
+          
+          // Alternative names and variations
+          'full stack web development': 'web-development',
+          'fullstack': 'web-development',
+          'frontend development': 'web-development',
+          'backend development': 'web-development',
+          'react': 'web-development',
+          'node.js': 'web-development',
+          'nodejs': 'web-development',
+          'javascript': 'web-development',
+          'html css': 'web-development',
+          'responsive design': 'web-development',
+        };
+
+        // Check for exact matches first
+        if (courseNameMappings[courseLower]) {
+          const mappedId = courseNameMappings[courseLower];
+          console.log('Found exact course name mapping:', mappedId);
+          // Verify the mapped ID exists in programs
+          if (programs[mappedId]) {
+            return mappedId;
+          }
+        }
+        
+        // Check for partial matches
+        for (const [key, value] of Object.entries(courseNameMappings)) {
+          if (courseLower.includes(key) || key.includes(courseLower)) {
+            console.log('Found partial course name mapping:', value);
+            if (programs[value]) {
+              return value;
+            }
+          }
+        }
+        
+        // Check if course name matches any program title partially
+        for (const [programId, programData] of Object.entries(programs)) {
+          const programTitle = programData.title.toLowerCase();
+          if (programTitle.includes(courseLower) || courseLower.includes(programTitle)) {
+            console.log('Found partial title match:', programId);
+            return programId;
+          }
+        }
+      }
+
+      // Method 4: Try to extract from document title or meta tags
+      if (typeof document !== 'undefined') {
+        const title = document.title.toLowerCase();
+        const metaDescription = document.querySelector('meta[name="description"]')?.content?.toLowerCase() || '';
+        
+        // Look for program IDs in title and meta description
+        const combinedText = `${title} ${metaDescription}`;
+        
+        // Check for any program ID mentioned in the document
+        for (const programId of Object.keys(programs)) {
+          if (combinedText.includes(programId) || combinedText.includes(programId.replace('-', ' '))) {
+            console.log('Found program ID in document content:', programId);
+            return programId;
+          }
+        }
+      }
+
+      // Fallback: use first available program or create timestamp-based ID
+      const programKeys = Object.keys(programs);
+      if (programKeys.length > 0) {
+        // If we have a course name, try to create a meaningful fallback
+        if (course && typeof course === 'string') {
+          const fallbackId = course
+            .toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-')
+            .replace(/^-|-$/g, '');
+          
+          if (fallbackId && fallbackId.length > 1) {
+            console.log('Using course-based fallback courseId:', fallbackId);
+            return fallbackId;
+          }
+        }
+        
+        // Use first available program as fallback
+        const fallbackId = programKeys[0];
+        console.log('Using first available program as fallback:', fallbackId);
+        return fallbackId;
+      }
+
+      // Final fallback
+      const finalFallback = `course-${Date.now()}`;
+      console.log('Using final timestamp fallback courseId:', finalFallback);
+      return finalFallback;
+    };
+
+    const extractedId = extractCourseId();
+    
+    // Final validation - ensure we have a valid courseId
+    if (extractedId && extractedId.toLowerCase() !== 'programs') {
+      setCourseId(extractedId);
+      console.log('Final courseId set:', extractedId);
+      
+      // FIXED: Set the actual course name from programs data
+      if (programs[extractedId] && programs[extractedId].title) {
+        setActualCourseName(programs[extractedId].title);
+        console.log('Actual course name set from programs:', programs[extractedId].title);
+      } else {
+        // Fallback to the course prop if program data not found
+        setActualCourseName(course || 'Course');
+      }
+      
+      // Log the matched program details if available
+      if (programs[extractedId]) {
+        console.log('Matched program details:', programs[extractedId]);
+      }
+    } else {
+      const finalFallback = Object.keys(programs)[0] || `course-${Date.now()}`;
+      setCourseId(finalFallback);
+      
+      // Set course name for fallback
+      if (programs[finalFallback] && programs[finalFallback].title) {
+        setActualCourseName(programs[finalFallback].title);
+      } else {
+        setActualCourseName(course || 'Course');
+      }
+      
+      console.log('Used final fallback courseId:', finalFallback);
+    }
+  }, [propCourseId, course]);
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
+    watch,
   } = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       name: "",
       email: "",
       phone: "",
+      couponCode: "",
     },
   });
 
+  const couponCode = watch("couponCode");
   const sparkleRef = useRef(null);
 
   // Fetch Razorpay key ID when component mounts
@@ -52,6 +334,111 @@ const PopUpForm = ({ isOpen, onClose, plan, course, price }) => {
     
     fetchRazorpayConfig();
   }, []);
+
+  // Enhanced coupon validation with Excel sheet integration
+  const validateCouponFromSheet = async (couponCode, courseId, originalPrice) => {
+    try {
+      console.log('Validating coupon from sheet:', { couponCode, courseId, originalPrice });
+      
+      const response = await fetch('/api/validate-coupon-sheet', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          couponCode: couponCode.trim().toUpperCase(),
+          courseId: courseId,
+          originalPrice: originalPrice,
+          course: actualCourseName, // Use actual course name instead of prop
+          plan: plan
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to validate coupon');
+      }
+
+      const result = await response.json();
+      console.log('Coupon validation result:', result);
+
+      return result;
+    } catch (error) {
+      console.error('Error validating coupon from sheet:', error);
+      throw error;
+    }
+  };
+
+  // Calculate discount based on percentage
+  const calculateDiscount = (originalPrice, discountPercentage) => {
+    const discount = Math.round((originalPrice * discountPercentage) / 100);
+    const finalPrice = Math.max(0, originalPrice - discount);
+    return {
+      discountAmount: discount,
+      finalPrice: finalPrice
+    };
+  };
+
+  // Validate coupon when coupon code changes
+  useEffect(() => {
+    if (couponCode && couponCode.trim().length > 0 && courseId && price > 0) {
+      const validateCoupon = async () => {
+        setCouponValidating(true);
+        setCouponError("");
+        setCouponDiscount(0);
+        setCouponDiscountPercentage(0);
+        setAppliedCoupon(null);
+        setFinalPrice(price);
+        
+        try {
+          const result = await validateCouponFromSheet(couponCode, courseId, price);
+
+          if (result.success && result.coupon) {
+            // Use the pricing data returned from the API
+            setCouponDiscount(result.pricing.discountAmount);
+            setCouponDiscountPercentage(result.pricing.savingsPercentage);
+            setAppliedCoupon(result.coupon);
+            setFinalPrice(result.pricing.finalAmount);
+            setCouponError("");
+
+            console.log('Coupon applied successfully:', {
+              originalPrice: price,
+              discountPercentage: result.pricing.savingsPercentage,
+              discountAmount: result.pricing.discountAmount,
+              finalPrice: result.pricing.finalAmount
+            });
+          } else {
+            setCouponDiscount(0);
+            setCouponDiscountPercentage(0);
+            setAppliedCoupon(null);
+            setFinalPrice(price);
+            setCouponError(result.message || "Invalid coupon code");
+          }
+        } catch (error) {
+          console.error('Error validating coupon:', error);
+          setCouponError(error.message || "Failed to validate coupon. Please try again.");
+          setCouponDiscount(0);
+          setCouponDiscountPercentage(0);
+          setAppliedCoupon(null);
+          setFinalPrice(price);
+        } finally {
+          setCouponValidating(false);
+        }
+      };
+
+      // Debounce the validation
+      const timeoutId = setTimeout(validateCoupon, 800);
+      return () => clearTimeout(timeoutId);
+    } else {
+      // Reset when coupon code is empty
+      setCouponDiscount(0);
+      setCouponDiscountPercentage(0);
+      setAppliedCoupon(null);
+      setFinalPrice(price);
+      setCouponError("");
+      setCouponValidating(false);
+    }
+  }, [couponCode, actualCourseName, price, courseId, plan]); // Use actualCourseName
 
   useGSAP(() => {
     if (!isSubmitting || !sparkleRef.current) return;
@@ -111,8 +498,13 @@ const PopUpForm = ({ isOpen, onClose, plan, course, price }) => {
   useEffect(() => {
     if (!isOpen) {
       reset();
+      setCouponDiscount(0);
+      setCouponDiscountPercentage(0);
+      setAppliedCoupon(null);
+      setFinalPrice(price);
+      setCouponError("");
     }
-  }, [isOpen, reset]);
+  }, [isOpen, reset, price]);
 
   const loadRazorpay = () => {
     return new Promise((resolve) => {
@@ -125,6 +517,21 @@ const PopUpForm = ({ isOpen, onClose, plan, course, price }) => {
   };
 
   const initiatePayment = async (data) => {
+    if (!courseId) {
+      alert("Course ID is missing. Please refresh the page and try again.");
+      setIsProcessing(false);
+      return;
+    }
+    
+    console.log('Initiating payment with courseId:', courseId);
+    console.log('Payment details:', {
+      originalPrice: price,
+      finalPrice: finalPrice,
+      couponDiscount: couponDiscount,
+      couponCode: appliedCoupon?.code,
+      discountPercentage: couponDiscountPercentage
+    });
+    
     setIsProcessing(true);
     
     try {
@@ -139,18 +546,24 @@ const PopUpForm = ({ isOpen, onClose, plan, course, price }) => {
         throw new Error('Razorpay SDK failed to load');
       }
 
-      // Create order
+      // Create order with enhanced coupon information
       const orderResponse = await fetch(`/api/create-order`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          amount: price * 100, // Convert to paise
+          amount: finalPrice * 100, // Convert to paise
           currency: 'INR',
-          course,
+          course: actualCourseName, // Use actual course name
           plan,
-          studentData: data
+          studentData: data,
+          couponCode: appliedCoupon ? appliedCoupon.code : null,
+          originalAmount: price,
+          discountAmount: couponDiscount,
+          discountPercentage: couponDiscountPercentage,
+          courseId: courseId,
+          appliedCoupon: appliedCoupon,
         }),
       });
 
@@ -161,17 +574,23 @@ const PopUpForm = ({ isOpen, onClose, plan, course, price }) => {
 
       const orderData = await orderResponse.json();
 
+      // Enhanced description for Razorpay
+      let description = `${actualCourseName} - ${plan} Plan`; // Use actual course name
+      if (appliedCoupon) {
+        description += ` (${appliedCoupon.code} - ${couponDiscountPercentage}% OFF)`;
+      }
+
       // Razorpay options
       const options = {
-        key: razorpayKeyId, // Use the fetched key ID
+        key: razorpayKeyId,
         amount: orderData.amount,
         currency: orderData.currency,
         name: "Innoknowvex",
-        description: `${course} - ${plan} Plan`,
+        description: description,
         order_id: orderData.id,
         handler: async function(response) {
           try {
-            // Verify payment and save to Google Sheets
+            // Verify payment and save to Google Sheets with enhanced coupon data
             const verificationResponse = await fetch(`/api/verify-payment`, {
               method: 'POST',
               headers: {
@@ -182,27 +601,50 @@ const PopUpForm = ({ isOpen, onClose, plan, course, price }) => {
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_signature: response.razorpay_signature,
                 studentData: data,
-                course,
+                course: actualCourseName, // Use actual course name
                 plan,
-                amount: price
+                amount: finalPrice,
+                originalAmount: price,
+                discountAmount: couponDiscount,
+                discountPercentage: couponDiscountPercentage,
+                couponCode: appliedCoupon ? appliedCoupon.code : null,
+                appliedCoupon: appliedCoupon,
+                courseId: courseId,
               }),
             });
 
             if (verificationResponse.ok) {
               const verificationData = await verificationResponse.json();
               
-              // Show success message
-              alert(`🎉 Payment successful! 
+              // Enhanced success message with coupon details
+              let successMessage = `🎉 Payment successful! 
               
-Welcome to ${course} - ${plan} Plan!
+Welcome to ${actualCourseName} - ${plan} Plan!`; // Use actual course name
+
+              if (appliedCoupon) {
+                successMessage += `
+
+💰 Coupon Details:
+• Code: ${appliedCoupon.code}
+• Discount: ${couponDiscountPercentage}% (₹${couponDiscount} saved)
+• Original Price: ₹${price}
+• Final Price: ₹${finalPrice}`;
+              }
+
+              successMessage += `
+
+📧 Your enrollment details have been recorded and you should receive a confirmation email shortly.
+
+🆔 Transaction Details:
+• Payment ID: ${verificationData.paymentId}
+• Course ID: ${courseId}
+• Order ID: ${response.razorpay_order_id}
+
+Thank you for choosing Innoknowvex! 🚀`;
               
-Your enrollment details have been recorded and you should receive a confirmation email shortly.
+              alert(successMessage);
               
-Payment ID: ${verificationData.paymentId}
-              
-Thank you for choosing Innoknowvex!`);
-              
-              reset(); // Reset form
+              reset();
               onClose();
             } else {
               const errorData = await verificationResponse.json();
@@ -213,8 +655,10 @@ Thank you for choosing Innoknowvex!`);
             alert(`Payment completed but verification failed. 
             
 Please contact support with your payment details:
-Payment ID: ${response.razorpay_payment_id}
-Order ID: ${response.razorpay_order_id}
+• Payment ID: ${response.razorpay_payment_id}
+• Order ID: ${response.razorpay_order_id}
+• Course ID: ${courseId}
+${appliedCoupon ? `• Coupon Applied: ${appliedCoupon.code}` : ''}
 
 We will resolve this issue promptly.`);
           } finally {
@@ -253,12 +697,38 @@ We will resolve this issue promptly.`);
   };
 
   const onSubmit = async (data) => {
+    if (!courseId) {
+      alert("Course ID is missing. Please refresh the page and try again.");
+      return;
+    }
+
+    // Validate final price
+    if (finalPrice < 0) {
+      alert("Invalid final price. Please refresh and try again.");
+      return;
+    }
+
+    console.log('Submitting form with courseId:', courseId);
+    console.log('Final submission data:', {
+      ...data,
+      courseId,
+      originalPrice: price,
+      finalPrice,
+      couponApplied: !!appliedCoupon,
+      couponCode: appliedCoupon?.code,
+      discountAmount: couponDiscount,
+      discountPercentage: couponDiscountPercentage
+    });
+
     await initiatePayment(data);
   };
 
   if (!isOpen) {
     return null;
   }
+
+  // Get program details if available
+  const programDetails = programs[courseId];
 
   return (
     <div className={styles.formPage}>
@@ -270,7 +740,7 @@ We will resolve this issue promptly.`);
       >
         <div className={styles.formHeaderContainer}>
           <h1>
-            Enroll in {course}
+            Enroll in {actualCourseName} {/* FIXED: Use actualCourseName instead of course */}
             <br />
             <span>{plan} Plan</span>
           </h1>
@@ -287,9 +757,28 @@ We will resolve this issue promptly.`);
         </div>
 
         <div className={styles.courseInfo}>
-          <p><strong>Course:</strong> {course}</p>
           <p><strong>Plan:</strong> {plan}</p>
-          <p><strong>Amount:</strong> ₹{price}</p>
+          {programDetails && (
+            <p><strong>Program:</strong> {programDetails.title}</p>
+          )}
+          <p><strong>Original Price:</strong> ₹{price}</p>
+          {couponDiscount > 0 && (
+            <>
+              <p 
+              // style={{ color: '#22c55e' }}
+              >
+                <strong>Discount ({couponDiscountPercentage}%):</strong> -₹{couponDiscount}
+              </p>
+              <p 
+              // style={{ color: '#3b82f6', fontSize: '1.1em', fontWeight: 'bold' }}
+              >
+                <strong>Final Amount:</strong> ₹{finalPrice}
+              </p>
+            </>
+          )}
+          {couponDiscount === 0 && (
+            <p><strong>Amount:</strong> ₹{finalPrice}</p>
+          )}
         </div>
 
         <fieldset className={`${styles.inputGroup} ${styles["inputGroup--name"]}`}>
@@ -330,19 +819,74 @@ We will resolve this issue promptly.`);
           </div>
         </fieldset>
 
+        <fieldset className={`${styles.inputGroup} ${styles["inputGroup--coupon"]}`}>
+          <label className={styles.formLabel}>Coupon Code (Optional)</label>
+          <input 
+            className={styles.formInput} 
+            {...register("couponCode")} 
+            placeholder="Enter coupon code"
+            type="text"
+            // style={{
+            //   borderColor: appliedCoupon ? '#22c55e' : couponError ? '#ef4444' : undefined
+            // }}
+          />
+          <div className={styles.errorDiv}>
+            {couponValidating && (
+              <p style={{ color: '#3b82f6' }}>
+                🔍 Validating coupon...
+              </p>
+            )}
+            {couponError && (
+              <p className={styles.error}>
+                ❌ {couponError}
+              </p>
+            )}
+            {appliedCoupon && !couponValidating && (
+              <p 
+              // style={{ color: '#22c55e' }}
+              >
+                ✅ Coupon applied! {couponDiscountPercentage}% discount (₹{couponDiscount} saved)
+                {/* {appliedCoupon.validUntil && (
+                  <span style={{ display: 'block', fontSize: '0.9em', opacity: 0.8 }}>
+                    Valid until: {new Date(appliedCoupon.validUntil).toLocaleDateString()}
+                  </span>
+                )} */}
+              </p>
+            )}
+          </div>
+        </fieldset>
+
         <div className={styles.buttonGroup} ref={sparkleRef}>
-          <button type="submit" disabled={isSubmitting || isProcessing || !razorpayKeyId}>
+          <button type="submit" disabled={isSubmitting || isProcessing || !razorpayKeyId || couponValidating}>
             {isSubmitting || isProcessing ? (
               <>
                 <div className={styles.sparkleDiv}><Sparkle color="white" /></div>
                 <div className={styles.sparkleDiv}><Sparkle color="white" /></div>
                 <div className={styles.sparkleDiv}><Sparkle color="white" /></div>
-                Processing...
+                Processing Payment...
               </>
             ) : !razorpayKeyId ? (
-              "Loading..."
+              "Loading Payment Gateway..."
+            ) : couponValidating ? (
+              "Validating Coupon..."
             ) : (
-              `Pay ₹${price}`
+              <>
+                {couponDiscount > 0 ? (
+                  <>
+                    Pay ₹{finalPrice} 
+                    <span style={{ 
+                      textDecoration: 'line-through', 
+                      opacity: 0.7, 
+                      marginLeft: '8px',
+                      fontSize: '0.9em' 
+                    }}>
+                      ₹{price}
+                    </span>
+                  </>
+                ) : (
+                  `Pay ₹${finalPrice}`
+                )}
+              </>
             )}
           </button>
         </div>

@@ -16,7 +16,10 @@ export async function POST(request) {
       studentData,
       course,
       plan,
-      amount
+      amount,
+      originalAmount,
+      discountAmount,
+      couponCode
     } = body;
 
     console.log('Verify payment request:', {
@@ -25,7 +28,10 @@ export async function POST(request) {
       studentData: studentData ? { ...studentData, phone: studentData.phone ? 'XXX-XXX-XXXX' : undefined } : null,
       course,
       plan,
-      amount
+      amount,
+      originalAmount,
+      discountAmount,
+      couponCode
     });
 
     // Validate required fields
@@ -102,7 +108,10 @@ export async function POST(request) {
         phone,                          // Student Phone
         course,                         // Course Name
         plan,                           // Plan Name
-        `₹${amount}`,                   // Amount Paid
+        originalAmount ? `₹${originalAmount}` : `₹${amount}`, // Original Amount
+        couponCode || 'N/A',            // Coupon Code
+        discountAmount ? `₹${discountAmount}` : '₹0', // Discount Amount
+        `₹${amount}`,                   // Final Amount Paid
         razorpay_payment_id,            // Payment ID
         razorpay_order_id,              // Order ID
         'SUCCESS',                      // Payment Status
@@ -121,7 +130,7 @@ export async function POST(request) {
       // Append data to Google Sheets
       await sheets.spreadsheets.values.append({
         spreadsheetId: process.env.GOOGLE_SHEET_ID,
-        range: 'Enrollments!A:J', // Using 'Enrollments' sheet, adjust range as needed
+        range: 'Enrollments!A:M', // Updated range to include coupon fields
         valueInputOption: 'USER_ENTERED',
         requestBody: {
           values: [enrollmentData],
@@ -138,6 +147,16 @@ export async function POST(request) {
 
     // Send confirmation email using Resend
     try {
+      const discountText = couponCode && discountAmount > 0 
+        ? `
+          <div style="background-color: #dcfce7; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #22c55e;">
+            <h4 style="color: #16a34a; margin-top: 0;">Coupon Applied! 🎉</h4>
+            <p style="margin: 5px 0; color: #15803d;"><strong>Coupon Code:</strong> ${couponCode}</p>
+            <p style="margin: 5px 0; color: #15803d;"><strong>You Saved:</strong> ₹${discountAmount}</p>
+          </div>
+        `
+        : '';
+
       const emailHtml = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
           <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
@@ -151,10 +170,14 @@ export async function POST(request) {
               We are excited to have you on board. Your enrollment has been confirmed successfully!
             </p>
             
+            ${discountText}
+            
             <div style="background-color: white; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #667eea;">
               <h3 style="color: #333; margin-top: 0;">Purchase Details:</h3>
               <p style="margin: 5px 0;"><strong>Course:</strong> ${course}</p>
               <p style="margin: 5px 0;"><strong>Plan:</strong> ${plan}</p>
+              ${originalAmount && originalAmount !== amount ? `<p style="margin: 5px 0;"><strong>Original Price:</strong> ₹${originalAmount}</p>` : ''}
+              ${discountAmount > 0 ? `<p style="margin: 5px 0; color: #22c55e;"><strong>Discount:</strong> -₹${discountAmount}</p>` : ''}
               <p style="margin: 5px 0;"><strong>Amount Paid:</strong> ₹${amount}</p>
               <p style="margin: 5px 0;"><strong>Payment ID:</strong> ${razorpay_payment_id}</p>
               <p style="margin: 5px 0;"><strong>Order ID:</strong> ${razorpay_order_id}</p>
