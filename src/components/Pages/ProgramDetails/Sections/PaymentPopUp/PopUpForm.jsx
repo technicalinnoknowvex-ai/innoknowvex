@@ -832,7 +832,9 @@ We will resolve this issue promptly.`);
           />
           <div className={styles.errorDiv}>
             {couponValidating && (
-              <p style={{ color: '#3b82f6' }}>
+              <p 
+              style={{ color: '#3b82f6' }}
+              >
                 🔍 Validating coupon...
               </p>
             )}
