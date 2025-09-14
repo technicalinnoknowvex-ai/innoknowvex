@@ -213,7 +213,7 @@ $desktop: 1440px;
   margin: -20px -150px;
   z-index: 1;
   pointer-events: none;
-  margin-top: 10%;
+  margin-top: 1%;
 
   @include mobile {
     width: 250px;
@@ -431,7 +431,7 @@ $desktop: 1440px;
 .ellipse2 {
   position: absolute;
   right: 0%;
-  margin: -20px -150px;
+  margin: -120px -150px;
   z-index: 1;
   pointer-events: none;
 
