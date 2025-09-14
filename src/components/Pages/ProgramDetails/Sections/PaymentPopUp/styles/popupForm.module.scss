@@ -1,3 +1,5 @@
+
+
 @use "../../../../../../styles/index" as *;
 
 .formPage {
@@ -32,6 +34,24 @@
     border: 1px solid #715c1149;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     z-index: 10;
+    margin-top: 500vh; // Increased significantly to reach plan section
+
+    @media (max-width: 1024px) {
+      margin-top: 55vh;
+    }
+
+    @media (max-width: 768px) {
+      width: 90%;
+      max-width: 400px;
+      padding: 20px;
+      margin-top: 50vh;
+    }
+
+    @media (max-width: 480px) {
+      width: 95%;
+      padding: 15px;
+      margin-top: 45vh;
+    }
 
     .formHeaderContainer {
       width: 100%;
@@ -124,6 +144,9 @@
       &--phone {
         grid-column: span 2;
       }
+      &--coupon {
+        grid-column: span 2;
+      }
     }
 
     .buttonGroup {
@@ -161,26 +184,41 @@
   }
 }
 
+// Responsive adjustments for the popup positioning
+@media (max-width: 768px) {
+  .formPage {
+    padding-top: 5vh; // Less padding on mobile
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .formPage {
+    padding-top: 3vh; // Even less padding on small mobile
+  }
+}
+
+// Animation improvements for better positioning
+@media (min-height: 800px) {
+  .formPage {
+    padding-top: 15vh; // More padding on larger screens
+  }
+}
+
+@media (max-height: 600px) {
+  .formPage {
+    padding-top: 2vh; // Less padding on shorter screens
+    
+    .formWrapper {
+      max-height: 95vh;
+    }
+  }
+}
+
 .sparkleDiv {
   width: 15px;
   aspect-ratio: 1/1;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-// Responsive design
-@media (max-width: 500px) {
-  .formPage {
-    .formWrapper {
-      width: 90%;
-      padding: 20px;
-      
-      .formHeaderContainer {
-        h1 {
-          font-size: 1.3rem;
-        }
-      }
-    }
-  }
 }
