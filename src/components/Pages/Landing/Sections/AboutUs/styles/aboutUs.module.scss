@@ -79,7 +79,8 @@
       // border: 1px solid red;
       @include font($font-sharp-25, $medium);
       font-size: 2rem;
-
+      z-index: 2;
+      margin-bottom: 5px;
       @include screen(sm) {
         font-size: clamp(
           2rem,
@@ -87,9 +88,6 @@
           4rem
         ) !important;
       }
-
-      z-index: 2;
-      margin-bottom: 5px;
     }
     &__secondaryHeading {
       @include font($font-sharp-25, $medium, $text-brand);
