@@ -1,8 +1,79 @@
+@use "../../../../styles/fonts" as *;
 
-
-.heading{
+.head{
     display: flex;
     flex-direction: row;
     margin-top: 8%;
     justify-content: center;
+    gap: 2rem;
+    margin-bottom: 7rem;
+}
+
+.heading{
+    font-family: $font-sharp-25;
+    font-weight: 400;
+    font-size: 3rem;
+    color: #9F8310;
+}
+
+.star{
+    margin-top: -3rem;
+}
+
+.cardBody{
+    height: 10rem;
+    width: 60rem;
+    background-color: #FFF7E0;
+    margin: auto;
+    border-radius: 1rem 6rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.cardImage{
+    height: 10rem;
+    width: 15rem;
+    background-color: lightcoral;
+    border-radius: 1rem 5rem;
+    scale: 0.8;
+    margin-left: 0.8rem;
+}
+
+.cardDesc{
+    display: flex;
+    flex-direction: column;
+    margin-left: 5rem;
+    margin-top: 2.5rem;
+}
+
+.courseTitle{
+    font-family: $font-oldschool;
+    font-weight: 400;
+    font-size: 2.7rem;
+    color: #A28808;
+}
+
+.coursePrice{
+    font-family: $font-oldschool;
+    font-weight: 400;
+    font-size: 1.8rem;
+    color: #A28808;
+}
+
+.actionBtn{
+    margin-left: 5rem;
+    margin-top: 3.5rem;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.delete{
+    scale: 1.5;
+    color: lightcoral;
+}
+
+.pay{
+    scale: 1.5;
+    color: lightseagreen
 }
