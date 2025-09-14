@@ -15,10 +15,41 @@ export async function GET(request, { params }) {
       );
     }
 
+    // Debug logging (remove in production)
+    console.log('Environment variables check:');
+    console.log('GOOGLE_SERVICE_ACCOUNT_EMAIL exists:', !!process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL);
+    console.log('GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY exists:', !!process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY);
+    console.log('GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY_BASE64 exists:', !!process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY_BASE64);
+    console.log('GOOGLE_SHEET_ID exists:', !!process.env.GOOGLE_SHEET_ID);
+
+    let privateKey;
+    
+    // Try Base64 private key first, then fallback to regular private key
+    if (process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY_BASE64) {
+      try {
+        const base64Key = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY_BASE64;
+        console.log('Base64 key length:', base64Key?.length);
+        
+        const decodedKey = Buffer.from(base64Key, 'base64').toString('utf8');
+        // Replace escaped newlines with actual newlines
+        privateKey = decodedKey.replace(/\\n/g, '\n');
+        
+        console.log('Decoded private key first 50 chars:', privateKey?.substring(0, 50));
+        console.log('Successfully decoded Base64 private key');
+      } catch (decodeError) {
+        console.error('Base64 decode error:', decodeError.message);
+        throw new Error(`Failed to decode Base64 private key: ${decodeError.message}`);
+      }
+    } else if (process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY) {
+      privateKey = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(/\\n/g, '\n');
+      console.log('Using regular private key');
+      console.log('Private key first 50 chars:', privateKey?.substring(0, 50));
+    } else {
+      throw new Error('No private key found in environment variables');
+    }
+
     // Validate environment variables
-    if (!process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL ||
-        !process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY ||
-        !process.env.GOOGLE_SHEET_ID) {
+    if (!process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || !process.env.GOOGLE_SHEET_ID) {
       console.error('Missing Google Sheets configuration');
       return NextResponse.json(
         { message: 'Server configuration error', success: false },
@@ -27,23 +58,27 @@ export async function GET(request, { params }) {
     }
 
     // Set up Google Sheets authentication
-    const privateKey = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(/\\n/g, '\n');
     const auth = new google.auth.JWT({
       email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
       key: privateKey,
       scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
     });
 
+    console.log('Attempting to authorize...');
     await auth.authorize();
+    console.log('Authorization successful');
+    
     const sheets = google.sheets({ version: 'v4', auth });
 
     // Fetch pricing data from Google Sheets
+    console.log('Attempting to fetch pricing data...');
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
       range: 'Pricing!A:I', // Adjust range based on your sheet structure
     });
 
     const rows = response.data.values;
+    console.log('Successfully fetched data from sheet, rows count:', rows?.length);
         
     if (!rows || rows.length === 0) {
       return NextResponse.json(
@@ -55,6 +90,9 @@ export async function GET(request, { params }) {
     // Assuming first row contains headers
     const headers = rows[0];
     const dataRows = rows.slice(1);
+
+    console.log('Looking for course:', course);
+    console.log('Available courses in sheet:', dataRows.map(row => row[0]).filter(Boolean));
 
     // Find the course data with more flexible matching
     const courseData = dataRows.find(row => {
@@ -121,7 +159,8 @@ export async function GET(request, { params }) {
       {
         message: 'Failed to fetch pricing data',
         error: error.message,
-        success: false
+        success: false,
+        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
       },
       { status: 500 }
     );
