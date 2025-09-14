@@ -1,5 +1,6 @@
 "use client";
 import styles from "./styles/descriptionSection.module.scss";
+import Image from "next/image";
 
 
 export default function DescriptionSection({ program }) {
@@ -28,7 +29,9 @@ export default function DescriptionSection({ program }) {
   return (
     <div className={styles.descriptionContainer}>
       <div className={styles.imageWrapper}>
-        <img
+        <Image
+        width={600}
+        height={400 }
           src={program.image}
           alt={program.title}
           className={styles.courseImage}

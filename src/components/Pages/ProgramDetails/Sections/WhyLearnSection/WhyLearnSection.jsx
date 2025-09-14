@@ -1,17 +1,23 @@
 "use client";
 import styles from "./styles/whyLearnSection.module.scss";
+import Image from "next/image";
 
 export default function WhyLearnSection() {
   return (
     <div className={styles.whyLearnSection}>
-      <img
+      <Image
         src="/images/Ellipse4.svg"
         alt="ellipse"
+        width={60} 
+        height={60} 
         className={styles.ellipse1}
       />
 
       <div className={styles.LearnForm}>
-        <img src="/images/SoftStar.svg" width={60} height={60} alt="SoftStar" />
+        <Image src="/images/SoftStar.svg" 
+        width={60} 
+        height={60} 
+        alt="SoftStar" />
         <h1>
           Why Learn from <br /> InnoKnowvex
         </h1>

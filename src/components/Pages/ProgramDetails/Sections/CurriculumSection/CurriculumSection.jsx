@@ -2,6 +2,7 @@
 import React, { useState, useRef } from "react";
 import styles from "./styles/curriculumSection.module.scss";
 import Sparkle from "@/components/Common/Icons/Sparkle";
+import Image from "next/image";
 
 export default function CurriculumSection({ program }) {
   const [activeQuestion, setActiveQuestion] = useState(0);
@@ -27,9 +28,11 @@ export default function CurriculumSection({ program }) {
     <section className={styles.sectionWrapper}>
       {/* Ellipse Background */}
       <div className={styles.ellipse}>
-        <img
+        <Image
           src="/images/Ellipse4.svg"
           alt=""
+          width={60} 
+        height={60} 
           className={styles.ellipseImage}
         />
       </div>
@@ -37,9 +40,11 @@ export default function CurriculumSection({ program }) {
       <div className={styles.sectionWrapper__innerContainer}>
         {/* Heading with Star */}
         <div className={styles.headingContainer}>
-          <img
+          <Image
             src="/images/SoftStar.svg"
             alt="Soft Star"
+            width={50}
+            height={50}
             className={styles.starOrange}
           />
           <h2 className={styles.sectionHeading}>Curriculum Overview</h2>

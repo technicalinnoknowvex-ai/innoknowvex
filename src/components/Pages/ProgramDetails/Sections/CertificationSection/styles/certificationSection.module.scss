@@ -7,9 +7,10 @@
   justify-content: center;
   align-items: center;
   padding: 0;
+  margin-top: 20;
 
   // Reduced margin for larger screens (desktop)
-  // margin-top: 20px;
+  // margin-top: 10px;
 
   // Responsive adjustments for smaller devices
   @media (min-width: 1200px) and (max-width: 1440px) {
@@ -105,7 +106,7 @@
     padding: 10px;
     gap: 10px;
     flex-direction: column;
-    
+
     img {
       height: 250px;
       width: 450px;
@@ -122,13 +123,14 @@
     margin: 20px;
     gap: 10px;
     flex-direction: column;
-    
+
     img {
       height: 150px;
       width: 350px;
     }
   }
 }
+
 
 .ellipse {
   z-index: 0;
