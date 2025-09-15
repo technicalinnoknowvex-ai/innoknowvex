@@ -100,10 +100,10 @@ const navLinks = [
     href: "",
     categories: programsCategory
   },
-  { label: "Packs", type: "page", href: "/choose-packs" },
+  // { label: "Packs", type: "page", href: "/choose-packs" },
   { label: "Blogs", type: "section", href: "#blogs", sectionId: "blogs" },
   { label: "Testimonials", type: "section", href: "#testimonials", sectionId: "testimonials" },
-  { label: "Cart", type: "page", href: "/cart" },
+  // { label: "Cart", type: "page", href: "/cart" },
   { label: "Contact Us", type: "section", href: "#footer", sectionId: "footer" },
 ];
 
