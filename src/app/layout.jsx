@@ -4,7 +4,7 @@ import localFont from "next/font/local";
 import { CursorProvider } from "@/context/CursorProvider";
 import Cursor from "@/components/Common/Cursor/Cursor";
 import { ScrollProvider } from "@/context/ScrollContext";
-import PopUpForm from "@/components/PopUpForm/PopUpForm";
+import { ToastContainer } from "react-toastify";
 
 const sharpGrotesk20 = localFont({
   src: [
@@ -183,12 +183,24 @@ export default function RootLayout({ children }) {
         className={`${sharpGrotesk20.variable}
         ${sharpGrotesk25.variable} ${oldSchoolGrotesk.variable}`}
       >
+        <ToastContainer
+          position="top-right"
+          autoClose={1000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
         <CursorProvider>
           <ScrollProvider>
             <Cursor />
-              <AppLayout>
-                {children}
-              </AppLayout>
+            <AppLayout>
+              {children}
+            </AppLayout>
           </ScrollProvider>
         </CursorProvider>
       </body>

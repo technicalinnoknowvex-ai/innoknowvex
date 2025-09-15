@@ -1,13 +1,32 @@
 "use client"
-import React, { useEffect, useRef,useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import style from "./style/cart.module.scss"
 import gsap from 'gsap'
+import { toast } from 'react-toastify'
 import Image from 'next/image'
 
 const CartPage = () => {
 
     const star = useRef()
     const [storedItems, setStoredItems] = useState([]);
+
+    const handleDelete = (itemToBeDeleted) => {
+
+        const updatedItems = storedItems.filter((item) => item.title !== itemToBeDeleted.title)
+        setStoredItems(updatedItems)
+
+        localStorage.setItem("cartItems", JSON.stringify(updatedItems))
+        toast.success('Deleted !', {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
+    }
 
     useEffect(() => {
         const cart = localStorage.getItem("cartItems");
@@ -37,20 +56,24 @@ const CartPage = () => {
                     <path d="M66.0962 1.74792C66.3511 -0.582641 69.4658 -0.582641 69.7207 1.74792L71.8573 21.2992C74.6162 46.5452 92.9484 66.4498 116.2 69.4453L134.207 71.7651C136.354 72.0419 136.354 75.4237 134.207 75.7005L116.2 78.0203C92.9484 81.0159 74.6162 100.92 71.8573 126.166L69.7207 145.717C69.4658 148.048 66.3511 148.048 66.0962 145.717L63.9596 126.166C61.2007 100.92 42.8685 81.0159 19.6167 78.0203L1.60985 75.7005C-0.536616 75.4237 -0.536616 72.0419 1.60985 71.7651L19.6167 69.4453C42.8685 66.4498 61.2007 46.5452 63.9596 21.2992L66.0962 1.74792Z" fill="#9F8310" />
                 </svg>
 
-                <h1 className={style.heading}>Your Personalised Cart</h1>
+                <h1 className={style.heading}>Your Personalised <span>Cart</span></h1>
             </div>
 
             {Object.values(storedItems).map((item, index) => (
                 <div key={index} className={style.cardBody}>
-                    <div>
-                        <Image className={style.cardImage} src={item.image} height={200} width={200} alt="course image" />
+                    <div className={style.cardDetail}>
+                        <div>
+                            <Image className={style.cardImage} src={item.image} height={200} width={200} alt="course image" />
+                        </div>
+
+                        <div className={style.cardDesc}>
+                            <h4 className={style.courseTitle}>{item.title}</h4>
+                            <h5 className={style.coursePrice}>Rs. 5000</h5>
+                        </div>
                     </div>
-                    <div className={style.cardDesc}>
-                        <h4 className={style.courseTitle}>{item.title}</h4>
-                        <h5 className={style.coursePrice}>Rs. 5000</h5>
-                    </div>
+
                     <div className={style.actionBtn}>
-                        <svg className={style.delete} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 11v6m4-6v6m5-11v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>
+                        <svg onClick={() => handleDelete(item)} className={style.delete} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 11v6m4-6v6m5-11v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>
 
                         <svg className={style.pay} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"><path d="M21 10.656V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.344" /><path d="m9 11l3 3L22 4" /></g></svg>
                     </div>
