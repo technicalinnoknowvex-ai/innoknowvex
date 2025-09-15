@@ -1,12 +1,7 @@
-// src/app/api/create-order/route.js
+
 import Razorpay from 'razorpay';
 import { NextResponse } from 'next/server';
 import { google } from 'googleapis';
-
-const razorpay = new Razorpay({
-  key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET,
-});
 
 export async function POST(request) {
   try {
@@ -51,6 +46,12 @@ export async function POST(request) {
         { status: 500 }
       );
     }
+
+    // Initialize Razorpay here instead of at module level
+    const razorpay = new Razorpay({
+      key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+      key_secret: process.env.RAZORPAY_KEY_SECRET,
+    });
 
     // If coupon is provided, re-validate it to prevent tampering
     if (couponCode) {

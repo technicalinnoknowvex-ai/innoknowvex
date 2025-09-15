@@ -1,10 +1,8 @@
-// src/app/api/verify-payment/route.js
+
 import crypto from 'crypto';
 import { NextResponse } from 'next/server';
 import { google } from 'googleapis';
 import { Resend } from 'resend';
-
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request) {
   try {
@@ -147,6 +145,9 @@ export async function POST(request) {
 
     // Send confirmation email using Resend
     try {
+      // Initialize Resend inside the function where env vars are available
+      const resend = new Resend(process.env.RESEND_API_KEY);
+      
       const discountText = couponCode && discountAmount > 0 
         ? `
           <div style="background-color: #dcfce7; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #22c55e;">

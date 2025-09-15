@@ -1,5 +1,6 @@
 @use "../../../../../../styles/mixins" as m;
 @use "../../../../../../styles/index" as *;
+@use "../../../../../../styles/fonts" as *;
 
 .landing {
  width: 100%;
@@ -321,11 +322,14 @@ gap: 8px;
 }
 
 .page {
-font-size: 13px;
+font-size: 1.2rem;
 font-weight: 400;
-color: #666;
+color: #9F8310;
 text-transform: uppercase;
 letter-spacing: 0.5px;
+font-family: $font-sharp-25;
+text-align: center;
+font-weight: 500;
 
 @include m.mobile-down {
  font-size: 12px;
@@ -334,12 +338,11 @@ letter-spacing: 0.5px;
 
 .blogTitle {
 text-decoration: none;
-font-weight: 700;
-font-size: 22px;
-color: #262C35;
+font-weight: 500;
+font-size: 1.1rem;
+color: #A08410;
 font-family: 'Sharp Grotesk';
-margin: 0;
-line-height: 1.3;
+line-height: 1.5;
 display: -webkit-box;
 -webkit-line-clamp: 2;
 -webkit-box-orient: vertical;
@@ -347,6 +350,9 @@ overflow: hidden;
 word-wrap: break-word;
 hyphens: auto;
 transition: color 0.3s ease;
+font-family: $font-oldschool;
+text-align: center;
+margin-top: 10px;
 
 @include m.tablet-down {
  font-size: 20px;
@@ -359,10 +365,9 @@ transition: color 0.3s ease;
 
 .blogDescription {
 font-size: 16px;
-color: #555;
+color: #A08410;
 font-family: 'Oldschool Grotesk', Georgia, serif;
 line-height: 1.6;
-margin: 0;
 display: -webkit-box;
 -webkit-line-clamp: 4;
 -webkit-box-orient: vertical;
@@ -370,6 +375,10 @@ overflow: hidden;
 word-wrap: break-word;
 hyphens: auto;
 font-weight: 400;
+text-align: center;
+font-family: $font-oldschool;
+margin-top: 10px;
+
 
 @include m.tablet-down {
  font-size: 15px;
@@ -401,9 +410,9 @@ color: white;
 padding: 14px 28px;
 border-radius: 30px;
 text-decoration: none;
-font-weight: 600;
+font-weight: 400;
 font-size: 15px;
-font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+font-family: $font-sharp-25;
 display: inline-flex;
 align-items: center;
 gap: 8px;
