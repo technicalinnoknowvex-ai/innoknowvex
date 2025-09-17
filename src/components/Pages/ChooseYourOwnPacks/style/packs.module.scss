@@ -53,8 +53,8 @@ $desktop: 1440px;
   }
 
   @include tablet{
-    margin-top: 3%;
-    margin-left: -70%;
+    margin-top: -4%;
+    margin-left: -90%;
   }
 }
 
@@ -74,8 +74,8 @@ $desktop: 1440px;
   }
 
   @include tablet{
-    margin-top: 20%;
-    margin-right: -70%;
+    margin-top: 35%;
+    margin-right: -90%;
   }
 }
 
@@ -119,22 +119,29 @@ $desktop: 1440px;
     margin-bottom: -45rem;
   }
 
-  @include mobile{
-    grid-template-columns: 1fr;
-    padding: 0;
-    scale: 0.8;
-    margin-top: -95rem;
-    margin-bottom: -93rem;
-    margin-left: -5%;
-  }
+  @include mobile {
+  grid-template-columns: 1fr;
+  padding: 0;
+  transform: scale(0.8);
+  transform-origin: top center; // or center center if you want perfect centering
+  margin-top: 5rem;
+  margin-bottom: -250rem;
+  margin-left: 0; // no manual offset needed
+  justify-self: center; // if inside grid
+  align-self: center;   // if inside grid
+}
+
 
   @include tablet{
-    grid-template-columns: repeat(2, 1fr);
-    padding: 0;
-    scale: 0.8;
-    margin-top: -45rem;
-    margin-bottom: -43rem;
-    margin-left: -2%;
+    grid-template-columns: 1fr;
+  padding: 0;
+  transform: scale(0.8);
+  transform-origin: top center; // or center center if you want perfect centering
+  margin-top: 5rem;
+  margin-bottom: -250rem;
+  margin-left: 0; // no manual offset needed
+  justify-self: center; // if inside grid
+  align-self: center;   // if inside grid
   }
 }
 
