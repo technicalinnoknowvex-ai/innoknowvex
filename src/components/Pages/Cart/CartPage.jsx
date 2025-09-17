@@ -108,30 +108,59 @@ const CartPage = () => {
                 <div className={style.cartContent}>
                     <div className={style.cartItems}>
                         <div className={style.cartItemsList}>
-                            {Object.values(storedItems).map((m, index) => {
-                                return (
-                                    <div key={index} className={style.item} data-item="n2o">
-                                        <div>
-                                            <Image className={style.itemImage} src={m.image} height={100} width={100} alt='courseimage' />
+                            {storedItems.length > 0 ? (
+                                <>
+                                    {Object.values(storedItems).map((m, index) => (
+                                        <div key={index} className={style.item} data-item="n2o">
+                                            <div>
+                                                <Image
+                                                    className={style.itemImage}
+                                                    src={m.image}
+                                                    height={100}
+                                                    width={100}
+                                                    alt="courseimage"
+                                                />
+                                            </div>
 
-                                        </div>
-                                        <div className={style.itemDetails}>
-                                            <div className={style.itemName}>{m.course}</div>
-                                            <div className={style.itemInfo}>{m.plan}</div>
-                                        </div>
-                                        <div className={style.itemControls}>
-                                            <div className={style.itemPrice}>{m.price}</div>
-                                        </div>
-                                        <div>
-                                            <svg className={style.deleteItem} onClick={() => handleDelete(m)} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 11v6m4-6v6m5-11v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>
-                                        </div>
-                                    </div>
-                                );
-                            })}
+                                            <div className={style.itemDetails}>
+                                                <div className={style.itemName}>{m.course}</div>
+                                                <div className={style.itemInfo}>{m.plan}</div>
+                                            </div>
 
+                                            <div className={style.itemControls}>
+                                                <div className={style.itemPrice}>{m.price}</div>
+                                            </div>
+
+                                            <div>
+                                                <svg
+                                                    className={style.deleteItem}
+                                                    onClick={() => handleDelete(m)}
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <path
+                                                        fill="none"
+                                                        stroke="currentColor"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        strokeWidth="2"
+                                                        d="M10 11v6m4-6v6m5-11v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                                                    />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </>
+                            ) : (
+                                <div className={style.emptyCart}>Nothing in cart yet</div>
+                            )}
 
                         </div>
                     </div>
+                    
+                    <div className={style.seperationLine}></div>
 
                     <div className={style.orderSummary}>
                         <h3 className={style.summaryTitle}>Order Summary</h3>
