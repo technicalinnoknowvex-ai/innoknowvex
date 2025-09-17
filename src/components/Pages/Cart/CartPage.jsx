@@ -9,6 +9,9 @@ const CartPage = () => {
 
     const star = useRef()
     const [storedItems, setStoredItems] = useState([]);
+    const [subTotal, setSubTotal] = useState(0)
+    const [discount, setDiscount] = useState(0)
+    const [total, setTotal] = useState(0)
 
     const handleDelete = (itemToBeDeleted) => {
 
@@ -28,8 +31,16 @@ const CartPage = () => {
         });
     }
 
+    const calculateSubtotal = () => {
+        storedItems.map((s) => {
+            setSubTotal(subTotal + s.price)
+        })
+    }
+
+
     useEffect(() => {
         const cart = localStorage.getItem("cartItems");
+
         if (cart) {
             setStoredItems(JSON.parse(cart));
         }
@@ -49,6 +60,17 @@ const CartPage = () => {
             );
     }, [])
 
+    useEffect(() => {
+        const subtotal = storedItems.reduce((acc, s) => acc + s.price, 0);
+        setSubTotal(subtotal);
+
+        const discountValue = 0;
+        setDiscount(discountValue);
+
+        setTotal(subtotal - discountValue);
+    }, [storedItems]);
+
+
     return (
         <>
             <div className={style.head}>
@@ -59,7 +81,7 @@ const CartPage = () => {
                 <h1 className={style.heading}>Your Personalised <span>Cart</span></h1>
             </div>
 
-            {Object.values(storedItems).map((item, index) => (
+            {/* {Object.values(storedItems).map((item, index) => (
                 <div key={index} className={style.cardBody}>
                     <div className={style.cardDetail}>
                         <div>
@@ -67,8 +89,9 @@ const CartPage = () => {
                         </div>
 
                         <div className={style.cardDesc}>
-                            <h4 className={style.courseTitle}>{item.title}</h4>
-                            <h5 className={style.coursePrice}>Rs. 5000</h5>
+                            <h4 className={style.courseTitle}>{item.course}</h4>
+                            <h4 className={style.courseTitle}>{item.plan}</h4>
+                            <h5 className={style.coursePrice}>Rs. {item.price}</h5>
                         </div>
                     </div>
 
@@ -78,7 +101,78 @@ const CartPage = () => {
                         <svg className={style.pay} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"><path d="M21 10.656V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.344" /><path d="m9 11l3 3L22 4" /></g></svg>
                     </div>
                 </div>
-            ))}
+            ))} */}
+
+            <div className={style.shoppingCartContainer}>
+
+                <div className={style.cartContent}>
+                    <div className={style.cartItems}>
+                        <div className={style.cartItemsList}>
+                            {Object.values(storedItems).map((m, index) => {
+                                return (
+                                    <div key={index} className={style.item} data-item="n2o">
+                                        <div>
+                                            <Image className={style.itemImage} src={m.image} height={100} width={100} alt='courseimage' />
+
+                                        </div>
+                                        <div className={style.itemDetails}>
+                                            <div className={style.itemName}>{m.course}</div>
+                                            <div className={style.itemInfo}>{m.plan}</div>
+                                        </div>
+                                        <div className={style.itemControls}>
+                                            <div className={style.itemPrice}>{m.price}</div>
+                                        </div>
+                                        <div>
+                                            <svg className={style.deleteItem} onClick={() => handleDelete(m)} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 11v6m4-6v6m5-11v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+
+
+                        </div>
+                    </div>
+
+                    <div className={style.orderSummary}>
+                        <h3 className={style.summaryTitle}>Order Summary</h3>
+
+                        <div className={style.couponSection}>
+                            <div>
+                                <input
+                                    type="text"
+                                    placeholder="Coupon Code"
+                                    id="couponInput"
+                                    className={style.couponInput}
+                                />
+
+                            </div>
+                            <div>
+                                <button onClick={() => applyCoupon()} className={style.couponBtn}>Apply</button>
+                            </div>
+                        </div>
+
+                        <div className={`${style.summaryLine} ${style.summaryLineSubtotal}`}>
+                            <span>Subtotal</span>
+                            <span className={style.amount} id="subtotal">{subTotal}</span>
+                        </div>
+
+                        <div className={`${style.summaryLine} ${style.summaryLineDiscount}`}>
+                            <span>Discount</span>
+                            <span className={style.amount} id="discount">0</span>
+                        </div>
+
+
+                        <div className={`${style.summaryLine} ${style.summaryLineTotal}`}>
+                            <span>Total</span>
+                            <span className={style.amount} id="total">{total}</span>
+                        </div>
+
+                        <button className={style.checkoutBtn} onClick={() => goToCheckout()}>
+                            Go to Checkout
+                        </button>
+                    </div>
+                </div>
+            </div>
 
         </>
     )
