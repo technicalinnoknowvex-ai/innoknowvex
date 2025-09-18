@@ -113,8 +113,8 @@ const Packs = () => {
     }
   }
 
-  const handleSelectedPlan = (course, plan, price, image) => {
-    const data = { course, plan, price, image };
+  const handleSelectedPlan = (id, course, plan, price, image) => {
+    const data = {id, course, plan, price, image };
 
     // Replace the plan if the course already exists
     const updatedPlans = selectedPlans.some((p) => p.course === course)
@@ -127,7 +127,7 @@ const Packs = () => {
     setSelectedPlans(updatedPlans); // trigger re-render
   };
 
-  const handleExplore=(item)=>{
+  const handleExplore = (item) => {
     router.push(`/programs/${item.id}`)
   }
 
@@ -203,7 +203,7 @@ const Packs = () => {
                       )}
 
 
-                    <h4 onClick={() => handleSelectedPlan(item.title, "Self", coursePrice.self_current_price, item.image)} className={style.pricetag} id='self'>Self</h4>
+                    <h4 onClick={() => handleSelectedPlan(item.id, item.title, "Self", coursePrice.self_current_price, item.image)} className={style.pricetag} id='self'>Self</h4>
                     <div className={style.price}>{coursePrice.self_current_price}</div>
                     <div className={style.actualprice}>{coursePrice.self_actual_price}</div>
                     <div className={style.line}></div>
@@ -234,7 +234,7 @@ const Packs = () => {
                         </svg>
                       )}
 
-                    <h4 onClick={() => handleSelectedPlan(item.title, "Mentor", coursePrice.mentor_current_price, item.image)} className={style.pricetag} id='mentor'>Mentor</h4>
+                    <h4 onClick={() => handleSelectedPlan(item.id, item.title, "Mentor", coursePrice.mentor_current_price, item.image)} className={style.pricetag} id='mentor'>Mentor</h4>
                     <div className={style.price}>{coursePrice.mentor_current_price}</div>
                     <div className={style.actualprice}>{coursePrice.mentor_actual_price}</div>
                     <div className={style.line}></div>
@@ -264,7 +264,7 @@ const Packs = () => {
                           </g>
                         </svg>
                       )}
-                    <h4 onClick={() => handleSelectedPlan(item.title, "Professional", coursePrice.professional_current_price, item.image)} className={style.pricetag} id='professional'>Professional</h4>
+                    <h4 onClick={() => handleSelectedPlan(item.id, item.title, "Professional", coursePrice.professional_current_price, item.image)} className={style.pricetag} id='professional'>Professional</h4>
                     <div className={style.price}>{coursePrice.professional_current_price}</div>
                     <div className={style.actualprice}>{coursePrice.professional_actual_price}</div>
                     <div className={style.line}></div>
@@ -282,7 +282,7 @@ const Packs = () => {
                   </g>
                 </svg>
 
-                <svg onClick={()=>handleExplore(item)}  className={style.explore} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <svg onClick={() => handleExplore(item)} className={style.explore} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
                     <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594zM20 2v4m2-2h-4" />
                     <circle cx="4" cy="20" r="2" />

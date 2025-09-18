@@ -1,0 +1,165 @@
+@use "../../../../../styles/fonts" as *;
+
+.formPage {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
+    z-index: 1;
+  }
+
+  .formWrapper {
+    position: relative;
+    z-index: 2;
+    width: 95%;
+    max-width: 420px;
+    background: #fdfae9; // beige tone
+    border-radius: 18px;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    animation: fadeIn 0.25s ease-out;
+    font-family: $font-oldschool;
+    font-weight: 400;
+
+    @media (max-width: 480px) {
+      padding: 1.5rem;
+    }
+
+    .formHeaderContainer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+
+      h1 {
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: #A28808;
+        font-family: $font-sharp-25;
+
+        span {
+          display: block;
+          color: #e53935; // red text like "Self Plan"
+        }
+      }
+
+      .closeButton {
+        background: #A28808;
+        border: 1px solid #ddd;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        font-size: 0.9rem;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s ease;
+
+        &:hover {
+          background: #f2f2f2;
+        }
+      }
+    }
+
+    .courseInfo {
+      background: #f6efdb;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      color: #A28808;
+      line-height: 1.6;
+      font-family: $font-sharp-25;
+      font-weight: 400;
+
+      strong {
+        font-weight: 500;
+        color: #A28808;
+
+      }
+    }
+
+    .inputGroup {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1.2rem;
+
+      .formLabel {
+        font-size: 0.9rem;
+        color: #A48E00;
+        margin-bottom: 0.3rem;
+        font-family: $font-sharp-25;
+        font-weight: 400;
+      }
+
+      .formInput {
+        border: none;
+        border-bottom: 2px solid #aaa;
+        padding: 0.6rem 0;
+        background: transparent;
+        font-size: 1rem;
+        outline: none;
+        transition: border-color 0.2s ease;
+        font-family: $font-oldschool;
+        font-weight: 400;
+        color: #A48E00;
+
+        &:focus {
+          border-color: #e53935; // red underline on focus
+        }
+
+        &::placeholder {
+          color: #aaa;
+          font-size: 0.9rem;
+        }
+      }
+    }
+
+    .buttonGroup {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+
+      .checkoutBtn {
+        width: 40%;
+        padding: 0.9rem;
+        border: none;
+        border-radius: 1.2rem 0.5rem;
+        background: #e53935;
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s ease;
+        margin-left: 14rem;
+
+        &:hover {
+          background: #c62828;
+        }
+      }
+    }
+  }
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

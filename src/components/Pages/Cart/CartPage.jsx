@@ -4,39 +4,100 @@ import style from "./style/cart.module.scss"
 import gsap from 'gsap'
 import { toast } from 'react-toastify'
 import Image from 'next/image'
+import PopUp from './PaymentPopUp/PopUp'
 
 const CartPage = () => {
 
     const star = useRef()
     const [storedItems, setStoredItems] = useState([]);
-    const [subTotal, setSubTotal] = useState(0)
-    const [discount, setDiscount] = useState(0)
     const [total, setTotal] = useState(0)
+    const [discount, setDiscount] = useState({})
+    const [coupon, setCoupon] = useState({})
+    const [isFormOpen, setIsFormOpen] = useState(false);
+
+    
+
 
     const handleDelete = (itemToBeDeleted) => {
 
-        const updatedItems = storedItems.filter((item) => item.title !== itemToBeDeleted.title)
+        const updatedItems = storedItems.filter((item) => item.course !== itemToBeDeleted.course)
         setStoredItems(updatedItems)
 
         localStorage.setItem("cartItems", JSON.stringify(updatedItems))
         toast.success('Deleted !', {
             position: "top-right",
-            autoClose: 1000,
+            autoClose: 500,
             hideProgressBar: false,
             closeOnClick: false,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
             theme: "colored",
+            onClose: () => window.location.reload(),
         });
     }
 
-    const calculateSubtotal = () => {
-        storedItems.map((s) => {
-            setSubTotal(subTotal + s.price)
-        })
-    }
+    const handleEnrollClick = () => {
+        if (total == 0) {
+            toast.warning('Add something to checkout', {
+                position: "top-right",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+            return;
+        }
+        setIsFormOpen(true);
+    };
 
+    const closeForm = () => {
+        setIsFormOpen(false);
+    };
+
+    const applyCoupon = async (coupon, id, price, plan, courseName) => {
+        try {
+            // validating coupon enterd by user 
+            console.log('Validating coupon from sheet:', { coupon, id, price });
+
+            const response = await fetch('/api/validate-coupon-sheet', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    couponCode: coupon.trim().toUpperCase(),
+                    courseId: id,
+                    originalPrice: price,
+                    course: courseName, // Use actual course name instead of prop
+                    plan: plan
+                }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to validate coupon');
+            }
+
+            const result = await response.json();
+            console.log('Coupon validation result:', result);
+
+            setDiscount((prev) => ({
+                ...prev,
+                [id]: result.pricing.discountAmount,
+            }));
+            setTotal(total - result.pricing.discountAmount)
+        }
+        catch (error) {
+            console.log(error)
+        }
+        finally {
+            setCoupon((prev) => ({ ...prev, [id]: "" }));
+        }
+    }
 
     useEffect(() => {
         const cart = localStorage.getItem("cartItems");
@@ -61,18 +122,21 @@ const CartPage = () => {
     }, [])
 
     useEffect(() => {
-        const subtotal = storedItems.reduce((acc, s) => acc + s.price, 0);
-        setSubTotal(subtotal);
+        const amount = storedItems.reduce((acc, s) => acc + s.price, 0);
+        setTotal(amount);
 
-        const discountValue = 0;
-        setDiscount(discountValue);
-
-        setTotal(subtotal - discountValue);
     }, [storedItems]);
 
 
     return (
         <>
+            <PopUp
+                isOpen={isFormOpen}
+                onClose={closeForm}
+                price={total}
+                onEnroll={(amount) => handleEnrollClick("cart checkout", amount)}
+            />
+
             <div className={style.head}>
                 <svg ref={star} className={style.star} width="50" height="50" viewBox="0 0 136 148" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M66.0962 1.74792C66.3511 -0.582641 69.4658 -0.582641 69.7207 1.74792L71.8573 21.2992C74.6162 46.5452 92.9484 66.4498 116.2 69.4453L134.207 71.7651C136.354 72.0419 136.354 75.4237 134.207 75.7005L116.2 78.0203C92.9484 81.0159 74.6162 100.92 71.8573 126.166L69.7207 145.717C69.4658 148.048 66.3511 148.048 66.0962 145.717L63.9596 126.166C61.2007 100.92 42.8685 81.0159 19.6167 78.0203L1.60985 75.7005C-0.536616 75.4237 -0.536616 72.0419 1.60985 71.7651L19.6167 69.4453C42.8685 66.4498 61.2007 46.5452 63.9596 21.2992L66.0962 1.74792Z" fill="#9F8310" />
@@ -111,47 +175,71 @@ const CartPage = () => {
                             {storedItems.length > 0 ? (
                                 <>
                                     {Object.values(storedItems).map((m, index) => (
-                                        <div key={index} className={style.item} data-item="n2o">
-                                            <div>
-                                                <Image
-                                                    className={style.itemImage}
-                                                    src={m.image}
-                                                    height={100}
-                                                    width={100}
-                                                    alt="courseimage"
-                                                />
-                                            </div>
-
-                                            <div className={style.itemDetails}>
-                                                <div className={style.itemName}>{m.course}</div>
-                                                <div className={style.itemInfo}>{m.plan}</div>
-                                            </div>
-
-                                            <div className={style.itemControls}>
-                                                <div className={style.itemPrice}>{m.price}</div>
-                                            </div>
-
-                                            <div>
-                                                <svg
-                                                    className={style.deleteItem}
-                                                    onClick={() => handleDelete(m)}
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width="24"
-                                                    height="24"
-                                                    viewBox="0 0 24 24"
-                                                >
-                                                    <path
-                                                        fill="none"
-                                                        stroke="currentColor"
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        strokeWidth="2"
-                                                        d="M10 11v6m4-6v6m5-11v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                                        <React.Fragment key={index}>
+                                            <div className={style.item} data-item="n2o">
+                                                <div>
+                                                    <Image
+                                                        className={style.itemImage}
+                                                        src={m.image}
+                                                        height={100}
+                                                        width={100}
+                                                        alt="courseimage"
                                                     />
-                                                </svg>
+                                                </div>
+
+                                                <div className={style.itemDetails}>
+                                                    <div className={style.itemName}>{m.course}</div>
+                                                    <div className={style.itemInfo}>{m.plan}</div>
+                                                </div>
+
+                                                <div className={style.itemControls}>
+                                                    <div className={style.itemPrice}>{m.price - (discount[m.id] || 0)}</div>
+                                                </div>
+
+                                                <div>
+                                                    <svg
+                                                        className={style.deleteItem}
+                                                        onClick={() => handleDelete(m)}
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        width="24"
+                                                        height="24"
+                                                        viewBox="0 0 24 24"
+                                                    >
+                                                        <path
+                                                            fill="none"
+                                                            stroke="currentColor"
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            strokeWidth="2"
+                                                            d="M10 11v6m4-6v6m5-11v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                                                        />
+                                                    </svg>
+                                                </div>
                                             </div>
-                                        </div>
+
+                                            <div className={style.couponSection}>
+                                                <div>
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Coupon Code"
+                                                        id="couponInput"
+                                                        className={style.couponInput}
+                                                        onChange={(e) => setCoupon({ ...coupon, [m.id]: e.target.value })}
+                                                        value={coupon[m.id] || ""}
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <button
+                                                        onClick={() => applyCoupon(coupon[m.id], m.id, m.price, m.plan, m.course)}
+                                                        className={style.couponBtn}
+                                                    >
+                                                        Apply
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </React.Fragment>
                                     ))}
+
                                 </>
                             ) : (
                                 <div className={style.emptyCart}>Nothing in cart yet</div>
@@ -159,13 +247,12 @@ const CartPage = () => {
 
                         </div>
                     </div>
-                    
-                    <div className={style.seperationLine}></div>
+
 
                     <div className={style.orderSummary}>
                         <h3 className={style.summaryTitle}>Order Summary</h3>
 
-                        <div className={style.couponSection}>
+                        {/* <div className={style.couponSection}>
                             <div>
                                 <input
                                     type="text"
@@ -178,25 +265,28 @@ const CartPage = () => {
                             <div>
                                 <button onClick={() => applyCoupon()} className={style.couponBtn}>Apply</button>
                             </div>
-                        </div>
+                        </div> */}
 
-                        <div className={`${style.summaryLine} ${style.summaryLineSubtotal}`}>
+                        {/* <div className={`${style.summaryLine} ${style.summaryLineSubtotal}`}>
                             <span>Subtotal</span>
                             <span className={style.amount} id="subtotal">{subTotal}</span>
-                        </div>
+                        </div> */}
 
-                        <div className={`${style.summaryLine} ${style.summaryLineDiscount}`}>
+                        {/* <div className={`${style.summaryLine} ${style.summaryLineDiscount}`}>
                             <span>Discount</span>
                             <span className={style.amount} id="discount">0</span>
-                        </div>
+                        </div> */}
 
+                        <div className={style.line1}></div>
 
                         <div className={`${style.summaryLine} ${style.summaryLineTotal}`}>
                             <span>Total</span>
                             <span className={style.amount} id="total">{total}</span>
                         </div>
 
-                        <button className={style.checkoutBtn} onClick={() => goToCheckout()}>
+                        <div className={style.line1}></div>
+
+                        <button className={style.checkoutBtn} onClick={() => handleEnrollClick()}>
                             Go to Checkout
                         </button>
                     </div>

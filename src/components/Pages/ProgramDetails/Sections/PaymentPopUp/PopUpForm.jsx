@@ -349,7 +349,7 @@ const PopUpForm = ({ isOpen, onClose, plan, course, price, courseId: propCourseI
           couponCode: couponCode.trim().toUpperCase(),
           courseId: courseId,
           originalPrice: originalPrice,
-          course: actualCourseName, // Use actual course name instead of prop
+          course: actualCourseName,
           plan: plan
         }),
       });
