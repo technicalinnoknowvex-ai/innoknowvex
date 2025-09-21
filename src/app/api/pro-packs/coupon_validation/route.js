@@ -8,7 +8,7 @@ const getSheetsClient = async () => {
     throw new Error("Missing Google Sheets configuration in environment variables");
   }
 
-  const privateKey = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(/\\n/g, "\n");
+  const privateKey = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY_BASE64;
 
   const auth = new google.auth.JWT({
     email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
