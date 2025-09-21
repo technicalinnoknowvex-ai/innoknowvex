@@ -11,12 +11,8 @@ const CartPage = () => {
     const star = useRef()
     const [storedItems, setStoredItems] = useState([]);
     const [total, setTotal] = useState(0)
-    const [discount, setDiscount] = useState({})
-    const [coupon, setCoupon] = useState({})
+    const [coupon, setCoupon] = useState("")
     const [isFormOpen, setIsFormOpen] = useState(false);
-
-    
-
 
     const handleDelete = (itemToBeDeleted) => {
 
@@ -58,46 +54,62 @@ const CartPage = () => {
         setIsFormOpen(false);
     };
 
-    const applyCoupon = async (coupon, id, price, plan, courseName) => {
-        try {
-            // validating coupon enterd by user 
-            console.log('Validating coupon from sheet:', { coupon, id, price });
+    const applyCoupon = async (coupon, total) => {
+        if (!coupon || coupon.trim() === "") {
+            toast.warning("Please enter a coupon code", {
+                position: "top-right",
+                autoClose: 2000,
+                theme: "colored",
+            });
+            return;
+        }
 
-            const response = await fetch('/api/validate-coupon-sheet', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+        try {
+            const response = await fetch("/api/pro-packs/coupon_validation", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    couponCode: coupon.trim().toUpperCase(),
-                    courseId: id,
-                    originalPrice: price,
-                    course: courseName, // Use actual course name instead of prop
-                    plan: plan
+                    couponCode: coupon.trim(), // trim whitespace
+                    price: total,              // original price
+                    courseId: "pro-packs",     // optional: course ID
                 }),
             });
 
             if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Failed to validate coupon');
+                // Handle non-2xx HTTP status
+                const errorData = await response.json().catch(() => ({}));
+                const message = errorData.message || "Failed to apply coupon";
+                toast.error(message, { position: "top-right", autoClose: 3000, theme: "colored" });
+                return;
             }
 
-            const result = await response.json();
-            console.log('Coupon validation result:', result);
+            const data = await response.json();
 
-            setDiscount((prev) => ({
-                ...prev,
-                [id]: result.pricing.discountAmount,
-            }));
-            setTotal(total - result.pricing.discountAmount)
+            if (data.success) {
+                // Coupon applied successfully
+                setTotal(data.finalPrice); // update total price
+                setCoupon("")
+                toast.success(`Coupon applied!`, {
+                    position: "top-right",
+                    autoClose: 3000,
+                    theme: "colored",
+                });
+            } else {
+                // API returned success=false
+                const message = data.message || "Invalid coupon";
+                setCoupon("")
+                toast.error(message, { position: "top-right", autoClose: 3000, theme: "colored" });
+            }
+        } catch (err) {
+            console.error("Error applying coupon:", err);
+            toast.error("Something went wrong. Please try again later.", {
+                position: "top-right",
+                autoClose: 3000,
+                theme: "colored",
+            });
         }
-        catch (error) {
-            console.log(error)
-        }
-        finally {
-            setCoupon((prev) => ({ ...prev, [id]: "" }));
-        }
-    }
+    };
+
 
     useEffect(() => {
         const cart = localStorage.getItem("cartItems");
@@ -193,7 +205,7 @@ const CartPage = () => {
                                                 </div>
 
                                                 <div className={style.itemControls}>
-                                                    <div className={style.itemPrice}>{m.price - (discount[m.id] || 0)}</div>
+                                                    <div className={style.itemPrice}>{m.price}</div>
                                                 </div>
 
                                                 <div>
@@ -217,26 +229,7 @@ const CartPage = () => {
                                                 </div>
                                             </div>
 
-                                            <div className={style.couponSection}>
-                                                <div>
-                                                    <input
-                                                        type="text"
-                                                        placeholder="Coupon Code"
-                                                        id="couponInput"
-                                                        className={style.couponInput}
-                                                        onChange={(e) => setCoupon({ ...coupon, [m.id]: e.target.value })}
-                                                        value={coupon[m.id] || ""}
-                                                    />
-                                                </div>
-                                                <div>
-                                                    <button
-                                                        onClick={() => applyCoupon(coupon[m.id], m.id, m.price, m.plan, m.course)}
-                                                        className={style.couponBtn}
-                                                    >
-                                                        Apply
-                                                    </button>
-                                                </div>
-                                            </div>
+
                                         </React.Fragment>
                                     ))}
 
@@ -252,20 +245,7 @@ const CartPage = () => {
                     <div className={style.orderSummary}>
                         <h3 className={style.summaryTitle}>Order Summary</h3>
 
-                        {/* <div className={style.couponSection}>
-                            <div>
-                                <input
-                                    type="text"
-                                    placeholder="Coupon Code"
-                                    id="couponInput"
-                                    className={style.couponInput}
-                                />
 
-                            </div>
-                            <div>
-                                <button onClick={() => applyCoupon()} className={style.couponBtn}>Apply</button>
-                            </div>
-                        </div> */}
 
                         {/* <div className={`${style.summaryLine} ${style.summaryLineSubtotal}`}>
                             <span>Subtotal</span>
@@ -286,6 +266,22 @@ const CartPage = () => {
 
                         <div className={style.line1}></div>
 
+                        <div className={style.couponSection}>
+                            <div>
+                                <input
+                                    type="text"
+                                    placeholder="Coupon Code"
+                                    id="couponInput"
+                                    className={style.couponInput}
+                                    value={coupon} // bind value
+                                    onChange={(e) => setCoupon(e.target.value)} // update state
+                                />
+
+                            </div>
+                            <div>
+                                <button onClick={() => applyCoupon(coupon, total)} className={style.couponBtn}>Apply</button>
+                            </div>
+                        </div>
                         <button className={style.checkoutBtn} onClick={() => handleEnrollClick()}>
                             Go to Checkout
                         </button>
