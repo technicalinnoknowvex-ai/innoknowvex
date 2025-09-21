@@ -4,16 +4,46 @@ import { google } from "googleapis";
 
 // Initialize Google Sheets client
 const getSheetsClient = async () => {
-  if (!process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || !process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY || !process.env.GOOGLE_SHEET_ID) {
-    throw new Error("Missing Google Sheets configuration in environment variables");
+  let privateKey;
+
+  // Try Base64 private key first, then fallback to regular private key
+  if (process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY_BASE64) {
+    try {
+      const base64Key = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY_BASE64;
+      console.log('Base64 key length:', base64Key?.length);
+
+      const decodedKey = Buffer.from(base64Key, 'base64').toString('utf8');
+      // Replace escaped newlines with actual newlines
+      privateKey = decodedKey.replace(/\\n/g, '\n');
+
+      console.log('Decoded private key first 50 chars:', privateKey?.substring(0, 50));
+      console.log('Successfully decoded Base64 private key');
+    } catch (decodeError) {
+      console.error('Base64 decode error:', decodeError.message);
+      throw new Error(`Failed to decode Base64 private key: ${decodeError.message}`);
+    }
+  } else if (process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY) {
+    privateKey = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(/\\n/g, '\n');
+    console.log('Using regular private key');
+    console.log('Private key first 50 chars:', privateKey?.substring(0, 50));
+  } else {
+    throw new Error('No private key found in environment variables');
   }
 
-  const privateKey = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY_BASE64;
+  // Validate environment variables
+  if (!process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || !process.env.GOOGLE_SHEET_ID) {
+    console.error('Missing Google Sheets configuration');
+    return NextResponse.json(
+      { message: 'Server configuration error', success: false },
+      { status: 500 }
+    );
+  }
 
+  // Set up Google Sheets authentication
   const auth = new google.auth.JWT({
     email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
     key: privateKey,
-    scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
+    scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
   });
 
   await auth.authorize();
