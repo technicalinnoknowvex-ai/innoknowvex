@@ -112,12 +112,16 @@ $desktop: 1440px;
   margin-bottom: 10%;
   
   @include laptop{
-    grid-template-columns: repeat(2, 1fr);
-    padding: 0;
-    scale: 0.8;
-    margin-top: -47rem;
-    margin-bottom: -45rem;
-  }
+  grid-template-columns: repeat(2, 1fr);
+  padding: 0;
+  transform: scale(0.8);
+  transform-origin: top center; // or center center if you want perfect centering
+  margin-top: 5rem;
+  margin-bottom: -120rem;
+  margin-left: 0; // no manual offset needed
+  justify-self: center; // if inside grid
+  align-self: center;   // if inside grid
+}
 
   @include mobile {
   grid-template-columns: 1fr;
@@ -133,7 +137,7 @@ $desktop: 1440px;
 
 
   @include tablet{
-    grid-template-columns: 1fr;
+  grid-template-columns: 1fr;
   padding: 0;
   transform: scale(0.8);
   transform-origin: top center; // or center center if you want perfect centering

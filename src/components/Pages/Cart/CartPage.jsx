@@ -157,28 +157,6 @@ const CartPage = () => {
                 <h1 className={style.heading}>Your Personalised <span>Cart</span></h1>
             </div>
 
-            {/* {Object.values(storedItems).map((item, index) => (
-                <div key={index} className={style.cardBody}>
-                    <div className={style.cardDetail}>
-                        <div>
-                            <Image className={style.cardImage} src={item.image} height={200} width={200} alt="course image" />
-                        </div>
-
-                        <div className={style.cardDesc}>
-                            <h4 className={style.courseTitle}>{item.course}</h4>
-                            <h4 className={style.courseTitle}>{item.plan}</h4>
-                            <h5 className={style.coursePrice}>Rs. {item.price}</h5>
-                        </div>
-                    </div>
-
-                    <div className={style.actionBtn}>
-                        <svg onClick={() => handleDelete(item)} className={style.delete} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 11v6m4-6v6m5-11v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>
-
-                        <svg className={style.pay} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"><path d="M21 10.656V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.344" /><path d="m9 11l3 3L22 4" /></g></svg>
-                    </div>
-                </div>
-            ))} */}
-
             <div className={style.shoppingCartContainer}>
 
                 <div className={style.cartContent}>
@@ -244,28 +222,12 @@ const CartPage = () => {
 
                     <div className={style.orderSummary}>
                         <h3 className={style.summaryTitle}>Order Summary</h3>
-
-
-
-                        {/* <div className={`${style.summaryLine} ${style.summaryLineSubtotal}`}>
-                            <span>Subtotal</span>
-                            <span className={style.amount} id="subtotal">{subTotal}</span>
-                        </div> */}
-
-                        {/* <div className={`${style.summaryLine} ${style.summaryLineDiscount}`}>
-                            <span>Discount</span>
-                            <span className={style.amount} id="discount">0</span>
-                        </div> */}
-
                         <div className={style.line1}></div>
-
                         <div className={`${style.summaryLine} ${style.summaryLineTotal}`}>
                             <span>Total</span>
                             <span className={style.amount} id="total">{total}</span>
                         </div>
-
-                        <div className={style.line1}></div>
-
+                        <div className={style.line2}></div>
                         <div className={style.couponSection}>
                             <div>
                                 <input
@@ -276,7 +238,6 @@ const CartPage = () => {
                                     value={coupon} // bind value
                                     onChange={(e) => setCoupon(e.target.value)} // update state
                                 />
-
                             </div>
                             <div>
                                 <button onClick={() => applyCoupon(coupon, total)} className={style.couponBtn}>Apply</button>

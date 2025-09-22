@@ -29,30 +29,31 @@ $desktop: 1440px;
   }
 }
 
+/* ---------------------- Header ---------------------- */
 .head {
   display: flex;
   flex-direction: row;
-  margin-top: 8%;
+  margin: 4% auto 7rem auto;
   justify-content: center;
   gap: 2rem;
-  margin-bottom: 7rem;
 
   @include mobile {
-    margin-top: 34%;
-    justify-content: center;
-    margin-bottom: 2rem;
+    margin: 2rem auto;
     gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 6rem;
   }
 
   @include tablet {
-    margin-top: 15%;
-    margin-bottom: 4rem;
-    gap: 1.5rem;
+    margin: 7rem auto;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
   }
 
   @include laptop {
-    margin-top: 10%;
-    margin-bottom: 5rem;
+    margin: 2rem auto 5rem auto;
   }
 }
 
@@ -61,148 +62,7 @@ $desktop: 1440px;
   font-weight: 400;
   font-size: 3rem;
   color: #9F8310;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  @include mobile {
-    font-size: 1.5rem;
-    margin-left: -2.5rem;
-  }
-
-  @include tablet {
-    font-size: 2.2rem;
-    margin-left: -1.5rem;
-  }
-
-  @include laptop {
-    font-size: 2.8rem;
-  }
-}
-
-.star {
-  margin-top: -3rem;
-
-  @include mobile {
-    margin-top: -3rem;
-    scale: 0.6;
-    padding: 0.5rem;
-  }
-
-  @include tablet {
-    margin-top: -2.5rem;
-    scale: 0.7;
-  }
-
-  @include laptop {
-    margin-top: -2.8rem;
-    scale: 0.85;
-  }
-}
-
-.cardBody {
-  height: 10rem;
-  width: 60rem;
-  background-color: #FFF7E0;
-  margin: auto;
-  border-radius: 1rem 6rem;
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 2rem;
-  border: 1px solid #A28808;
-
-  @include mobile {
-    flex-direction: column;
-    width: 90%;
-    height: 40vh;
-    scale: 0.9;
-    border-radius: 1rem 3rem;
-  }
-
-  @include tablet {
-    width: 90%;
-    height: 12rem;
-    border-radius: 1rem 4rem;
-  }
-
-  @include laptop {
-    width: 85%;
-    height: 11rem;
-    border-radius: 1rem 5rem;
-  }
-}
-
-.cardImage {
-  height: 10rem;
-  width: 15rem;
-  background-color: lightcoral;
-  border-radius: 1rem 5rem;
-  scale: 0.8;
-  margin-left: 0.8rem;
-
-  @include mobile {
-    margin-left: 2rem;
-    width: 20rem;
-    height: 8rem;
-    border-radius: 1rem 3rem;
-  }
-
-  @include tablet {
-    width: 12rem;
-    height: 9rem;
-    margin-left: 1rem;
-    border-radius: 1rem 4rem;
-  }
-
-  @include laptop {
-    width: 14rem;
-    height: 9.5rem;
-    margin-left: 0.9rem;
-  }
-}
-
-.cardDetail {
-  display: flex;
-  flex-direction: row;
-
-  @include mobile {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  @include tablet {
-    flex-direction: row;
-  }
-}
-
-.cardDesc {
-  display: flex;
-  flex-direction: column;
-  margin-left: 6rem;
-  margin-top: 2.5rem;
-
-  @include mobile {
-    margin-left: 2rem;
-    margin-top: 1rem;
-  }
-
-  @include tablet {
-    margin-left: 3rem;
-    margin-top: 2rem;
-  }
-
-  @include laptop {
-    margin-left: 4rem;
-    margin-top: 2.2rem;
-  }
-}
-
-.courseTitle {
-  font-family: $font-oldschool;
-  font-weight: 400;
-  font-size: 2.2rem;
-  color: #A28808;
+  text-align: center;
 
   @include mobile {
     font-size: 1.6rem;
@@ -213,149 +73,235 @@ $desktop: 1440px;
   }
 
   @include laptop {
-    font-size: 2rem;
+    font-size: 3.6rem;
+  }
+}
+
+.star {
+  margin-top: -2rem;
+  text-align: center;
+
+  @include mobile {
+    margin-top: -1.5rem;
+    transform: scale(0.6);
+  }
+
+  @include tablet {
+    margin-top: -2rem;
+    transform: scale(0.7);
+  }
+
+  @include laptop {
+    margin-top: -2.5rem;
+    transform: scale(0.9);
+  }
+}
+
+/* ---------------------- Card ---------------------- */
+.cardBody {
+  width: 100%;
+  max-width: 900px;
+  background-color: #FFF7E0;
+  margin: 1rem auto;
+  border-radius: 1rem 6rem;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #A28808;
+
+  @include mobile {
+    flex-direction: column;
+    width: 95%;
+    border-radius: 1rem 2rem;
+  }
+
+  @include tablet {
+    flex-direction: column;
+    width: 90%;
+    border-radius: 1rem 3rem;
+  }
+
+  @include laptop {
+    flex-direction: row;
+    width: 90%;
+    border-radius: 1rem 4rem;
+  }
+}
+
+.cardImage {
+  flex-shrink: 0;
+  height: 10rem;
+  width: 15rem;
+  background-color: lightcoral;
+  border-radius: 1rem 5rem;
+  margin: 0.8rem;
+
+  @include mobile {
+    width: 100%;
+    height: 8rem;
+    border-radius: 1rem 2rem;
+  }
+
+  @include tablet {
+    width: 100%;
+    height: 10rem;
+    border-radius: 1rem 3rem;
+  }
+
+  @include laptop {
+    width: 14rem;
+    height: 9.5rem;
+  }
+}
+
+.cardDetail {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+
+  @include mobile {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  @include tablet {
+    flex-direction: column;
+  }
+}
+
+.cardDesc {
+  display: flex;
+  flex-direction: column;
+  margin: 1.5rem;
+
+  @include mobile {
+    margin: 1rem;
+  }
+
+  @include tablet {
+    margin: 1.2rem;
+  }
+
+  @include laptop {
+    margin: 1.5rem 2rem;
+  }
+}
+
+.courseTitle {
+  font-family: $font-oldschool;
+  font-weight: 400;
+  font-size: 2rem;
+  color: #A28808;
+
+  @include mobile {
+    font-size: 1.6rem;
+  }
+
+  @include tablet {
+    font-size: 1.8rem;
   }
 }
 
 .coursePrice {
   font-family: $font-oldschool;
   font-weight: 400;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   color: #A28808;
 
   @include mobile {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 
   @include tablet {
-    font-size: 1.5rem;
-  }
-
-  @include laptop {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
 }
 
 .actionBtn {
   display: flex;
   flex-direction: row;
-  gap: 3rem;
-  margin-left: 9rem;
+  gap: 2rem;
+  margin-top: auto;
   align-items: center;
 
   @include mobile {
-    margin-left: 0;
     justify-content: center;
     margin-top: 1rem;
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   @include tablet {
-    margin-left: 3rem;
-    gap: 2.5rem;
+    justify-content: center;
+    margin-top: 1rem;
   }
 
   @include laptop {
-    margin-left: 6rem;
-    gap: 2.8rem;
+    margin-left: 2rem;
   }
 }
 
-.delete {
-  scale: 1.5;
-  color: lightcoral;
+.delete, .pay {
+  font-size: 1.5rem;
   cursor: pointer;
 
   @include mobile {
-    scale: 1.2;
+    font-size: 1.2rem;
   }
 
   @include tablet {
-    scale: 1.3;
-  }
-
-  @include laptop {
-    scale: 1.4;
+    font-size: 1.3rem;
   }
 }
 
-.pay {
-  scale: 1.5;
-  color: lightseagreen;
-  cursor: pointer;
+.delete { color: lightcoral; }
+.pay { color: lightseagreen; }
 
-  @include mobile {
-    scale: 1.2;
-  }
-
-  @include tablet {
-    scale: 1.3;
-  }
-
-  @include laptop {
-    scale: 1.4;
-  }
-}
-
+/* ---------------------- Cart Container ---------------------- */
 .shoppingCartContainer {
   max-width: 1400px;
-  margin: -50px auto;
+  margin: 2rem auto;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  height: 60vh;
   background: #FFF9E1;
+  padding: 1rem;
 
   @include mobile {
-    margin: -2px 0;
-    height: auto;
-    min-height: 50vh;
+    margin: 1rem auto;
     border-radius: 8px;
+    padding: 0.5rem;
   }
 
   @include tablet {
-    margin: -30px auto;
-    height: 185vh;
+    margin: 1.5rem auto;
     border-radius: 10px;
-  }
-
-  @include laptop {
-    margin: -40px auto;
-    height: 62vh;
   }
 }
 
 .cartContent {
   display: flex;
-  min-height: 500px;
   flex-direction: row;
+  gap: 2rem;
 
   @include mobile {
     flex-direction: column;
-    min-height: auto;
-    justify-content: center;
+    gap: 1rem;
   }
 
   @include tablet {
     flex-direction: column;
-    justify-content: center;
+    gap: 1.5rem;
   }
 }
 
 .cartItems {
   flex: 2;
-  padding: 32px;
-
-  @include mobile {
-    padding: 16px;
-  }
+  padding: 16px;
 
   @include tablet {
-    padding: 24px;
+    padding: 20px;
   }
 
   @include laptop {
-    padding: 28px;
+    padding: 24px;
   }
 }
 
@@ -363,21 +309,16 @@ $desktop: 1440px;
   border: 1px solid #A28808;
   padding: 0.5rem;
   border-radius: 1rem;
-  width: 70vh;
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
 
   @include mobile {
-    width: 100%;
-    padding: 1rem;
+    max-width: 100%;
   }
 
   @include tablet {
-    width: 100%;
-    max-width: 50vh;
-  }
-
-  @include laptop {
-    width: 100%;
-    max-width: 60vh;
+    max-width: 500px;
   }
 }
 
@@ -387,21 +328,15 @@ $desktop: 1440px;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #F3E5AB;
-  scale: 0.9;
+  padding: 1rem 0;
 
   @include mobile {
     flex-direction: column;
-    align-items: center;
-    scale: 1;
-    padding: 1rem 0;
     gap: 0.8rem;
   }
 
   @include tablet {
     flex-direction: column;
-    align-items: center;
-    scale: 1;
-    padding: 1rem 0;
     gap: 0.8rem;
   }
 }
@@ -414,21 +349,10 @@ $desktop: 1440px;
   font-size: 1.6rem;
   font-weight: 500;
   color: #A38907;
-  margin-bottom: 4px;
   font-family: $font-oldschool;
 
-  @include mobile {
-    font-size: 1.3rem;
-    margin-bottom: 2px;
-  }
-
-  @include tablet {
-    font-size: 1.4rem;
-  }
-
-  @include laptop {
-    font-size: 1.5rem;
-  }
+  @include mobile { font-size: 1.3rem; }
+  @include tablet { font-size: 1.4rem; }
 }
 
 .itemInfo {
@@ -437,17 +361,8 @@ $desktop: 1440px;
   font-weight: 500;
   font-family: $font-oldschool;
 
-  @include mobile {
-    font-size: 1.1rem;
-  }
-
-  @include tablet {
-    font-size: 1.2rem;
-  }
-
-  @include laptop {
-    font-size: 1.3rem;
-  }
+  @include mobile { font-size: 1.1rem; }
+  @include tablet { font-size: 1.2rem; }
 }
 
 .itemPrice {
@@ -459,22 +374,16 @@ $desktop: 1440px;
 
   @include mobile {
     font-size: 1.3rem;
-    text-align: left;
+    text-align: center;
     min-width: auto;
-  }
-
-  @include tablet {
-    font-size: 1.4rem;
-  }
-
-  @include laptop {
-    font-size: 1.5rem;
   }
 }
 
 .itemImage {
   border: 1px solid #A28808;
   border-radius: 1rem;
+  max-width: 140px;
+  max-height: 140px;
 
   @include mobile {
     max-width: 100px;
@@ -485,86 +394,50 @@ $desktop: 1440px;
     max-width: 120px;
     max-height: 120px;
   }
-
-  @include laptop {
-    max-width: 140px;
-    max-height: 140px;
-  }
 }
 
 .itemDetails {
-  width: 300px;
+  width: 100%;
+  max-width: 280px;
 
-  @include mobile {
-    width: 100%;
+  @include mobile; @include tablet {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-  }
-
-  @include tablet {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  @include laptop {
-    width: 280px;
+    text-align: center;
   }
 }
 
 .deleteItem {
-  top: 27%;
-  left: 19%;
-  border-radius: 50%;
   border: none;
   font-weight: bold;
   cursor: pointer;
   color: #A28808;
 
-  @include mobile {
-    position: static;
-    align-self: flex-end;
-  }
-
-  @include tablet {
-    position: relative;
-    top: auto;
-    left: auto;
-  }
-
-  &:hover {
-    color: #cc0000;
-  }
+  &:hover { color: #cc0000; }
 }
 
+/* ---------------------- Order Summary ---------------------- */
 .orderSummary {
   border: 2px solid #A28808;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 35vh;
-  margin-top: 6rem;
-  margin-right: 7rem;
   padding: 2rem;
   border-radius: 1rem;
+  width: 100%;
+  max-width: 350px;
+  margin: 2rem auto;
 
   @include mobile {
-    flex: none;
-    padding: 20px 16px;
-    margin-bottom: 180px;
+    max-width: 300px;
+    padding: 1.5rem;
   }
 
   @include tablet {
-    padding: 28px 20px;
-  }
-
-  @include laptop {
-    padding: 30px 22px;
+    max-width: 320px;
+    padding: 1.8rem;
   }
 }
 
@@ -576,95 +449,8 @@ $desktop: 1440px;
   font-family: $font-sharp-25;
   text-align: center;
 
-  @include mobile {
-    font-size: 1.3rem;
-    margin-bottom: 15px;
-  }
-
-  @include tablet {
-    font-size: 1.4rem;
-  }
-}
-
-.couponSection {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 2rem;
-
-  @include mobile {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: center;
-  }
-
-  @include tablet {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: center;
-  }
-}
-
-.couponInput {
-  background: #FFFCE1;
-  color: #A69600;
-  border: 1px solid #A69600;
-  border-radius: 8px;
-  padding: 10px 16px;
-  font-size: 14px;
-  font-weight: 500;
-  transition: background 0.2s ease, color 0.2s ease;
-  outline: none;
-
-  @include mobile {
-    width: 100%;
-    max-width: 250px;
-    font-size: 1.1rem;
-    padding: 8px 12px;
-  }
-
-  @include tablet {
-    width: 100%;
-    max-width: 250px;
-    font-size: 1.3rem;
-    padding: 8px 12px;
-  }
-}
-
-.couponInput:focus {
-  border-color: #A69600;
-  outline: none;
-}
-
-.summaryLine {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-  font-size: 1rem;
-  margin-top: 2rem;
-
-  @include mobile {
-    font-size: 0.9rem;
-    margin-top: 1.5rem;
-    margin-bottom: 10px;
-  }
-
-  @include tablet {
-    font-size: 0.95rem;
-  }
-}
-
-.summaryLineSubtotal,
-.summaryLineDiscount
- {
-  color: #A69600;
-  font-size: 1rem;
-  font-weight: 600;
-
-  @include tablet{
-    font-size: 1.2rem;
-  }
+  @include mobile { font-size: 1.3rem; }
+  @include tablet { font-size: 1.4rem; }
 }
 
 .summaryLineTotal {
@@ -688,13 +474,27 @@ $desktop: 1440px;
   }
 }
 
-.couponBtn {
+.couponSection {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+
+  @include mobile; @include tablet {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+}
+
+.couponInput,
+.couponBtn,
+.checkoutBtn {
   background: #FFFCE1;
   color: #A69600;
   border: 1px solid #A69600;
   border-radius: 8px;
   padding: 10px 16px;
-  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s ease, color 0.2s ease;
@@ -707,7 +507,7 @@ $desktop: 1440px;
   }
 
   @include tablet {
-     width: 100%;
+    width: 100%;
     max-width: 250px;
     font-size: 1.2rem;
     padding: 8px 12px;
@@ -720,43 +520,15 @@ $desktop: 1440px;
 }
 
 .checkoutBtn {
-  background: #FFFCE1;
-  color: #A69600;
-  border: 1px solid #A69600;
-  border-radius: 8px;
-  padding: 10px 16px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
   margin-top: 1.5rem;
 
-  @include mobile {
-    margin-left: 0;
-    margin-top: 2rem;
-    width: 100%;
-    font-size: 18px;
-    padding: 12px 16px;
-  }
-
-  @include tablet {
-    margin-left: 0;
-    margin-top: 2rem;
-    width: 100%;
-    font-size: 18px;
-    padding: 12px 16px;
-  }
-
   @include laptop {
-    margin-left: 7rem;
-  }
-
-  &:hover {
-    background: #A38907;
-    color: white;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
+/* ---------------------- Empty Cart ---------------------- */
 .emptyCart {
   display: flex;
   justify-content: center;
@@ -774,20 +546,19 @@ $desktop: 1440px;
     min-height: 150px;
     font-size: 1rem;
     padding: 15px;
-    border-radius: 8px;
   }
 
   @include tablet {
     min-height: 175px;
     font-size: 1.1rem;
-    border-radius: 10px;
   }
 }
 
-
-.line1{
+/* ---------------------- Decorative Lines ---------------------- */
+.line1, .line2 {
   height: 2px;
   width: 240px;
   background-color: #F3E5AB;
   border-top: 2px dotted #b59d00;
+  margin: 10px auto;
 }

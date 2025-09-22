@@ -171,6 +171,7 @@ const oldSchoolGrotesk = localFont({
   variable: "--font-oldschool",
   display: "swap",
 });
+
 export const metadata = {
   title: "Innoknowvex",
   description: "Transforming Aspirations into Achievements",
