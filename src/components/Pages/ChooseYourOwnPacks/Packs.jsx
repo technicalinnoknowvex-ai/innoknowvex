@@ -23,21 +23,21 @@ const Packs = () => {
 
   const [selectedPlans, setSelectedPlans] = useState([]);
 
-  // On mount, load from localStorage
+  // On mount, load from sessionStorage
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem("selectedPlans")) || [];
+    const stored = JSON.parse(sessionStorage.getItem("selectedPlans")) || [];
     setSelectedPlans(stored);
   }, []);
 
 
   const handleClick = (item) => {
-    const existingCart = JSON.parse(localStorage.getItem("cartItems")) || [];
+    const existingCart = JSON.parse(sessionStorage.getItem("cartItems")) || [];
 
     const courseToBeAdded = selectedPlans.find((c) => c.course == item.title)
 
     existingCart.push(courseToBeAdded);
 
-    localStorage.setItem("cartItems", JSON.stringify(existingCart));
+    sessionStorage.setItem("cartItems", JSON.stringify(existingCart));
 
     toast.success("Added !", {
       position: "top-right",
@@ -123,7 +123,7 @@ const Packs = () => {
       )
       : [...selectedPlans, data];
 
-    // localStorage.setItem("selectedPlans", JSON.stringify(updatedPlans));
+    // sessionStorage.setItem("selectedPlans", JSON.stringify(updatedPlans));
     setSelectedPlans(updatedPlans); // trigger re-render
   };
 
