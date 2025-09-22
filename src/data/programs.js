@@ -76,6 +76,7 @@ export const programs = {
           "You will learn to establish communication with MongoDB, read and write data to the database, utilize the aggregation framework for complex queries, and manage database configuration.",
       },
     ],
+    price_search_tag: "web-development"
   },
   "python-programming": {
     id: "python-programming",
@@ -104,6 +105,7 @@ export const programs = {
       "Generators",
       "Lambda Functions",
     ],
+    price_search_tag: "python-programming"
   },
   "java": {
     id: "java",
@@ -111,7 +113,7 @@ export const programs = {
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/JAVA.jpg",
     training: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/SampleTrainingCertificate.jpg",
     internship: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/SampleInternshipCertificate.jpg",
-    brochure:'https://ectpbsj3skccab5d.public.blob.vercel-storage.com/INNOKNOWVEX%20Java-%20brochure.pdf',
+    brochure: 'https://ectpbsj3skccab5d.public.blob.vercel-storage.com/INNOKNOWVEX%20Java-%20brochure.pdf',
     overview:
       "Java program offers comprehensive training in Java programming, covering essential concepts such as object-oriented programming, data structures, algorithms, and software development principles. Students will engage in hands-on projects, gaining practical experience in building robust, scalable applications. The curriculum also includes advanced topics like Java frameworks, web development, and mobile app development. Graduates will be well-prepared for careers in software development, enterprise solutions, web applications, and Android development.",
     skills: [
@@ -132,6 +134,7 @@ export const programs = {
       "Generics",
       "Java Virtual Machine (JVM)",
     ],
+    price_search_tag: "java"
   },
   "java-dsa": {
     id: "java-dsa",
@@ -139,41 +142,41 @@ export const programs = {
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/JAVA.jpg",
     training: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/SampleTrainingCertificate.jpg",
     internship: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/SampleInternshipCertificate.jpg",
-    brouchure:'https://ectpbsj3skccab5d.public.blob.vercel-storage.com/INNOKNOWVEX%20Java%20with%20DSA%20brochure%20%281%29.pdf',
+    brouchure: 'https://ectpbsj3skccab5d.public.blob.vercel-storage.com/INNOKNOWVEX%20Java%20with%20DSA%20brochure%20%281%29.pdf',
     overview:
       "Master Java fundamentals and core data structures & algorithms through an industry-focused curriculum. Build a solid foundation in OOP, concurrency, collections, and efficient algorithms. Prepare confidently for technical interviews with structured coding practice and expert mentorship ",
     brochure: "/brochures/INNOKNOWVEX Java with DSA brochure (1)",
-   skills: [
-  "Object-oriented design",
-  "classes",
-  "inheritance",
-  "polymorphism",
-  "Exception handling & error management",
-  "Collections framework",
-  "generics",
-  "File I/O",
-  "multithreading & concurrency",
-  "JDBC basics and clean code practices",
-  "Time & space complexity",
-  "arrays",
-  "strings",
-  "linked lists",
-  "stacks",
-  "queues",
-  "hash maps",
-  "binary trees",
-  "heaps",
-  "tries",
-  "graphs (BFS",
-  "DFS)",
-  "sorting (quick",
-  "merge)",
-  "searching (binary)",
-  "recursion",
-  "greedy strategies",
-  "dynamic programming",
-]
-
+    skills: [
+      "Object-oriented design",
+      "classes",
+      "inheritance",
+      "polymorphism",
+      "Exception handling & error management",
+      "Collections framework",
+      "generics",
+      "File I/O",
+      "multithreading & concurrency",
+      "JDBC basics and clean code practices",
+      "Time & space complexity",
+      "arrays",
+      "strings",
+      "linked lists",
+      "stacks",
+      "queues",
+      "hash maps",
+      "binary trees",
+      "heaps",
+      "tries",
+      "graphs (BFS",
+      "DFS)",
+      "sorting (quick",
+      "merge)",
+      "searching (binary)",
+      "recursion",
+      "greedy strategies",
+      "dynamic programming",
+    ],
+    price_search_tag:"java-dsa"
   },
   "machine-learning": {
     id: "machine-learning",
@@ -231,6 +234,7 @@ export const programs = {
           "You will gain hands-on experience by implementing various machine learning algorithms to complete a major practical project, applying all the concepts learned throughout the course.",
       },
     ],
+    price_search_tag:"machine-learning"
   },
   "artificial-intelligence": {
     id: "artificial-intelligence",
@@ -303,6 +307,7 @@ export const programs = {
           "Upon completion, you will receive a Certificate of Training Completion, an Internship Completion Certificate, and potentially an Excellence Performance Certificate for outstanding achievement.",
       },
     ],
+    price_search_tag:"artificial-intelligence"
   },
   "cloud-computing": {
     id: "cloud-computing",
@@ -371,6 +376,7 @@ export const programs = {
           "You will get an introduction to AWS, learn core AWS concepts, explore AWS storage and security features, and gain practical experience working with Amazon Web Services.",
       },
     ],
+    price_search_tag:"cloud-computing"
   },
   "cyber-security": {
     id: "cyber-security",
@@ -430,6 +436,7 @@ export const programs = {
           "You will learn about symmetric and asymmetric keys, understand concurrency in cryptography, and explore methods for ensuring protocol security in digital communications.",
       },
     ],
+    price_search_tag:"cyber-security"
   },
   "data-science": {
     id: "data-science",
@@ -483,6 +490,7 @@ export const programs = {
           "This module covers algorithm implementation techniques, methods for analysis and model evaluation, and practical approaches for deploying and serving machine learning models in production environments.",
       },
     ],
+    price_search_tag:"data-science"
   },
   "vlsi": {
     id: "vlsi",
@@ -493,17 +501,18 @@ export const programs = {
     brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/vlsi.pdf",
     overview:
       "Very Large Scale Integration (VLSI) is the process of creating integrated circuits by combining millions of transistors into a single chip. It is the backbone of semiconductors, microprocessors, and digital systems, driving innovations in electronics, IoT, AI hardware, and telecommunications. This program provides hands-on knowledge in chip design, verification, and fabrication techniques aligned with industry standards. ",
-  skills: [
-  "Digital Electronics & CMOS Fundamentals",
-  "Verilog",
-  "VHDL",
-  "SystemVerilog",
-  "HDL Programming",
-  "RTL Design & Simulation",
-  "FPGA Implementation & Prototyping",
-  "ASIC Design Flow & Verification"
-],
-},
+    skills: [
+      "Digital Electronics & CMOS Fundamentals",
+      "Verilog",
+      "VHDL",
+      "SystemVerilog",
+      "HDL Programming",
+      "RTL Design & Simulation",
+      "FPGA Implementation & Prototyping",
+      "ASIC Design Flow & Verification"
+    ],
+    price_search_tag:"vlsi"
+  },
   "nanotechnology": {
     id: "nanotechnology",
     title: "Nanotechnology",
@@ -513,23 +522,24 @@ export const programs = {
     brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/nanotechnology.pdf",
     overview:
       " Explore the science of the nanoscale (1–100 nm) and learn how nanomaterials and nano-devices revolutionize medicine, energy, electronics, and the environment. Gain hands-on exposure to cutting-edge tools and applications bridging academics with real-world industry needs.",
-  skills: [
-  "Nanomaterials synthesis & characterization",
-  "SEM",
-  "TEM",
-  "AFM",
-  "XRD",
-  "spectroscopy",
-  "Nanofabrication (lithography",
-  "bottom-up & top-down methods)",
-  "Applications in nanomedicine",
-  "sensors",
-  "energy systems",
-  "Research",
-  "innovation",
-  "interdisciplinary project work"
-]
-},
+    skills: [
+      "Nanomaterials synthesis & characterization",
+      "SEM",
+      "TEM",
+      "AFM",
+      "XRD",
+      "spectroscopy",
+      "Nanofabrication (lithography",
+      "bottom-up & top-down methods)",
+      "Applications in nanomedicine",
+      "sensors",
+      "energy systems",
+      "Research",
+      "innovation",
+      "interdisciplinary project work"
+    ],
+    price_search_tag:"nanotechnology"
+  },
   "embedded-systems": {
     id: "embedded-systems",
     title: "Embedded Systems",
@@ -539,21 +549,22 @@ export const programs = {
     brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/embedded-systems.pdf",
     overview:
       " Learn to design and program hardware–software integrated systems that power smart devices, IoT, robotics, and automotive applications. Build expertise in microcontrollers, real-time systems, and embedded programming to bridge academics with industry innovations.",
-  skills: [
-  "Microcontrollers & Embedded C/C++",
-  "Real-Time Operating Systems (RTOS)",
-  "UART",
-  "SPI",
-  "I²C",
-  "CAN",
-  "Circuit Design & PCB Development",
-  "Wi-Fi",
-  "Bluetooth",
-  "Zigbee",
-  "IoT & Wireless Communication",
-  "Debugging & Testing with industry tools"
-]
-},
+    skills: [
+      "Microcontrollers & Embedded C/C++",
+      "Real-Time Operating Systems (RTOS)",
+      "UART",
+      "SPI",
+      "I²C",
+      "CAN",
+      "Circuit Design & PCB Development",
+      "Wi-Fi",
+      "Bluetooth",
+      "Zigbee",
+      "IoT & Wireless Communication",
+      "Debugging & Testing with industry tools"
+    ],
+    price_search_tag:"embedded-systems"
+  },
   "iot": {
     id: "iot",
     title: "Internet of Things (IoT)",
@@ -615,6 +626,7 @@ export const programs = {
           "You will be introduced to various sensors, learn to react to sensor data rules, work with ESP8266 WiFi module, perform data analysis using MATLAB, and establish connections via HTTP protocols.",
       },
     ],
+    price_search_tag:"iot"
   },
   "hev": {
     id: "hev",
@@ -671,6 +683,7 @@ export const programs = {
           "You will get an introduction to drive cycle data, learn to compute EV powertrain behavior, and gain practical experience with Matlab-based numerical computation for EV powertrain analysis and design.",
       },
     ],
+    price_search_tag:"hev"
   },
   "mern-stack": {
     id: "mern-stack",
@@ -680,6 +693,7 @@ export const programs = {
     internship: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/SampleInternshipCertificate.jpg",
     overview:
       "Full-stack development using MongoDB, Express, React, and Node.js.",
+    price_search_tag:"mern-stack"  
   },
   "android-development": {
     id: "android-development",
@@ -689,6 +703,7 @@ export const programs = {
     internship: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/SampleInternshipCertificate.jpg",
     overview:
       "Build native Android applications using Java/Kotlin and Android Studio.",
+    price_search_tag:"android-development"
   },
   "business-management": {
     id: "business-management",
@@ -698,6 +713,7 @@ export const programs = {
     internship: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/SampleInternshipCertificate.jpg",
     overview:
       "Fundamentals of business operations, strategy, and organizational management.",
+    price_search_tag:"business-management"
   },
   "business-analytics": {
     id: "business-analytics",
@@ -707,17 +723,18 @@ export const programs = {
     training: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/SampleTrainingCertificate.jpg",
     internship: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/SampleInternshipCertificate.jpg",
     overview: "Gain the expertise to master business analytics and transform raw data into actionable insights with InnoKNOWVEX. This program blends data analysis, statistical modeling, and business strategy to equip learners with the skills needed for decision-making, forecasting, and problem-solving in modern industries. Perfect for those aiming at careers in data-driven business roles across finance, marketing, operations, and consulting. ",
-  skills: [
-  "Data Analysis & Visualization",
-  "Excel",
-  "Power BI",
-  "Tableau",
-  "Statistical Modeling & Predictive Analytics",
-  "SQL & Database Management",
-  "Business Intelligence Tools & Dashboards",
-  "Data-Driven Decision Making & Forecasting"
-]
-},
+    skills: [
+      "Data Analysis & Visualization",
+      "Excel",
+      "Power BI",
+      "Tableau",
+      "Statistical Modeling & Predictive Analytics",
+      "SQL & Database Management",
+      "Business Intelligence Tools & Dashboards",
+      "Data-Driven Decision Making & Forecasting"
+    ],
+    price_search_tag:"business-analytics"
+  },
   "digital-marketing": {
     id: "digital-marketing",
     title: "Digital Marketing",
@@ -789,6 +806,7 @@ export const programs = {
           "You will understand traditional, digital, and social media marketing landscapes, learn major social media platforms and their marketing functions, and understand both the risks and wide scope of social media marketing.",
       },
     ],
+    price_search_tag:"digital-marketing"
   },
   "finance": {
     id: "finance",
@@ -847,6 +865,7 @@ export const programs = {
           "You will learn liquidity management strategies, cash forecasting techniques, physical and notional cash pool management, POBO/ROBO models implementation, and clearing and settlement systems operations.",
       },
     ],
+    price_search_tag:"finance"
   },
   "stock-trading": {
     id: "stock-trading",
@@ -857,23 +876,24 @@ export const programs = {
     internship: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/SampleInternshipCertificate.jpg",
     overview:
       "Master stock trading and make informed investment decisions with InnoKNOWVEX. This program equips learners with the essentials of financial markets, trading strategies, and risk management, combining theory with hands-on practice. Build confidence to trade in stocksderivatives, and other financial instruments, preparing for careers in investment, portfolio management, or independent trading.",
-  skills: [
-  "Fundamentals of Stock Markets & Exchanges",
-  "Technical Analysis",
-  "Charts",
-  "Patterns",
-  "Indicators",
-  "Fundamental Analysis",
-  "Balance Sheets",
-  "Ratios",
-  "Valuations",
-  "Trading Strategies",
-  "Intraday",
-  "Swing",
-  "Long-term Investing",
-  "Risk & Portfolio Management"
-]
-},
+    skills: [
+      "Fundamentals of Stock Markets & Exchanges",
+      "Technical Analysis",
+      "Charts",
+      "Patterns",
+      "Indicators",
+      "Fundamental Analysis",
+      "Balance Sheets",
+      "Ratios",
+      "Valuations",
+      "Trading Strategies",
+      "Intraday",
+      "Swing",
+      "Long-term Investing",
+      "Risk & Portfolio Management"
+    ],
+    price_search_tag:"stock-trading"
+  },
   "human-resources": {
     id: "human-resources",
     title: "Human Resources",
@@ -925,6 +945,7 @@ export const programs = {
           "This module covers compensation structure planning, incentive and bonus management systems, professional and employee tax regulations, and provident fund with employee benefits administration.",
       },
     ],
+    price_search_tag:"human-resources"
   },
   "corporate-law": {
     id: "corporate-law",
@@ -934,6 +955,7 @@ export const programs = {
     internship: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/SampleInternshipCertificate.jpg",
     overview:
       "Legal aspects of business operations, contracts, and compliance.",
+    price_search_tag:"corporate-law"
   },
   "ui-ux-design": {
     id: "ui-ux-design",
@@ -944,19 +966,20 @@ export const programs = {
     brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/ui-ux-design.pdf",
     overview:
       "UI/UX design focuses on creating intuitive, engaging, and user-friendly digital experiences. While UI (User Interface) emphasizes visual design and interactivity, UX (User Experience) ensures usability, accessibility, and satisfaction. This program blends creativity, design thinking, and usability testing to prepare learners for careers in product design, web, and mobile applications.",
-skills: [
-  "Design Thinking & User-Centered Design",
-  "Wireframing & Prototyping",
-  "Figma",
-  "Adobe XD",
-  "Sketch",
-  "Visual Design Principles",
-  "Typography",
-  "Color Theory",
-  "Layouts",
-  "User Research & Usability Testing",
-  "Interaction Design & Microinteractions"
-]
+    skills: [
+      "Design Thinking & User-Centered Design",
+      "Wireframing & Prototyping",
+      "Figma",
+      "Adobe XD",
+      "Sketch",
+      "Visual Design Principles",
+      "Typography",
+      "Color Theory",
+      "Layouts",
+      "User Research & Usability Testing",
+      "Interaction Design & Microinteractions"
+    ],
+    price_search_tag:"ui-ux-design"
   },
   "fashion-designing": {
     id: "fashion-designing",
@@ -966,6 +989,7 @@ skills: [
     internship: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/SampleInternshipCertificate.jpg",
     overview:
       "Fundamentals of fashion design, trends, and garment construction.",
+    price_search_tag:"fashion-designing"
   },
   "psychology": {
     id: "psychology",
@@ -976,14 +1000,15 @@ skills: [
     brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/psychology.pdf",
     overview:
       "Gain deep insights into the human mind, emotions, and behavior with InnoKNOWVEX. This program helps you master core psychology concepts and practical applications, from understanding cognitive processes to applying counseling and research methods. Learners are equipped to apply psychology in mental health, education, workplaces, and social well-being, bridging academic knowledge with real-world practice. ",
-  skills: [
-  "Mastering Human Behavior & Cognitive Psychology",
-  "Counseling & Therapy Techniques",
-  "Emotional Intelligence & Stress Management",
-  "Developmental & Social Psychology",
-  "Organizational & Industrial Applications"
-]
-},
+    skills: [
+      "Mastering Human Behavior & Cognitive Psychology",
+      "Counseling & Therapy Techniques",
+      "Emotional Intelligence & Stress Management",
+      "Developmental & Social Psychology",
+      "Organizational & Industrial Applications"
+    ],
+    price_search_tag:"psychology"
+  },
   "medical-coding": {
     id: "medical-coding",
     title: "Medical Coding",
@@ -993,6 +1018,7 @@ skills: [
     brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/medical-coding.pdf",
     overview:
       "Learn medical classification systems and healthcare billing codes.",
+    price_search_tag:"medical-coding"
   },
   "advanced-data-science": {
     id: "advanced-data-science",
@@ -1000,9 +1026,10 @@ skills: [
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Data%20Science.jpg",
     training: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/SampleTrainingCertificate.jpg",
     internship: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/SampleInternshipCertificate.jpg",
-    brochure:'https://ectpbsj3skccab5d.public.blob.vercel-storage.com/data-science.pdf',
+    brochure: 'https://ectpbsj3skccab5d.public.blob.vercel-storage.com/data-science.pdf',
     overview:
       "Advanced ",
+    price_search_tag:"advanced-data-science"
   },
   "advanced-web-development": {
     id: "advanced-web-development",
@@ -1010,9 +1037,10 @@ skills: [
     image: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/Web%20Dev.jpg",
     training: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/SampleTrainingCertificate.jpg",
     internship: "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/SampleInternshipCertificate.jpg",
-    brochure:'https://ectpbsj3skccab5d.public.blob.vercel-storage.com/web-development.pdf',
+    brochure: 'https://ectpbsj3skccab5d.public.blob.vercel-storage.com/web-development.pdf',
     overview:
       "Advanced concepts in web architecture, performance optimization, and security.",
+    price_search_tag:"advanced-web-development"
   },
   "c-cpp": {
     id: "c-cpp",
@@ -1023,6 +1051,7 @@ skills: [
     brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/C%20%26%20C%2B%2B.pdf",
     overview:
       "Advanced concepts in web architecture, performance optimization, and security.",
+    price_search_tag:"c-cpp"
   },
   "autocad": {
     id: "AutoCad",
@@ -1110,6 +1139,7 @@ skills: [
           "You will explore various AutoCAD toolsets, learn to use the AutoCAD Web App, and work with the AutoCAD Mobile App for flexible design access.",
       },
     ],
+    price_search_tag:"autocad"
   },
   "automobile-design": {
     id: "Automobile Design",
@@ -1120,23 +1150,24 @@ skills: [
     brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/Automobile%20design.pdf",
     overview:
       "Gain the expertise to master automobile design and bring innovative vehicles to life with InnoKNOWVEX. This program combines mechanical engineering, aerodynamics, CAD modeling, and ergonomics to train learners in designing efficient, safe, and sustainable automobiles. With a balance of creativity and engineering precision, it prepares students for careers in automotive design, R&D, and manufacturing.",
-  skills: [
-  "Fundamentals of Stock Markets & Exchanges",
-  "Technical Analysis",
-  "Charts",
-  "Patterns",
-  "Indicators",
-  "Fundamental Analysis",
-  "Balance Sheets",
-  "Ratios",
-  "Valuations",
-  "Trading Strategies",
-  "Intraday",
-  "Swing",
-  "Long-term Investing",
-  "Risk & Portfolio Management"
-]
-},
+    skills: [
+      "Fundamentals of Stock Markets & Exchanges",
+      "Technical Analysis",
+      "Charts",
+      "Patterns",
+      "Indicators",
+      "Fundamental Analysis",
+      "Balance Sheets",
+      "Ratios",
+      "Valuations",
+      "Trading Strategies",
+      "Intraday",
+      "Swing",
+      "Long-term Investing",
+      "Risk & Portfolio Management"
+    ],
+    price_search_tag:"automobile-design"
+  },
   "dsa": {
     id: "DSA",
     title: "Data Structures & Algorithms",
@@ -1146,6 +1177,7 @@ skills: [
     brochure: "https://ectpbsj3skccab5d.public.blob.vercel-storage.com/DSA.pdf",
     overview:
       "Advanced concepts in web architecture, performance optimization, and security.",
+    price_search_tag:"dsa"
   },
   "clinical-data-management": {
     id: "clinical-data-management",
@@ -1223,6 +1255,7 @@ skills: [
           "You will learn to establish communication with MongoDB, read and write data to the database, utilize the aggregation framework for complex queries, and manage database configuration.",
       },
     ],
+    price_search_tag:"clinical-data-management"
   },
   "clinical-trials-and-research": {
     id: "wclinical-trials-and-research",
@@ -1300,5 +1333,6 @@ skills: [
           "You will learn to establish communication with MongoDB, read and write data to the database, utilize the aggregation framework for complex queries, and manage database configuration.",
       },
     ],
+    price_search_tag:"clinical-trials-and-research"
   }
 };

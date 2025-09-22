@@ -105,6 +105,8 @@ const navLinks = [
   { label: "Testimonials", type: "section", href: "#testimonials", sectionId: "testimonials" },
   // { label: "Cart", type: "page", href: "/cart" },
   { label: "Contact Us", type: "section", href: "#footer", sectionId: "footer" },
+  { label: "Power Packs", type: "section", href: "choose-packs", sectionId: "choose-packs" },
+  { label: "Cart", type: "section", href: "cart", sectionId: "cart" },
 ];
 
 const Navbar = () => {

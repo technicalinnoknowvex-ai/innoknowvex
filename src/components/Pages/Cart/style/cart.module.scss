@@ -1,79 +1,564 @@
 @use "../../../../styles/fonts" as *;
 
-.head{
-    display: flex;
+$mobile: 393px;
+$tablet: 830px;
+$desktop: 1440px;
+
+// Mixins
+@mixin mobile {
+  @media (max-width: #{$mobile}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$mobile + 1}) and (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media (min-width: #{$tablet + 1}) and (max-width: #{$desktop - 1}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop}) {
+    @content;
+  }
+}
+
+/* ---------------------- Header ---------------------- */
+.head {
+  display: flex;
+  flex-direction: row;
+  margin: 4% auto 7rem auto;
+  justify-content: center;
+  gap: 2rem;
+
+  @include mobile {
+    margin: 2rem auto;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 6rem;
+  }
+
+  @include tablet {
+    margin: 7rem auto;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @include laptop {
+    margin: 2rem auto 5rem auto;
+  }
+}
+
+.heading {
+  font-family: $font-sharp-25;
+  font-weight: 400;
+  font-size: 3rem;
+  color: #9F8310;
+  text-align: center;
+
+  @include mobile {
+    font-size: 1.6rem;
+  }
+
+  @include tablet {
+    font-size: 1.8rem;
+  }
+
+  @include laptop {
+    font-size: 3.6rem;
+  }
+}
+
+.star {
+  margin-top: -2rem;
+  text-align: center;
+
+  @include mobile {
+    margin-top: -1.5rem;
+    transform: scale(0.6);
+  }
+
+  @include tablet {
+    margin-top: -2rem;
+    transform: scale(0.7);
+  }
+
+  @include laptop {
+    margin-top: -2.5rem;
+    transform: scale(0.9);
+  }
+}
+
+/* ---------------------- Card ---------------------- */
+.cardBody {
+  width: 100%;
+  max-width: 900px;
+  background-color: #FFF7E0;
+  margin: 1rem auto;
+  border-radius: 1rem 6rem;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #A28808;
+
+  @include mobile {
+    flex-direction: column;
+    width: 95%;
+    border-radius: 1rem 2rem;
+  }
+
+  @include tablet {
+    flex-direction: column;
+    width: 90%;
+    border-radius: 1rem 3rem;
+  }
+
+  @include laptop {
     flex-direction: row;
-    margin-top: 8%;
+    width: 90%;
+    border-radius: 1rem 4rem;
+  }
+}
+
+.cardImage {
+  flex-shrink: 0;
+  height: 10rem;
+  width: 15rem;
+  background-color: lightcoral;
+  border-radius: 1rem 5rem;
+  margin: 0.8rem;
+
+  @include mobile {
+    width: 100%;
+    height: 8rem;
+    border-radius: 1rem 2rem;
+  }
+
+  @include tablet {
+    width: 100%;
+    height: 10rem;
+    border-radius: 1rem 3rem;
+  }
+
+  @include laptop {
+    width: 14rem;
+    height: 9.5rem;
+  }
+}
+
+.cardDetail {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+
+  @include mobile {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  @include tablet {
+    flex-direction: column;
+  }
+}
+
+.cardDesc {
+  display: flex;
+  flex-direction: column;
+  margin: 1.5rem;
+
+  @include mobile {
+    margin: 1rem;
+  }
+
+  @include tablet {
+    margin: 1.2rem;
+  }
+
+  @include laptop {
+    margin: 1.5rem 2rem;
+  }
+}
+
+.courseTitle {
+  font-family: $font-oldschool;
+  font-weight: 400;
+  font-size: 2rem;
+  color: #A28808;
+
+  @include mobile {
+    font-size: 1.6rem;
+  }
+
+  @include tablet {
+    font-size: 1.8rem;
+  }
+}
+
+.coursePrice {
+  font-family: $font-oldschool;
+  font-weight: 400;
+  font-size: 1.6rem;
+  color: #A28808;
+
+  @include mobile {
+    font-size: 1.3rem;
+  }
+
+  @include tablet {
+    font-size: 1.4rem;
+  }
+}
+
+.actionBtn {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  margin-top: auto;
+  align-items: center;
+
+  @include mobile {
     justify-content: center;
-    gap: 2rem;
-    margin-bottom: 7rem;
+    margin-top: 1rem;
+    gap: 1.5rem;
+  }
+
+  @include tablet {
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  @include laptop {
+    margin-left: 2rem;
+  }
 }
 
-.heading{
-    font-family: $font-sharp-25;
-    font-weight: 400;
-    font-size: 3rem;
-    color: #9F8310;
+.delete, .pay {
+  font-size: 1.5rem;
+  cursor: pointer;
+
+  @include mobile {
+    font-size: 1.2rem;
+  }
+
+  @include tablet {
+    font-size: 1.3rem;
+  }
 }
 
-.star{
-    margin-top: -3rem;
+.delete { color: lightcoral; }
+.pay { color: lightseagreen; }
+
+/* ---------------------- Cart Container ---------------------- */
+.shoppingCartContainer {
+  max-width: 1400px;
+  margin: 2rem auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  background: #FFF9E1;
+  padding: 1rem;
+
+  @include mobile {
+    margin: 1rem auto;
+    border-radius: 8px;
+    padding: 0.5rem;
+  }
+
+  @include tablet {
+    margin: 1.5rem auto;
+    border-radius: 10px;
+  }
 }
 
-.cardBody{
-    height: 10rem;
-    width: 60rem;
-    background-color: #FFF7E0;
-    margin: auto;
-    border-radius: 1rem 6rem;
-    display: flex;
-    flex-direction: row;
+.cartContent {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+
+  @include mobile {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  @include tablet {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
 }
 
-.cardImage{
-    height: 10rem;
-    width: 15rem;
-    background-color: lightcoral;
-    border-radius: 1rem 5rem;
-    scale: 0.8;
-    margin-left: 0.8rem;
+.cartItems {
+  flex: 2;
+  padding: 16px;
+
+  @include tablet {
+    padding: 20px;
+  }
+
+  @include laptop {
+    padding: 24px;
+  }
 }
 
-.cardDesc{
+.cartItemsList {
+  border: 1px solid #A28808;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+
+  @include mobile {
+    max-width: 100%;
+  }
+
+  @include tablet {
+    max-width: 500px;
+  }
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #F3E5AB;
+  padding: 1rem 0;
+
+  @include mobile {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  @include tablet {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.itemName {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #A38907;
+  font-family: $font-oldschool;
+
+  @include mobile { font-size: 1.3rem; }
+  @include tablet { font-size: 1.4rem; }
+}
+
+.itemInfo {
+  font-size: 1.4rem;
+  color: #A69600;
+  font-weight: 500;
+  font-family: $font-oldschool;
+
+  @include mobile { font-size: 1.1rem; }
+  @include tablet { font-size: 1.2rem; }
+}
+
+.itemPrice {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #A38907;
+  min-width: 60px;
+  text-align: right;
+
+  @include mobile {
+    font-size: 1.3rem;
+    text-align: center;
+    min-width: auto;
+  }
+}
+
+.itemImage {
+  border: 1px solid #A28808;
+  border-radius: 1rem;
+  max-width: 140px;
+  max-height: 140px;
+
+  @include mobile {
+    max-width: 100px;
+    max-height: 100px;
+  }
+
+  @include tablet {
+    max-width: 120px;
+    max-height: 120px;
+  }
+}
+
+.itemDetails {
+  width: 100%;
+  max-width: 280px;
+
+  @include mobile; @include tablet {
     display: flex;
     flex-direction: column;
-    margin-left: 5rem;
-    margin-top: 2.5rem;
+    align-items: center;
+    text-align: center;
+  }
 }
 
-.courseTitle{
-    font-family: $font-oldschool;
-    font-weight: 400;
-    font-size: 2.7rem;
-    color: #A28808;
+.deleteItem {
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  color: #A28808;
+
+  &:hover { color: #cc0000; }
 }
 
-.coursePrice{
-    font-family: $font-oldschool;
-    font-weight: 400;
-    font-size: 1.8rem;
-    color: #A28808;
+/* ---------------------- Order Summary ---------------------- */
+.orderSummary {
+  border: 2px solid #A28808;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 350px;
+  margin: 2rem auto;
+
+  @include mobile {
+    max-width: 300px;
+    padding: 1.5rem;
+  }
+
+  @include tablet {
+    max-width: 320px;
+    padding: 1.8rem;
+  }
 }
 
-.actionBtn{
-    margin-left: 5rem;
-    margin-top: 3.5rem;
-    display: flex;
-    flex-direction: row;
-    gap: 2rem;
+.summaryTitle {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #A38907;
+  margin-bottom: 20px;
+  font-family: $font-sharp-25;
+  text-align: center;
+
+  @include mobile { font-size: 1.3rem; }
+  @include tablet { font-size: 1.4rem; }
 }
 
-.delete{
-    scale: 1.5;
-    color: lightcoral;
+.summaryLineTotal {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #A38907;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  @include mobile {
+    font-size: 18px;
+    padding-top: 10px;
+    margin-top: 10px;
+  }
+
+  @include tablet {
+     font-size: 19px;
+    padding-top: 10px;
+    margin-top: 10px;
+  }
 }
 
-.pay{
-    scale: 1.5;
-    color: lightseagreen
+.couponSection {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+
+  @include mobile; @include tablet {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+}
+
+.couponInput,
+.couponBtn,
+.checkoutBtn {
+  background: #FFFCE1;
+  color: #A69600;
+  border: 1px solid #A69600;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+
+  @include mobile {
+    width: 100%;
+    max-width: 250px;
+    font-size: 1rem;
+    padding: 8px 12px;
+  }
+
+  @include tablet {
+    width: 100%;
+    max-width: 250px;
+    font-size: 1.2rem;
+    padding: 8px 12px;
+  }
+
+  &:hover {
+    background: #A38907;
+    color: white;
+  }
+}
+
+.checkoutBtn {
+  margin-top: 1.5rem;
+
+  @include laptop {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* ---------------------- Empty Cart ---------------------- */
+.emptyCart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #A38907;
+  text-align: center;
+  border: 2px dashed #A38907;
+  border-radius: 12px;
+  padding: 20px;
+
+  @include mobile {
+    min-height: 150px;
+    font-size: 1rem;
+    padding: 15px;
+  }
+
+  @include tablet {
+    min-height: 175px;
+    font-size: 1.1rem;
+  }
+}
+
+/* ---------------------- Decorative Lines ---------------------- */
+.line1, .line2 {
+  height: 2px;
+  width: 240px;
+  background-color: #F3E5AB;
+  border-top: 2px dotted #b59d00;
+  margin: 10px auto;
 }
