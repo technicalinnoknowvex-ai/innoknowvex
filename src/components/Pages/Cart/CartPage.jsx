@@ -19,7 +19,7 @@ const CartPage = () => {
         const updatedItems = storedItems.filter((item) => item.course !== itemToBeDeleted.course)
         setStoredItems(updatedItems)
 
-        localStorage.setItem("cartItems", JSON.stringify(updatedItems))
+        sessionStorage.setItem("cartItems", JSON.stringify(updatedItems))
         toast.success('Deleted !', {
             position: "top-right",
             autoClose: 500,
@@ -112,7 +112,7 @@ const CartPage = () => {
 
 
     useEffect(() => {
-        const cart = localStorage.getItem("cartItems");
+        const cart = sessionStorage.getItem("cartItems");
 
         if (cart) {
             setStoredItems(JSON.parse(cart));
