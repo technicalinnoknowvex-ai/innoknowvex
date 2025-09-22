@@ -172,13 +172,10 @@
         transition: background-color 0.3s;
 
         &:disabled {
-          background-color: lighten($brand-primary, 20%);
           cursor: not-allowed;
         }
 
-        &:hover:not(:disabled) {
-          background-color: darken($brand-primary, 10%);
-        }
+          
       }
     }
   }
