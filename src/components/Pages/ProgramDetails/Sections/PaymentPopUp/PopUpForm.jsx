@@ -369,16 +369,6 @@ const PopUpForm = ({ isOpen, onClose, plan, course, price, courseId: propCourseI
     }
   };
 
-  // Calculate discount based on percentage
-  const calculateDiscount = (originalPrice, discountPercentage) => {
-    const discount = Math.round((originalPrice * discountPercentage) / 100);
-    const finalPrice = Math.max(0, originalPrice - discount);
-    return {
-      discountAmount: discount,
-      finalPrice: finalPrice
-    };
-  };
-
   // Validate coupon when coupon code changes
   useEffect(() => {
     if (couponCode && couponCode.trim().length > 0 && courseId && price > 0) {
@@ -394,18 +384,22 @@ const PopUpForm = ({ isOpen, onClose, plan, course, price, courseId: propCourseI
           const result = await validateCouponFromSheet(couponCode, courseId, price);
 
           if (result.success && result.coupon) {
-            // Use the pricing data returned from the API
-            setCouponDiscount(result.pricing.discountAmount);
-            setCouponDiscountPercentage(result.pricing.savingsPercentage);
+            // Use the pricing data returned from the API, with robust checks for null/undefined
+            const discountAmount = typeof result.pricing.discountAmount === 'number' ? result.pricing.discountAmount : 0;
+            const savingsPercentage = typeof result.pricing.savingsPercentage === 'number' ? result.pricing.savingsPercentage : 0;
+            const finalAmount = typeof result.pricing.finalAmount === 'number' ? result.pricing.finalAmount : price;
+            
+            setCouponDiscount(discountAmount);
+            setCouponDiscountPercentage(savingsPercentage);
             setAppliedCoupon(result.coupon);
-            setFinalPrice(result.pricing.finalAmount);
+            setFinalPrice(finalAmount);
             setCouponError("");
 
             console.log('Coupon applied successfully:', {
               originalPrice: price,
-              discountPercentage: result.pricing.savingsPercentage,
-              discountAmount: result.pricing.discountAmount,
-              finalPrice: result.pricing.finalAmount
+              discountPercentage: savingsPercentage,
+              discountAmount: discountAmount,
+              finalPrice: finalAmount
             });
           } else {
             setCouponDiscount(0);
@@ -703,7 +697,7 @@ We will resolve this issue promptly.`);
     }
 
     // Validate final price
-    if (finalPrice < 0) {
+    if (isNaN(finalPrice) || finalPrice < 0) {
       alert("Invalid final price. Please refresh and try again.");
       return;
     }

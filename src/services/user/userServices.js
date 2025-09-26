@@ -1,27 +1,34 @@
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+const supabase = createClient(supabaseUrl, supabaseKey)
 
 export async function sendEnquiry(enquiryDetails) {
   try {
-    const response = await fetch(`${BASE_URL}/api/user/send-enquiry`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(enquiryDetails),
-    });
+    console.log("🚀 Sending enquiry to Supabase:", enquiryDetails);
 
-    const result = await response.json();
-    console.log("🚀 ~ result:", result);
+    const { data, error } = await supabase
+      .from('enquiries')
+      .insert([
+        {
+          name: enquiryDetails.name,
+          email: enquiryDetails.email,
+          phone: enquiryDetails.phone,
+          program: enquiryDetails.program,
+          timestamp: enquiryDetails.timestamp
+        }
+      ])
+      .select()
 
-    if (!response.ok) {
-      console.error("Send Enquiry Error:", result.error || result.message);
-      throw new Error(
-        result.error || result.message || "Failed to send enquiry"
-      );
+    if (error) {
+      console.error("Supabase Insert Error:", error);
+      throw new Error(error.message || "Failed to save enquiry to database");
     }
 
-    console.log("Send Enquiry Success:", result.message);
-    return result.data;
+    console.log("✅ Enquiry saved successfully:", data);
+    return data[0];
   } catch (error) {
     console.error("Send Enquiry Error:", error);
     throw new Error(`Failed to send enquiry: ${error.message}`);
