@@ -25,6 +25,7 @@ const PopUpForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(FormSchema),
@@ -97,16 +98,19 @@ const PopUpForm = () => {
     const payload = { ...data, timestamp: new Date().toISOString() };
     try {
       await sendEnquiry(payload);
-      alert("✅ Thank you! Your enquiry has been submitted.");
+      alert("✅ Thank you! Your enquiry has been submitted successfully.");
+      reset();
+      closeForm();
     } catch (error) {
       console.error("Failed to send enquiry:", error);
-      alert("Something went wrong. Please try again later.");
+      alert("❌ Something went wrong. Please try again later.");
     }
   };
 
   if (!isFormOpen) {
     return null;
   }
+  
   return (
     <div className={styles.formPage}>
       <form
@@ -137,7 +141,12 @@ const PopUpForm = () => {
           className={`${styles.inputGroup} ${styles["inputGroup--name"]}`}
         >
           <label className={styles.formLabel}>Name</label>
-          <input className={styles.formInput} {...register("name")} />
+          <input 
+            className={styles.formInput} 
+            type="text"
+            placeholder="Enter your full name"
+            {...register("name")} 
+          />
           <div className={styles.errorDiv}>
             {errors.name && (
               <p className={styles.error}>{errors.name.message}</p>
@@ -149,7 +158,12 @@ const PopUpForm = () => {
           className={`${styles.inputGroup} ${styles["inputGroup--email"]}`}
         >
           <label className={styles.formLabel}>Email</label>
-          <input className={styles.formInput} {...register("email")} />
+          <input 
+            className={styles.formInput} 
+            type="email"
+            placeholder="Enter your email"
+            {...register("email")} 
+          />
           <div className={styles.errorDiv}>
             {errors.email && (
               <p className={styles.error}>{errors.email.message}</p>
@@ -161,7 +175,12 @@ const PopUpForm = () => {
           className={`${styles.inputGroup} ${styles["inputGroup--phone"]}`}
         >
           <label className={styles.formLabel}>Phone</label>
-          <input className={styles.formInput} {...register("phone")} />
+          <input 
+            className={styles.formInput} 
+            type="tel"
+            placeholder="Enter 10 digit phone number"
+            {...register("phone")} 
+          />
           <div className={styles.errorDiv}>
             {errors.phone && (
               <p className={styles.error}>{errors.phone.message}</p>
@@ -173,7 +192,12 @@ const PopUpForm = () => {
           className={`${styles.inputGroup} ${styles["inputGroup--program"]}`}
         >
           <label className={styles.formLabel}>Program</label>
-          <input className={styles.formInput} {...register("program")} />
+          <input 
+            className={styles.formInput} 
+            type="text"
+            placeholder="Enter program name"
+            {...register("program")} 
+          />
           <div className={styles.errorDiv}>
             {errors.program && (
               <p className={styles.error}>{errors.program.message}</p>
