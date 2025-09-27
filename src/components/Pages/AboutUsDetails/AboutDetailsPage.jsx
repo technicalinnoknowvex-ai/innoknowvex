@@ -222,7 +222,7 @@ const AboutDetailsPage = () => {
           <div className={style.pic1}>
             <Image
               className={style.ceo}
-              src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/CEO.jpeg"
+              src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Page/CEO.jpeg"
               height={535}
               width={400}
               alt="CEO image"
@@ -241,10 +241,10 @@ const AboutDetailsPage = () => {
           <div className={style.pic2}>
             <Image
               className={style.ceo}
-              src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/COO.jpeg"
+              src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Page/COO.jpeg"
               height={535}
               width={400}
-              alt="CEO image"
+              alt="COO image"
             />
 
             <StarIcon ref={starRef6} className={style.star} width={50} height={50} />
@@ -264,10 +264,10 @@ const AboutDetailsPage = () => {
           <div className={style.pic3}>
             <Image
               className={style.ceo}
-              src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/CGO.jpeg"
+              src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Page/CGO.jpeg"
               height={535}
               width={400}
-              alt="CEO image"
+              alt="CGO image"
             />
             <StarIcon ref={starRef4} className={style.star} width={50} height={50} />
             <Bg className={style.bg} width={300} height={300}/>
@@ -283,7 +283,7 @@ const AboutDetailsPage = () => {
           <div className={style.pic4}>
             <Image
               className={style.ceo}
-              src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/about_us.png"
+              src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Page/WhatsApp%20Image%202025-08-30%20at%2013.35.49_010eef93.jpg"
               height={535}
               width={400}
               alt="CEO image"
@@ -306,15 +306,15 @@ const AboutDetailsPage = () => {
       <div className={style.images}>
         <div className={style.shell}>
           <Image
-            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.44%20AM.jpeg"
-            alt="Certificate 1"
+          src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Page/WhatsApp%20Image%202025-08-31%20at%2018.43.03_01c3f1f9.jpg" 
+                     alt="Certificate 1"
             width={600}
             height={400}
             className={style.photo}
           />
 
           <Image
-            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.45%20AM.jpeg"
+            src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Page/WhatsApp%20Image%202025-08-31%20at%2018.43.02_db791e5f.jpg"
             alt="Certificate 2"
             width={600}
             height={400}
@@ -324,14 +324,14 @@ const AboutDetailsPage = () => {
 
         <div className={style.shell}>
           <Image
-            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.45%20AM%20%281%29.jpeg"
+            src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Page/WhatsApp%20Image%202025-08-31%20at%2018.43.05_02435bf9.jpg"
             alt="Certificate 3"
             width={600}
             height={400}
             className={style.photo}
           />
           <Image
-            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.46%20AM.jpeg"
+            src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Page/WhatsApp%20Image%202025-08-31%20at%2018.43.01_689ad648.jpg"
             alt="Certificate 4"
             width={600}
             height={400}
@@ -339,33 +339,18 @@ const AboutDetailsPage = () => {
           />
         </div>
 
-        <div className={style.shell}>
-          <Image
-            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.46%20AM%20%281%29.jpeg"
-            alt="Certificate 5"
-            width={600}
-            height={400}
-            className={style.photo}
-          />
-          <Image
-            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.47%20AM.jpeg"
-            alt="Certificate 6"
-            width={600}
-            height={400}
-            className={style.photo}
-          />
-        </div>
+        
 
         <div className={style.shell}>
           <Image
-            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.47%20AM%20%281%29.jpeg"
+            src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Page/WhatsApp%20Image%202025-08-31%20at%2018.43.02_38b68d11.jpg"
             alt="Certificate 7"
             width={600}
             height={400}
             className={style.photo}
           />
           <Image
-            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.48%20AM.jpeg"
+            src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Page/WhatsApp%20Image%202025-08-31%20at%2018.43.03_34a20cfc.jpg"
             alt="Certificate 8"
             width={600}
             height={400}
@@ -375,14 +360,14 @@ const AboutDetailsPage = () => {
 
         <div className={style.shell}>
           <Image
-            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.48%20AM%20%281%29.jpeg"
+            src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Page/WhatsApp%20Image%202025-08-31%20at%2018.43.04_3838ab77.jpg"
             alt="Certificate 9"
             width={600}
             height={400}
             className={style.photo}
           />
           <Image
-            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.49%20AM.jpeg"
+            src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Page/WhatsApp%20Image%202025-08-31%20at%2018.43.05_ce855ce7.jpg"
             alt="Certificate 10"
             width={600}
             height={400}
@@ -392,13 +377,30 @@ const AboutDetailsPage = () => {
 
         <div className={style.shell1}>
           <Image
-            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-01%20at%2010.38.49%20AM%20%281%29.jpeg"
+            src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Page/WhatsApp%20Image%202025-08-31%20at%2018.43.04_4afbe92a.jpg"
             alt="Certificate 11"
             width={600}
             height={400}
             className={style.photo}
           />
+           <Image
+            src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Page/WhatsApp%20Image%202025-08-31%20at%2018.43.04_c910bfdb.jpg"
+            alt="Certificate 5"
+            width={600}
+            height={400}
+            className={style.photo}
+          />
         </div>
+        {/* <div className={style.shell}>
+         
+          <Image
+            src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Page/WhatsApp%20Image%202025-08-31%20at%2018.43.01_86c1158f.jpg"
+            alt="Certificate 6"
+            width={600}
+            height={400}
+            className={style.photo}
+          />
+        </div> */}
 
       </div>
 
