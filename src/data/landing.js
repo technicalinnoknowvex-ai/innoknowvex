@@ -300,8 +300,7 @@ export const landingPageData = {
           { label: "Programs", type: "section", href: "#programs", sectionId: "programs" },
           { label: "Blogs", type: "section", href: "#blogs", sectionId: "blogs" },
           { label: "Testimonials", type: "section", href: "#testimonials", sectionId: "testimonials" },
-
-        ],
+                ],
       },
       {
         listLabel: "OUR PROGRAMS",
