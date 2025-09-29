@@ -53,7 +53,8 @@ $desktop: 1440px;
   height: 100vh;
   background: #FFF9E1;
   border-right: 2px solid #E5D899;
-  // overflow-y: auto;
+  overflow-y: auto; // Sidebar content can scroll if needed
+  overflow-x: hidden;
   z-index: 50;
 
   @include laptop {
@@ -66,6 +67,7 @@ $desktop: 1440px;
     height: auto;
     border-right: none;
     border-bottom: 2px solid #E5D899;
+    overflow-y: visible;
   }
 
   @include mobile {
@@ -74,6 +76,7 @@ $desktop: 1440px;
     height: auto;
     border-right: none;
     border-bottom: 2px solid #E5D899;
+    overflow-y: visible;
   }
 }
 
@@ -92,7 +95,7 @@ $desktop: 1440px;
     font-size: 1.5rem;
     color: #A38907;
     margin-bottom: 1.5rem;
-    font-weight: 500;
+    font-weight: 400; // Reduced from 500
     font-family: $font-oldschool;
 
     @include tablet {
@@ -399,23 +402,23 @@ $desktop: 1440px;
   gap: 0.4rem;
 
   h3 {
-    font-size: 0.95rem;
+    font-size: 0.9rem; // Reduced from 0.95rem
     color: #A38907;
     margin: 0;
-    font-weight: 500;
+    font-weight: 400; // Reduced from 500
     font-family: $font-oldschool;
     line-height: 1.2;
 
     @include laptop {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
 
     @include tablet {
-      font-size: 1rem;
+      font-size: 0.95rem;
     }
 
     @include mobile {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
   }
 }
@@ -468,22 +471,22 @@ $desktop: 1440px;
 }
 
 .planName {
-  font-size: 1.6rem;
+  font-size: 1.5rem; // Reduced from 1.6rem
   color: #A38907;
   margin: 0;
-  font-weight: 500;
+  font-weight: 400; // Reduced from 500
   font-family: $font-oldschool;
 
   @include laptop {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 
   @include tablet {
-    font-size: 1.7rem;
+    font-size: 1.6rem;
   }
 
   @include mobile {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 }
 
@@ -538,40 +541,41 @@ $desktop: 1440px;
 }
 
 .currentPrice {
-  font-size: 1.8rem;
+  font-size: 1.7rem; // Reduced from 1.8rem
   color: #A69600;
-  font-weight: 600;
+  font-weight: 500; // Reduced from 600
   font-family: $font-oldschool;
 
   @include laptop {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
   }
 
   @include tablet {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   @include mobile {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 }
 
 .originalPrice {
-  font-size: 1.2rem;
+  font-size: 1.1rem; // Reduced from 1.2rem
   color: #999;
   text-decoration: line-through;
   font-family: $font-oldschool;
+  font-weight: 400;
 
   @include laptop {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   @include tablet {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 
   @include mobile {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 }
 
@@ -581,7 +585,7 @@ $desktop: 1440px;
   padding: 0.3rem 0.6rem;
   border-radius: 0.4rem;
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 500; // Reduced from 600
 
   @include tablet {
     font-size: 0.8rem;
@@ -606,7 +610,7 @@ $desktop: 1440px;
   border-radius: 0.6rem;
   padding: 0.65rem 1rem;
   font-size: 0.95rem;
-  font-weight: 500;
+  font-weight: 400; // Reduced from 500
   cursor: pointer;
   transition: all 0.2s ease;
   width: 100%;
@@ -656,6 +660,7 @@ $desktop: 1440px;
     color: #A38907;
     font-size: 1.1rem;
     font-family: $font-oldschool;
+    font-weight: 400;
   }
 
   @include tablet {
@@ -688,6 +693,7 @@ $desktop: 1440px;
     font-size: 0.95rem;
     font-family: $font-oldschool;
     text-align: center;
+    font-weight: 400;
   }
 
   @include laptop {
