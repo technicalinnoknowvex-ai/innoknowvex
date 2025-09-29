@@ -91,6 +91,18 @@ const programsCategory = [
   },
 ];
 
+// Power Packs dropdown data
+const powerPacksCategory = [
+  {
+    category: "Premium Packs",
+    items: [
+      { label: "Make Your Own Pack", href: "/choose-packs" },
+      { label: "Golden Pass", href: "/power-packs/golden-pass" },
+      { label: "Tech Starter Pack", href: "/power-packs/tech-starter-pack" },
+    ],
+  },
+];
+
 const navLinks = [
   { label: "Home", type: "section", href: "/", sectionId: "home" },
   { label: "About Us", type: "section", href: "about-us", sectionId: "about-us" },
@@ -100,12 +112,15 @@ const navLinks = [
     href: "",
     categories: programsCategory
   },
-  // { label: "Packs", type: "page", href: "/choose-packs" },
   { label: "Blogs", type: "section", href: "#blogs", sectionId: "blogs" },
   { label: "Testimonials", type: "section", href: "#testimonials", sectionId: "testimonials" },
-  // { label: "Cart", type: "page", href: "/cart" },
   { label: "Contact Us", type: "section", href: "#footer", sectionId: "footer" },
-  { label: "Power Packs", type: "section", href: "choose-packs", sectionId: "choose-packs" },
+  { 
+    label: "Power Packs", 
+    type: "dropdown", 
+    href: "", 
+    categories: powerPacksCategory 
+  },
   { label: "Cart", type: "section", href: "cart", sectionId: "cart" },
 ];
 
@@ -626,43 +641,12 @@ const Navbar = () => {
                         <div className={styles.categoriesList}>
                           {link.categories.map((category, cIndex) => (
                             <div key={cIndex} className={styles.categoryWrapper}>
-                              <div
-                                className={`${styles.dropdownCategory} ${activeCategory === cIndex ? styles.activeCategoryItem : ""
-                                  }`}
-                                onMouseEnter={() => showCategoryDropdown(cIndex)}
-                                onMouseLeave={() => hideCategoryDropdown(cIndex)}
-                              >
-                                <h4 className={styles.categoryTitle}>
-                                  {category.category}
-                                  <svg
-                                    width="12"
-                                    height="12"
-                                    viewBox="0 0 12 12"
-                                    fill="none"
-                                    className={styles.categoryArrow}
-                                  >
-                                    <path
-                                      d="M4 2L8 6L4 10"
-                                      stroke="currentColor"
-                                      strokeWidth="1.5"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    />
-                                  </svg>
-                                </h4>
-                              </div>
-
-                              {/* Category programs dropdown */}
-                              <div
-                                className={styles.categoryDropdown}
-                                ref={(el) => (categoryDropdownRefs.current[cIndex] = el)}
-                                onMouseEnter={() => keepCategoryDropdownOpen(cIndex)}
-                                onMouseLeave={() => hideCategoryDropdown(cIndex)}
-                              >
-                                <div className={styles.categoryDropdownContent}>
-                                  <h5 className={styles.programsPanelTitle}>
+                              {/* For Power Packs - show items directly since there's only one category */}
+                              {link.label === "Power Packs" ? (
+                                <>
+                                  <div className={styles.programsPanelTitle}>
                                     {category.category}
-                                  </h5>
+                                  </div>
                                   <div className={styles.programsList}>
                                     {category.items.map((item, iIndex) => (
                                       <Link
@@ -680,8 +664,68 @@ const Navbar = () => {
                                       </Link>
                                     ))}
                                   </div>
-                                </div>
-                              </div>
+                                </>
+                              ) : (
+                                /* For Programs - show with category hover functionality */
+                                <>
+                                  <div
+                                    className={`${styles.dropdownCategory} ${activeCategory === cIndex ? styles.activeCategoryItem : ""
+                                      }`}
+                                    onMouseEnter={() => showCategoryDropdown(cIndex)}
+                                    onMouseLeave={() => hideCategoryDropdown(cIndex)}
+                                  >
+                                    <h4 className={styles.categoryTitle}>
+                                      {category.category}
+                                      <svg
+                                        width="12"
+                                        height="12"
+                                        viewBox="0 0 12 12"
+                                        fill="none"
+                                        className={styles.categoryArrow}
+                                      >
+                                        <path
+                                          d="M4 2L8 6L4 10"
+                                          stroke="currentColor"
+                                          strokeWidth="1.5"
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                        />
+                                      </svg>
+                                    </h4>
+                                  </div>
+
+                                  {/* Category programs dropdown */}
+                                  <div
+                                    className={styles.categoryDropdown}
+                                    ref={(el) => (categoryDropdownRefs.current[cIndex] = el)}
+                                    onMouseEnter={() => keepCategoryDropdownOpen(cIndex)}
+                                    onMouseLeave={() => hideCategoryDropdown(cIndex)}
+                                  >
+                                    <div className={styles.categoryDropdownContent}>
+                                      <h5 className={styles.programsPanelTitle}>
+                                        {category.category}
+                                      </h5>
+                                      <div className={styles.programsList}>
+                                        {category.items.map((item, iIndex) => (
+                                          <Link
+                                            key={iIndex}
+                                            href={item.href}
+                                            className={styles.dropdownItem}
+                                            onClick={() => {
+                                              setActiveDropdown(null);
+                                              setActiveCategory(null);
+                                              resetScrollLock();
+                                            }}
+                                          >
+                                            <span className={styles.programIcon}>→</span>
+                                            {item.label}
+                                          </Link>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </>
+                              )}
                             </div>
                           ))}
                         </div>
