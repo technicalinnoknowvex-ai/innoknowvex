@@ -1,4 +1,4 @@
-// src/app/api/pricing/[course]/route.js
+
 import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
 
@@ -35,7 +35,7 @@ export async function GET(request, { params }) {
 
     // Query Supabase for pricing data
     const { data, error } = await supabase
-      .from('pricing') // Assuming your table is named 'pricing'
+      .from('pricing_powerpack') 
       .select('*')
       .or(`course_name.ilike.%${course}%,course_name.eq.${course}`)
       .single();
@@ -45,7 +45,7 @@ export async function GET(request, { params }) {
       
       // If no exact match found, try a more flexible search
       const { data: flexibleData, error: flexibleError } = await supabase
-        .from('pricing')
+        .from('pricing_powerpack')
         .select('*');
 
       if (flexibleError) {
