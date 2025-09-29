@@ -10,6 +10,7 @@ import RangaswamyCollege from "@/components/Pages/Landing/Sections/OurPartners/L
 import Razorpay from "@/components/Pages/Landing/Sections/OurPartners/Logos/Razorpay";
 import RevaUni from "@/components/Pages/Landing/Sections/OurPartners/Logos/RevaUni";
 import Wipro from "@/components/Pages/Landing/Sections/OurPartners/Logos/Wipro";
+import Sona from "@/components/Pages/Landing/Sections/OurPartners/Logos/Sona"
 
 export const landingPageData = {
   aboutSection: {
@@ -130,6 +131,7 @@ export const landingPageData = {
       Razorpay,
       IBM,
       Capgemini,
+      Sona
     ],
     hiringPartners: [
       RangaswamyCollege,
@@ -296,7 +298,7 @@ export const landingPageData = {
       {
         listLabel: "LINKS",
         links: [
-          { label: "About Us", type: "section", href: "#about-us", sectionId: "about-us" },
+          { label: "About Us", type: "section", href: "about-us", sectionId: "about-us" },
           { label: "Programs", type: "section", href: "#programs", sectionId: "programs" },
           { label: "Blogs", type: "section", href: "#blogs", sectionId: "blogs" },
           { label: "Testimonials", type: "section", href: "#testimonials", sectionId: "testimonials" },
