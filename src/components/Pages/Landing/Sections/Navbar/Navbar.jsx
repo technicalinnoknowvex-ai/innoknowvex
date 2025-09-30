@@ -97,8 +97,8 @@ const powerPacksCategory = [
     category: "Premium Packs",
     items: [
       { label: "Make Your Own Pack", href: "/choose-packs" },
-      { label: "Golden Pass", href: "/power-packs/golden-pass" },
-      { label: "Tech Starter Pack", href: "/power-packs/tech-starter-pack" },
+      { label: "Golden Pass", href: "/golden-pass" },
+      { label: "Tech Starter Pack", href: "/tech-starter-pack" },
     ],
   },
 ];
