@@ -10,8 +10,11 @@
 
 //     const star = useRef()
 //     const [storedItems, setStoredItems] = useState([]);
+//     const [originalTotal, setOriginalTotal] = useState(0)
 //     const [total, setTotal] = useState(0)
 //     const [coupon, setCoupon] = useState("")
+//     const [appliedCoupon, setAppliedCoupon] = useState(null)
+//     const [discount, setDiscount] = useState(0)
 //     const [isFormOpen, setIsFormOpen] = useState(false);
 
 //     const handleDelete = (itemToBeDeleted) => {
@@ -54,7 +57,17 @@
 //         setIsFormOpen(false);
 //     };
 
-//     const applyCoupon = async (coupon, total) => {
+//     const applyCoupon = async () => {
+//         // Check if a coupon is already applied
+//         if (appliedCoupon) {
+//             toast.warning("You already have a coupon applied. Remove it first to apply a new one.", {
+//                 position: "top-right",
+//                 autoClose: 2000,
+//                 theme: "colored",
+//             });
+//             return;
+//         }
+
 //         if (!coupon || coupon.trim() === "") {
 //             toast.warning("Please enter a coupon code", {
 //                 position: "top-right",
@@ -69,14 +82,13 @@
 //                 method: "POST",
 //                 headers: { "Content-Type": "application/json" },
 //                 body: JSON.stringify({
-//                     couponCode: coupon.trim(), // trim whitespace
-//                     price: total,              // original price
-//                     courseId: "pro-packs",     // optional: course ID
+//                     couponCode: coupon.trim(),
+//                     price: originalTotal,
+//                     courseId: "pro-packs",
 //                 }),
 //             });
 
 //             if (!response.ok) {
-//                 // Handle non-2xx HTTP status
 //                 const errorData = await response.json().catch(() => ({}));
 //                 const message = errorData.message || "Failed to apply coupon";
 //                 toast.error(message, { position: "top-right", autoClose: 3000, theme: "colored" });
@@ -86,16 +98,17 @@
 //             const data = await response.json();
 
 //             if (data.success) {
-//                 // Coupon applied successfully
-//                 setTotal(data.finalPrice); // update total price
-//                 setCoupon("")
-//                 toast.success(`Coupon applied!`, {
+//                 const discountAmount = originalTotal - data.finalPrice;
+//                 setTotal(data.finalPrice);
+//                 setDiscount(discountAmount);
+//                 setAppliedCoupon(coupon.trim());
+//                 setCoupon("");
+//                 toast.success(`Coupon applied! You saved ₹${discountAmount}`, {
 //                     position: "top-right",
 //                     autoClose: 3000,
 //                     theme: "colored",
 //                 });
 //             } else {
-//                 // API returned success=false
 //                 const message = data.message || "Invalid coupon";
 //                 setCoupon("")
 //                 toast.error(message, { position: "top-right", autoClose: 3000, theme: "colored" });
@@ -110,6 +123,16 @@
 //         }
 //     };
 
+//     const removeCoupon = () => {
+//         setTotal(originalTotal);
+//         setDiscount(0);
+//         setAppliedCoupon(null);
+//         toast.info('Coupon removed successfully!', {
+//             position: "top-right",
+//             autoClose: 2000,
+//             theme: "colored",
+//         });
+//     };
 
 //     useEffect(() => {
 //         const cart = sessionStorage.getItem("cartItems");
@@ -135,9 +158,13 @@
 
 //     useEffect(() => {
 //         const amount = storedItems.reduce((acc, s) => acc + s.price, 0);
-//         setTotal(amount);
-
-//     }, [storedItems]);
+//         setOriginalTotal(amount);
+        
+//         // Only update total if no coupon is applied
+//         if (!appliedCoupon) {
+//             setTotal(amount);
+//         }
+//     }, [storedItems, appliedCoupon]);
 
 
 //     return (
@@ -206,8 +233,6 @@
 //                                                     </svg>
 //                                                 </div>
 //                                             </div>
-
-
 //                                         </React.Fragment>
 //                                     ))}
 
@@ -223,26 +248,75 @@
 //                     <div className={style.orderSummary}>
 //                         <h3 className={style.summaryTitle}>Order Summary</h3>
 //                         <div className={style.line1}></div>
+                        
+//                         {/* Subtotal */}
+//                         <div className={style.summaryLine}>
+//                             <span>Subtotal</span>
+//                             <span className={style.amount}>₹{originalTotal}</span>
+//                         </div>
+
+//                         {/* Discount - Only show if coupon is applied */}
+//                         {appliedCoupon && (
+//                             <div className={`${style.summaryLine} ${style.discountLine}`}>
+//                                 <span>Discount</span>
+//                                 <span className={style.discountAmount}>-₹{discount}</span>
+//                             </div>
+//                         )}
+
+//                         {/* Total */}
 //                         <div className={`${style.summaryLine} ${style.summaryLineTotal}`}>
 //                             <span>Total</span>
-//                             <span className={style.amount} id="total">{total}</span>
+//                             <span className={style.amount} id="total">₹{total}</span>
 //                         </div>
+                        
 //                         <div className={style.line2}></div>
-//                         <div className={style.couponSection}>
-//                             <div>
-//                                 <input
-//                                     type="text"
-//                                     placeholder="Coupon Code"
-//                                     id="couponInput"
-//                                     className={style.couponInput}
-//                                     value={coupon} // bind value
-//                                     onChange={(e) => setCoupon(e.target.value)} // update state
-//                                 />
+
+//                         {/* Applied Coupon Display */}
+//                         {appliedCoupon && (
+//                             <div className={style.appliedCouponBox}>
+//                                 <div className={style.couponInfo}>
+//                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+//                                         <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+//                                         <line x1="7" y1="7" x2="7.01" y2="7"/>
+//                                     </svg>
+//                                     <div>
+//                                         <div className={style.couponLabel}>Applied Coupon</div>
+//                                         <div className={style.couponCode}>{appliedCoupon}</div>
+//                                     </div>
+//                                 </div>
+//                                 <button 
+//                                     onClick={removeCoupon} 
+//                                     className={style.removeCouponBtn}
+//                                     title="Remove coupon"
+//                                 >
+//                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+//                                         <line x1="18" y1="6" x2="6" y2="18"/>
+//                                         <line x1="6" y1="6" x2="18" y2="18"/>
+//                                     </svg>
+//                                 </button>
 //                             </div>
-//                             <div>
-//                                 <button onClick={() => applyCoupon(coupon, total)} className={style.couponBtn}>Apply</button>
+//                         )}
+
+//                         {/* Coupon Input - Only show if no coupon is applied */}
+//                         {!appliedCoupon && (
+//                             <div className={style.couponSection}>
+//                                 <div>
+//                                     <input
+//                                         type="text"
+//                                         placeholder="Coupon Code"
+//                                         id="couponInput"
+//                                         className={style.couponInput}
+//                                         value={coupon}
+//                                         onChange={(e) => setCoupon(e.target.value.toUpperCase())}
+//                                         onKeyPress={(e) => e.key === 'Enter' && applyCoupon()}
+//                                     />
+//                                 </div>
+//                                 <div>
+//                                     <button onClick={applyCoupon} className={style.couponBtn}>Apply</button>
+//                                 </div>
 //                             </div>
-//                         </div>
+//                         )}
+
 //                         <button className={style.checkoutBtn} onClick={() => handleEnrollClick()}>
 //                             Go to Checkout
 //                         </button>
@@ -255,6 +329,8 @@
 // }
 
 // export default CartPage
+
+
 
 
 
@@ -278,7 +354,6 @@ const CartPage = () => {
     const [isFormOpen, setIsFormOpen] = useState(false);
 
     const handleDelete = (itemToBeDeleted) => {
-
         const updatedItems = storedItems.filter((item) => item.course !== itemToBeDeleted.course)
         setStoredItems(updatedItems)
 
@@ -344,7 +419,7 @@ const CartPage = () => {
                 body: JSON.stringify({
                     couponCode: coupon.trim(),
                     price: originalTotal,
-                    courseId: "pro-packs",
+                    courseId: "pro-packs-bundle",
                 }),
             });
 
@@ -426,14 +501,16 @@ const CartPage = () => {
         }
     }, [storedItems, appliedCoupon]);
 
-
     return (
         <>
             <PopUp
                 isOpen={isFormOpen}
                 onClose={closeForm}
                 price={total}
-                onEnroll={(amount) => handleEnrollClick("cart checkout", amount)}
+                storedItems={storedItems}
+                appliedCoupon={appliedCoupon}
+                discount={discount}
+                originalTotal={originalTotal}
             />
 
             <div className={style.head}>
@@ -445,13 +522,15 @@ const CartPage = () => {
             </div>
 
             <div className={style.shoppingCartContainer}>
-
                 <div className={style.cartContent}>
                     <div className={style.cartItems}>
+                        <div className={style.cartHeader}>
+                            <h2>Selected Courses ({storedItems.length})</h2>
+                        </div>
                         <div className={style.cartItemsList}>
                             {storedItems.length > 0 ? (
                                 <>
-                                    {Object.values(storedItems).map((m, index) => (
+                                    {storedItems.map((m, index) => (
                                         <React.Fragment key={index}>
                                             <div className={style.item} data-item="n2o">
                                                 <div>
@@ -470,7 +549,7 @@ const CartPage = () => {
                                                 </div>
 
                                                 <div className={style.itemControls}>
-                                                    <div className={style.itemPrice}>{m.price}</div>
+                                                    <div className={style.itemPrice}>₹{m.price}</div>
                                                 </div>
 
                                                 <div>
@@ -495,15 +574,12 @@ const CartPage = () => {
                                             </div>
                                         </React.Fragment>
                                     ))}
-
                                 </>
                             ) : (
                                 <div className={style.emptyCart}>Nothing in cart yet</div>
                             )}
-
                         </div>
                     </div>
-
 
                     <div className={style.orderSummary}>
                         <h3 className={style.summaryTitle}>Order Summary</h3>
@@ -511,7 +587,7 @@ const CartPage = () => {
                         
                         {/* Subtotal */}
                         <div className={style.summaryLine}>
-                            <span>Subtotal</span>
+                            <span>Subtotal ({storedItems.length} courses)</span>
                             <span className={style.amount}>₹{originalTotal}</span>
                         </div>
 
@@ -583,7 +659,6 @@ const CartPage = () => {
                     </div>
                 </div>
             </div>
-
         </>
     )
 }
