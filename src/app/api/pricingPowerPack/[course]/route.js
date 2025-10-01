@@ -33,12 +33,6 @@ export async function GET(request, { params }) {
       );
     }
 
-    // Query Supabase for pricing data
-    // const { data, error } = await supabase
-    //   .from('pricing_powerpack') 
-    //   .select('*')
-    //   .or(`course_name.ilike.%${course}%,course_name.eq.${course}`)
-    //   .single();
     const { data, error } = await supabase
       .from('pricing_powerpack') 
       .select('*')
