@@ -46,14 +46,14 @@ $desktop: 1440px;
 
 // Fixed Sidebar - Does NOT scroll
 .sidebar {
-  position: fixed;
+  position: fixed; // This is correct
   left: 0;
-  top: 0;
+  top: 0; // IMPORTANT: Make sure this is 0, not inheriting any offset
   width: 280px;
   height: 100vh;
   background: #FFF9E1;
   border-right: 2px solid #E5D899;
-  overflow-y: auto; // Sidebar content can scroll if needed
+  overflow-y: auto;
   overflow-x: hidden;
   z-index: 50;
 
@@ -62,7 +62,7 @@ $desktop: 1440px;
   }
 
   @include tablet {
-    position: relative;
+    position: relative; // Changed to relative on tablets
     width: 100%;
     height: auto;
     border-right: none;
@@ -71,7 +71,7 @@ $desktop: 1440px;
   }
 
   @include mobile {
-    position: relative;
+    position: relative; // Changed to relative on mobile
     width: 100%;
     height: auto;
     border-right: none;

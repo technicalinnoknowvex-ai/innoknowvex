@@ -76,7 +76,8 @@ export const programs = {
           "You will learn to establish communication with MongoDB, read and write data to the database, utilize the aggregation framework for complex queries, and manage database configuration.",
       },
     ],
-    price_search_tag: "web-development"
+    price_search_tag: "web-development",
+     category: "technology-programming"
   },
   "python-programming": {
     id: "python-programming",
@@ -105,7 +106,8 @@ export const programs = {
       "Generators",
       "Lambda Functions",
     ],
-    price_search_tag: "python-programming"
+    price_search_tag: "python-programming",
+     category: "technology-programming"
   },
   "java": {
     id: "java",
@@ -134,7 +136,8 @@ export const programs = {
       "Generics",
       "Java Virtual Machine (JVM)",
     ],
-    price_search_tag: "java"
+    price_search_tag: "java",
+     category: "technology-programming"
   },
   "java-dsa": {
     id: "java-dsa",
@@ -176,7 +179,8 @@ export const programs = {
       "greedy strategies",
       "dynamic programming",
     ],
-    price_search_tag:"java-dsa"
+    price_search_tag:"java-dsa",
+     category: "technology-programming"
   },
   "machine-learning": {
     id: "machine-learning",
@@ -234,7 +238,8 @@ export const programs = {
           "You will gain hands-on experience by implementing various machine learning algorithms to complete a major practical project, applying all the concepts learned throughout the course.",
       },
     ],
-    price_search_tag:"machine-learning"
+    price_search_tag:"machine-learning",
+    category: "ai-data"
   },
   "artificial-intelligence": {
     id: "artificial-intelligence",
@@ -307,7 +312,8 @@ export const programs = {
           "Upon completion, you will receive a Certificate of Training Completion, an Internship Completion Certificate, and potentially an Excellence Performance Certificate for outstanding achievement.",
       },
     ],
-    price_search_tag:"artificial-intelligence"
+    price_search_tag:"artificial-intelligence",
+    category: "ai-data"
   },
   "cloud-computing": {
     id: "cloud-computing",
@@ -376,7 +382,8 @@ export const programs = {
           "You will get an introduction to AWS, learn core AWS concepts, explore AWS storage and security features, and gain practical experience working with Amazon Web Services.",
       },
     ],
-    price_search_tag:"cloud-computing"
+    price_search_tag:"cloud-computing",
+    category: "cloud-security"
   },
   "cyber-security": {
     id: "cyber-security",
@@ -436,7 +443,9 @@ export const programs = {
           "You will learn about symmetric and asymmetric keys, understand concurrency in cryptography, and explore methods for ensuring protocol security in digital communications.",
       },
     ],
-    price_search_tag:"cyber-security"
+    price_search_tag:"cyber-security",
+    category: "cloud-security"
+    
   },
   "data-science": {
     id: "data-science",
@@ -490,7 +499,8 @@ export const programs = {
           "This module covers algorithm implementation techniques, methods for analysis and model evaluation, and practical approaches for deploying and serving machine learning models in production environments.",
       },
     ],
-    price_search_tag:"data-science"
+    price_search_tag:"data-science",
+    category: "ai-data"
   },
   "vlsi": {
     id: "vlsi",
@@ -511,7 +521,8 @@ export const programs = {
       "FPGA Implementation & Prototyping",
       "ASIC Design Flow & Verification"
     ],
-    price_search_tag:"vlsi"
+    price_search_tag:"vlsi",
+    category: "hardware-engineering"
   },
   "nanotechnology": {
     id: "nanotechnology",
@@ -538,7 +549,8 @@ export const programs = {
       "innovation",
       "interdisciplinary project work"
     ],
-    price_search_tag:"nanotechnology"
+    price_search_tag:"nanotechnology",
+    category: "hardware-engineering"
   },
   "embedded-systems": {
     id: "embedded-systems",
@@ -563,7 +575,8 @@ export const programs = {
       "IoT & Wireless Communication",
       "Debugging & Testing with industry tools"
     ],
-    price_search_tag:"embedded-systems"
+    price_search_tag:"embedded-systems",
+    category: "hardware-engineering"
   },
   "iot": {
     id: "iot",
@@ -626,7 +639,8 @@ export const programs = {
           "You will be introduced to various sensors, learn to react to sensor data rules, work with ESP8266 WiFi module, perform data analysis using MATLAB, and establish connections via HTTP protocols.",
       },
     ],
-    price_search_tag:"iot"
+    price_search_tag:"iot",
+    category: "hardware-engineering"
   },
   "hev": {
     id: "hev",
@@ -683,7 +697,8 @@ export const programs = {
           "You will get an introduction to drive cycle data, learn to compute EV powertrain behavior, and gain practical experience with Matlab-based numerical computation for EV powertrain analysis and design.",
       },
     ],
-    price_search_tag:"hev"
+    price_search_tag:"hev",
+    category: "hardware-engineering"
   },
   "mern-stack": {
     id: "mern-stack",
@@ -693,7 +708,8 @@ export const programs = {
     internship: "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/certificates/Sample%20Internship%20Certificate.png",
     overview:
       "Full-stack development using MongoDB, Express, React, and Node.js.",
-    price_search_tag:"mern-stack"  
+    price_search_tag:"mern-stack"  ,
+     category: "technology-programming"
   },
   "android-development": {
     id: "android-development",
@@ -703,7 +719,8 @@ export const programs = {
     internship: "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/certificates/Sample%20Internship%20Certificate.png",
     overview:
       "Build native Android applications using Java/Kotlin and Android Studio.",
-    price_search_tag:"android-development"
+    price_search_tag:"android-development",
+     category: "technology-programming"
   },
   "business-management": {
     id: "business-management",
@@ -713,7 +730,8 @@ export const programs = {
     internship: "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/certificates/Sample%20Internship%20Certificate.png",
     overview:
       "Fundamentals of business operations, strategy, and organizational management.",
-    price_search_tag:"business-management"
+    price_search_tag:"business-management",
+    category: "business-management"
   },
   "business-analytics": {
     id: "business-analytics",
@@ -733,7 +751,8 @@ export const programs = {
       "Business Intelligence Tools & Dashboards",
       "Data-Driven Decision Making & Forecasting"
     ],
-    price_search_tag:"business-analytics"
+    price_search_tag:"business-analytics",
+    category: "business-management"
   },
   "digital-marketing": {
     id: "digital-marketing",
@@ -806,7 +825,8 @@ export const programs = {
           "You will understand traditional, digital, and social media marketing landscapes, learn major social media platforms and their marketing functions, and understand both the risks and wide scope of social media marketing.",
       },
     ],
-    price_search_tag:"digital-marketing"
+    price_search_tag:"digital-marketing",
+    category: "business-management"
   },
   "finance": {
     id: "finance",
@@ -865,7 +885,8 @@ export const programs = {
           "You will learn liquidity management strategies, cash forecasting techniques, physical and notional cash pool management, POBO/ROBO models implementation, and clearing and settlement systems operations.",
       },
     ],
-    price_search_tag:"finance"
+    price_search_tag:"finance",
+    category: "business-management"
   },
   "stock-trading": {
     id: "stock-trading",
@@ -892,7 +913,8 @@ export const programs = {
       "Long-term Investing",
       "Risk & Portfolio Management"
     ],
-    price_search_tag:"stock-trading"
+    price_search_tag:"stock-trading",
+    category: "business-management"
   },
   "human-resources": {
     id: "human-resources",
@@ -945,7 +967,8 @@ export const programs = {
           "This module covers compensation structure planning, incentive and bonus management systems, professional and employee tax regulations, and provident fund with employee benefits administration.",
       },
     ],
-    price_search_tag:"human-resources"
+    price_search_tag:"human-resources",
+    category: "business-management"
   },
   "corporate-law": {
     id: "corporate-law",
@@ -955,7 +978,9 @@ export const programs = {
     internship: "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/certificates/Sample%20Internship%20Certificate.png",
     overview:
       "Legal aspects of business operations, contracts, and compliance.",
-    price_search_tag:"corporate-law"
+    price_search_tag:"corporate-law",
+    category: "business-management"
+    
   },
   "ui-ux-design": {
     id: "ui-ux-design",
@@ -979,7 +1004,8 @@ export const programs = {
       "User Research & Usability Testing",
       "Interaction Design & Microinteractions"
     ],
-    price_search_tag:"ui-ux-design"
+    price_search_tag:"ui-ux-design",
+    category: "design-creative"
   },
   "fashion-designing": {
     id: "fashion-designing",
@@ -989,7 +1015,9 @@ export const programs = {
     internship: "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/certificates/Sample%20Internship%20Certificate.png",
     overview:
       "Fundamentals of fashion design, trends, and garment construction.",
-    price_search_tag:"fashion-designing"
+    price_search_tag:"fashion-designing",
+    category: "design-creative"
+    
   },
   "psychology": {
     id: "psychology",
@@ -1007,7 +1035,8 @@ export const programs = {
       "Developmental & Social Psychology",
       "Organizational & Industrial Applications"
     ],
-    price_search_tag:"psychology"
+    price_search_tag:"psychology",
+    category: "healthcare-sciences"
   },
   "medical-coding": {
     id: "medical-coding",
@@ -1018,7 +1047,8 @@ export const programs = {
     brochure: "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/brochure/medical-coding.pdf",
     overview:
       "Learn medical classification systems and healthcare billing codes.",
-    price_search_tag:"medical-coding"
+    price_search_tag:"medical-coding",
+    category: "healthcare-sciences"
   },
   "advanced-data-science": {
     id: "advanced-data-science",
@@ -1029,7 +1059,8 @@ export const programs = {
     brochure: 'https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/brochure/Data%20science.pdf',
     overview:
       "Advanced ",
-    price_search_tag:"advanced-data-science"
+    price_search_tag:"advanced-data-science",
+     category: "advanced"
   },
   "advanced-web-development": {
     id: "advanced-web-development",
@@ -1040,7 +1071,8 @@ export const programs = {
     brochure: 'https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/brochure/web-development.pdf',
     overview:
       "Advanced concepts in web architecture, performance optimization, and security.",
-    price_search_tag:"advanced-web-development"
+    price_search_tag:"advanced-web-development",
+     category: "advanced"
   },
   "c-cpp": {
     id: "c-cpp",
@@ -1051,7 +1083,8 @@ export const programs = {
     brochure: "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/brochure/C%20&%20C++.pdf",
     overview:
       "Advanced concepts in web architecture, performance optimization, and security.",
-    price_search_tag:"c-cpp"
+    price_search_tag:"c-cpp",
+     category: "technology-programming"
   },
   "autocad": {
     id: "AutoCad",
@@ -1139,7 +1172,8 @@ export const programs = {
           "You will explore various AutoCAD toolsets, learn to use the AutoCAD Web App, and work with the AutoCAD Mobile App for flexible design access.",
       },
     ],
-    price_search_tag:"autocad"
+    price_search_tag:"autocad",
+    category: "hardware-engineering"
   },
   "automobile-design": {
     id: "Automobile Design",
@@ -1166,7 +1200,9 @@ export const programs = {
       "Long-term Investing",
       "Risk & Portfolio Management"
     ],
-    price_search_tag:"automobile-design"
+    price_search_tag:"automobile-design",
+    category: "hardware-engineering"
+    
   },
   "dsa": {
     id: "DSA",
@@ -1177,7 +1213,8 @@ export const programs = {
     brochure: "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/brochure/DSA.pdf",
     overview:
       "Advanced concepts in web architecture, performance optimization, and security.",
-    price_search_tag:"dsa"
+    price_search_tag:"dsa",
+     category: "technology-programming"
   },
   "clinical-data-management": {
     id: "clinical-data-management",
@@ -1255,7 +1292,8 @@ export const programs = {
           "You will learn to establish communication with MongoDB, read and write data to the database, utilize the aggregation framework for complex queries, and manage database configuration.",
       },
     ],
-    price_search_tag:"clinical-data-management"
+    price_search_tag:"clinical-data-management",
+    category: "healthcare-sciences"
   },
   "clinical-trials-and-research": {
     id: "wclinical-trials-and-research",
@@ -1333,6 +1371,7 @@ export const programs = {
           "You will learn to establish communication with MongoDB, read and write data to the database, utilize the aggregation framework for complex queries, and manage database configuration.",
       },
     ],
-    price_search_tag:"clinical-trials-and-research"
+    price_search_tag:"clinical-trials-and-research",
+    category: "healthcare-sciences"
   }
 };
