@@ -1,3 +1,5 @@
+
+
 @use "../../../../styles/fonts" as *;
 
 $mobile: 393px;
@@ -46,9 +48,9 @@ $desktop: 1440px;
 
 // Fixed Sidebar - Does NOT scroll
 .sidebar {
-  position: fixed; // This is correct
+  position: fixed;
   left: 0;
-  top: 0; // IMPORTANT: Make sure this is 0, not inheriting any offset
+  top: 0;
   width: 280px;
   height: 100vh;
   background: #FFF9E1;
@@ -62,7 +64,7 @@ $desktop: 1440px;
   }
 
   @include tablet {
-    position: relative; // Changed to relative on tablets
+    position: relative;
     width: 100%;
     height: auto;
     border-right: none;
@@ -71,7 +73,7 @@ $desktop: 1440px;
   }
 
   @include mobile {
-    position: relative; // Changed to relative on mobile
+    position: relative;
     width: 100%;
     height: auto;
     border-right: none;
@@ -95,7 +97,7 @@ $desktop: 1440px;
     font-size: 1.5rem;
     color: #A38907;
     margin-bottom: 1.5rem;
-    font-weight: 400; // Reduced from 500
+    font-weight: 400;
     font-family: $font-oldschool;
 
     @include tablet {
@@ -280,6 +282,50 @@ $desktop: 1440px;
   }
 }
 
+// Selection Counter
+.selectionCounter {
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #A38907 0%, #9F8310 100%);
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: white;
+  font-size: 1.1rem;
+  font-family: $font-oldschool;
+  box-shadow: 0 4px 16px rgba(163, 137, 7, 0.2);
+
+  p {
+    margin: 0;
+    font-weight: 400;
+  }
+
+  strong {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #FFF9E1;
+  }
+
+  @include tablet {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+
+    strong {
+      font-size: 1.3rem;
+    }
+  }
+
+  @include mobile {
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+
+    strong {
+      font-size: 1.2rem;
+    }
+  }
+}
+
 // Plans Grid - 3 columns on desktop, 2 on laptop
 .plansGrid {
   display: grid;
@@ -315,8 +361,9 @@ $desktop: 1440px;
   overflow: hidden;
   box-shadow: 0 4px 16px rgba(163, 137, 7, 0.1);
   height: 200px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  border: 1px solid #E5D899;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border 0.2s ease;
+  border: 2px solid #E5D899;
+  position: relative;
 
   &:hover {
     transform: translateY(-4px);
@@ -335,6 +382,66 @@ $desktop: 1440px;
   @include mobile {
     flex-direction: column;
     height: auto;
+  }
+}
+
+// Selected Card State
+.selectedCard {
+  border: 3px solid #4CAF50;
+  box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+  
+  &:hover {
+    box-shadow: 0 0 25px rgba(76, 175, 80, 0.4);
+  }
+}
+
+// Disabled Card State
+.disabledCard {
+  opacity: 0.5;
+  pointer-events: none;
+  filter: grayscale(50%);
+}
+
+// Selected Badge
+.selectedBadge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #4CAF50;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.4);
+  z-index: 10;
+  font-family: $font-oldschool;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  @include tablet {
+    top: 8px;
+    right: 8px;
+    padding: 0.4rem 0.85rem;
+    font-size: 0.85rem;
+  }
+
+  @include mobile {
+    top: 6px;
+    right: 6px;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
   }
 }
 
@@ -402,10 +509,10 @@ $desktop: 1440px;
   gap: 0.4rem;
 
   h3 {
-    font-size: 0.9rem; // Reduced from 0.95rem
+    font-size: 0.9rem;
     color: #A38907;
     margin: 0;
-    font-weight: 400; // Reduced from 500
+    font-weight: 400;
     font-family: $font-oldschool;
     line-height: 1.2;
 
@@ -471,10 +578,10 @@ $desktop: 1440px;
 }
 
 .planName {
-  font-size: 1.5rem; // Reduced from 1.6rem
+  font-size: 1.5rem;
   color: #A38907;
   margin: 0;
-  font-weight: 400; // Reduced from 500
+  font-weight: 400;
   font-family: $font-oldschool;
 
   @include laptop {
@@ -541,9 +648,9 @@ $desktop: 1440px;
 }
 
 .currentPrice {
-  font-size: 1.7rem; // Reduced from 1.8rem
+  font-size: 1.7rem;
   color: #A69600;
-  font-weight: 500; // Reduced from 600
+  font-weight: 500;
   font-family: $font-oldschool;
 
   @include laptop {
@@ -560,7 +667,7 @@ $desktop: 1440px;
 }
 
 .originalPrice {
-  font-size: 1.1rem; // Reduced from 1.2rem
+  font-size: 1.1rem;
   color: #999;
   text-decoration: line-through;
   font-family: $font-oldschool;
@@ -585,7 +692,7 @@ $desktop: 1440px;
   padding: 0.3rem 0.6rem;
   border-radius: 0.4rem;
   font-size: 0.75rem;
-  font-weight: 500; // Reduced from 600
+  font-weight: 500;
 
   @include tablet {
     font-size: 0.8rem;
@@ -610,7 +717,7 @@ $desktop: 1440px;
   border-radius: 0.6rem;
   padding: 0.65rem 1rem;
   font-size: 0.95rem;
-  font-weight: 400; // Reduced from 500
+  font-weight: 400;
   cursor: pointer;
   transition: all 0.2s ease;
   width: 100%;
@@ -620,14 +727,19 @@ $desktop: 1440px;
     flex-shrink: 0;
   }
 
-  &:hover {
+  &:hover:not(:disabled) {
     background: #9F8310;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(163, 137, 7, 0.3);
   }
 
-  &:active {
+  &:active:not(:disabled) {
     transform: translateY(0);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
   }
 
   @include laptop {
@@ -643,6 +755,21 @@ $desktop: 1440px;
   @include mobile {
     padding: 0.65rem 1rem;
     font-size: 0.9rem;
+  }
+}
+
+// Remove Button
+.removeBtn {
+  background: linear-gradient(135deg, #f44336 0%, #e91e63 100%);
+
+  &:hover:not(:disabled) {
+    background: linear-gradient(135deg, #d32f2f 0%, #c2185b 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
   }
 }
 
@@ -752,3 +879,8 @@ $desktop: 1440px;
     background: #A38907;
   }
 }
+
+
+
+
+
