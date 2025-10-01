@@ -1,0 +1,11 @@
+@use "../../../../styles/fonts" as *;
+
+.heading{
+    margin-top: 15rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    font-family: $font-sharp-25;
+    color: #9F8310;
+}

@@ -30,9 +30,15 @@ const programsCategory = [
     category: "AI & Data Science",
     items: [
       { label: "Machine Learning", href: "/programs/machine-learning" },
-      { label: "Artificial Intelligence (AI)", href: "/programs/artificial-intelligence" },
+      {
+        label: "Artificial Intelligence (AI)",
+        href: "/programs/artificial-intelligence",
+      },
       { label: "Data Science", href: "/programs/data-science" },
-      { label: "Advanced Data Science", href: "/programs/advanced-data-science" },
+      {
+        label: "Advanced Data Science",
+        href: "/programs/advanced-data-science",
+      },
     ],
   },
   {
@@ -78,34 +84,76 @@ const programsCategory = [
     items: [
       { label: "Psychology", href: "/programs/psychology" },
       { label: "Medical Coding", href: "/programs/medical-coding" },
-      { label: "Clinical Data Management", href: "/programs/clinical-data-management" },
-      { label: "Clinical Trials & Research", href: "/programs/clinical-trials-and-research" },
+      {
+        label: "Clinical Data Management",
+        href: "/programs/clinical-data-management",
+      },
+      {
+        label: "Clinical Trials & Research",
+        href: "/programs/clinical-trials-and-research",
+      },
     ],
   },
   {
     category: "Advanced Programs",
     items: [
-      { label: "Advanced Web Development", href: "/programs/advanced-web-development" },
-      { label: "Advanced Data Science", href: "/programs/advanced-data-science" },
+      {
+        label: "Advanced Web Development",
+        href: "/programs/advanced-web-development",
+      },
+      {
+        label: "Advanced Data Science",
+        href: "/programs/advanced-data-science",
+      },
+    ],
+  },
+];
+
+// Power Packs dropdown data
+const powerPacksCategory = [
+  {
+    category: "Premium Packs",
+    items: [
+      { label: "Make Your Own Pack", href: "/choose-packs" },
+      { label: "Golden Pass", href: "/golden-pass" },
+      { label: "Tech Starter Pack", href: "/tech-starter-pack" },
     ],
   },
 ];
 
 const navLinks = [
   { label: "Home", type: "section", href: "/", sectionId: "home" },
-  { label: "About Us", type: "section", href: "about-us", sectionId: "about-us" },
+  {
+    label: "About Us",
+    type: "section",
+    href: "about-us",
+    sectionId: "about-us",
+  },
   {
     label: "Programs",
     type: "dropdown",
     href: "",
-    categories: programsCategory
+    categories: programsCategory,
   },
-  // { label: "Packs", type: "page", href: "/choose-packs" },
   { label: "Blogs", type: "section", href: "#blogs", sectionId: "blogs" },
-  { label: "Testimonials", type: "section", href: "#testimonials", sectionId: "testimonials" },
-  // { label: "Cart", type: "page", href: "/cart" },
-  { label: "Contact Us", type: "section", href: "#footer", sectionId: "footer" },
-  { label: "Power Packs", type: "section", href: "choose-packs", sectionId: "choose-packs" },
+  {
+    label: "Testimonials",
+    type: "section",
+    href: "#testimonials",
+    sectionId: "testimonials",
+  },
+  {
+    label: "Contact Us",
+    type: "section",
+    href: "#footer",
+    sectionId: "footer",
+  },
+  {
+    label: "Power Packs",
+    type: "dropdown",
+    href: "",
+    categories: powerPacksCategory,
+  },
   { label: "Cart", type: "section", href: "cart", sectionId: "cart" },
 ];
 
@@ -127,19 +175,19 @@ const Navbar = () => {
 
   // Utility function to reset scroll lock
   const resetScrollLock = () => {
-    document.body.style.overflow = '';
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.width = '';
+    document.body.style.overflow = "";
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.width = "";
   };
 
   // Utility function to apply scroll lock
   const applyScrollLock = () => {
     scrollPosition.current = window.pageYOffset;
-    document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
     document.body.style.top = `-${scrollPosition.current}px`;
-    document.body.style.width = '100%';
+    document.body.style.width = "100%";
   };
 
   // Utility function to remove scroll lock and restore position
@@ -174,7 +222,10 @@ const Navbar = () => {
   // Global click handler to close dropdowns when clicking outside
   useEffect(() => {
     const handleGlobalClick = (event) => {
-      if (containerRef.current && !containerRef.current.contains(event.target)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target)
+      ) {
         setActiveDropdown(null);
         setActiveCategory(null);
         setIsOpen(false);
@@ -182,19 +233,19 @@ const Navbar = () => {
     };
 
     const handleEscape = (event) => {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         setActiveDropdown(null);
         setActiveCategory(null);
         setIsOpen(false);
       }
     };
 
-    document.addEventListener('click', handleGlobalClick);
-    document.addEventListener('keydown', handleEscape);
+    document.addEventListener("click", handleGlobalClick);
+    document.addEventListener("keydown", handleEscape);
 
     return () => {
-      document.removeEventListener('click', handleGlobalClick);
-      document.removeEventListener('keydown', handleEscape);
+      document.removeEventListener("click", handleGlobalClick);
+      document.removeEventListener("keydown", handleEscape);
     };
   }, []);
 
@@ -210,7 +261,7 @@ const Navbar = () => {
       }
 
       // Initialize all dropdowns to hidden state
-      Object.values(dropdownRefs.current).forEach(dropdown => {
+      Object.values(dropdownRefs.current).forEach((dropdown) => {
         if (dropdown) {
           gsap.set(dropdown, {
             autoAlpha: 0,
@@ -221,15 +272,17 @@ const Navbar = () => {
       });
 
       // Initialize all category dropdowns to hidden state
-      Object.values(categoryDropdownRefs.current).forEach(categoryDropdown => {
-        if (categoryDropdown) {
-          gsap.set(categoryDropdown, {
-            autoAlpha: 0,
-            x: 20,
-            pointerEvents: "none",
-          });
+      Object.values(categoryDropdownRefs.current).forEach(
+        (categoryDropdown) => {
+          if (categoryDropdown) {
+            gsap.set(categoryDropdown, {
+              autoAlpha: 0,
+              x: 20,
+              pointerEvents: "none",
+            });
+          }
         }
-      });
+      );
 
       // Animate sparkles on navbar load
       gsap.fromTo(
@@ -313,17 +366,19 @@ const Navbar = () => {
         });
 
         // Hide all category dropdowns
-        Object.values(categoryDropdownRefs.current).forEach(categoryDropdown => {
-          if (categoryDropdown) {
-            gsap.to(categoryDropdown, {
-              autoAlpha: 0,
-              x: 20,
-              duration: 0.2,
-              ease: "power2.in",
-              pointerEvents: "none",
-            });
+        Object.values(categoryDropdownRefs.current).forEach(
+          (categoryDropdown) => {
+            if (categoryDropdown) {
+              gsap.to(categoryDropdown, {
+                autoAlpha: 0,
+                x: 20,
+                duration: 0.2,
+                ease: "power2.in",
+                pointerEvents: "none",
+              });
+            }
           }
-        });
+        );
       }, 150);
     }
   };
@@ -346,17 +401,19 @@ const Navbar = () => {
       }
 
       // Hide other category dropdowns first
-      Object.entries(categoryDropdownRefs.current).forEach(([key, dropdown]) => {
-        if (dropdown && parseInt(key) !== categoryIndex) {
-          gsap.to(dropdown, {
-            autoAlpha: 0,
-            x: 20,
-            duration: 0.2,
-            ease: "power2.in",
-            pointerEvents: "none",
-          });
+      Object.entries(categoryDropdownRefs.current).forEach(
+        ([key, dropdown]) => {
+          if (dropdown && parseInt(key) !== categoryIndex) {
+            gsap.to(dropdown, {
+              autoAlpha: 0,
+              x: 20,
+              duration: 0.2,
+              ease: "power2.in",
+              pointerEvents: "none",
+            });
+          }
         }
-      });
+      );
 
       setActiveCategory(categoryIndex);
       gsap.to(categoryDropdown, {
@@ -399,8 +456,8 @@ const Navbar = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-  
- const handleNavigation = (link) => {
+
+  const handleNavigation = (link) => {
     // Animate clicked sparkle
     const clickedIndex = navLinks.findIndex(
       (navLink) => navLink.href === link.href
@@ -422,10 +479,10 @@ const Navbar = () => {
     setActiveCategory(null);
 
     // Clear all timers
-    Object.values(dropdownTimers.current).forEach(timer => {
+    Object.values(dropdownTimers.current).forEach((timer) => {
       if (timer) clearTimeout(timer);
     });
-    Object.values(categoryTimers.current).forEach(timer => {
+    Object.values(categoryTimers.current).forEach((timer) => {
       if (timer) clearTimeout(timer);
     });
 
@@ -435,26 +492,27 @@ const Navbar = () => {
     // Handle section links (like #blogs, #testimonials)
     if (link.type === "section" && link.href.startsWith("#")) {
       // Check if we're not on the home page
-      if (pathname !== '/') {
+      if (pathname !== "/") {
         // Navigate to home page first, then scroll to section
-        router.push('/');
-        
+        router.push("/");
+
         // Wait for navigation to complete, then scroll
         const checkHomePageLoad = () => {
-          if (window.location.pathname === '/') {
+          if (window.location.pathname === "/") {
             setTimeout(() => {
               const sectionId = link.href.substring(1);
               const element = document.getElementById(sectionId);
-              
+
               if (element) {
                 // Calculate offset for fixed navbar
                 const navbarHeight = 70; // Your navbar height
-                const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+                const elementPosition =
+                  element.getBoundingClientRect().top + window.pageYOffset;
                 const offsetPosition = elementPosition - navbarHeight - 20; // Extra 20px for spacing
-                
+
                 window.scrollTo({
                   top: offsetPosition,
-                  behavior: 'smooth'
+                  behavior: "smooth",
                 });
               }
             }, 300); // Wait a bit longer for page to fully load
@@ -463,7 +521,7 @@ const Navbar = () => {
             setTimeout(checkHomePageLoad, 100);
           }
         };
-        
+
         // Start checking after a small delay
         setTimeout(checkHomePageLoad, 100);
       } else {
@@ -471,16 +529,17 @@ const Navbar = () => {
         setTimeout(() => {
           const sectionId = link.href.substring(1);
           const element = document.getElementById(sectionId);
-          
+
           if (element) {
             // Calculate offset for fixed navbar
             const navbarHeight = 70; // Your navbar height
-            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+            const elementPosition =
+              element.getBoundingClientRect().top + window.pageYOffset;
             const offsetPosition = elementPosition - navbarHeight - 20; // Extra 20px for spacing
-            
+
             window.scrollTo({
               top: offsetPosition,
-              behavior: 'smooth'
+              behavior: "smooth",
             });
           }
         }, 100); // Small delay to ensure cleanup is complete
@@ -488,14 +547,13 @@ const Navbar = () => {
     } else {
       // For regular page navigation - scroll to top first, then navigate
       scrollToTop();
-      
+
       // Add small delay before navigation to allow scroll to start
       setTimeout(() => {
         router.push(link.href);
       }, 100);
     }
   };
-
 
   // Handle link hover animations
   const handleLinkHover = (index, isEnter) => {
@@ -578,8 +636,9 @@ const Navbar = () => {
                 ) : link.type === "dropdown" ? (
                   <div className={styles.dropdownWrapper}>
                     <div
-                      className={`${styles.linkBtn} ${pathname === link.href ? styles.activeLink : ""
-                        }`}
+                      className={`${styles.linkBtn} ${
+                        pathname === link.href ? styles.activeLink : ""
+                      }`}
                       role="button"
                       tabIndex={0}
                       onKeyDown={(e) => {
@@ -625,44 +684,16 @@ const Navbar = () => {
                       <div className={styles.dropdownContent}>
                         <div className={styles.categoriesList}>
                           {link.categories.map((category, cIndex) => (
-                            <div key={cIndex} className={styles.categoryWrapper}>
-                              <div
-                                className={`${styles.dropdownCategory} ${activeCategory === cIndex ? styles.activeCategoryItem : ""
-                                  }`}
-                                onMouseEnter={() => showCategoryDropdown(cIndex)}
-                                onMouseLeave={() => hideCategoryDropdown(cIndex)}
-                              >
-                                <h4 className={styles.categoryTitle}>
-                                  {category.category}
-                                  <svg
-                                    width="12"
-                                    height="12"
-                                    viewBox="0 0 12 12"
-                                    fill="none"
-                                    className={styles.categoryArrow}
-                                  >
-                                    <path
-                                      d="M4 2L8 6L4 10"
-                                      stroke="currentColor"
-                                      strokeWidth="1.5"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    />
-                                  </svg>
-                                </h4>
-                              </div>
-
-                              {/* Category programs dropdown */}
-                              <div
-                                className={styles.categoryDropdown}
-                                ref={(el) => (categoryDropdownRefs.current[cIndex] = el)}
-                                onMouseEnter={() => keepCategoryDropdownOpen(cIndex)}
-                                onMouseLeave={() => hideCategoryDropdown(cIndex)}
-                              >
-                                <div className={styles.categoryDropdownContent}>
-                                  <h5 className={styles.programsPanelTitle}>
+                            <div
+                              key={cIndex}
+                              className={styles.categoryWrapper}
+                            >
+                              {/* For Power Packs - show items directly since there's only one category */}
+                              {link.label === "Power Packs" ? (
+                                <>
+                                  <div className={styles.programsPanelTitle}>
                                     {category.category}
-                                  </h5>
+                                  </div>
                                   <div className={styles.programsList}>
                                     {category.items.map((item, iIndex) => (
                                       <Link
@@ -675,13 +706,95 @@ const Navbar = () => {
                                           resetScrollLock();
                                         }}
                                       >
-                                        <span className={styles.programIcon}>→</span>
+                                        <span className={styles.programIcon}>
+                                          →
+                                        </span>
                                         {item.label}
                                       </Link>
                                     ))}
                                   </div>
-                                </div>
-                              </div>
+                                </>
+                              ) : (
+                                /* For Programs - show with category hover functionality */
+                                <>
+                                  <div
+                                    className={`${styles.dropdownCategory} ${
+                                      activeCategory === cIndex
+                                        ? styles.activeCategoryItem
+                                        : ""
+                                    }`}
+                                    onMouseEnter={() =>
+                                      showCategoryDropdown(cIndex)
+                                    }
+                                    onMouseLeave={() =>
+                                      hideCategoryDropdown(cIndex)
+                                    }
+                                  >
+                                    <h4 className={styles.categoryTitle}>
+                                      {category.category}
+                                      <svg
+                                        width="12"
+                                        height="12"
+                                        viewBox="0 0 12 12"
+                                        fill="none"
+                                        className={styles.categoryArrow}
+                                      >
+                                        <path
+                                          d="M4 2L8 6L4 10"
+                                          stroke="currentColor"
+                                          strokeWidth="1.5"
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                        />
+                                      </svg>
+                                    </h4>
+                                  </div>
+
+                                  {/* Category programs dropdown */}
+                                  <div
+                                    className={styles.categoryDropdown}
+                                    ref={(el) =>
+                                      (categoryDropdownRefs.current[cIndex] =
+                                        el)
+                                    }
+                                    onMouseEnter={() =>
+                                      keepCategoryDropdownOpen(cIndex)
+                                    }
+                                    onMouseLeave={() =>
+                                      hideCategoryDropdown(cIndex)
+                                    }
+                                  >
+                                    <div
+                                      className={styles.categoryDropdownContent}
+                                    >
+                                      <h5 className={styles.programsPanelTitle}>
+                                        {category.category}
+                                      </h5>
+                                      <div className={styles.programsList}>
+                                        {category.items.map((item, iIndex) => (
+                                          <Link
+                                            key={iIndex}
+                                            href={item.href}
+                                            className={styles.dropdownItem}
+                                            onClick={() => {
+                                              setActiveDropdown(null);
+                                              setActiveCategory(null);
+                                              resetScrollLock();
+                                            }}
+                                          >
+                                            <span
+                                              className={styles.programIcon}
+                                            >
+                                              →
+                                            </span>
+                                            {item.label}
+                                          </Link>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </>
+                              )}
                             </div>
                           ))}
                         </div>
@@ -697,9 +810,52 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
+      
+      {/* mobile navigation */}
 
       <div className={styles.menu} ref={menuRef}>
-        <div className={styles.menuContent}></div>
+        <div className={styles.menuContent}>
+
+          <div className={styles.mobileNavLinks}>
+            {navLinks.map((link, index) => (
+              <div key={index} className={styles.mobileNavItem}>
+                {link.type === "section" || link.type === "page" ? (
+                  <div
+                    className={styles.mobileLabel}
+                    onClick={() => handleNavigation(link)}
+                  >
+                    {link.label}
+                  </div>
+                ) : link.type === "dropdown" ? (
+                  <details className={styles.mobileDropdown}>
+                    <summary>{link.label}</summary>
+                    <div className={styles.mobileDropdownContent}>
+                      {link.categories.map((category, cIndex) => (
+                        <div key={cIndex} className={styles.mobileCategory}>
+                          {/* <p className={styles.mobileCategoryTitle}>
+                            {category.category}
+                          </p> */}
+                          <div className={styles.mobileProgramsList}>
+                            {category.items.map((item, iIndex) => (
+                              <Link
+                                key={iIndex}
+                                href={item.href}
+                                onClick={() => setIsOpen(false)}
+                                className={styles.mobileDropdownItem}
+                              >
+                                {item.label}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </details>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
