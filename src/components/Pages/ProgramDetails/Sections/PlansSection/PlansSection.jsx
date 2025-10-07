@@ -127,7 +127,7 @@ export default function PlansSection() {
           <h1>Plans to fit your Learning needs</h1>
         </div>
         <p>CHOOSE THAT FITS YOU</p>
-        <p className={styles.courseTitle}>Course: {formatCourseName(courseName)}</p>
+        {/* <p className={styles.courseTitle}>Course: {formatCourseName(courseName)}</p> */}
       </div>
 
       <div className={styles.pricingCardLayout}>

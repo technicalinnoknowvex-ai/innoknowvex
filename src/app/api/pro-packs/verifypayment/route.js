@@ -1,300 +1,270 @@
+import crypto from "crypto"
+import { NextResponse } from "next/server"
+import { createClient } from '@supabase/supabase-js'
 
-import crypto from "crypto";
-import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+// Initialize Supabase client
+const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+)
 
 export async function POST(request) {
-  try {
-    const body = await request.json();
-    const {
-      order_id,
-      payment_id,
-      signature,
-      studentData,
-      course,
-      plan,
-      amount,
-      originalAmount,
-      discountAmount,
-      discountPercentage,
-      couponCode,
-      couponDetails,
-      courseId,
-      metadata
-    } = body;
-
-    console.log("Payment verification request:", {
-      order_id,
-      payment_id,
-      hasStudentData: !!studentData,
-      course,
-      plan,
-      amount,
-      courseId
-    });
-
-    // Validate required fields
-    if (!order_id || !payment_id || !signature) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Missing required payment fields (order_id, payment_id, signature)"
-        },
-        { status: 400 }
-      );
-    }
-
-    // Validate student data (required fields per schema)
-    if (!studentData || !studentData.name || !studentData.email || !studentData.phone) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Missing required student information (name, email, phone)"
-        },
-        { status: 400 }
-      );
-    }
-
-    // Validate course and plan (required fields per schema)
-    if (!course || !courseId || !plan) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Missing required course information (course, courseId, plan)"
-        },
-        { status: 400 }
-      );
-    }
-
-    // Validate amounts (required fields per schema)
-    if (amount === undefined || amount === null) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Missing required amount field"
-        },
-        { status: 400 }
-      );
-    }
-
-    // Validate environment variables
-    if (!process.env.RAZORPAY_KEY_SECRET) {
-      console.error("Missing RAZORPAY_KEY_SECRET");
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Server configuration error"
-        },
-        { status: 500 }
-      );
-    }
-
-    // Verify Razorpay signature
-    const secretKey = process.env.RAZORPAY_KEY_SECRET;
-    const hmac = crypto.createHmac("sha256", secretKey);
-    hmac.update(order_id + "|" + payment_id);
-    const generatedSignature = hmac.digest("hex");
-
-    console.log("Signature verification:", {
-      match: generatedSignature === signature
-    });
-
-    if (generatedSignature !== signature) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Payment verification failed - Invalid signature"
-        },
-        { status: 400 }
-      );
-    }
-
-    // Payment verified successfully - now store in database
     try {
-      // Validate Supabase configuration
-      if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-        console.error("Missing Supabase credentials");
-        throw new Error("Database configuration error");
-      }
-
-      // Initialize Supabase client
-      const supabase = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-      );
-
-      // Check if payment already exists (using unique constraints)
-      const { data: existingPayment, error: checkError } = await supabase
-        .from("payments")
-        .select("id")
-        .or(`razorpay_order_id.eq.${order_id},razorpay_payment_id.eq.${payment_id}`)
-        .maybeSingle();
-
-      if (existingPayment) {
-        console.log("Payment already exists in database");
-        return NextResponse.json(
-          {
-            success: true,
-            message: "Payment already verified and saved",
-            paymentId: payment_id,
-            orderId: order_id,
-            duplicate: true
-          },
-          { status: 200 }
-        );
-      }
-
-      // Extract student data
-      const { name, email, phone } = studentData;
-
-      // Calculate final amount and discount
-      const finalAmount = amount;
-      const originalAmountValue = originalAmount || amount;
-      const discountAmountValue = discountAmount || (originalAmountValue - finalAmount);
-      const discountPercentageValue = discountPercentage || 
-        (originalAmountValue > 0 ? ((discountAmountValue / originalAmountValue) * 100) : 0);
-
-      // Prepare payment data matching schema (all required fields)
-      const paymentData = {
-        student_name: name,
-        student_email: email,
-        student_phone: phone,
-        course_name: course,
-        course_id: courseId,
-        plan: plan,
-        razorpay_order_id: order_id,
-        razorpay_payment_id: payment_id,
-        razorpay_signature: signature,
-        original_amount: parseFloat(originalAmountValue),
-        final_amount: parseFloat(finalAmount),
-        discount_amount: parseFloat(discountAmountValue),
-        discount_percentage: parseFloat(discountPercentageValue.toFixed(2)),
-        payment_status: "completed",
-        verification_status: "verified"
-      };
-
-      // Add optional fields if provided
-      if (couponCode) {
-        paymentData.coupon_code = couponCode;
-      }
-
-      if (couponDetails) {
-        paymentData.coupon_details = couponDetails;
-      }
-
-      // Add metadata (can include additional info)
-      if (metadata) {
-        paymentData.metadata = metadata;
-      } else {
-        paymentData.metadata = {
-          verified_at: new Date().toISOString(),
-          user_agent: request.headers.get('user-agent') || 'unknown'
-        };
-      }
-
-      console.log("Saving payment data to database...");
-
-      // Insert into database
-      const { data, error } = await supabase
-        .from("payments")
-        .insert([paymentData])
-        .select();
-
-      if (error) {
-        console.error("Database error:", error);
+        const body = await request.json()
         
-        // Check if it's a duplicate key error
-        if (error.code === '23505') {
-          return NextResponse.json(
-            {
-              success: true,
-              message: "Payment already verified and saved",
-              paymentId: payment_id,
-              orderId: order_id,
-              duplicate: true
-            },
-            { status: 200 }
-          );
+        // Extract all payment and student details
+        const { 
+            razorpay_order_id, 
+            razorpay_payment_id, 
+            razorpay_signature,
+            studentData,
+            course,
+            plan,
+            amount,
+            originalAmount,
+            discountAmount,
+            courseId,
+            couponCode,
+            couponDetails,
+            discountPercentage,
+            // NEW: Support for multiple courses
+            courses, // Array of course objects: [{ courseId, courseName, plan }]
+            isCustomPack // Boolean flag to indicate custom pack
+        } = body
+
+        console.log("Received verification request:", {
+            razorpay_order_id,
+            razorpay_payment_id,
+            razorpay_signature,
+            studentData,
+            course,
+            plan,
+            amount,
+            originalAmount,
+            discountAmount,
+            couponCode,
+            discountPercentage,
+            courses,
+            isCustomPack
+        })
+
+        // Validate required fields
+        if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+            return NextResponse.json(
+                { success: false, message: "Missing payment details" },
+                { status: 400 }
+            )
         }
-        
-        throw error;
-      }
 
-      console.log("Payment data saved successfully:", data);
+        if (!studentData || !studentData.name || !studentData.email || !studentData.phone) {
+            return NextResponse.json(
+                { success: false, message: "Missing student details" },
+                { status: 400 }
+            )
+        }
 
-      // If coupon was used, update coupon usage count
-      if (couponCode) {
-        try {
-          const { data: couponData, error: couponFetchError } = await supabase
-            .from("coupons")
-            .select("times_used")
-            .eq("code", couponCode.toUpperCase())
-            .single();
+        // Step 1: Verify payment signature
+        const secretKey = process.env.RAZORPAY_KEY_SECRET
+        const hmac = crypto.createHmac("sha256", secretKey)
+        hmac.update(razorpay_order_id + "|" + razorpay_payment_id)
+        const generatedSignature = hmac.digest("hex")
 
-          if (!couponFetchError && couponData) {
-            const { error: updateError } = await supabase
-              .from("coupons")
-              .update({ times_used: (couponData.times_used || 0) + 1 })
-              .eq("code", couponCode.toUpperCase());
+        if (generatedSignature !== razorpay_signature) {
+            console.error("Signature verification failed")
+            return NextResponse.json(
+                { success: false, message: "Payment verification failed - Invalid signature" },
+                { status: 400 }
+            )
+        }
 
-            if (!updateError) {
-              console.log("Coupon usage updated for:", couponCode);
+        console.log("Payment signature verified successfully")
+
+        // Calculate discount details
+        const finalAmount = amount || 0
+        const originalPrice = originalAmount || finalAmount
+        const discountApplied = discountAmount || (originalPrice - finalAmount)
+        const discountPercent = discountPercentage || 
+            (originalPrice > 0 ? ((discountApplied / originalPrice) * 100).toFixed(2) : 0)
+
+        // Prepare coupon details object
+        const couponDetailsObj = couponCode ? {
+            code: couponCode,
+            discount_type: couponDetails?.discount_type || 'percentage',
+            discount_value: couponDetails?.discount_value || discountPercent,
+            applied_at: new Date().toISOString(),
+            ...couponDetails
+        } : null
+
+        // Generate a unique transaction ID for grouping multiple courses
+        const transactionId = `TXN_${razorpay_order_id}_${Date.now()}`
+
+        // Step 2: Prepare payment data
+        let paymentRecords = []
+
+        if (isCustomPack && courses && Array.isArray(courses) && courses.length > 0) {
+            // CUSTOM PACK: Create separate records for each course
+            const perCourseAmount = finalAmount / courses.length
+            const perCourseOriginalAmount = originalPrice / courses.length
+            const perCourseDiscount = discountApplied / courses.length
+
+            paymentRecords = courses.map((courseItem, index) => ({
+                student_name: studentData.name.trim(),
+                student_email: studentData.email.toLowerCase().trim(),
+                student_phone: studentData.phone.trim(),
+                course_name: courseItem.courseName || courseItem.course_name || `Course ${index + 1}`,
+                course_id: courseItem.courseId || courseItem.course_id || `course-${index + 1}`,
+                plan: courseItem.plan || plan || "Custom Pack Plan",
+                razorpay_order_id: `${razorpay_order_id}_${index + 1}`, // Unique order ID per course
+                razorpay_payment_id: razorpay_payment_id,
+                razorpay_signature: razorpay_signature,
+                original_amount: parseFloat(perCourseOriginalAmount.toFixed(2)),
+                final_amount: parseFloat(perCourseAmount.toFixed(2)),
+                discount_amount: parseFloat(perCourseDiscount.toFixed(2)),
+                discount_percentage: parseFloat(discountPercent),
+                coupon_code: couponCode || null,
+                coupon_details: couponDetailsObj,
+                payment_status: 'completed',
+                verification_status: 'verified',
+                metadata: {
+                    verified_at: new Date().toISOString(),
+                    user_agent: request.headers.get('user-agent') || 'unknown',
+                    payment_method: 'razorpay',
+                    currency: 'INR',
+                    transaction_id: transactionId,
+                    pack_type: 'custom',
+                    total_courses: courses.length,
+                    course_index: index + 1,
+                    original_order_id: razorpay_order_id,
+                    course_details: {
+                        course_name: courseItem.courseName || courseItem.course_name,
+                        course_id: courseItem.courseId || courseItem.course_id,
+                        plan_type: courseItem.plan || plan
+                    },
+                    total_transaction_amount: finalAmount,
+                    discount_info: couponCode ? {
+                        coupon_used: couponCode,
+                        total_original_price: originalPrice,
+                        total_discount_applied: discountApplied,
+                        discount_percentage: discountPercent,
+                        total_final_price: finalAmount,
+                        per_course_amount: perCourseAmount
+                    } : null
+                }
+            }))
+        } else {
+            // SINGLE COURSE OR PACK: Create one record
+            paymentRecords = [{
+                student_name: studentData.name.trim(),
+                student_email: studentData.email.toLowerCase().trim(),
+                student_phone: studentData.phone.trim(),
+                course_name: course || "Tech Starter Pack",
+                course_id: courseId || "tech-starter-pack",
+                plan: plan || "Mentor Plan",
+                razorpay_order_id: razorpay_order_id,
+                razorpay_payment_id: razorpay_payment_id,
+                razorpay_signature: razorpay_signature,
+                original_amount: parseFloat(originalPrice),
+                final_amount: parseFloat(finalAmount),
+                discount_amount: parseFloat(discountApplied),
+                discount_percentage: parseFloat(discountPercent),
+                coupon_code: couponCode || null,
+                coupon_details: couponDetailsObj,
+                payment_status: 'completed',
+                verification_status: 'verified',
+                metadata: {
+                    verified_at: new Date().toISOString(),
+                    user_agent: request.headers.get('user-agent') || 'unknown',
+                    payment_method: 'razorpay',
+                    currency: 'INR',
+                    transaction_id: transactionId,
+                    pack_type: 'single',
+                    course_details: {
+                        course_name: course,
+                        course_id: courseId,
+                        plan_type: plan
+                    },
+                    discount_info: couponCode ? {
+                        coupon_used: couponCode,
+                        original_price: originalPrice,
+                        discount_applied: discountApplied,
+                        discount_percentage: discountPercent,
+                        final_price: finalAmount
+                    } : null
+                }
+            }]
+        }
+
+        console.log("Inserting payment records:", paymentRecords)
+
+        // Step 3: Save to database (all records in one transaction)
+        const { data, error } = await supabase
+            .from('payments')
+            .insert(paymentRecords)
+            .select()
+
+        if (error) {
+            console.error("Database error:", error)
+            
+            // Check if it's a duplicate entry error
+            if (error.code === '23505') { // Unique constraint violation
+                console.log("Payment already exists in database")
+                return NextResponse.json(
+                    { 
+                        success: true, 
+                        message: "Payment already recorded",
+                        orderId: razorpay_order_id,
+                        paymentId: razorpay_payment_id,
+                        alreadyExists: true
+                    },
+                    { status: 200 }
+                )
             }
-          }
-        } catch (couponError) {
-          console.error("Error updating coupon usage:", couponError);
-          // Don't fail the payment if coupon update fails
+            
+            return NextResponse.json(
+                { success: false, message: "Failed to save payment data: " + error.message },
+                { status: 500 }
+            )
         }
-      }
 
-      return NextResponse.json(
-        {
-          success: true,
-          message: "Payment verified and saved successfully",
-          paymentId: payment_id,
-          orderId: order_id,
-          data: data[0]
-        },
-        { status: 200 }
-      );
+        console.log("Payment saved successfully:", data)
 
-    } catch (dbError) {
-      console.error("Database error:", dbError);
-      
-      // Payment verified but database save failed
-      return NextResponse.json(
-        {
-          success: true,
-          message: "Payment verified but failed to save to database",
-          warning: "Please contact support with your payment ID",
-          paymentId: payment_id,
-          orderId: order_id,
-          dbError: process.env.NODE_ENV === "development" ? dbError.message : undefined
-        },
-        { status: 200 }
-      );
+        // Step 4: Prepare success response with detailed information
+        const responseData = {
+            success: true,
+            message: "Payment verified and saved successfully",
+            orderId: razorpay_order_id,
+            paymentId: razorpay_payment_id,
+            transactionId: transactionId,
+            totalRecords: paymentRecords.length,
+            paymentDetails: {
+                studentName: studentData.name,
+                studentEmail: studentData.email,
+                course: isCustomPack ? `Custom Pack (${courses?.length || 0} courses)` : course,
+                plan: plan,
+                originalAmount: originalPrice,
+                discountAmount: discountApplied,
+                discountPercentage: discountPercent,
+                finalAmount: finalAmount,
+                couponCode: couponCode || null,
+                paymentStatus: 'completed',
+                isCustomPack: isCustomPack || false,
+                courses: isCustomPack ? courses : null
+            },
+            data: data
+        }
+
+        console.log("Sending success response:", responseData)
+
+        return NextResponse.json(responseData, { status: 200 })
+
+    } catch (error) {
+        console.error("Verification error:", error)
+        return NextResponse.json(
+            { 
+                success: false, 
+                message: "Payment verification failed: " + error.message 
+            },
+            { status: 500 }
+        )
     }
-
-  } catch (error) {
-    console.error("Error in payment verification:", error);
-    return NextResponse.json(
-      {
-        success: false,
-        message: "Payment verification failed",
-        error: process.env.NODE_ENV === "development" ? error.message : "Internal server error"
-      },
-      { status: 500 }
-    );
-  }
-}
-
-export async function OPTIONS() {
-  return NextResponse.json(null, {
-    status: 200,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type"
-    }
-  });
 }

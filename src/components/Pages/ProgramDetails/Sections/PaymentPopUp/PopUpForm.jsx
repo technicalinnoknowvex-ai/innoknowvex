@@ -340,7 +340,7 @@ const PopUpForm = ({ isOpen, onClose, plan, course, price, courseId: propCourseI
     try {
       console.log('Validating coupon from sheet:', { couponCode, courseId, originalPrice });
       
-      const response = await fetch('/api/validate-coupon-sheet', {
+      const response = await fetch('/api/validate-coupon', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
