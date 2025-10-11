@@ -20,8 +20,8 @@ const CartPage = () => {
     // Tech Starter Pack states
     const [isTechStarterPack, setIsTechStarterPack] = useState(false);
     const [techPackageInfo, setTechPackageInfo] = useState(null);
-    const [techPackBasePrice, setTechPackBasePrice] = useState(25000);
-    const [techPackDiscountedPrice, setTechPackDiscountedPrice] = useState(25000);
+    const [techPackBasePrice, setTechPackBasePrice] = useState(25000); // Base price before coupon
+    const [techPackDiscountedPrice, setTechPackDiscountedPrice] = useState(25000); // Price after coupon
     
     // Form fields
     const [name, setName] = useState("")
@@ -30,14 +30,17 @@ const CartPage = () => {
     const [isProcessing, setIsProcessing] = useState(false)
     const [razorpayKeyId, setRazorpayKeyId] = useState(null)
 
+    // Email validation regex
     const isValidEmail = (email) => {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
     }
 
+    // Phone validation (10 digits)
     const isValidPhone = (phone) => {
         return /^[0-9]{10}$/.test(phone)
     }
 
+    // Check if form is valid
     const isFormValid = () => {
         return (
             name.trim().length > 0 &&
@@ -46,12 +49,14 @@ const CartPage = () => {
         )
     }
 
+    // Generate unique ID for the order
     const generateOrderId = () => {
         const timestamp = Date.now()
         const random = Math.random().toString(36).substring(2, 9)
         return `techpack_${timestamp}_${random}`
     }
 
+    // Fetch Razorpay key ID when component mounts
     useEffect(() => {
         const fetchRazorpayConfig = async () => {
             try {
@@ -78,10 +83,12 @@ const CartPage = () => {
         })
     }
 
+    // Check if cart contains a custom pack with multiple courses
     const isCustomPack = () => {
         return storedItems.length > 1 || (storedItems.length === 1 && storedItems[0].isCustomPack);
     }
 
+    // Get all course details for custom pack
     const getAllCourseDetails = () => {
         if (storedItems.length === 1 && storedItems[0].isCustomPack) {
             return storedItems[0].courses || [];
@@ -369,6 +376,7 @@ Thank you for choosing Innoknowvex!`;
         if (isTechStarterPack) {
             sessionStorage.setItem("techStarterCart", JSON.stringify(updatedItems))
             
+            // Update package info if items remain
             if (updatedItems.length > 0) {
                 const updatedPackageInfo = {
                     ...techPackageInfo,
@@ -385,6 +393,7 @@ Thank you for choosing Innoknowvex!`;
             }
         }
         
+        // Reset coupon if applied
         if (appliedCoupon) {
             setAppliedCoupon(null);
             setCouponDetails(null);
@@ -449,6 +458,7 @@ Thank you for choosing Innoknowvex!`;
         }
 
         try {
+            // Use appropriate price for validation
             const priceForValidation = isTechStarterPack ? techPackBasePrice : originalTotal;
             const courseIdForValidation = isTechStarterPack ? "tech-starter-pack" : "pro-packs";
 
@@ -476,6 +486,7 @@ Thank you for choosing Innoknowvex!`;
                 const discountAmount = priceForValidation - data.finalPrice;
                 const discountPercent = ((discountAmount / priceForValidation) * 100).toFixed(2);
                 
+                // Update prices based on pack type
                 if (isTechStarterPack) {
                     setTechPackDiscountedPrice(data.finalPrice);
                     setTotal(data.finalPrice);
@@ -677,6 +688,7 @@ Thank you for choosing Innoknowvex!`;
         ? Math.round((techPackSavings / originalTotal) * 100)
         : 0;
 
+    // Calculate coupon savings for Tech Starter Pack
     const techPackCouponSavings = isTechStarterPack && appliedCoupon
         ? techPackBasePrice - techPackDiscountedPrice
         : 0;
@@ -687,6 +699,7 @@ Thank you for choosing Innoknowvex!`;
 
     return (
         <>
+            {/* Payment Form Modal */}
             {isFormOpen && (
                 <div className={style.formPage}>
                     <div className={style.overlay} onClick={isProcessing ? undefined : closeForm}></div>
@@ -890,25 +903,29 @@ Thank you for choosing Innoknowvex!`;
                         <h3 className={style.summaryTitle}>Order Summary</h3>
                         <div className={style.line1}></div>
                         
+                        {/* Subtotal */}
                         <div className={style.summaryLine}>
                             <span>Subtotal</span>
                             <span className={style.amount}>₹{originalTotal.toLocaleString('en-IN')}</span>
                         </div>
 
+                        {/* Tech Starter Pack Discount */}
                         {isTechStarterPack && techPackageInfo && (
-                            <>
-                                <div className={`${style.summaryLine} ${style.discountLine}`}>
-                                    <span>Tech Starter Pack Discount ({Math.round(((originalTotal - techPackBasePrice) / originalTotal) * 100)}%)</span>
-                                    <span className={style.discountAmount}>-₹{(originalTotal - techPackBasePrice).toLocaleString('en-IN')}</span>
-                                </div>
-                                
-                                <div className={style.summaryLine}>
-                                    <span>Pack Base Price</span>
-                                    <span className={style.amount}>₹{techPackBasePrice.toLocaleString('en-IN')}</span>
-                                </div>
-                            </>
+                            <div className={`${style.summaryLine} ${style.discountLine}`}>
+                                <span>Tech Starter Pack Discount ({Math.round(((originalTotal - techPackBasePrice) / originalTotal) * 100)}%)</span>
+                                <span className={style.discountAmount}>-₹{(originalTotal - techPackBasePrice).toLocaleString('en-IN')}</span>
+                            </div>
                         )}
 
+                        {/* Show Pack Base Price (before coupon) */}
+                        {isTechStarterPack && techPackageInfo && (
+                            <div className={style.summaryLine}>
+                                <span>Pack Base Price</span>
+                                <span className={style.amount}>₹{techPackBasePrice.toLocaleString('en-IN')}</span>
+                            </div>
+                        )}
+
+                        {/* Coupon Discount */}
                         {appliedCoupon && (
                             <div className={`${style.summaryLine} ${style.discountLine}`}>
                                 <span>Coupon Discount ({discountPercentage}%)</span>
@@ -916,6 +933,7 @@ Thank you for choosing Innoknowvex!`;
                             </div>
                         )}
 
+                        {/* Total */}
                         <div className={`${style.summaryLine} ${style.summaryLineTotal}`}>
                             <span>Total</span>
                             <span className={style.amount} id="total">₹{total.toLocaleString('en-IN')}</span>
@@ -923,6 +941,7 @@ Thank you for choosing Innoknowvex!`;
                         
                         <div className={style.line2}></div>
 
+                        {/* Tech Starter Pack Info Box */}
                         {isTechStarterPack && techPackageInfo && (
                             <div className={style.appliedCouponBox} style={{ borderColor: '#4CAF50', background: 'rgba(76, 175, 80, 0.1)' }}>
                                 <div className={style.couponInfo}>
@@ -937,6 +956,7 @@ Thank you for choosing Innoknowvex!`;
                             </div>
                         )}
 
+                        {/* Applied Coupon Display */}
                         {appliedCoupon && (
                             <div className={style.appliedCouponBox}>
                                 <div className={style.couponInfo}>
@@ -962,6 +982,7 @@ Thank you for choosing Innoknowvex!`;
                             </div>
                         )}
 
+                        {/* Coupon Input - Show for both Tech Starter and Regular items */}
                         {!appliedCoupon && (
                             <div className={style.couponSection}>
                                 <div>
