@@ -58,7 +58,6 @@ $navbar-height: 70px;
   height: 100%;
   margin-left: auto;
 
-
   .linkBtn {
     position: relative;
     display: flex;
@@ -561,156 +560,116 @@ $navbar-height: 70px;
 }
 
 .menu {
-  position: fixed;
-  top: 8%;
-  height: 90%;
-  width: 70%;
-  background: #fbebce; // use theme color
-  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.15);
-  transform: translateX(100%);
-  transition: transform 0.4s ease;
-  z-index: 2000;
-  display: flex;
-  flex-direction: column;
-  border-radius: 2rem;
-
-  &.open {
-    transform: translateX(0);
-  }
-
-  @include mobile-down{
-    right: 360px;
-  }
-
-  @include tablet-down{
-    right: 370px;
-  }
-
-}
-
-.menuContent {
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.mobileHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-
-  .closeBtn {
-    background: red;
-    border: none;
-    font-size: 1.8rem;
-    cursor: pointer;
-    color: #333;
-  }
-}
-
-.mobileNavLinks {
-  flex: 1;
+  position: absolute;
+  top: 80;
+  left: 20;
+  height: auto;
+  width: 90%;
+  border: 1px solid #c0880f;
+  background-color: #fdefd1;
+  border-radius: 20px;
+  z-index: 1;
+  padding: 2rem;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch; // ✅ Enables mobile momentum scroll
+  overscroll-behavior: contain; // ✅ Prevents body scroll bleed
+
+  display: flex;
+  flex-direction: column;
+
+  // If your animation hides the menu
+  transition: transform 0.3s ease, opacity 0.3s ease;
+
+  // Allow pointer events
+  pointer-events: auto; // ✅ Ensures scrolling works normally
+}
+
+.navList {
+  list-style: none;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  padding: 0;
+  margin: 0;
 }
 
-.mobileNavItem {
-  font-size: 1.1rem;
-  font-weight: 500;
-  font-family: $font-oldschool;
-  margin-top: 1px;
+.navItem {
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 0.5rem;
 
-  .mobileLabel {
-    cursor: pointer;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid #eee;
-    color: #333;
-
-    &:hover {
-      color: #9b00f4; // your theme purple
-    }
-  }
-}
-
-.mobileDropdown {
-  summary {
-    cursor: pointer;
-    padding: 0.75rem 0;
-    font-weight: 600;
-    color: #333;
-    border-bottom: 1px solid #eee;
-    list-style: none;
-    overflow: visible;
-
-    &::-webkit-details-marker {
-      display: none;
-    }
-
-    &:after {
-      content: "▾";
-      float: right;
+  &.dropdown {
+    .dropdownArrow {
       transition: transform 0.3s ease;
     }
   }
 
-  &[open] summary:after {
-    transform: rotate(180deg);
-  }
-
-  .mobileDropdownContent {
-    padding-left: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
-
-    /* 👇 make only dropdown scrollable */
-    max-height: 250px; /* or 300px, depending on design */
-    overflow-y: auto;
-    overscroll-behavior: contain; /* prevent body scroll on touch devices */
-
-    /* Optional: custom scrollbar */
-    &::-webkit-scrollbar {
-      width: 6px;
-    }
-    &::-webkit-scrollbar-thumb {
-      background: #f3581b;
-      border-radius: 3px;
-    }
-  }
-
-  .mobileCategoryTitle {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #555;
-    margin-top: 0.5rem;
-  }
-
-  .mobileProgramsList {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .mobileDropdownItem {
-    font-size: 0.95rem;
-    color: #444;
-    text-decoration: none;
-    padding: 0.5rem 0;
-
-    &:hover {
-      color: #9b00f4;
+  &.activeDropdown {
+    .dropdownArrow {
+      transform: rotate(180deg);
     }
   }
 }
 
-/* Show only on tablets & mobiles */
-@media (min-width: 1024px) {
-  .menu {
-    display: none;
+.navLink {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #111;
+  text-decoration: none;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0.5rem 0;
+  text-align: left;
+}
+
+.dropdownMenu {
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  animation: fadeIn 0.3s ease forwards;
+
+  .categoryBlock {
+    margin-bottom: 0.8rem;
+  }
+
+  .categoryTitle {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #444;
+    margin-bottom: 0.4rem;
+  }
+
+  .subMenu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding-left: 1rem;
+  }
+
+  .dropdownLink {
+    font-size: 0.9rem;
+    color: #555;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #007bff;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
