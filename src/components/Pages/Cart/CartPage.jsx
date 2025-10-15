@@ -17,6 +17,12 @@
 //     const [couponDetails, setCouponDetails] = useState(null)
 //     const [isFormOpen, setIsFormOpen] = useState(false);
     
+//     // Tech Starter Pack states
+//     const [isTechStarterPack, setIsTechStarterPack] = useState(false);
+//     const [techPackageInfo, setTechPackageInfo] = useState(null);
+//     const [techPackBasePrice, setTechPackBasePrice] = useState(25000);
+//     const [techPackDiscountedPrice, setTechPackDiscountedPrice] = useState(25000);
+    
 //     // Form fields
 //     const [name, setName] = useState("")
 //     const [email, setEmail] = useState("")
@@ -24,17 +30,14 @@
 //     const [isProcessing, setIsProcessing] = useState(false)
 //     const [razorpayKeyId, setRazorpayKeyId] = useState(null)
 
-//     // Email validation regex
 //     const isValidEmail = (email) => {
 //         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 //     }
 
-//     // Phone validation (10 digits)
 //     const isValidPhone = (phone) => {
 //         return /^[0-9]{10}$/.test(phone)
 //     }
 
-//     // Check if form is valid
 //     const isFormValid = () => {
 //         return (
 //             name.trim().length > 0 &&
@@ -43,14 +46,12 @@
 //         )
 //     }
 
-//     // Generate unique ID for the order
 //     const generateOrderId = () => {
 //         const timestamp = Date.now()
 //         const random = Math.random().toString(36).substring(2, 9)
 //         return `techpack_${timestamp}_${random}`
 //     }
 
-//     // Fetch Razorpay key ID when component mounts
 //     useEffect(() => {
 //         const fetchRazorpayConfig = async () => {
 //             try {
@@ -77,18 +78,14 @@
 //         })
 //     }
 
-//     // NEW: Check if cart contains a custom pack with multiple courses
 //     const isCustomPack = () => {
 //         return storedItems.length > 1 || (storedItems.length === 1 && storedItems[0].isCustomPack);
 //     }
 
-//     // NEW: Get all course details for custom pack
 //     const getAllCourseDetails = () => {
 //         if (storedItems.length === 1 && storedItems[0].isCustomPack) {
-//             // Single custom pack item containing multiple courses
 //             return storedItems[0].courses || [];
 //         } else if (storedItems.length > 1) {
-//             // Multiple individual courses selected
 //             return storedItems.map(item => ({
 //                 courseId: item.program_id || item.id,
 //                 courseName: item.course || item.name,
@@ -96,7 +93,6 @@
 //                 price: item.price
 //             }));
 //         } else {
-//             // Single course or regular pack
 //             return storedItems.length > 0 ? [{
 //                 courseId: storedItems[0].program_id || storedItems[0].id,
 //                 courseName: storedItems[0].course || storedItems[0].name,
@@ -114,23 +110,24 @@
 
 //         setIsProcessing(true)
 
-//         // Get course information - UPDATED for multiple courses
 //         const allCourses = getAllCourseDetails();
 //         const isCustomPackPurchase = isCustomPack();
         
-//         // For display purposes, use the first course or pack name
 //         const displayCourseName = isCustomPackPurchase 
 //             ? `Custom Pack (${allCourses.length} courses)`
-//             : storedItems[0]?.isPack 
-//                 ? storedItems[0].name 
-//                 : storedItems[0]?.course || "Tech Starter Pack";
+//             : isTechStarterPack
+//                 ? `Tech Starter Pack (${allCourses.length} courses)`
+//                 : storedItems[0]?.isPack 
+//                     ? storedItems[0].name 
+//                     : storedItems[0]?.course || "Tech Starter Pack";
                 
 //         const displayPlan = storedItems[0]?.plan || "Mentor Plan";
 //         const displayCourseId = isCustomPackPurchase 
 //             ? "custom-pack" 
-//             : storedItems[0]?.program_id || "tech-starter-pack";
+//             : isTechStarterPack
+//                 ? "tech-starter-pack"
+//                 : storedItems[0]?.program_id || "tech-starter-pack";
 
-//         // Get coupon information properly
 //         console.log("Coupon Data received in makePayment:", getCouponDataForPopup());
         
 //         const couponData = getCouponDataForPopup();
@@ -139,7 +136,6 @@
 //         const discountPercentageValue = couponData?.discountPercentage || 0;
 //         const couponCode = couponData?.couponCode || null;
         
-//         // Build comprehensive coupon details object
 //         const couponDetailsObj = couponData && couponCode ? {
 //             discount_type: couponData.discount_type || 'percentage',
 //             discount_value: couponData.discount_value || discountPercentageValue,
@@ -162,10 +158,10 @@
 //             couponCode,
 //             couponDetailsObj,
 //             isCustomPack: isCustomPackPurchase,
+//             isTechStarterPack,
 //             courses: allCourses
 //         });
 
-//         // Generate order ID
 //         const orderId = generateOrderId();
 
 //         try {
@@ -181,14 +177,13 @@
 //                 discountPercentage: discountPercentageValue,
 //                 couponCode: couponCode,
 //                 couponDetails: couponDetailsObj,
-//                 // NEW: Add multiple courses data
 //                 courses: allCourses,
-//                 isCustomPack: isCustomPackPurchase
+//                 isCustomPack: isCustomPackPurchase,
+//                 isTechStarterPack: isTechStarterPack
 //             };
 
 //             console.log("Creating order with data:", orderCreationData);
 
-//             // Step 1: Create order on backend
 //             const response = await fetch("/api/pro-packs/ordercreation", {
 //                 method: "POST",
 //                 headers: { "Content-Type": "application/json" },
@@ -208,7 +203,6 @@
 
 //             console.log("Order creation response:", data)
 
-//             // Step 2: Open Razorpay checkout
 //             const paymentObject = new window.Razorpay({
 //                 key: razorpayKeyId || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
 //                 amount: data.amount,
@@ -222,7 +216,6 @@
 //                     try {
 //                         console.log("Razorpay response received:", response);
                         
-//                         // Send verification data with all details - UPDATED for multiple courses
 //                         const verificationData = {
 //                             razorpay_order_id: response.razorpay_order_id,
 //                             razorpay_payment_id: response.razorpay_payment_id,
@@ -241,14 +234,13 @@
 //                             couponCode: couponCode,
 //                             couponDetails: couponDetailsObj,
 //                             courseId: displayCourseId,
-//                             // NEW: Add multiple courses data for verification
 //                             courses: allCourses,
-//                             isCustomPack: isCustomPackPurchase
+//                             isCustomPack: isCustomPackPurchase,
+//                             isTechStarterPack: isTechStarterPack
 //                         };
 
 //                         console.log("Sending verification data:", verificationData);
 
-//                         // Step 3: Verify payment and save to Supabase
 //                         const verifyResponse = await fetch("/api/pro-packs/verifypayment", {
 //                             method: "POST",
 //                             headers: { "Content-Type": "application/json" },
@@ -267,8 +259,7 @@
 //                                 ? `\n\nDiscount Applied:\n• Coupon Code: ${couponCode}\n• Original Amount: ₹${originalAmount.toLocaleString('en-IN')}\n• Discount: ₹${discountAmount.toLocaleString('en-IN')} (${discountPercentageValue}% off)\n• Final Amount: ₹${price.toLocaleString('en-IN')}`
 //                                 : '';
 
-//                             // UPDATED: Show course details for custom packs
-//                             const courseDetails = isCustomPackPurchase 
+//                             const courseDetails = isCustomPackPurchase || isTechStarterPack
 //                                 ? `\n\nCourses Enrolled (${allCourses.length}):\n${allCourses.map((course, index) => `• ${course.courseName} - ${course.plan}`).join('\n')}`
 //                                 : '';
 
@@ -281,17 +272,16 @@
 // Transaction Details:
 // • Payment ID: ${verifyData.paymentId}
 // • Order ID: ${verifyData.orderId}
-// • Total Courses: ${isCustomPackPurchase ? allCourses.length : 1}
+// • Total Courses: ${isCustomPackPurchase || isTechStarterPack ? allCourses.length : 1}
 
 // Thank you for choosing Innoknowvex!`;
                             
 //                             alert(successMessage);
                             
-//                             // Clear cart after successful payment
 //                             sessionStorage.removeItem('cartItems');
-//                             // Close the popup
+//                             sessionStorage.removeItem('techStarterCart');
+//                             sessionStorage.removeItem('techStarterPackageInfo');
 //                             closeForm();
-//                             // Refresh page
 //                             window.location.reload();
 //                         } else {
 //                             alert("Payment verification failed: " + (verifyData.message || "Unknown error"))
@@ -313,6 +303,7 @@
 //                     original_amount: originalAmount,
 //                     discount_amount: discountAmount,
 //                     is_custom_pack: isCustomPackPurchase ? 'true' : 'false',
+//                     is_tech_starter_pack: isTechStarterPack ? 'true' : 'false',
 //                     total_courses: allCourses.length.toString()
 //                 },
 //                 theme: {
@@ -346,7 +337,6 @@
 //         )
 //     }, [])
 
-//     // Close on Escape key
 //     useEffect(() => {
 //         const handleKey = (e) => {
 //             if (e.key === "Escape" && !isProcessing) closeForm()
@@ -355,7 +345,6 @@
 //         return () => window.removeEventListener("keydown", handleKey)
 //     }, [isProcessing])
 
-//     // Reset form when popup closes
 //     useEffect(() => {
 //         if (!isFormOpen) {
 //             setName("")
@@ -376,6 +365,35 @@
         
 //         setStoredItems(updatedItems)
 //         sessionStorage.setItem("cartItems", JSON.stringify(updatedItems))
+        
+//         if (isTechStarterPack) {
+//             sessionStorage.setItem("techStarterCart", JSON.stringify(updatedItems))
+            
+//             if (updatedItems.length > 0) {
+//                 const updatedPackageInfo = {
+//                     ...techPackageInfo,
+//                     items: updatedItems,
+//                     coursesCount: updatedItems.length,
+//                     originalPrice: updatedItems.reduce((sum, item) => sum + (item.actualPrice || item.price), 0)
+//                 };
+//                 sessionStorage.setItem('techStarterPackageInfo', JSON.stringify(updatedPackageInfo));
+//                 setTechPackageInfo(updatedPackageInfo);
+//             } else {
+//                 sessionStorage.removeItem('techStarterPackageInfo');
+//                 setTechPackageInfo(null);
+//                 setIsTechStarterPack(false);
+//             }
+//         }
+        
+//         if (appliedCoupon) {
+//             setAppliedCoupon(null);
+//             setCouponDetails(null);
+//             setDiscount(0);
+//             setDiscountPercentage(0);
+//             if (isTechStarterPack) {
+//                 setTechPackDiscountedPrice(techPackBasePrice);
+//             }
+//         }
         
 //         toast.success('Deleted !', {
 //             position: "top-right",
@@ -412,7 +430,6 @@
 //     };
 
 //     const applyCoupon = async () => {
-//         // Check if a coupon is already applied
 //         if (appliedCoupon) {
 //             toast.warning("You already have a coupon applied. Remove it first to apply a new one.", {
 //                 position: "top-right",
@@ -432,13 +449,16 @@
 //         }
 
 //         try {
+//             const priceForValidation = isTechStarterPack ? techPackBasePrice : originalTotal;
+//             const courseIdForValidation = isTechStarterPack ? "tech-starter-pack" : "pro-packs";
+
 //             const response = await fetch("/api/pro-packs/coupon_validation", {
 //                 method: "POST",
 //                 headers: { "Content-Type": "application/json" },
 //                 body: JSON.stringify({
 //                     couponCode: coupon.trim(),
-//                     price: originalTotal,
-//                     courseId: "pro-packs",
+//                     price: priceForValidation,
+//                     courseId: courseIdForValidation,
 //                 }),
 //             });
 
@@ -453,15 +473,20 @@
 //             console.log("Coupon validation response:", data);
 
 //             if (data.success) {
-//                 const discountAmount = originalTotal - data.finalPrice;
-//                 const discountPercent = ((discountAmount / originalTotal) * 100).toFixed(2);
+//                 const discountAmount = priceForValidation - data.finalPrice;
+//                 const discountPercent = ((discountAmount / priceForValidation) * 100).toFixed(2);
                 
-//                 setTotal(data.finalPrice);
+//                 if (isTechStarterPack) {
+//                     setTechPackDiscountedPrice(data.finalPrice);
+//                     setTotal(data.finalPrice);
+//                 } else {
+//                     setTotal(data.finalPrice);
+//                 }
+                
 //                 setDiscount(discountAmount);
 //                 setDiscountPercentage(parseFloat(discountPercent));
 //                 setAppliedCoupon(coupon.trim());
                 
-//                 // Store complete coupon details
 //                 setCouponDetails({
 //                     discount_type: data.discount_type || 'percentage',
 //                     discount_value: data.discount_value || discountPercent,
@@ -495,11 +520,18 @@
 //     };
 
 //     const removeCoupon = () => {
-//         setTotal(originalTotal);
+//         if (isTechStarterPack) {
+//             setTechPackDiscountedPrice(techPackBasePrice);
+//             setTotal(techPackBasePrice);
+//         } else {
+//             setTotal(originalTotal);
+//         }
+        
 //         setDiscount(0);
 //         setDiscountPercentage(0);
 //         setAppliedCoupon(null);
 //         setCouponDetails(null);
+        
 //         toast.info('Coupon removed successfully!', {
 //             position: "top-right",
 //             autoClose: 2000,
@@ -509,10 +541,24 @@
 
 //     useEffect(() => {
 //         const cart = sessionStorage.getItem("cartItems");
-
-//         if (cart) {
+//         const techPackInfo = sessionStorage.getItem("techStarterPackageInfo");
+        
+//         if (techPackInfo) {
+//             const packageData = JSON.parse(techPackInfo);
+//             setIsTechStarterPack(true);
+//             setTechPackageInfo(packageData);
+//             setTechPackBasePrice(packageData.fixedPrice || 25000);
+//             setTechPackDiscountedPrice(packageData.fixedPrice || 25000);
+            
+//             if (packageData.items) {
+//                 setStoredItems(packageData.items);
+//             }
+//         } else if (cart) {
 //             setStoredItems(JSON.parse(cart));
+//             setIsTechStarterPack(false);
+//             setTechPackageInfo(null);
 //         }
+        
 //         gsap.timeline()
 //             .fromTo(
 //                 star.current,
@@ -530,16 +576,22 @@
 //     }, [])
 
 //     useEffect(() => {
-//         const amount = storedItems.reduce((acc, item) => acc + item.price, 0);
-//         setOriginalTotal(amount);
-        
-//         // Only update total if no coupon is applied
-//         if (!appliedCoupon) {
-//             setTotal(amount);
+//         if (isTechStarterPack && techPackageInfo) {
+//             const packPrice = appliedCoupon ? techPackDiscountedPrice : techPackBasePrice;
+//             const originalPrice = techPackageInfo.originalPrice || storedItems.reduce((acc, item) => acc + (item.actualPrice || item.price), 0);
+            
+//             setOriginalTotal(originalPrice);
+//             setTotal(packPrice);
+//         } else {
+//             const amount = storedItems.reduce((acc, item) => acc + item.price, 0);
+//             setOriginalTotal(amount);
+            
+//             if (!appliedCoupon) {
+//                 setTotal(amount);
+//             }
 //         }
-//     }, [storedItems, appliedCoupon]);
+//     }, [storedItems, appliedCoupon, isTechStarterPack, techPackageInfo, techPackDiscountedPrice, techPackBasePrice]);
 
-//     // Function to render item name based on whether it's a pack or regular course
 //     const renderItemName = (item) => {
 //         if (item.isPack) {
 //             return (
@@ -555,12 +607,18 @@
 //                     <span className={style.packBadge}>Your Selection ({item.courses?.length || 0} courses)</span>
 //                 </div>
 //             );
+//         } else if (item.packId === 'tech-starter-pack') {
+//             return (
+//                 <div className={style.itemName}>
+//                     {item.course}
+//                     <span className={style.packBadge}>Tech Starter Pack</span>
+//                 </div>
+//             );
 //         } else {
 //             return <div className={style.itemName}>{item.course}</div>;
 //         }
 //     };
 
-//     // Function to render item info/plan
 //     const renderItemInfo = (item) => {
 //         if (item.isPack) {
 //             return <div className={style.itemInfo}>{item.plan} • {item.courseCount} courses</div>;
@@ -571,13 +629,14 @@
 //         }
 //     };
 
-//     // Build coupon data object to pass to form
 //     const getCouponDataForPopup = () => {
 //         if (!appliedCoupon) return null;
         
+//         const basePrice = isTechStarterPack ? techPackBasePrice : originalTotal;
+        
 //         return {
 //             couponCode: appliedCoupon,
-//             originalPrice: originalTotal,
+//             originalPrice: basePrice,
 //             discountAmount: discount,
 //             discountPercentage: discountPercentage,
 //             discount_type: couponDetails?.discount_type || 'percentage',
@@ -590,7 +649,6 @@
 //         };
 //     };
 
-//     // NEW: Display course list for custom packs in form
 //     const renderCourseList = () => {
 //         const allCourses = getAllCourseDetails();
 //         if (allCourses.length <= 1) return null;
@@ -610,16 +668,29 @@
 //     };
 
 //     const couponData = getCouponDataForPopup();
+    
+//     const techPackSavings = isTechStarterPack && techPackageInfo 
+//         ? originalTotal - (appliedCoupon ? techPackDiscountedPrice : techPackBasePrice)
+//         : 0;
+    
+//     const techPackDiscountPercent = isTechStarterPack && techPackageInfo && originalTotal > 0
+//         ? Math.round((techPackSavings / originalTotal) * 100)
+//         : 0;
+
+//     const techPackCouponSavings = isTechStarterPack && appliedCoupon
+//         ? techPackBasePrice - techPackDiscountedPrice
+//         : 0;
+
+//     const techPackCouponPercent = isTechStarterPack && appliedCoupon && techPackBasePrice > 0
+//         ? Math.round((techPackCouponSavings / techPackBasePrice) * 100)
+//         : 0;
 
 //     return (
 //         <>
-//             {/* Payment Form Modal */}
 //             {isFormOpen && (
 //                 <div className={style.formPage}>
-//                     {/* Overlay */}
 //                     <div className={style.overlay} onClick={isProcessing ? undefined : closeForm}></div>
 
-//                     {/* Form Card */}
 //                     <div className={style.formWrapper}>
 //                         <div className={style.formHeaderContainer}>
 //                             <h1>Checkout</h1>
@@ -629,7 +700,37 @@
 //                         </div>
 
 //                         <div className={style.courseInfo}>
-//                             {couponData && couponData.couponCode && (
+//                             {isTechStarterPack && techPackageInfo && (
+//                                 <>
+//                                     <div className={style.discountInfo}>
+//                                         <p style={{ color: '#22c55e', fontWeight: '600', marginBottom: '8px' }}>
+//                                             🎉 Tech Starter Pack - Special Price!
+//                                         </p>
+//                                         <p style={{ textDecoration: 'line-through', color: '#6b7280', fontSize: '0.9em' }}>
+//                                             Individual Value: ₹{originalTotal?.toLocaleString('en-IN')}
+//                                         </p>
+//                                         <p style={{ color: '#22c55e', fontSize: '0.9em' }}>
+//                                             Package Savings: ₹{(originalTotal - techPackBasePrice)?.toLocaleString('en-IN')} ({Math.round(((originalTotal - techPackBasePrice) / originalTotal) * 100)}% OFF)
+//                                         </p>
+//                                     </div>
+                                    
+//                                     {appliedCoupon && (
+//                                         <div className={style.discountInfo}>
+//                                             <p style={{ color: '#ff6b00', fontWeight: '600', marginBottom: '8px' }}>
+//                                                 🏷️ {appliedCoupon} Applied - Additional {techPackCouponPercent}% OFF!
+//                                             </p>
+//                                             <p style={{ textDecoration: 'line-through', color: '#6b7280', fontSize: '0.9em' }}>
+//                                                 Pack Price: ₹{techPackBasePrice?.toLocaleString('en-IN')}
+//                                             </p>
+//                                             <p style={{ color: '#ff6b00', fontSize: '0.9em' }}>
+//                                                 Coupon Discount: -₹{techPackCouponSavings?.toLocaleString('en-IN')}
+//                                             </p>
+//                                         </div>
+//                                     )}
+//                                 </>
+//                             )}
+                            
+//                             {couponData && couponData.couponCode && !isTechStarterPack && (
 //                                 <div className={style.discountInfo}>
 //                                     <p style={{ color: '#22c55e', fontWeight: '600', marginBottom: '8px' }}>
 //                                         🎉 {couponData.couponCode} Applied - {couponData.discountPercentage}% OFF!
@@ -647,10 +748,9 @@
 //                             </p>
 //                             {storedItems.length > 0 && (
 //                                 <div className={style.courseDetails}>
-//                                     <p><strong>Course:</strong> {isCustomPack() ? `Custom Pack (${getAllCourseDetails().length} courses)` : storedItems[0]?.isPack ? storedItems[0].name : storedItems[0]?.course}</p>
+//                                     <p><strong>Course:</strong> {isTechStarterPack ? `Tech Starter Pack (${storedItems.length} courses)` : isCustomPack() ? `Custom Pack (${getAllCourseDetails().length} courses)` : storedItems[0]?.isPack ? storedItems[0].name : storedItems[0]?.course}</p>
 //                                     <p><strong>Plan:</strong> {storedItems[0]?.plan}</p>
-//                                     {/* NEW: Show course list for custom packs */}
-//                                     {renderCourseList()}
+//                                     {(isTechStarterPack || isCustomPack()) && renderCourseList()}
 //                                 </div>
 //                             )}
 //                         </div>
@@ -701,7 +801,6 @@
 //                             )}
 //                         </div>
 
-//                         {/* Checkout Button */}
 //                         <div className={style.buttonGroup}>
 //                             <button
 //                                 onClick={() => makePayment(total, name, email, phone)}
@@ -753,7 +852,7 @@
 //                                             </div>
 
 //                                             <div className={style.itemControls}>
-//                                                 <div className={style.itemPrice}>₹{item.price.toLocaleString('en-IN')}</div>
+//                                                 <div className={style.itemPrice}>₹{(item.actualPrice || item.price).toLocaleString('en-IN')}</div>
 //                                                 {item.originalPrice && item.originalPrice > item.price && (
 //                                                     <div className={style.originalPrice}>₹{item.originalPrice.toLocaleString('en-IN')}</div>
 //                                                 )}
@@ -791,21 +890,32 @@
 //                         <h3 className={style.summaryTitle}>Order Summary</h3>
 //                         <div className={style.line1}></div>
                         
-//                         {/* Subtotal */}
 //                         <div className={style.summaryLine}>
 //                             <span>Subtotal</span>
 //                             <span className={style.amount}>₹{originalTotal.toLocaleString('en-IN')}</span>
 //                         </div>
 
-//                         {/* Discount - Only show if coupon is applied */}
+//                         {isTechStarterPack && techPackageInfo && (
+//                             <>
+//                                 <div className={`${style.summaryLine} ${style.discountLine}`}>
+//                                     <span>Tech Starter Pack Discount ({Math.round(((originalTotal - techPackBasePrice) / originalTotal) * 100)}%)</span>
+//                                     <span className={style.discountAmount}>-₹{(originalTotal - techPackBasePrice).toLocaleString('en-IN')}</span>
+//                                 </div>
+                                
+//                                 <div className={style.summaryLine}>
+//                                     <span>Pack Base Price</span>
+//                                     <span className={style.amount}>₹{techPackBasePrice.toLocaleString('en-IN')}</span>
+//                                 </div>
+//                             </>
+//                         )}
+
 //                         {appliedCoupon && (
 //                             <div className={`${style.summaryLine} ${style.discountLine}`}>
-//                                 <span>Discount ({discountPercentage}%)</span>
+//                                 <span>Coupon Discount ({discountPercentage}%)</span>
 //                                 <span className={style.discountAmount}>-₹{discount.toLocaleString('en-IN')}</span>
 //                             </div>
 //                         )}
 
-//                         {/* Total */}
 //                         <div className={`${style.summaryLine} ${style.summaryLineTotal}`}>
 //                             <span>Total</span>
 //                             <span className={style.amount} id="total">₹{total.toLocaleString('en-IN')}</span>
@@ -813,7 +923,20 @@
                         
 //                         <div className={style.line2}></div>
 
-//                         {/* Applied Coupon Display */}
+//                         {isTechStarterPack && techPackageInfo && (
+//                             <div className={style.appliedCouponBox} style={{ borderColor: '#4CAF50', background: 'rgba(76, 175, 80, 0.1)' }}>
+//                                 <div className={style.couponInfo}>
+//                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+//                                         <path d="M12 2L2 7l10 5l10-5l-10-5zM2 17l10 5l10-5M2 12l10 5l10-5"/>
+//                                     </svg>
+//                                     <div>
+//                                         <div className={style.couponLabel}>Tech Starter Pack</div>
+//                                         <div className={style.couponCode}>{storedItems.length} Courses • Base: ₹{techPackBasePrice.toLocaleString('en-IN')}</div>
+//                                     </div>
+//                                 </div>
+//                             </div>
+//                         )}
+
 //                         {appliedCoupon && (
 //                             <div className={style.appliedCouponBox}>
 //                                 <div className={style.couponInfo}>
@@ -823,7 +946,7 @@
 //                                     </svg>
 //                                     <div>
 //                                         <div className={style.couponLabel}>Applied Coupon</div>
-//                                         <div className={style.couponCode}>{appliedCoupon}</div>
+//                                         <div className={style.couponCode}>{appliedCoupon} - {discountPercentage}% OFF</div>
 //                                     </div>
 //                                 </div>
 //                                 <button 
@@ -839,7 +962,6 @@
 //                             </div>
 //                         )}
 
-//                         {/* Coupon Input - Only show if no coupon is applied */}
 //                         {!appliedCoupon && (
 //                             <div className={style.couponSection}>
 //                                 <div>
@@ -874,6 +996,10 @@
 
 
 
+
+
+
+
 "use client"
 import React, { useEffect, useRef, useState } from 'react'
 import style from "./style/cart.module.scss"
@@ -893,6 +1019,12 @@ const CartPage = () => {
     const [couponDetails, setCouponDetails] = useState(null)
     const [isFormOpen, setIsFormOpen] = useState(false);
     
+    // Tech Starter Pack states
+    const [isTechStarterPack, setIsTechStarterPack] = useState(false);
+    const [techPackageInfo, setTechPackageInfo] = useState(null);
+    const [techPackBasePrice, setTechPackBasePrice] = useState(25000);
+    const [techPackDiscountedPrice, setTechPackDiscountedPrice] = useState(25000);
+    
     // Form fields
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
@@ -900,17 +1032,14 @@ const CartPage = () => {
     const [isProcessing, setIsProcessing] = useState(false)
     const [razorpayKeyId, setRazorpayKeyId] = useState(null)
 
-    // Email validation regex
     const isValidEmail = (email) => {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
     }
 
-    // Phone validation (10 digits)
     const isValidPhone = (phone) => {
         return /^[0-9]{10}$/.test(phone)
     }
 
-    // Check if form is valid
     const isFormValid = () => {
         return (
             name.trim().length > 0 &&
@@ -919,14 +1048,12 @@ const CartPage = () => {
         )
     }
 
-    // Generate unique ID for the order
     const generateOrderId = () => {
         const timestamp = Date.now()
         const random = Math.random().toString(36).substring(2, 9)
         return `techpack_${timestamp}_${random}`
     }
 
-    // Fetch Razorpay key ID when component mounts
     useEffect(() => {
         const fetchRazorpayConfig = async () => {
             try {
@@ -953,18 +1080,14 @@ const CartPage = () => {
         })
     }
 
-    // NEW: Check if cart contains a custom pack with multiple courses
     const isCustomPack = () => {
         return storedItems.length > 1 || (storedItems.length === 1 && storedItems[0].isCustomPack);
     }
 
-    // NEW: Get all course details for custom pack
     const getAllCourseDetails = () => {
         if (storedItems.length === 1 && storedItems[0].isCustomPack) {
-            // Single custom pack item containing multiple courses
             return storedItems[0].courses || [];
         } else if (storedItems.length > 1) {
-            // Multiple individual courses selected
             return storedItems.map(item => ({
                 courseId: item.program_id || item.id,
                 courseName: item.course || item.name,
@@ -972,7 +1095,6 @@ const CartPage = () => {
                 price: item.price
             }));
         } else {
-            // Single course or regular pack
             return storedItems.length > 0 ? [{
                 courseId: storedItems[0].program_id || storedItems[0].id,
                 courseName: storedItems[0].course || storedItems[0].name,
@@ -990,23 +1112,24 @@ const CartPage = () => {
 
         setIsProcessing(true)
 
-        // Get course information - UPDATED for multiple courses
         const allCourses = getAllCourseDetails();
         const isCustomPackPurchase = isCustomPack();
         
-        // For display purposes, use the first course or pack name
         const displayCourseName = isCustomPackPurchase 
             ? `Custom Pack (${allCourses.length} courses)`
-            : storedItems[0]?.isPack 
-                ? storedItems[0].name 
-                : storedItems[0]?.course || "Tech Starter Pack";
+            : isTechStarterPack
+                ? `Tech Starter Pack (${allCourses.length} courses)`
+                : storedItems[0]?.isPack 
+                    ? storedItems[0].name 
+                    : storedItems[0]?.course || "Tech Starter Pack";
                 
         const displayPlan = storedItems[0]?.plan || "Mentor Plan";
         const displayCourseId = isCustomPackPurchase 
             ? "custom-pack" 
-            : storedItems[0]?.program_id || "tech-starter-pack";
+            : isTechStarterPack
+                ? "tech-starter-pack"
+                : storedItems[0]?.program_id || "tech-starter-pack";
 
-        // Get coupon information properly
         console.log("Coupon Data received in makePayment:", getCouponDataForPopup());
         
         const couponData = getCouponDataForPopup();
@@ -1015,7 +1138,6 @@ const CartPage = () => {
         const discountPercentageValue = couponData?.discountPercentage || 0;
         const couponCode = couponData?.couponCode || null;
         
-        // Build comprehensive coupon details object
         const couponDetailsObj = couponData && couponCode ? {
             discount_type: couponData.discount_type || 'percentage',
             discount_value: couponData.discount_value || discountPercentageValue,
@@ -1038,10 +1160,10 @@ const CartPage = () => {
             couponCode,
             couponDetailsObj,
             isCustomPack: isCustomPackPurchase,
+            isTechStarterPack,
             courses: allCourses
         });
 
-        // Generate order ID
         const orderId = generateOrderId();
 
         try {
@@ -1057,14 +1179,13 @@ const CartPage = () => {
                 discountPercentage: discountPercentageValue,
                 couponCode: couponCode,
                 couponDetails: couponDetailsObj,
-                // NEW: Add multiple courses data
                 courses: allCourses,
-                isCustomPack: isCustomPackPurchase
+                isCustomPack: isCustomPackPurchase,
+                isTechStarterPack: isTechStarterPack
             };
 
             console.log("Creating order with data:", orderCreationData);
 
-            // Step 1: Create order on backend
             const response = await fetch("/api/pro-packs/ordercreation", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -1084,7 +1205,6 @@ const CartPage = () => {
 
             console.log("Order creation response:", data)
 
-            // Step 2: Open Razorpay checkout
             const paymentObject = new window.Razorpay({
                 key: razorpayKeyId || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
                 amount: data.amount,
@@ -1098,7 +1218,6 @@ const CartPage = () => {
                     try {
                         console.log("Razorpay response received:", response);
                         
-                        // Send verification data with all details - UPDATED for multiple courses
                         const verificationData = {
                             razorpay_order_id: response.razorpay_order_id,
                             razorpay_payment_id: response.razorpay_payment_id,
@@ -1117,14 +1236,13 @@ const CartPage = () => {
                             couponCode: couponCode,
                             couponDetails: couponDetailsObj,
                             courseId: displayCourseId,
-                            // NEW: Add multiple courses data for verification
                             courses: allCourses,
-                            isCustomPack: isCustomPackPurchase
+                            isCustomPack: isCustomPackPurchase,
+                            isTechStarterPack: isTechStarterPack
                         };
 
                         console.log("Sending verification data:", verificationData);
 
-                        // Step 3: Verify payment and save to Supabase
                         const verifyResponse = await fetch("/api/pro-packs/verifypayment", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
@@ -1143,8 +1261,7 @@ const CartPage = () => {
                                 ? `\n\nDiscount Applied:\n• Coupon Code: ${couponCode}\n• Original Amount: ₹${originalAmount.toLocaleString('en-IN')}\n• Discount: ₹${discountAmount.toLocaleString('en-IN')} (${discountPercentageValue}% off)\n• Final Amount: ₹${price.toLocaleString('en-IN')}`
                                 : '';
 
-                            // UPDATED: Show course details for custom packs
-                            const courseDetails = isCustomPackPurchase 
+                            const courseDetails = isCustomPackPurchase || isTechStarterPack
                                 ? `\n\nCourses Enrolled (${allCourses.length}):\n${allCourses.map((course, index) => `• ${course.courseName} - ${course.plan}`).join('\n')}`
                                 : '';
 
@@ -1157,17 +1274,16 @@ Your enrollment details have been recorded and you should receive a confirmation
 Transaction Details:
 • Payment ID: ${verifyData.paymentId}
 • Order ID: ${verifyData.orderId}
-• Total Courses: ${isCustomPackPurchase ? allCourses.length : 1}
+• Total Courses: ${isCustomPackPurchase || isTechStarterPack ? allCourses.length : 1}
 
 Thank you for choosing Innoknowvex!`;
                             
                             alert(successMessage);
                             
-                            // Clear cart after successful payment
                             sessionStorage.removeItem('cartItems');
-                            // Close the popup
+                            sessionStorage.removeItem('techStarterCart');
+                            sessionStorage.removeItem('techStarterPackageInfo');
                             closeForm();
-                            // Refresh page
                             window.location.reload();
                         } else {
                             alert("Payment verification failed: " + (verifyData.message || "Unknown error"))
@@ -1189,6 +1305,7 @@ Thank you for choosing Innoknowvex!`;
                     original_amount: originalAmount,
                     discount_amount: discountAmount,
                     is_custom_pack: isCustomPackPurchase ? 'true' : 'false',
+                    is_tech_starter_pack: isTechStarterPack ? 'true' : 'false',
                     total_courses: allCourses.length.toString()
                 },
                 theme: {
@@ -1222,7 +1339,6 @@ Thank you for choosing Innoknowvex!`;
         )
     }, [])
 
-    // Close on Escape key
     useEffect(() => {
         const handleKey = (e) => {
             if (e.key === "Escape" && !isProcessing) closeForm()
@@ -1231,7 +1347,6 @@ Thank you for choosing Innoknowvex!`;
         return () => window.removeEventListener("keydown", handleKey)
     }, [isProcessing])
 
-    // Reset form when popup closes
     useEffect(() => {
         if (!isFormOpen) {
             setName("")
@@ -1252,6 +1367,35 @@ Thank you for choosing Innoknowvex!`;
         
         setStoredItems(updatedItems)
         sessionStorage.setItem("cartItems", JSON.stringify(updatedItems))
+        
+        if (isTechStarterPack) {
+            sessionStorage.setItem("techStarterCart", JSON.stringify(updatedItems))
+            
+            if (updatedItems.length > 0) {
+                const updatedPackageInfo = {
+                    ...techPackageInfo,
+                    items: updatedItems,
+                    coursesCount: updatedItems.length,
+                    originalPrice: updatedItems.reduce((sum, item) => sum + (item.actualPrice || item.price), 0)
+                };
+                sessionStorage.setItem('techStarterPackageInfo', JSON.stringify(updatedPackageInfo));
+                setTechPackageInfo(updatedPackageInfo);
+            } else {
+                sessionStorage.removeItem('techStarterPackageInfo');
+                setTechPackageInfo(null);
+                setIsTechStarterPack(false);
+            }
+        }
+        
+        if (appliedCoupon) {
+            setAppliedCoupon(null);
+            setCouponDetails(null);
+            setDiscount(0);
+            setDiscountPercentage(0);
+            if (isTechStarterPack) {
+                setTechPackDiscountedPrice(techPackBasePrice);
+            }
+        }
         
         toast.success('Deleted !', {
             position: "top-right",
@@ -1288,7 +1432,6 @@ Thank you for choosing Innoknowvex!`;
     };
 
     const applyCoupon = async () => {
-        // Check if a coupon is already applied
         if (appliedCoupon) {
             toast.warning("You already have a coupon applied. Remove it first to apply a new one.", {
                 position: "top-right",
@@ -1308,13 +1451,20 @@ Thank you for choosing Innoknowvex!`;
         }
 
         try {
+            // CRITICAL FIX: Use actual cart total if less than base price
+            const actualCartTotal = storedItems.reduce((sum, item) => sum + (item.actualPrice || item.price), 0);
+            const priceForValidation = isTechStarterPack 
+                ? (actualCartTotal < techPackBasePrice ? actualCartTotal : techPackBasePrice)
+                : originalTotal;
+            const courseIdForValidation = isTechStarterPack ? "tech-starter-pack" : "pro-packs";
+
             const response = await fetch("/api/pro-packs/coupon_validation", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     couponCode: coupon.trim(),
-                    price: originalTotal,
-                    courseId: "pro-packs",
+                    price: priceForValidation,
+                    courseId: courseIdForValidation,
                 }),
             });
 
@@ -1329,15 +1479,20 @@ Thank you for choosing Innoknowvex!`;
             console.log("Coupon validation response:", data);
 
             if (data.success) {
-                const discountAmount = originalTotal - data.finalPrice;
-                const discountPercent = ((discountAmount / originalTotal) * 100).toFixed(2);
+                const discountAmount = priceForValidation - data.finalPrice;
+                const discountPercent = ((discountAmount / priceForValidation) * 100).toFixed(2);
                 
-                setTotal(data.finalPrice);
+                if (isTechStarterPack) {
+                    setTechPackDiscountedPrice(data.finalPrice);
+                    setTotal(data.finalPrice);
+                } else {
+                    setTotal(data.finalPrice);
+                }
+                
                 setDiscount(discountAmount);
                 setDiscountPercentage(parseFloat(discountPercent));
                 setAppliedCoupon(coupon.trim());
                 
-                // Store complete coupon details
                 setCouponDetails({
                     discount_type: data.discount_type || 'percentage',
                     discount_value: data.discount_value || discountPercent,
@@ -1371,11 +1526,22 @@ Thank you for choosing Innoknowvex!`;
     };
 
     const removeCoupon = () => {
-        setTotal(originalTotal);
+        const actualCartTotal = storedItems.reduce((sum, item) => sum + (item.actualPrice || item.price), 0);
+        
+        if (isTechStarterPack) {
+            // If cart total is less than base price, use cart total, otherwise use base price
+            const priceToSet = actualCartTotal < techPackBasePrice ? actualCartTotal : techPackBasePrice;
+            setTechPackDiscountedPrice(priceToSet);
+            setTotal(priceToSet);
+        } else {
+            setTotal(originalTotal);
+        }
+        
         setDiscount(0);
         setDiscountPercentage(0);
         setAppliedCoupon(null);
         setCouponDetails(null);
+        
         toast.info('Coupon removed successfully!', {
             position: "top-right",
             autoClose: 2000,
@@ -1385,10 +1551,24 @@ Thank you for choosing Innoknowvex!`;
 
     useEffect(() => {
         const cart = sessionStorage.getItem("cartItems");
-
-        if (cart) {
+        const techPackInfo = sessionStorage.getItem("techStarterPackageInfo");
+        
+        if (techPackInfo) {
+            const packageData = JSON.parse(techPackInfo);
+            setIsTechStarterPack(true);
+            setTechPackageInfo(packageData);
+            setTechPackBasePrice(packageData.fixedPrice || 25000);
+            setTechPackDiscountedPrice(packageData.fixedPrice || 25000);
+            
+            if (packageData.items) {
+                setStoredItems(packageData.items);
+            }
+        } else if (cart) {
             setStoredItems(JSON.parse(cart));
+            setIsTechStarterPack(false);
+            setTechPackageInfo(null);
         }
+        
         gsap.timeline()
             .fromTo(
                 star.current,
@@ -1406,16 +1586,38 @@ Thank you for choosing Innoknowvex!`;
     }, [])
 
     useEffect(() => {
-        const amount = storedItems.reduce((acc, item) => acc + item.price, 0);
-        setOriginalTotal(amount);
-        
-        // Only update total if no coupon is applied
-        if (!appliedCoupon) {
-            setTotal(amount);
+        if (isTechStarterPack && techPackageInfo) {
+            const originalPrice = techPackageInfo.originalPrice || storedItems.reduce((acc, item) => acc + (item.actualPrice || item.price), 0);
+            
+            // CRITICAL FIX: Only apply package discount if cart total >= base price AND exactly 4 courses
+            const isPackageComplete = storedItems.length === 4;
+            const shouldApplyPackageDiscount = isPackageComplete && originalPrice >= techPackBasePrice;
+            
+            if (shouldApplyPackageDiscount) {
+                // Apply package pricing
+                const packPrice = appliedCoupon ? techPackDiscountedPrice : techPackBasePrice;
+                setOriginalTotal(originalPrice);
+                setTotal(packPrice);
+            } else {
+                // Use actual cart total (no package discount)
+                setOriginalTotal(originalPrice);
+                if (appliedCoupon) {
+                    // Coupon already applied to actual cart total
+                    setTotal(techPackDiscountedPrice);
+                } else {
+                    setTotal(originalPrice);
+                }
+            }
+        } else {
+            const amount = storedItems.reduce((acc, item) => acc + item.price, 0);
+            setOriginalTotal(amount);
+            
+            if (!appliedCoupon) {
+                setTotal(amount);
+            }
         }
-    }, [storedItems, appliedCoupon]);
+    }, [storedItems, appliedCoupon, isTechStarterPack, techPackageInfo, techPackDiscountedPrice, techPackBasePrice]);
 
-    // Function to render item name based on whether it's a pack or regular course
     const renderItemName = (item) => {
         if (item.isPack) {
             return (
@@ -1431,12 +1633,18 @@ Thank you for choosing Innoknowvex!`;
                     <span className={style.packBadge}>Your Selection ({item.courses?.length || 0} courses)</span>
                 </div>
             );
+        } else if (item.packId === 'tech-starter-pack') {
+            return (
+                <div className={style.itemName}>
+                    {item.course}
+                    <span className={style.packBadge}>Tech Starter Pack</span>
+                </div>
+            );
         } else {
             return <div className={style.itemName}>{item.course}</div>;
         }
     };
 
-    // Function to render item info/plan
     const renderItemInfo = (item) => {
         if (item.isPack) {
             return <div className={style.itemInfo}>{item.plan} • {item.courseCount} courses</div>;
@@ -1447,13 +1655,17 @@ Thank you for choosing Innoknowvex!`;
         }
     };
 
-    // Build coupon data object to pass to form
     const getCouponDataForPopup = () => {
         if (!appliedCoupon) return null;
         
+        const actualCartTotal = storedItems.reduce((sum, item) => sum + (item.actualPrice || item.price), 0);
+        const basePrice = isTechStarterPack 
+            ? (actualCartTotal < techPackBasePrice ? actualCartTotal : techPackBasePrice)
+            : originalTotal;
+        
         return {
             couponCode: appliedCoupon,
-            originalPrice: originalTotal,
+            originalPrice: basePrice,
             discountAmount: discount,
             discountPercentage: discountPercentage,
             discount_type: couponDetails?.discount_type || 'percentage',
@@ -1466,7 +1678,6 @@ Thank you for choosing Innoknowvex!`;
         };
     };
 
-    // NEW: Display course list for custom packs in form
     const renderCourseList = () => {
         const allCourses = getAllCourseDetails();
         if (allCourses.length <= 1) return null;
@@ -1486,16 +1697,33 @@ Thank you for choosing Innoknowvex!`;
     };
 
     const couponData = getCouponDataForPopup();
+    
+    // CRITICAL FIX: Only show package discount when exactly 4 courses AND total >= ₹25,000
+    const isPackageComplete = isTechStarterPack && techPackageInfo && storedItems.length === 4;
+    const shouldShowPackageDiscount = isPackageComplete && originalTotal >= techPackBasePrice;
+    
+    const techPackSavings = shouldShowPackageDiscount
+        ? originalTotal - (appliedCoupon ? techPackDiscountedPrice : techPackBasePrice)
+        : 0;
+    
+    const techPackDiscountPercent = shouldShowPackageDiscount && originalTotal > 0
+        ? Math.round((techPackSavings / originalTotal) * 100)
+        : 0;
+
+    const techPackCouponSavings = isTechStarterPack && appliedCoupon
+        ? (shouldShowPackageDiscount ? techPackBasePrice : originalTotal) - techPackDiscountedPrice
+        : 0;
+
+    const techPackCouponPercent = isTechStarterPack && appliedCoupon
+        ? Math.round((techPackCouponSavings / (shouldShowPackageDiscount ? techPackBasePrice : originalTotal)) * 100)
+        : 0;
 
     return (
         <>
-            {/* Payment Form Modal */}
             {isFormOpen && (
                 <div className={style.formPage}>
-                    {/* Overlay */}
                     <div className={style.overlay} onClick={isProcessing ? undefined : closeForm}></div>
 
-                    {/* Form Card */}
                     <div className={style.formWrapper}>
                         <div className={style.formHeaderContainer}>
                             <h1>Checkout</h1>
@@ -1505,7 +1733,51 @@ Thank you for choosing Innoknowvex!`;
                         </div>
 
                         <div className={style.courseInfo}>
-                            {couponData && couponData.couponCode && (
+                            {shouldShowPackageDiscount && (
+                                <>
+                                    <div className={style.discountInfo}>
+                                        <p style={{ color: '#22c55e', fontWeight: '600', marginBottom: '8px' }}>
+                                            🎉 Tech Starter Pack - Special Price!
+                                        </p>
+                                        <p style={{ textDecoration: 'line-through', color: '#6b7280', fontSize: '0.9em' }}>
+                                            Individual Value: ₹{originalTotal?.toLocaleString('en-IN')}
+                                        </p>
+                                        <p style={{ color: '#22c55e', fontSize: '0.9em' }}>
+                                            Package Savings: ₹{techPackSavings?.toLocaleString('en-IN')} ({techPackDiscountPercent}% OFF)
+                                        </p>
+                                    </div>
+                                    
+                                    {appliedCoupon && (
+                                        <div className={style.discountInfo}>
+                                            <p style={{ color: '#ff6b00', fontWeight: '600', marginBottom: '8px' }}>
+                                                🏷️ {appliedCoupon} Applied - Additional {techPackCouponPercent}% OFF!
+                                            </p>
+                                            <p style={{ textDecoration: 'line-through', color: '#6b7280', fontSize: '0.9em' }}>
+                                                Pack Price: ₹{techPackBasePrice?.toLocaleString('en-IN')}
+                                            </p>
+                                            <p style={{ color: '#ff6b00', fontSize: '0.9em' }}>
+                                                Coupon Discount: -₹{techPackCouponSavings?.toLocaleString('en-IN')}
+                                            </p>
+                                        </div>
+                                    )}
+                                </>
+                            )}
+                            
+                            {!shouldShowPackageDiscount && isTechStarterPack && appliedCoupon && (
+                                <div className={style.discountInfo}>
+                                    <p style={{ color: '#ff6b00', fontWeight: '600', marginBottom: '8px' }}>
+                                        🏷️ {appliedCoupon} Applied - {techPackCouponPercent}% OFF!
+                                    </p>
+                                    <p style={{ textDecoration: 'line-through', color: '#6b7280', fontSize: '0.9em' }}>
+                                        Original: ₹{originalTotal?.toLocaleString('en-IN')}
+                                    </p>
+                                    <p style={{ color: '#ff6b00', fontSize: '0.9em' }}>
+                                        Discount: -₹{techPackCouponSavings?.toLocaleString('en-IN')}
+                                    </p>
+                                </div>
+                            )}
+                            
+                            {couponData && couponData.couponCode && !isTechStarterPack && (
                                 <div className={style.discountInfo}>
                                     <p style={{ color: '#22c55e', fontWeight: '600', marginBottom: '8px' }}>
                                         🎉 {couponData.couponCode} Applied - {couponData.discountPercentage}% OFF!
@@ -1523,10 +1795,9 @@ Thank you for choosing Innoknowvex!`;
                             </p>
                             {storedItems.length > 0 && (
                                 <div className={style.courseDetails}>
-                                    <p><strong>Course:</strong> {isCustomPack() ? `Custom Pack (${getAllCourseDetails().length} courses)` : storedItems[0]?.isPack ? storedItems[0].name : storedItems[0]?.course}</p>
+                                    <p><strong>Course:</strong> {isTechStarterPack ? `Tech Starter Pack (${storedItems.length} courses)` : isCustomPack() ? `Custom Pack (${getAllCourseDetails().length} courses)` : storedItems[0]?.isPack ? storedItems[0].name : storedItems[0]?.course}</p>
                                     <p><strong>Plan:</strong> {storedItems[0]?.plan}</p>
-                                    {/* NEW: Show course list for custom packs */}
-                                    {renderCourseList()}
+                                    {(isTechStarterPack || isCustomPack()) && renderCourseList()}
                                 </div>
                             )}
                         </div>
@@ -1577,7 +1848,6 @@ Thank you for choosing Innoknowvex!`;
                             )}
                         </div>
 
-                        {/* Checkout Button */}
                         <div className={style.buttonGroup}>
                             <button
                                 onClick={() => makePayment(total, name, email, phone)}
@@ -1629,7 +1899,7 @@ Thank you for choosing Innoknowvex!`;
                                             </div>
 
                                             <div className={style.itemControls}>
-                                                <div className={style.itemPrice}>₹{item.price.toLocaleString('en-IN')}</div>
+                                                <div className={style.itemPrice}>₹{(item.actualPrice || item.price).toLocaleString('en-IN')}</div>
                                                 {item.originalPrice && item.originalPrice > item.price && (
                                                     <div className={style.originalPrice}>₹{item.originalPrice.toLocaleString('en-IN')}</div>
                                                 )}
@@ -1667,21 +1937,33 @@ Thank you for choosing Innoknowvex!`;
                         <h3 className={style.summaryTitle}>Order Summary</h3>
                         <div className={style.line1}></div>
                         
-                        {/* Subtotal */}
                         <div className={style.summaryLine}>
                             <span>Subtotal</span>
                             <span className={style.amount}>₹{originalTotal.toLocaleString('en-IN')}</span>
                         </div>
 
-                        {/* Discount - Only show if coupon is applied */}
+                        {/* Only show package discount if conditions are met */}
+                        {shouldShowPackageDiscount && (
+                            <>
+                                <div className={`${style.summaryLine} ${style.discountLine}`}>
+                                    <span>Tech Starter Pack Discount ({techPackDiscountPercent}%)</span>
+                                    <span className={style.discountAmount}>-₹{techPackSavings.toLocaleString('en-IN')}</span>
+                                </div>
+                                
+                                <div className={style.summaryLine}>
+                                    <span>Pack Base Price</span>
+                                    <span className={style.amount}>₹{techPackBasePrice.toLocaleString('en-IN')}</span>
+                                </div>
+                            </>
+                        )}
+
                         {appliedCoupon && (
                             <div className={`${style.summaryLine} ${style.discountLine}`}>
-                                <span>Discount ({discountPercentage}%)</span>
+                                <span>Coupon Discount ({discountPercentage}%)</span>
                                 <span className={style.discountAmount}>-₹{discount.toLocaleString('en-IN')}</span>
                             </div>
                         )}
 
-                        {/* Total */}
                         <div className={`${style.summaryLine} ${style.summaryLineTotal}`}>
                             <span>Total</span>
                             <span className={style.amount} id="total">₹{total.toLocaleString('en-IN')}</span>
@@ -1689,7 +1971,27 @@ Thank you for choosing Innoknowvex!`;
                         
                         <div className={style.line2}></div>
 
-                        {/* Applied Coupon Display */}
+                        {isTechStarterPack && techPackageInfo && (
+                            <div className={style.appliedCouponBox} style={{ borderColor: shouldShowPackageDiscount ? '#4CAF50' : '#FF9800', background: shouldShowPackageDiscount ? 'rgba(76, 175, 80, 0.1)' : 'rgba(255, 152, 0, 0.1)' }}>
+                                <div className={style.couponInfo}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M12 2L2 7l10 5l10-5l-10-5zM2 17l10 5l10-5M2 12l10 5l10-5"/>
+                                    </svg>
+                                    <div>
+                                        <div className={style.couponLabel}>
+                                            {shouldShowPackageDiscount ? 'Tech Starter Pack - Active' : `Tech Starter Pack - ${storedItems.length}/4 Courses`}
+                                        </div>
+                                        <div className={style.couponCode}>
+                                            {shouldShowPackageDiscount 
+                                                ? `${storedItems.length} Courses • Pack Price: ₹${techPackBasePrice.toLocaleString('en-IN')}`
+                                                : `Add ${4 - storedItems.length} more course(s) for pack discount`
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
                         {appliedCoupon && (
                             <div className={style.appliedCouponBox}>
                                 <div className={style.couponInfo}>
@@ -1699,7 +2001,7 @@ Thank you for choosing Innoknowvex!`;
                                     </svg>
                                     <div>
                                         <div className={style.couponLabel}>Applied Coupon</div>
-                                        <div className={style.couponCode}>{appliedCoupon}</div>
+                                        <div className={style.couponCode}>{appliedCoupon} - {discountPercentage}% OFF</div>
                                     </div>
                                 </div>
                                 <button 
@@ -1715,7 +2017,6 @@ Thank you for choosing Innoknowvex!`;
                             </div>
                         )}
 
-                        {/* Coupon Input - Only show if no coupon is applied */}
                         {!appliedCoupon && (
                             <div className={style.couponSection}>
                                 <div>

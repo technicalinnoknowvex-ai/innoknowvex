@@ -51,27 +51,30 @@
 //     position: relative;
 //     z-index: 2;
 //     width: 95%;
-//     max-width: 420px;
+//     max-width: 500px;
 //     background: #fdfae9;
 //     border-radius: 18px;
-//     padding: 2rem 1.5rem;
+//     padding: 2rem;
 //     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
 //     animation: fadeIn 0.25s ease-out;
 //     font-family: old-school-grotesk;
 //     font-weight: 400;
-//     max-height: 90vh;
-//     overflow-y: auto;
+//     // REMOVED: max-height and overflow-y to eliminate scrollbar
+//     // max-height: 90vh;
+//     // overflow-y: auto;
 
 //     @media (max-width: 480px) {
 //       padding: 1.5rem;
-//       max-height: 95vh;
+//       // REMOVED: max-height for mobile
+//       // max-height: 95vh;
+//       margin: 1rem;
 //     }
 
 //     .formHeaderContainer {
 //       display: flex;
 //       justify-content: space-between;
 //       align-items: flex-start;
-//       margin-bottom: 1rem;
+//       margin-bottom: 1.5rem;
 
 //       h1 {
 //         font-size: 1.5rem;
@@ -138,6 +141,31 @@
         
 //         p {
 //           margin: 0.25rem 0;
+//         }
+
+//         .courseList {
+//           margin-top: 0.5rem;
+          
+//           p {
+//             font-weight: 500;
+//             margin-bottom: 0.5rem;
+//           }
+          
+//           ul {
+//             list-style: none;
+//             padding-left: 0;
+//             margin: 0;
+            
+//             li {
+//               padding: 0.25rem 0;
+//               border-bottom: 1px dashed #d4c89a;
+//               font-size: 0.9rem;
+              
+//               &:last-child {
+//                 border-bottom: none;
+//               }
+//             }
+//           }
 //         }
 //       }
 //     }
@@ -789,7 +817,6 @@
 
 
 
-
 @font-face {
   font-family: sharp-grotesk;
   src: url('/fonts/sharpGrotesk/SharpGrotesk-Medium25.otf');
@@ -851,14 +878,9 @@ $desktop: 1440px;
     animation: fadeIn 0.25s ease-out;
     font-family: old-school-grotesk;
     font-weight: 400;
-    // REMOVED: max-height and overflow-y to eliminate scrollbar
-    // max-height: 90vh;
-    // overflow-y: auto;
 
     @media (max-width: 480px) {
       padding: 1.5rem;
-      // REMOVED: max-height for mobile
-      // max-height: 95vh;
       margin: 1rem;
     }
 

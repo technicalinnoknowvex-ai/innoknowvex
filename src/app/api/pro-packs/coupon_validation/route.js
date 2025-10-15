@@ -1,5 +1,3 @@
-
-// src/app/api/pro-packs/coupon_validation/route.js
 import { createClient } from '@supabase/supabase-js';
 
 // Helper function to validate date format and check if coupon is still valid
@@ -9,13 +7,8 @@ const isValidCouponDate = (validFrom, validUntil) => {
     const startDate = validFrom ? new Date(validFrom) : null;
     const endDate = validUntil ? new Date(validUntil) : null;
 
-    // If no dates provided, consider it always valid
     if (!startDate && !endDate) return true;
-
-    // Check start date
     if (startDate && now < startDate) return false;
-
-    // Check end date
     if (endDate && now > endDate) return false;
 
     return true;
@@ -27,12 +20,10 @@ const isValidCouponDate = (validFrom, validUntil) => {
 
 // Helper function to check if a coupon is applicable to the specific course
 const isCouponApplicableToCourse = (applicableCourses, courseId) => {
-  // If applicableCourses is null, empty array, or contains no items, the coupon is always applicable
   if (!applicableCourses || applicableCourses.length === 0) {
     return true;
   }
   
-  // Check if array contains "all" or "*" or "pro-packs" indicating universal applicability
   if (applicableCourses.some(course => {
     const courseStr = typeof course === 'string' ? course.toLowerCase().trim() : '';
     return courseStr === 'all' || courseStr === '*' || courseStr === 'pro-packs';
@@ -40,14 +31,12 @@ const isCouponApplicableToCourse = (applicableCourses, courseId) => {
     return true;
   }
 
-  // Check if courseId is in the list of applicable courses
   const coursesList = applicableCourses.map(item => 
     typeof item === 'string' ? item.toLowerCase().trim() : ''
   );
   
   const courseIdLower = courseId ? courseId.toLowerCase().trim() : '';
 
-  // The coupon is applicable if the courseId is in the list
   return coursesList.includes(courseIdLower);
 };
 
@@ -118,7 +107,6 @@ export async function POST(request) {
 
     if (error) {
       if (error.code === 'PGRST116') {
-        // No rows returned
         console.log('Coupon not found:', couponCode.toUpperCase());
         return new Response(
           JSON.stringify({
@@ -247,23 +235,68 @@ export async function POST(request) {
 
     // Calculate discount based on the discount type
     let discountAmount = 0;
+    let finalPrice = price;
     const discountType = matchingCoupon.discount_type;
     let discountPercentage = 0;
 
     if (discountType === 'percentage') {
-      // Use percentage_discount field from schema
+      // Type 1: Percentage discount - reduce by X%
       const percentageValue = matchingCoupon.percentage_discount || 0;
       discountAmount = Math.round((price * percentageValue) / 100);
+      finalPrice = price - discountAmount;
       discountPercentage = percentageValue;
+      
     } else if (discountType === 'fixed') {
-      // Use fixed_amount_discount field from schema
+      // Type 2: Fixed amount discount - reduce by ₹X
       discountAmount = Math.min(matchingCoupon.fixed_amount_discount || 0, price);
+      finalPrice = price - discountAmount;
+      discountPercentage = Math.round((discountAmount / price) * 100);
+      
+    } else if (discountType === 'fixed_price') {
+      // Type 3: Fixed Price - set final price to a specific amount (WORKS FOR ANY ORIGINAL PRICE)
+      const targetPrice = matchingCoupon.fixed_amount_discount || 0;
+      
+      // Check if current price is already lower than or equal to target
+      if (price <= targetPrice) {
+        return new Response(
+          JSON.stringify({
+            message: `This coupon sets the price to ₹${targetPrice.toLocaleString('en-IN')}, but the current price is already ₹${price.toLocaleString('en-IN')}`,
+            success: false
+          }), {
+            status: 400,
+            headers: { "Content-Type": "application/json" }
+          }
+        );
+      }
+      
+      finalPrice = targetPrice;
+      discountAmount = price - targetPrice;
+      discountPercentage = Math.round((discountAmount / price) * 100);
+      
+    } else if (discountType === 'minimum_price') {
+      // Type 4: Minimum price discount - set final price to fixed amount (for backward compatibility)
+      const targetPrice = matchingCoupon.fixed_amount_discount || 0;
+      
+      if (price <= targetPrice) {
+        return new Response(
+          JSON.stringify({
+            message: `This coupon sets the price to ₹${targetPrice.toLocaleString('en-IN')}, but the current price is already ₹${price.toLocaleString('en-IN')}`,
+            success: false
+          }), {
+            status: 400,
+            headers: { "Content-Type": "application/json" }
+          }
+        );
+      }
+      
+      finalPrice = targetPrice;
+      discountAmount = price - targetPrice;
       discountPercentage = Math.round((discountAmount / price) * 100);
     }
 
     // Ensure discount doesn't exceed the order amount
     discountAmount = Math.min(discountAmount, price);
-    const finalPrice = Math.max(price - discountAmount, 0);
+    finalPrice = Math.max(finalPrice, 0);
 
     // Recalculate percentage based on actual discount amount
     const actualDiscountPercentage = price > 0 ? Math.round((discountAmount / price) * 100) : 0;
@@ -288,6 +321,7 @@ export async function POST(request) {
         discountAmount: Math.round(discountAmount),
         discountPercentage: actualDiscountPercentage,
         discountType: discountType,
+        discount_value: discountType === 'percentage' ? matchingCoupon.percentage_discount : matchingCoupon.fixed_amount_discount,
         coupon: {
           code: matchingCoupon.code,
           description: matchingCoupon.description || '',

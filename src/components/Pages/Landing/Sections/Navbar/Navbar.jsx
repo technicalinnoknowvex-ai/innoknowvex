@@ -173,6 +173,10 @@ const Navbar = () => {
   const router = useRouter();
   const pathname = usePathname();
 
+  const handleDropdownToggle = (label) => {
+    setActiveDropdown(activeDropdown === label ? null : label);
+  };
+
   // Utility function to reset scroll lock
   const resetScrollLock = () => {
     document.body.style.overflow = "";
@@ -182,19 +186,20 @@ const Navbar = () => {
   };
 
   // Utility function to apply scroll lock
+  // Lock only background scroll, allow menu scroll
   const applyScrollLock = () => {
-    scrollPosition.current = window.pageYOffset;
-    document.body.style.overflow = "hidden";
-    document.body.style.position = "fixed";
-    document.body.style.top = `-${scrollPosition.current}px`;
-    document.body.style.width = "100%";
+    document.body.style.overflow = "hidden"; // Prevent background scroll
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.width = "";
   };
 
-  // Utility function to remove scroll lock and restore position
+  // Full unlock
   const removeScrollLock = () => {
-    const currentScrollPosition = scrollPosition.current;
-    resetScrollLock();
-    window.scrollTo(0, currentScrollPosition);
+    document.body.style.overflow = "";
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.width = "";
   };
 
   // Only apply scroll lock for mobile menu, not dropdowns
@@ -810,52 +815,88 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-      
+
       {/* mobile navigation */}
 
       <div className={styles.menu} ref={menuRef}>
-        <div className={styles.menuContent}>
+        <ul className={styles.navList}>
+          {navLinks.map((link, index) => {
+            const isDropdown = link.type === "dropdown";
+            const isActive = activeDropdown === link.label;
 
-          <div className={styles.mobileNavLinks}>
-            {navLinks.map((link, index) => (
-              <div key={index} className={styles.mobileNavItem}>
-                {link.type === "section" || link.type === "page" ? (
-                  <div
-                    className={styles.mobileLabel}
-                    onClick={() => handleNavigation(link)}
+            return (
+              <li
+                key={index}
+                className={`${styles.navItem} ${
+                  isDropdown ? styles.dropdown : ""
+                } ${isActive ? styles.activeDropdown : ""}`}
+              >
+                {/* Section or dropdown toggle */}
+                {isDropdown ? (
+                  <button
+                    className={styles.navLink}
+                    onClick={() =>
+                      setActiveDropdown(isActive ? null : link.label)
+                    }
+                  >
+                    <span>{link.label}</span>
+                    <svg
+                      className={`${styles.dropdownArrow} ${
+                        isActive ? styles.rotateArrow : ""
+                      }`}
+                      width="12"
+                      height="8"
+                      viewBox="0 0 12 8"
+                      fill="none"
+                    >
+                      <path
+                        d="M1 1.5L6 6.5L11 1.5"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                ) : (
+                  <Link
+                    href={link.href}
+                    className={styles.navLink}
+                    onClick={() => setIsOpen(false)}
                   >
                     {link.label}
-                  </div>
-                ) : link.type === "dropdown" ? (
-                  <details className={styles.mobileDropdown}>
-                    <summary>{link.label}</summary>
-                    <div className={styles.mobileDropdownContent}>
-                      {link.categories.map((category, cIndex) => (
-                        <div key={cIndex} className={styles.mobileCategory}>
-                          {/* <p className={styles.mobileCategoryTitle}>
-                            {category.category}
-                          </p> */}
-                          <div className={styles.mobileProgramsList}>
-                            {category.items.map((item, iIndex) => (
+                  </Link>
+                )}
+
+                {/* Dropdown Menu */}
+                {isDropdown && isActive && (
+                  <ul className={styles.dropdownMenu}>
+                    {link.categories.map((category, cIndex) => (
+                      <li key={cIndex} className={styles.categoryBlock}>
+                        <p className={styles.categoryTitle}>
+                          {category.category}
+                        </p>
+                        <ul className={styles.subMenu}>
+                          {category.items.map((item, iIndex) => (
+                            <li key={iIndex}>
                               <Link
-                                key={iIndex}
                                 href={item.href}
+                                className={styles.dropdownLink}
                                 onClick={() => setIsOpen(false)}
-                                className={styles.mobileDropdownItem}
                               >
                                 {item.label}
                               </Link>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </details>
-                ) : null}
-              </div>
-            ))}
-          </div>
-        </div>
+                            </li>
+                          ))}
+                        </ul>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );
