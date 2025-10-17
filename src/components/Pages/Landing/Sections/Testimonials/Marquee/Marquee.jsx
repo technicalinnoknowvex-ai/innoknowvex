@@ -1,38 +1,47 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import styles from "./styles/marquee.module.scss";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 const Marquee = ({ items, direction = "left", duration = 50 }) => {
   const marqueeContentRef = useRef(null);
+  const containerRef = useRef(null);
 
   useGSAP(() => {
     const marqueeContent = marqueeContentRef.current;
-    if (!marqueeContent) return;
+    if (!marqueeContent || items.length === 0) return;
 
-    const contentWidth = marqueeContent.offsetWidth / 2; // Divide by 2 since we render items twice
+    // Wait for next frame to ensure DOM is fully rendered
+    requestAnimationFrame(() => {
+      const contentWidth = marqueeContent.offsetWidth / 2;
 
-    if (direction === "left") {
-      gsap.set(marqueeContent, { x: 0 });
-      gsap.to(marqueeContent, {
-        x: -contentWidth,
-        duration,
-        ease: "none",
-        repeat: -1,
-      });
-    } else {
-      gsap.set(marqueeContent, { x: -contentWidth });
-      gsap.to(marqueeContent, {
-        x: 0,
-        duration,
-        ease: "none",
-        repeat: -1,
-      });
-    }
-  }, [items, direction, duration]);
+      // Kill any existing animations on this element
+      gsap.killTweensOf(marqueeContent);
+
+      if (direction === "left") {
+        gsap.set(marqueeContent, { x: 0 });
+        gsap.to(marqueeContent, {
+          x: -contentWidth,
+          duration,
+          ease: "none",
+          repeat: -1,
+        });
+      } else {
+        gsap.set(marqueeContent, { x: -contentWidth });
+        gsap.to(marqueeContent, {
+          x: 0,
+          duration,
+          ease: "none",
+          repeat: -1,
+        });
+      }
+    });
+  }, { dependencies: [items, direction, duration], scope: containerRef });
+
+  if (items.length === 0) return null;
 
   return (
-    <div className={styles.marquee}>
+    <div className={styles.marquee} ref={containerRef}>
       <div className={styles.marquee__strip}>
         <div
           ref={marqueeContentRef}
