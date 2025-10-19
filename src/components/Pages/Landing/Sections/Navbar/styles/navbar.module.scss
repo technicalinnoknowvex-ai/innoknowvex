@@ -571,17 +571,19 @@ $navbar-height: 70px;
   z-index: 1;
   padding: 2rem;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch; // ✅ Enables mobile momentum scroll
-  overscroll-behavior: contain; // ✅ Prevents body scroll bleed
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 
   display: flex;
   flex-direction: column;
 
-  // If your animation hides the menu
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  // ✅ CRITICAL: Hide menu by default with CSS
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 
-  // Allow pointer events
-  pointer-events: auto; // ✅ Ensures scrolling works normally
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .navList {
