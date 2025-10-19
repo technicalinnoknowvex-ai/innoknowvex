@@ -1,5 +1,4 @@
 "use client";
-
 import Footer from "../Landing/Sections/Footer/Footer";
 import CardsSection from "./Sections/CardsSection/CardsSection";
 import CertificationSection from "./Sections/CertificationSection/CertificationSection";
@@ -8,10 +7,21 @@ import DescriptionSection from "./Sections/DescriptionSection/DescriptionSection
 import KeyHighlightsSection from "./Sections/KeyHighlightsSection/KeyHighlightsSection";
 import PlansSection from "./Sections/PlansSection/PlansSection";
 import WhyLearnSection from "./Sections/WhyLearnSection/WhyLearnSection";
-import styles from "./styles/programDetails.module.scss";
 import TestimonialSection from "../Landing/Sections/Testimonials/Testimonials";
 
+import styles from "./styles/programDetails.module.scss";
+
 export default function ProgramDetailsPage({ program }) {
+  if (!program) {
+    return (
+      <div className={styles.courseContainer}>
+        <div style={{ padding: "2rem", textAlign: "center" }}>
+          Program not found
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.courseContainer}>
       <DescriptionSection program={program} />
@@ -22,7 +32,7 @@ export default function ProgramDetailsPage({ program }) {
       <CertificationSection program={program} />
       <PlansSection />
       <TestimonialSection />
-      <Footer/>
+      <Footer />
     </div>
   );
 }

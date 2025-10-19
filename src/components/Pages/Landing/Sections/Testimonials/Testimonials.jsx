@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState, useRef } from 'react';
 import Sparkle from "@/components/Common/Icons/Sparkle";
 import styles from "./styles/testimonials.module.scss";
