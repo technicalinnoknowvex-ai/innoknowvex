@@ -1,0 +1,270 @@
+@use "../../../../styles/fonts" as *;
+@use "../../../../styles/mixins" as *;
+
+.heading {
+  margin-top: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.head1 {
+  font-family: $font-oldschool;
+  font-weight: 500;
+  color: #a58f00;
+}
+
+.imgdiv {
+  margin: 30px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.profilepic {
+  height: 90px;
+  width: 90px;
+  border-radius: 50%;
+}
+
+.edit {
+  color: white;
+  text-align: center;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 40px;
+
+  @include mobile-down {
+    display: flex;
+    flex-direction: column;
+    margin-top: -60px;
+  }
+
+  @include tablet-down {
+    display: flex;
+    flex-direction: column;
+    margin-top: -60px;
+  }
+}
+
+.left {
+  height: 70vh;
+  width: 30vh;
+  margin-left: 5rem;
+}
+
+.right {
+  height: 75vh;
+  width: 140vh;
+  margin-right: 5rem;
+  border: 1px solid #a58f00;
+  border-radius: 20px;
+
+  @include mobile-down {
+    margin-top: -16rem;
+    width: 90%;
+    margin-left: 22px;
+    margin-bottom: 15rem;
+  }
+
+  @include tablet-down {
+    margin-top: -18rem;
+    width: 90%;
+    margin-left: 22px;
+    margin-bottom: 15rem;
+  }
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50%;
+  gap: 15px;
+  border: 2px solid #a58f00;
+  border-radius: 20px;
+  padding: 20px;
+
+  @include large-tablet-down {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+  }
+
+  @include tablet-down {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  @include mobile-down {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    justify-content: center;
+  }
+}
+
+.sidebtn {
+  background-color: #f8f3de;
+  border: 1px solid #a58f00;
+  padding: 10px 0;
+  font-size: 18px;
+  width: 90%;
+  margin: auto;
+  border-radius: 8px;
+  font-family: $font-sharp-20;
+  color: #a58f00;
+
+  @include mobile-down {
+    width: 10rem;
+  }
+
+  @include tablet-down {
+    width: 10rem;
+  }
+}
+
+.active {
+  background-color: #a58f00;
+  color: white;
+}
+
+.personalInfoContent {
+  padding: 20px;
+  text-align: center;
+  font-family: $font-sharp-20;
+  font-weight: 300;
+  font-size: 2rem;
+  color: #a58f00;
+  margin-top: -20px;
+}
+
+.coursesInfoContent {
+  padding: 20px;
+}
+
+.courseHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  color: #a58f00;
+  font-family: $font-oldschool;
+  font-size: 1.5rem;
+  font-weight: 500;
+
+  @include mobile-down {
+    flex-direction: column;
+  }
+
+  @include tablet-down {
+    flex-direction: column;
+  }
+}
+
+.coursestags {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 30px;
+  margin-bottom: 50px;
+
+  @include mobile-down {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @include tablet-down {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.tag {
+  background-color: #a58f00;
+  padding: 8px 15px;
+  font-family: $font-sharp-20;
+  font-size: 1rem;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+
+  @include mobile-down {
+    margin-bottom: 10px;
+    text-align: center;
+    width: 16rem;
+  }
+
+  @include tablet-down {
+    margin-bottom: 10px;
+    text-align: center;
+    width: 16rem;
+  }
+}
+
+.courseCard {
+  border: 2px solid #a58f00;
+  width: 300px;
+  padding: 10px;
+  border-radius: 10px;
+
+  @include mobile-down {
+    margin: auto;
+  }
+
+  @include tablet-down {
+    margin: auto;
+  }
+}
+
+.courseInfo h4 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-family: $font-sharp-20;
+  font-weight: 500;
+  color: #a58f00;
+}
+
+.courseInfo p {
+  font-family: $font-sharp-20;
+  color: #a58f00;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.blogsContent {
+  padding: 20px;
+  text-align: center;
+  font-family: $font-sharp-20;
+  font-weight: 300;
+  font-size: 2rem;
+  color: #a58f00;
+}
+
+.testimonialsContent {
+  padding: 20px;
+  text-align: center;
+  font-family: $font-sharp-20;
+  font-weight: 300;
+  font-size: 2rem;
+  color: #a58f00;
+}
+
+.couponsContent {
+  padding: 20px;
+  text-align: center;
+  font-family: $font-sharp-20;
+  font-weight: 300;
+  font-size: 2rem;
+  color: #a58f00;
+}
