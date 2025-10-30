@@ -3,7 +3,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { ExternalLink, CheckCircle, AlertCircle, ShoppingCart } from 'lucide-react';
 import style from './style/tech.module.scss';
 import Image from 'next/image';
-import { programs } from '@/data/programs';
+import { getPrograms } from '@/app/api/pricing/[course]/route'; // Import the Supabase function
 import { toast } from 'react-toastify';
 import TechPackCartWindow from '../ChooseYourOwnPacks/CartWindow';
 
@@ -24,15 +24,42 @@ const TechStarter = () => {
   const [programsPrice, setProgramsPrice] = useState({});
   const [priceLoadingStates, setPriceLoadingStates] = useState({});
   const [loading, setLoading] = useState(true);
+  const [programs, setPrograms] = useState([]); // New state for programs from Supabase
 
-  const techCourses = useMemo(() => {
-    return Object.values(programs).filter(program => 
-      program.category === 'technology-programming' || program.category === 'ai-data'
-    );
+  // Fetch programs from Supabase on component mount
+  useEffect(() => {
+    const fetchPrograms = async () => {
+      try {
+        const fetchedPrograms = await getPrograms();
+        console.log('Fetched programs from Supabase:', fetchedPrograms);
+        setPrograms(fetchedPrograms);
+      } catch (error) {
+        console.error('Error loading programs:', error);
+        toast.error('Failed to load programs', {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "colored",
+        });
+      }
+    };
+
+    fetchPrograms();
   }, []);
 
+  // Filter tech courses based on category
+  const techCourses = useMemo(() => {
+    if (!programs || programs.length === 0) return [];
+    
+    return programs.filter(program => 
+      program.category === 'technology-programming' || program.category === 'ai-data'
+    );
+  }, [programs]);
+
+  // Fetch pricing for all tech courses
   useEffect(() => {
     const fetchAllPrices = async () => {
+      if (techCourses.length === 0) return;
+      
       setLoading(true);
       const pricePromises = techCourses.map(async (program) => {
         const searchTag = program.price_search_tag;
@@ -100,6 +127,7 @@ const TechStarter = () => {
     }
   }, [techCourses]);
 
+  // Load cart from sessionStorage
   useEffect(() => {
     const savedCart = JSON.parse(sessionStorage.getItem("techStarterCart")) || [];
     setCartItems(savedCart);
@@ -198,7 +226,6 @@ const TechStarter = () => {
     existingCart.push(cartItem);
     sessionStorage.setItem("techStarterCart", JSON.stringify(existingCart));
     
-    // **CRITICAL CHANGE: Update cartItems with package flag**
     const packageInfo = {
       isPackage: true,
       packageName: 'Tech Starter Pack',
@@ -238,7 +265,6 @@ const TechStarter = () => {
     existingCart = existingCart.filter(item => item.id !== courseId);
     sessionStorage.setItem("techStarterCart", JSON.stringify(existingCart));
     
-    // **Update package info after removal**
     if (existingCart.length > 0) {
       const packageInfo = {
         isPackage: true,
@@ -252,7 +278,6 @@ const TechStarter = () => {
       };
       sessionStorage.setItem('techStarterPackageInfo', JSON.stringify(packageInfo));
     } else {
-      // Clear package info if cart is empty
       sessionStorage.removeItem('techStarterPackageInfo');
     }
     
@@ -290,11 +315,15 @@ const TechStarter = () => {
     let totalCurrent = 0;
 
     cartItems.forEach(item => {
-      const coursePrice = programsPrice[programs[item.id]?.price_search_tag];
-      if (coursePrice) {
-        const planKey = item.plan.toLowerCase();
-        totalActual += coursePrice[`${planKey}_actual_price`] || 0;
-        totalCurrent += coursePrice[`${planKey}_current_price`] || 0;
+      // Find the program by ID from the programs array
+      const program = programs.find(p => p.id === item.id);
+      if (program) {
+        const coursePrice = programsPrice[program.price_search_tag];
+        if (coursePrice) {
+          const planKey = item.plan.toLowerCase();
+          totalActual += coursePrice[`${planKey}_actual_price`] || 0;
+          totalCurrent += coursePrice[`${planKey}_current_price`] || 0;
+        }
       }
     });
 
@@ -400,7 +429,7 @@ const TechStarter = () => {
     );
   };
 
-  if (loading) {
+  if (loading || programs.length === 0) {
     return (
       <div className={style.packsContainer}>
         <div className={style.loadingContainer}>
