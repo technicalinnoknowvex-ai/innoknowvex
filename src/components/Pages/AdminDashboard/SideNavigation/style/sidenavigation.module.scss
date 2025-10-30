@@ -1,0 +1,63 @@
+@use "../../../../../styles/fonts" as *;
+@use "../../../../../styles/mixins" as *;
+
+.main {
+  height: 75vh;
+  width: 30vh;
+  background-color: lightblue;
+  margin-left: 20px;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50%;
+  gap: 15px;
+  border: 2px solid #a58f00;
+  border-radius: 20px;
+  padding: 20px;
+
+  @include large-tablet-down {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+  }
+
+  @include tablet-down {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  @include mobile-down {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    justify-content: center;
+  }
+}
+
+.sidebtn {
+  background-color: #f8f3de;
+  border: 1px solid #a58f00;
+  padding: 10px 0;
+  font-size: 18px;
+  width: 90%;
+  margin: auto;
+  border-radius: 8px;
+  font-family: $font-sharp-20;
+  color: #a58f00;
+
+  @include mobile-down {
+    width: 10rem;
+  }
+
+  @include tablet-down {
+    width: 10rem;
+  }
+}
+
+.active {
+  background-color: #a58f00;
+  color: white;
+}

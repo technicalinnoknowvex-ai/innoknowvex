@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import style from "./style/adminDashboards.module.scss";
 import Image from "next/image";
+import PersonalInfoPage from "./pages/PersonalInfo/PersonalInfoPage";
 
 // Sidebar configuration
 const sidebarArray = [
@@ -79,11 +80,11 @@ const AdminDashboardPage = () => {
 
   return (
     <>
-      <div className={style.heading}>
+      {/* <div className={style.heading}>
         <h1 className={style.head1}>Admin Dashboard</h1>
-      </div>
+      </div> */}
 
-      <div className={style.main}>
+      {/* <div className={style.main}>
         <div className={style.left}>
           <div className={style.sidebar}>
             {sidebarArray.map((tab) => (
@@ -100,7 +101,9 @@ const AdminDashboardPage = () => {
           </div>
         </div>
         <div className={style.right}>{TabContent[activeTab]}</div>
-      </div>
+      </div> */}
+
+      <PersonalInfoPage/>
     </>
   );
 };
