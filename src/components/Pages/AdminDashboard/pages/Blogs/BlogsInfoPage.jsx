@@ -1,14 +1,16 @@
-import React from 'react'
-import style from "./style/blogsinfo.module.scss"
-import SideNavigation from '../../SideNavigation/SideNavigation'
+import React from "react";
+import style from "./style/blogsinfo.module.scss";
+import SideNavigation from "../../SideNavigation/SideNavigation";
 
 const BlogsInfoPage = () => {
   return (
     <>
-    <SideNavigation/>
-    <div>BlogsInfoPage</div>
+      <div className={style.main}>
+        <SideNavigation />
+        <div className={style.blogsInfoContent}>Blogs Info</div>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default BlogsInfoPage
+export default BlogsInfoPage;
