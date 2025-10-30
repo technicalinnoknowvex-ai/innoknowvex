@@ -1,0 +1,16 @@
+.main {
+  margin-top: 8rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.blogsInfoContent {
+  height: 75vh;
+  width: 140vh;
+  border: 2px solid #A69600;
+  border-radius: 20px;
+  padding: 30px;
+  margin-right: 20px;
+}

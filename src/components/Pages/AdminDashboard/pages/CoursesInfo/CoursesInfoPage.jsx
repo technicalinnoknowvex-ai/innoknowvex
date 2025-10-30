@@ -1,14 +1,16 @@
-import React from 'react'
-import style from "./style/coursesinfo.module.scss"
-import SideNavigation from '../../SideNavigation/SideNavigation'
+import React from "react";
+import style from "./style/coursesinfo.module.scss";
+import SideNavigation from "../../SideNavigation/SideNavigation";
 
 const CoursesInfoPage = () => {
   return (
     <>
-    <SideNavigation/>
-    <div>CoursesInfoPage</div>
+      <div className={style.main}>
+        <SideNavigation />
+        <div className={style.coursesInfoContent}>Courses Info Page</div>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default CoursesInfoPage
+export default CoursesInfoPage;
