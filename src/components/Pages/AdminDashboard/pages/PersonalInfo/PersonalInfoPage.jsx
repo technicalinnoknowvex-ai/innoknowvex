@@ -7,45 +7,23 @@ const PersonalInfoPage = () => {
   return (
     <div className={style.main}>
       <SideNavigation />
-      <div className={style.personalInfoContent}>
-        <div className={style.imgdiv}>
-          <Image
-            className={style.profilepic}
-            src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/anime-3083036_1280.jpg"
-            height={100}
-            width={100}
-            alt="user profile"
-          />
-          <button className={style.editbtn}>Update</button>
-          <p></p>
-        </div>
-        <p className={style.username}>
-          JASKAMAL <br /> <span>(admin)</span>
-        </p>
-
-        <div className={style.infodiv}>
-          <div className={style.upper}>
-            <div className={style.fieldbox}>
-              <label htmlFor="">Name</label>
-              <input type="text" name="" id="" />
-            </div>
-
-            <div className={style.fieldbox}>
-              <label htmlFor="">DOB</label>
-              <input type="text" name="" id="" />
-            </div>
+      <div className={style.personalInfoContainer}>
+        <div className={style.profileHeader}>
+          <div className={style.profileImageWrapper}>
+            <Image
+              className={style.profileImage}
+              src="https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/anime-3083036_1280.jpg"
+              height={166}
+              width={175}
+              alt="profile pic"
+            />
           </div>
 
-          <div className={style.lower}>
-            <div className={style.fieldbox}>
-              <label htmlFor="">Email</label>
-              <input type="text" name="" id="" />
-            </div>
-
-            <div className={style.fieldbox}>
-              <label htmlFor="">Company ID</label>
-              <input type="text" name="" id="" />
-            </div>
+          <div className={style.userDetails}>
+            <p className={style.userName}>Anshuman</p>
+            <div className={style.line}></div>
+            <p className={style.userRole}>Admin</p>
+            <button className={style.editProfileButton}>Edit</button>
           </div>
         </div>
       </div>

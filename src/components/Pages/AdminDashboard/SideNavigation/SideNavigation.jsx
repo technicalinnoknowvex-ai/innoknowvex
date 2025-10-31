@@ -1,7 +1,7 @@
-"use client"
-import React,{useState} from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import style from "./style/sidenavigation.module.scss";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 const sidebarArray = [
   { key: "/admin", label: "Personal Info" },
@@ -12,8 +12,13 @@ const sidebarArray = [
 ];
 
 const SideNavigation = () => {
-  const [activeTab, setActiveTab] = useState("personal");
-  const router = useRouter()
+  const router = useRouter();
+  const pathname = usePathname(); // ✅ get current route path
+  const [activeTab, setActiveTab] = useState(pathname);
+
+  useEffect(() => {
+    setActiveTab(pathname); // ✅ update activeTab on route change
+  }, [pathname]);
 
   return (
     <div className={style.main}>
