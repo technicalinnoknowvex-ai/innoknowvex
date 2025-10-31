@@ -26,6 +26,32 @@ const PersonalInfoPage = () => {
             <button className={style.editProfileButton}>Edit</button>
           </div>
         </div>
+
+        <div className={style.userInfoFields}>
+          <div className={style.upperFields}>
+            <div className={style.fieldGroup}>
+              <label htmlFor="name">Name</label>
+              <input type="text" id="name" />
+            </div>
+
+            <div className={style.fieldGroup}>
+              <label htmlFor="email">Email</label>
+              <input type="email" id="email" />
+            </div>
+          </div>
+
+          <div className={style.lowerFields}>
+            <div className={style.fieldGroup}>
+              <label htmlFor="dob">Date of Birth</label>
+              <input type="date" id="dob" />
+            </div>
+
+            <div className={style.fieldGroup}>
+              <label htmlFor="companyId">Company ID</label>
+              <input type="text" id="companyId" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
