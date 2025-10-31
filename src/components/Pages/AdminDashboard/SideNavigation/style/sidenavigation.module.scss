@@ -2,18 +2,18 @@
 @use "../../../../../styles/mixins" as *;
 
 .main {
-  height: 75vh;
-  width: 30vh;
+  height: 83vh;
+  width: 38vh;
   margin-left: 20px;
+  border: 1px solid #a58f00;
+  border-radius: 20px;
 }
 
 .sidebar {
   display: flex;
   flex-direction: column;
-  margin-top: 50%;
-  gap: 15px;
-  border: 2px solid #a58f00;
-  border-radius: 20px;
+  margin-top: 20%;
+  gap: 55px;
   padding: 20px;
 
   @include large-tablet-down {
@@ -38,14 +38,15 @@
 
 .sidebtn {
   background-color: #f8f3de;
-  border: 1px solid #a58f00;
-  padding: 10px 0;
-  font-size: 18px;
+  border: none;
+  padding: 10px 40px;
+  font-size: 1.4rem;
   width: 90%;
   margin: auto;
   border-radius: 8px;
   font-family: $font-sharp-20;
   color: #a58f00;
+  text-align: left;
 
   @include mobile-down {
     width: 10rem;
@@ -57,6 +58,8 @@
 }
 
 .active {
-  background-color: #a58f00;
-  color: white;
+  background-color: #e7de98;
+  border-radius: 0 10px 10px 0;
+  border-left: 4px solid #a58f00;
+  height: 7vh;
 }
