@@ -52,6 +52,8 @@ const PersonalInfoPage = () => {
             </div>
           </div>
         </div>
+
+        <button className={style.savebtn}>Save</button>
       </div>
     </div>
   );

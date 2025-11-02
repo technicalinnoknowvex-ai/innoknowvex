@@ -2,15 +2,15 @@
   margin-top: 8rem;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 30px;
   align-items: center;
 }
-
 .coursesInfoContent {
-  height: 75vh;
-  width: 140vh;
-  border: 2px solid #A69600;
-  border-radius: 20px;
-  padding: 30px;
+  height: 83vh;
+  width: 150vh;
   margin-right: 20px;
+  border-radius: 20px;
+  background-color: #faf7e9;
+  padding: 30px;
 }

@@ -83,7 +83,7 @@
 }
 
 .userInfoFields {
-  margin-top: 14rem;
+  margin-top: 12rem;
   display: flex;
   flex-direction: column;
   gap: 75px;
@@ -132,3 +132,14 @@
   box-sizing: border-box; // ✅ ensures padding fits well
 }
 
+.savebtn{
+  margin-top: 5rem;
+  margin-left: 40rem;
+  font-family: $font-oldschool;
+  font-size: 1.5rem;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #f8f3de;
+  border: 1px solid #a69600;
+  color: #a69600;
+}
