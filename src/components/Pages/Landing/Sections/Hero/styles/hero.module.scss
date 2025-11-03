@@ -8,7 +8,6 @@
   flex-direction: column;
   padding-top: 60px;
   padding-bottom: 60px;
-  // border: 1px solid red;
   overflow: hidden;
 }
 
@@ -38,13 +37,11 @@
   align-items: center;
   justify-content: center;
   z-index: 1;
-  // border: 1px solid red;
 
   .textContainer {
     position: relative;
     height: fit-content;
     aspect-ratio: 16/9;
-    // border: 1px solid red;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -56,7 +53,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      // border: 1px solid red;
       overflow: hidden;
       padding: 2px 0px;
       h1 {
@@ -74,15 +70,9 @@
         }
 
         @include screen(md) {
-          // font-size: 2.2rem;
           font-size: 4rem !important;
           font-size: 5rem !important;
-          // background-color: skyblue;
-          // font-size: clamp(
-          //   2.2rem,
-          //   -0.7999999999999998rem + 6.25vw,
-          //   3.2rem
-          // ) !important;
+          
           font-size: clamp(
             4rem,
             1.0116731517509727rem + 6.22568093385214vw,
@@ -90,31 +80,20 @@
           ) !important;
         }
         @include screen(lg) {
-          // font-size: 3.5rem;
-          // font-size: 5rem !important;
-          // font-size: 6rem !important;
-          // background-color: salmon;
-          // font-size: clamp(3.5rem, -0.5rem + 6.25vw, 4.5rem) !important;
+
           font-size: clamp(5rem, 1rem + 6.25vw, 6rem) !important;
         }
 
         @include screen(xl) {
-          // font-size: 5rem;
           font-size: 4rem !important;
           font-size: 5rem !important;
-          // background-color: goldenrod;
-          // font-size: clamp(
-          //   4.2rem,
-          //   -0.7999999999999998rem + 6.25vw,
-          //   5.2rem
-          // ) !important;
+          
           font-size: clamp(4rem, -1rem + 6.25vw, 5rem) !important;
         }
 
         @include screen(2xl) {
           font-size: 6rem;
           font-size: 9rem;
-          // background-color: lightgreen;
           font-size: clamp(
             6rem,
             1.2199170124481329rem + 4.979253112033195vw,
@@ -135,7 +114,6 @@
       transform: translate(-100%, -10%);
       top: 0%;
       left: 0%;
-      // border: 1px solid red;
 
       div {
         width: 100%;
@@ -143,7 +121,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        // border: 1px solid red;
       }
       @include tablet-down {
         transform: translate(-50%, -100%);
