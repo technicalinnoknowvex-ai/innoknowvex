@@ -1,4 +1,4 @@
-import BlogsInfoPage from '@/components/Pages/AdminDashboard/pages/Blogs/BlogsInfoPage'
+import  BlogsInfoPage from '@/components/Pages/AdminDashboard/pages/Blogs/BlogsInfoPage'
 import React from 'react'
 
 const page = () => {

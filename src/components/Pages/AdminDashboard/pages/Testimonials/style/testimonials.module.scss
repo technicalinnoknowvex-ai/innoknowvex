@@ -1,16 +1,752 @@
+@use "../../../../../../styles/mixins" as m;
+@use "../../../../../../styles/index" as *;
+
 .main {
   margin-top: 8rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 0 20px;
+  margin-bottom: 4rem;
+  padding-bottom: 200px;
+
+  @include m.tablet-down {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .testimonialInfoContent {
-  height: 75vh;
-  width: 140vh;
+  height: auto;
+  min-height: 75vh;
+  width: 100%;
+  max-width: 165vh;
   border: 2px solid #A69600;
   border-radius: 20px;
   padding: 30px;
-  margin-right: 20px;
+
+  @include m.tablet-down {
+    max-width: 100%;
+    padding: 20px;
+    margin-right: 0;
+  }
+
+  @include m.mobile-down {
+    padding: 15px;
+    border-radius: 15px;
+  }
+}
+
+.formHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+
+  @include m.mobile-down {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+}
+
+.formTitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: #262C35;
+  margin: 0;
+
+  @include m.mobile-down {
+    font-size: 20px;
+  }
+}
+
+.cancelEditBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background-color: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  &:hover {
+    background-color: #e5e7eb;
+    border-color: #9ca3af;
+  }
+
+  @include m.mobile-down {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.inputGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-top: 20px;
+
+  @include m.tablet-down {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+}
+
+.inputField {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+
+  label {
+    background-color: #EDE4D3;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding-left: 22px;
+    padding-top: 5px;
+    @include m.font($font-oldschool, $book, $text-secondary);
+    font-size: 14px;
+  }
+
+  input[type="text"],
+  input[type="file"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 16px 20px;
+    border: none;
+    border-radius: 0;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background-color: #EDE4D3;
+    border-bottom: #A38907 2px solid;
+    @include m.font($font-oldschool, $book, #262C35);
+    box-shadow: none;
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+
+    &::placeholder {
+      opacity: 0.7;
+    }
+  }
+
+  select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 16px;
+  }
+
+  input[type="file"] {
+    padding: 14px 16px;
+    cursor: pointer;
+    font-size: 14px;
+
+    &::file-selector-button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 0;
+      background-color: #A69600;
+      color: white;
+      cursor: pointer;
+      margin-right: 16px;
+      transition: all 0.3s ease;
+      @include m.font($font-sharp-20, $medium, white);
+      font-weight: 500;
+
+      &:hover {
+        background-color: #8d7a00;
+      }
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 140px;
+    @include m.font($font-oldschool, $book, #262C35);
+    line-height: 1.6;
+  }
+}
+
+.avatarPreviewContainer {
+  margin-top: 16px;
+  border-radius: 0;
+  overflow: hidden;
+  border: none;
+  position: relative;
+  background-color: #EDE4D3;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.avatarPreview {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.removeAvatarBtn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  svg {
+    width: 18px;
+    height: 18px;
+    color: #dc2626;
+  }
+
+  &:hover {
+    background: white;
+    transform: scale(1.1);
+  }
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+
+  @include m.tablet-down {
+    grid-column: 1;
+  }
+}
+
+.submitButton {
+  margin-top: 30px;
+  text-align: center;
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 40px;
+    background-color: #A69600;
+    color: white;
+    border: none;
+    border-radius: 0;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 180px;
+    justify-content: center;
+    @include m.font($font-sharp-20, $medium, white);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    &:hover:not(:disabled) {
+      background-color: #8d7a00;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(166, 150, 0, 0.3);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.buttonSpinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// All Testimonials Section
+.allTestimonialsSection {
+  margin-top: 80px;
+  padding-top: 50px;
+  border-top: 2px solid #D4C5A9;
+}
+
+.sectionTitle {
+  font-size: 32px;
+  font-weight: 600;
+  color: #262C35;
+  margin-bottom: 40px;
+  text-align: center;
+  @include m.font($font-sharp-20, $medium, #262C35);
+
+  @include m.tablet-down {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+
+  @include m.mobile-down {
+    font-size: 24px;
+    margin-bottom: 25px;
+  }
+}
+
+.loadingState,
+.emptyState {
+  text-align: center;
+  padding: 80px 20px;
+  color: #666;
+  font-size: 16px;
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  @include m.font($font-oldschool, $book, #666);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  color: #A69600;
+}
+
+.emptyIcon {
+  width: 80px;
+  height: 80px;
+  color: #9ca3af;
+  margin-bottom: 12px;
+}
+
+.emptySubtext {
+  font-size: 14px;
+  color: #9ca3af;
+  margin-top: 0;
+}
+
+// Carousel Container
+.carouselContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+  padding: 0 80px;
+
+  @include m.tablet-down {
+    padding: 0 60px;
+  }
+
+  @include m.mobile-down {
+    padding: 0 40px;
+  }
+}
+
+.navButton {
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 100%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #333;
+
+  &:hover:not(:disabled) {
+    background: white;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+    border-color: rgba(0, 0, 0, 0.2);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  @include m.tablet-down {
+    width: 50px;
+    height: 50px;
+  }
+
+  @include m.mobile-down {
+    width: 40px;
+    height: 40px;
+    
+    svg {
+      width: 18px !important;
+      height: 18px !important;
+    }
+  }
+}
+
+.navButtonLeft {
+  left: 10px;
+
+  @include m.mobile-down {
+    left: 5px;
+  }
+}
+
+.navButtonRight {
+  right: 10px;
+
+  @include m.mobile-down {
+    right: 5px;
+  }
+}
+
+.cardsContainer {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0;
+}
+
+.cardsWrapper {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  gap: 30px;
+  padding: 20px;
+  box-sizing: border-box;
+
+  @include m.tablet-down {
+    padding: 15px;
+    gap: 25px;
+  }
+
+  @include m.mobile-down {
+    padding: 10px;
+    gap: 15px;
+  }
+}
+
+.testimonialCardAdmin {
+  background: #FFF7E1;
+  border: 1px solid #262C35;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.5s ease;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  flex-shrink: 0;
+  position: relative;
+
+  &.editing {
+    border: 2px solid #A69600;
+    box-shadow: 0 0 0 3px rgba(166, 150, 0, 0.1);
+  }
+
+  &:hover {
+    transform: translateY(-8px);
+    
+    .cardActions {
+      opacity: 1;
+    }
+  }
+
+  @include m.large-tablet-down {
+    height: 380px;
+  }
+
+  @include m.tablet-down {
+    height: 360px;
+  }
+
+  @include m.mobile-down {
+    height: 340px;
+    border-radius: 16px;
+  }
+}
+
+// Media queries to set card widths
+@media (min-width: 1024px) {
+  .testimonialCardAdmin {
+    width: calc((100% / 3) - (30px * 2 / 3));
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .testimonialCardAdmin {
+    width: calc((100% / 2) - (25px / 2));
+  }
+}
+
+@media (max-width: 767px) {
+  .testimonialCardAdmin {
+    width: calc((100% / 1));
+  }
+}
+
+.cardContentAdmin {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+  background: #FFF7E1;
+  justify-content: space-between;
+  position: relative;
+
+  @include m.mobile-down {
+    padding: 20px;
+    gap: 16px;
+  }
+}
+
+.authorInfo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  @include m.mobile-down {
+    gap: 12px;
+  }
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #A69600;
+
+  @include m.mobile-down {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.authorDetails {
+  flex: 1;
+}
+
+.authorName {
+  font-size: 18px;
+  font-weight: 600;
+  color: #262C35;
+  margin: 0 0 4px 0;
+  @include m.font($font-sharp-20, $medium, #262C35);
+
+  @include m.mobile-down {
+    font-size: 16px;
+  }
+}
+
+.authorProfession {
+  font-size: 14px;
+  color: #A69600;
+  margin: 0;
+  @include m.font($font-oldschool, $book, #A69600);
+
+  @include m.mobile-down {
+    font-size: 13px;
+  }
+}
+
+.testimonialText {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+
+  p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #262C35;
+    margin: 0;
+    @include m.font($font-oldschool, $book, #262C35);
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    @include m.mobile-down {
+      font-size: 14px;
+      -webkit-line-clamp: 5;
+    }
+  }
+}
+
+.quoteIcon {
+  width: 24px;
+  height: 24px;
+  color: #A69600;
+  opacity: 0.7;
+
+  @include m.mobile-down {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.cardMeta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+}
+
+.dateTag {
+  font-size: 12px;
+  color: #9F8310;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+  @include m.font($font-sharp-20, $medium, #9F8310);
+
+  @include m.mobile-down {
+    font-size: 11px;
+  }
+}
+
+.cardActions {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+
+  @include m.mobile-down {
+    opacity: 1;
+  }
+}
+
+.editingBadge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: #A69600;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 2;
+  @include m.font($font-sharp-20, $medium, white);
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.actionBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.95);
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+    background: white;
+    color: #A69600;
+  }
+
+  &.deleteBtn:hover {
+    color: #dc2626;
+  }
+
+  @include m.mobile-down {
+    width: 32px;
+    height: 32px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+// Animation
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.testimonialCardAdmin {
+  animation: slideIn 0.6s ease-out;
+}
+
+.testimonialCardAdmin * {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.navButton {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+.cardsWrapper {
+  scroll-behavior: smooth;
 }
