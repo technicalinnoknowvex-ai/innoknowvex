@@ -1,22 +1,3 @@
-// const nextConfig = {
-//   images: {
-//    remotePatterns: [
-//       {
-//         protocol: 'https',
-//         hostname: 'lwgkwvpeqx5af6xj.public.blob.vercel-storage.com',
-//       },
-//       {
-//         protocol: 'https',
-//         hostname: 'hfolrvqgjjontjmmaigh.supabase.co',
-//       },
-//     ],
-//   },
-// };
-
-// export default nextConfig;
-
-
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Image optimizations
@@ -49,11 +30,6 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
 
-  // Use faster SWC minifier
-  swcMinify: true,
-
-  // Enable font optimization (default but good to be explicit)
-  optimizeFonts: true,
 };
 
 export default nextConfig;
