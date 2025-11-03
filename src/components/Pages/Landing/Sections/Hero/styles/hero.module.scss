@@ -1,4 +1,5 @@
 @use "../../../../../../styles/index" as *;
+
 .hero {
   width: 100%;
   height: calc(100vh + 60px);
@@ -24,6 +25,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
+  
   @include tablet-down {
     filter: blur(7rem);
   }
@@ -55,10 +57,21 @@
       justify-content: center;
       overflow: hidden;
       padding: 2px 0px;
+      
       h1 {
         z-index: 2;
         line-height: 1.2;
         @include font($font-sharp-25, $medium);
+        
+        /* CRITICAL: Ensure LCP element renders immediately */
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        visibility: visible !important;
+        
+        /* Remove any animation delays for initial render */
+        animation: none !important;
+        transition: none !important;
+
         font-size: 2rem;
 
         @include screen(sm) {
@@ -79,8 +92,8 @@
             5rem
           ) !important;
         }
+        
         @include screen(lg) {
-
           font-size: clamp(5rem, 1rem + 6.25vw, 6rem) !important;
         }
 
@@ -103,6 +116,7 @@
       }
     }
 
+    /* Sparkle elements - these can animate without blocking LCP */
     .sparkleOne {
       position: absolute;
       width: 70px;
@@ -121,7 +135,12 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        
+        /* Initial state for GSAP animation */
+        transform: scale(0);
+        opacity: 0;
       }
+      
       @include tablet-down {
         transform: translate(-50%, -100%);
         top: 0%;
@@ -150,6 +169,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        
+        /* Initial state for GSAP animation */
+        transform: scale(0);
+        opacity: 0;
       }
 
       @include tablet-down {
@@ -169,11 +192,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  
   @include screen(sm) {
     min-height: clamp(
       5rem,
       4.090909090909091rem + 4.545454545454546vw,
       15rem
     ) !important;
+  }
+}
+
+/* Optional: Add a loading state class that GSAP can target */
+.hero--loaded {
+  .textContainer__textDiv h1 {
+    /* GSAP can animate these properties after LCP is recorded */
+    transition: all 0.8s ease-out;
   }
 }

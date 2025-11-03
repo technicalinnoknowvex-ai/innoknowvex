@@ -1,24 +1,8 @@
-
-// const nextConfig = {
-//   images: {
-//     remotePatterns: [
-//       {
-//         protocol: "https",
-//         hostname: "lwgkwvpeqx5af6xj.public.blob.vercel-storage.com",
-//         hostname: 'hfolrvqgjjontjmmaigh.supabase.co',
-//         port: '',
-//         pathname: '/storage/v1/object/sign/**',
-//       },
-//     ],
-//   },
-// };
-
-// export default nextConfig;
-
-
+/** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Image optimizations
   images: {
-   remotePatterns: [
+    remotePatterns: [
       {
         protocol: 'https',
         hostname: 'lwgkwvpeqx5af6xj.public.blob.vercel-storage.com',
@@ -28,7 +12,22 @@ const nextConfig = {
         hostname: 'hfolrvqgjjontjmmaigh.supabase.co',
       },
     ],
+   
+      formats: ['image/webp', 'image/avif'],
   },
+
+  experimental: {
+    optimizeCss: true,
+    
+  },
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  
+  // Add these optimizations:
+  poweredByHeader: false,
+  compress: true,
+
 };
 
 export default nextConfig;
