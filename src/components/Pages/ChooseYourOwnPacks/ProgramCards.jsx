@@ -1,15 +1,15 @@
-
 "use client"
 import React, { useState, useEffect } from 'react'
 import style from "./style/packs.module.scss"
-import { programs } from '@/data/programs'
 import Image from 'next/image'
 import StarShape from '../Cart/svg/star'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
+import { ShoppingCart } from 'lucide-react'
 import CartWindow from './CartWindow'
 
 const ProgramCards = ({
+  programs, // Now receives programs as prop from parent
   programsPrice,
   priceLoadingStates,
   selectedCategory,
@@ -32,15 +32,6 @@ const ProgramCards = ({
     })
     setSelectedPlans(plans)
   }, [])
-
-  // Update cart window when items change
-  useEffect(() => {
-    if (cartItems.length > 0) {
-      setIsCartOpen(true)
-    } else {
-      setIsCartOpen(false)
-    }
-  }, [cartItems])
 
   const getSelectedCoursesCount = () => {
     return Object.keys(selectedPlans).length
@@ -92,6 +83,8 @@ const ProgramCards = ({
       [program.id]: plan
     }))
     
+    setIsCartOpen(true)
+    
     toast.success(`${plan} plan added to cart!`, {
       position: "top-right",
       autoClose: 1000,
@@ -136,9 +129,12 @@ const ProgramCards = ({
     return typeof price === 'number' ? price.toLocaleString('en-IN') : price
   }
 
-  const filteredPrograms = selectedCategory === 'all' 
-    ? Object.values(programs)
-    : Object.values(programs).filter(p => p.category === selectedCategory)
+  // Filter programs based on selected category
+  const filteredPrograms = !programs || programs.length === 0 
+    ? [] 
+    : selectedCategory === 'all' 
+      ? programs
+      : programs.filter(p => p.category === selectedCategory)
 
   const renderPlanCard = (program, planType, planName, currentPrice, actualPrice) => {
     const discount = Math.round(((actualPrice - currentPrice) / actualPrice) * 100)
@@ -232,11 +228,34 @@ const ProgramCards = ({
     )
   }
 
+  // Show loading state while programs are being fetched
+  if (!programs || programs.length === 0) {
+    return (
+      <div className={style.loadingContainer}>
+        <div className={style.loadingSpinner}></div>
+        <p>Loading programs...</p>
+      </div>
+    )
+  }
+
   return (
     <>
       <div className={style.selectionCounter}>
         <p>Selected: <strong>{getSelectedCoursesCount()}</strong> / {MAX_COURSES} courses</p>
       </div>
+
+      {/* View Cart Button - Shows when cart has items */}
+      {cartItems.length > 0 && (
+        <div className={style.viewCartButtonContainer}>
+          <button 
+            className={style.viewCartButton}
+            onClick={() => setIsCartOpen(true)}
+          >
+            <ShoppingCart size={20} />
+            View Cart ({cartItems.length}/4)
+          </button>
+        </div>
+      )}
 
       {loading && (
         <div className={style.loadingContainer}>

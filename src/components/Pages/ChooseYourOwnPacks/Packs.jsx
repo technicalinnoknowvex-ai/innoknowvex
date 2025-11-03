@@ -1,12 +1,12 @@
-
 "use client"
 import React, { useEffect, useRef, useState } from 'react'
 import style from "./style/packs.module.scss"
-import { programs } from '@/data/programs'
+import { getPrograms } from '@/app/api/pricing/[course]/route' // Import Supabase function
 import gsap from 'gsap'
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import Sidebar from './Sidebar'
 import ProgramCards from './ProgramCards'
+import { toast } from 'react-toastify'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -14,6 +14,7 @@ const Packs = () => {
   const headingStar = useRef()
   const headingStar1 = useRef()
 
+  const [programs, setPrograms] = useState([]) // New state for programs from Supabase
   const [programsPrice, setProgramsPrice] = useState({})
   const [loading, setLoading] = useState(false)
   const [priceLoadingStates, setPriceLoadingStates] = useState({})
@@ -82,18 +83,41 @@ const Packs = () => {
     }
   }
 
+  // Fetch programs from Supabase on mount
   useEffect(() => {
+    const fetchPrograms = async () => {
+      try {
+        const fetchedPrograms = await getPrograms()
+        console.log('Fetched programs from Supabase:', fetchedPrograms)
+        setPrograms(fetchedPrograms)
+      } catch (error) {
+        console.error('Error loading programs:', error)
+        toast.error('Failed to load programs', {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "colored",
+        })
+      }
+    }
+
+    fetchPrograms()
+  }, [])
+
+  // Fetch prices after programs are loaded
+  useEffect(() => {
+    if (programs.length === 0) return
+
     animation()
     setLoading(true)
 
-    const fetchPromises = Object.values(programs).map((course) => 
+    const fetchPromises = programs.map((course) => 
       fetchProgramPrice(course.price_search_tag)
     )
 
     Promise.allSettled(fetchPromises).finally(() => {
       setLoading(false)
     })
-  }, [])
+  }, [programs])
 
   return (
     <div className={style.packsContainer}>
@@ -118,6 +142,7 @@ const Packs = () => {
         </div>
 
         <ProgramCards 
+          programs={programs}
           programsPrice={programsPrice}
           priceLoadingStates={priceLoadingStates}
           selectedCategory={selectedCategory}
