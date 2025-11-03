@@ -178,6 +178,8 @@ const AboutUs = ({ scrollContainerRef }) => {
                 src={images[0]}
                 alt="cell_1_img"
                 fill
+                sizes="(max-width: 768px) 50vw, 25vw"
+                quality={75}
                 style={{ objectFit: "cover", objectPosition: "center" }}
               />
             </div>
@@ -185,16 +187,20 @@ const AboutUs = ({ scrollContainerRef }) => {
             <div className={aboutUsStyles.cell3}>
               <Image
                 src={images[1]}
-                alt="cell_1_img"
+                alt="cell_2_img"
                 fill
+                sizes="(max-width: 768px) 30vw, 15vw"
+                quality={75}
                 style={{ objectFit: "cover", objectPosition: "center" }}
               />
             </div>
             <div className={aboutUsStyles.cell4}>
               <Image
                 src={images[2]}
-                alt="cell_1_img"
+                alt="cell_3_img"
                 fill
+                sizes="(max-width: 768px) 40vw, 20vw"
+                quality={75}
                 style={{ objectFit: "cover", objectPosition: "center" }}
               />
             </div>
@@ -203,8 +209,10 @@ const AboutUs = ({ scrollContainerRef }) => {
             <div className={aboutUsStyles.cell7}>
               <Image
                 src={images[3]}
-                alt="cell_1_img"
+                alt="cell_4_img"
                 fill
+                sizes="(max-width: 768px) 35vw, 18vw"
+                quality={75}
                 style={{ objectFit: "cover", objectPosition: "center" }}
               />
             </div>
@@ -212,8 +220,10 @@ const AboutUs = ({ scrollContainerRef }) => {
             <div className={aboutUsStyles.cell9}>
               <Image
                 src={images[4]}
-                alt="cell_1_img"
+                alt="cell_5_img"
                 fill
+                sizes="(max-width: 768px) 45vw, 22vw"
+                quality={75}
                 style={{ objectFit: "cover", objectPosition: "center" }}
               />
             </div>
