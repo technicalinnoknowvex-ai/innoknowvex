@@ -1,4 +1,188 @@
+// @use "../../../../../../styles/index" as *;
+// .hero {
+//   width: 100%;
+//   height: calc(100vh + 60px);
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   flex-direction: column;
+//   padding-top: 60px;
+//   padding-bottom: 60px;
+//   overflow: hidden;
+// }
+
+// .gradientSpot {
+//   position: absolute;
+//   height: 70%;
+//   aspect-ratio: 1/1;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   background: rgba(250, 152, 5, 0.74);
+//   filter: blur(5rem);
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   z-index: 1;
+//   @include tablet-down {
+//     filter: blur(7rem);
+//   }
+// }
+
+// .heroTextWrapper {
+//   position: relative;
+//   width: 100%;
+//   flex: 1;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   z-index: 1;
+
+//   .textContainer {
+//     position: relative;
+//     height: fit-content;
+//     aspect-ratio: 16/9;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+
+//     &__textDiv {
+//       width: 100%;
+//       height: fit-content;
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
+//       overflow: hidden;
+//       padding: 2px 0px;
+//       h1 {
+//         z-index: 2;
+//         line-height: 1.2;
+//         @include font($font-sharp-25, $medium);
+//         font-size: 2rem;
+
+//         @include screen(sm) {
+//           font-size: clamp(
+//             1.85rem,
+//             0.09999999999999964rem + 4.375000000000001vw,
+//             2.2rem
+//           ) !important;
+//         }
+
+//         @include screen(md) {
+//           font-size: 4rem !important;
+//           font-size: 5rem !important;
+          
+//           font-size: clamp(
+//             4rem,
+//             1.0116731517509727rem + 6.22568093385214vw,
+//             5rem
+//           ) !important;
+//         }
+//         @include screen(lg) {
+
+//           font-size: clamp(5rem, 1rem + 6.25vw, 6rem) !important;
+//         }
+
+//         @include screen(xl) {
+//           font-size: 4rem !important;
+//           font-size: 5rem !important;
+          
+//           font-size: clamp(4rem, -1rem + 6.25vw, 5rem) !important;
+//         }
+
+//         @include screen(2xl) {
+//           font-size: 6rem;
+//           font-size: 9rem;
+//           font-size: clamp(
+//             6rem,
+//             1.2199170124481329rem + 4.979253112033195vw,
+//             9rem
+//           ) !important;
+//         }
+//       }
+//     }
+
+//     .sparkleOne {
+//       position: absolute;
+//       width: 70px;
+//       aspect-ratio: 1/1;
+//       display: flex;
+//       justify-content: center;
+//       align-items: center;
+//       z-index: 2;
+//       transform: translate(-100%, -10%);
+//       top: 0%;
+//       left: 0%;
+
+//       div {
+//         width: 100%;
+//         aspect-ratio: 1/1;
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+//       }
+//       @include tablet-down {
+//         transform: translate(-50%, -100%);
+//         top: 0%;
+//         left: 0%;
+//       }
+//     }
+
+//     .sparkleTwo {
+//       position: absolute;
+//       width: 55px;
+//       aspect-ratio: 1/1;
+//       display: flex;
+//       justify-content: center;
+//       align-items: center;
+//       transform: translate(150%, 0px);
+//       z-index: 2;
+//       top: 0%;
+//       bottom: 0%;
+//       right: 0%;
+//       margin-top: auto;
+//       margin-bottom: auto;
+
+//       div {
+//         width: 100%;
+//         aspect-ratio: 1/1;
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+//       }
+
+//       @include tablet-down {
+//         transform: translate(50%, 100%);
+//         top: unset;
+//         bottom: 0%;
+//         right: 0%;
+//         margin: 0;
+//       }
+//     }
+//   }
+// }
+
+// .scrollWheelWrapper {
+//   width: 100%;
+//   min-height: 7rem;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   @include screen(sm) {
+//     min-height: clamp(
+//       5rem,
+//       4.090909090909091rem + 4.545454545454546vw,
+//       15rem
+//     ) !important;
+//   }
+// }
+
+
+
+
 @use "../../../../../../styles/index" as *;
+
 .hero {
   width: 100%;
   height: calc(100vh + 60px);
@@ -24,6 +208,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
+  
   @include tablet-down {
     filter: blur(7rem);
   }
@@ -55,10 +240,21 @@
       justify-content: center;
       overflow: hidden;
       padding: 2px 0px;
+      
       h1 {
         z-index: 2;
         line-height: 1.2;
         @include font($font-sharp-25, $medium);
+        
+        /* CRITICAL: Ensure LCP element renders immediately */
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        visibility: visible !important;
+        
+        /* Remove any animation delays for initial render */
+        animation: none !important;
+        transition: none !important;
+
         font-size: 2rem;
 
         @include screen(sm) {
@@ -79,8 +275,8 @@
             5rem
           ) !important;
         }
+        
         @include screen(lg) {
-
           font-size: clamp(5rem, 1rem + 6.25vw, 6rem) !important;
         }
 
@@ -103,6 +299,7 @@
       }
     }
 
+    /* Sparkle elements - these can animate without blocking LCP */
     .sparkleOne {
       position: absolute;
       width: 70px;
@@ -121,7 +318,12 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        
+        /* Initial state for GSAP animation */
+        transform: scale(0);
+        opacity: 0;
       }
+      
       @include tablet-down {
         transform: translate(-50%, -100%);
         top: 0%;
@@ -150,6 +352,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        
+        /* Initial state for GSAP animation */
+        transform: scale(0);
+        opacity: 0;
       }
 
       @include tablet-down {
@@ -169,11 +375,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  
   @include screen(sm) {
     min-height: clamp(
       5rem,
       4.090909090909091rem + 4.545454545454546vw,
       15rem
     ) !important;
+  }
+}
+
+/* Optional: Add a loading state class that GSAP can target */
+.hero--loaded {
+  .textContainer__textDiv h1 {
+    /* GSAP can animate these properties after LCP is recorded */
+    transition: all 0.8s ease-out;
   }
 }
