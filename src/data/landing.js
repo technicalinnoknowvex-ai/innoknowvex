@@ -18,11 +18,11 @@ export const landingPageData = {
     subheading: "Get to Know Us Better",
     para: `Innoknowvex is a cutting-edge EdTech platform designed to seamlessly connect students with internships, professional training, career development, and expert mentorship. Our mission is to bridge the gap between academic education and industry requirements by providing students with access to industry-relevant programs hands-on training, and specialized mentorship. Through a structured, expert-driven approach, we empower aspiring professionals with the practical skills and industry insights necessary to excel in their chosen fields.`,
     images: [
-     "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/about_us_cell_10%20%281%29.jpg",
-     "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/about_us_cell_30%20%281%29.jpg",
-     "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/about_us_cell_40%20%281%29.jpg",
-      "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/about_us_cell_70%20%281%29.jpg",
-      "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/about_us_cell_90%20%281%29.jpg",
+     "https://res.cloudinary.com/dquwagna6/image/upload/v1762236054/about_us_cell_10_1_kkest3.jpg",
+     "https://res.cloudinary.com/dquwagna6/image/upload/v1762236074/about_us_cell_30_1_hha7az.jpg",
+     "https://res.cloudinary.com/dquwagna6/image/upload/v1762236062/about_us_cell_40_1_lfbrpj.jpg",
+      "https://res.cloudinary.com/dquwagna6/image/upload/v1762236067/about_us_cell_70_1_hmldt2.jpg",
+      "https://res.cloudinary.com/dquwagna6/image/upload/v1762236076/about_us_cell_90_1_ptd0z3.jpg",
     ],
   },
   programsSection: {
@@ -36,7 +36,7 @@ export const landingPageData = {
         description:
           "Dive into the world of Artificial Intelligence with a hands-on learning experience focused on machine learning, deep learning, and neural networks. Through interactive lessons, real-world projects, and expert guidance, you’ll move beyond theory into practical application. Whether you're starting out or upskilling, this course equips you for real-world challenges and success in an AI-driven future.",
         slug: "artificial-intelligence",
-        image: "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/Programs/AI.jpg",
+        image: "https://res.cloudinary.com/dquwagna6/image/upload/v1762238482/AI_kuc5zb.jpg",
       },
       {
         title: "Data",
@@ -44,7 +44,7 @@ export const landingPageData = {
         description:
           "Explore the field of Data Science through a structured program covering statistics, data visualization, and predictive modeling. With guided projects, step-by-step lessons, and mentorship, you’ll build the ability to transform raw data into actionable insights. This course ensures you develop industry-ready skills to solve real problems in analytics and data-driven decision-making.",
         slug: "data-science",
-        image: "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/Programs/Data%20Science.jpg",
+        image: "https://res.cloudinary.com/dquwagna6/image/upload/v1762238495/Data_Science_xlm8uw.jpg",
       },
       {
         title: "Cyber",
@@ -52,7 +52,7 @@ export const landingPageData = {
         description:
           "Master the fundamentals of Cyber Security with a practical curriculum emphasizing threat detection, ethical hacking, and network defense. Learn through labs, simulations, and expert-led instruction that mirror real-world security challenges. Gain the confidence and skills required to protect digital environments and build a successful career in one of today’s most critical domains.",
         slug: "cyber-security",
-        image: "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/Programs/Cyber%20Security.jpg",
+        image: "https://res.cloudinary.com/dquwagna6/image/upload/v1762238494/Cyber_Security_cxz925.jpg",
       },
       {
         title: "Cloud",
@@ -60,7 +60,7 @@ export const landingPageData = {
         description:
           "Step into Cloud Computing with comprehensive training on infrastructure, virtualization, and service deployment across leading platforms. Through hands-on labs, guided exercises, and applied projects, you’ll understand the backbone of modern digital solutions. Whether aiming for certifications or career growth, this program equips you to architect, deploy, and manage scalable cloud systems.",
         slug: "cloud-computing",
-        image: "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/Programs/Cloud%20Computing.jpg",
+        image: "https://res.cloudinary.com/dquwagna6/image/upload/v1762238485/Cloud_Computing_oahxvt.jpg",
       },
       {
         title: "Machine",
@@ -68,7 +68,7 @@ export const landingPageData = {
         description:
           "Gain mastery in Machine Learning through a project-based curriculum emphasizing supervised, unsupervised, and reinforcement learning techniques. With real-world case studies, coding exercises, and expert mentorship, you’ll develop the ability to build intelligent models and deploy them in practice. This program prepares you to innovate and excel in AI-powered applications across industries.",
         slug: "machine-learning",
-        image: "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/Programs/Machine%20Learning.jpg",
+        image: "https://res.cloudinary.com/dquwagna6/image/upload/v1762238490/Machine_Learning_uhbcvr.jpg",
       },
     ],
   },
