@@ -1,13 +1,5 @@
 
-@font-face {
-  font-family: sharp-grotesk;
-  src: url('/fonts/sharpGrotesk/SharpGrotesk-Medium25.otf');
-}
-
-@font-face {
-  font-family: old-school-grotesk;
-  src: url('/fonts/oldSchoolGrotesk/OldschoolGroteskVar.ttf');
-}
+@use "../../../../../../styles/fonts" as *;
 
 .ellipse {
   position: absolute;
@@ -107,7 +99,7 @@
     width: 100%;
     color: #2c3e50;
     margin-bottom: 2rem;
-    font-family: var(--font-sharp-25), Sharp Grotesk !important;
+    font-family: $font-sharp-25;
     font-weight: 450;
     line-height: 1.1;
     white-space: nowrap;
@@ -127,7 +119,7 @@
     font-size: clamp(0.9rem, 1.2vw, 1.2rem);
     color: #5a6c7d;
     line-height: 1.6;
-    font-family: sharp-grotesk;
+    font-family: $font-sharp-20;
     word-wrap: break-word;
 
     @media (max-width: 1024px) {
@@ -258,7 +250,7 @@
   h3,
   p {
     color: #9c7f16 !important;
-    font-family: sharp-grotesk;
+    font-family: $font-sharp-20;
   }
 }
 
@@ -299,7 +291,7 @@
   font-size: clamp(0.9rem, 1.2vw, 1.1rem);
   margin: 0;
   color: #9c7f16;
-  font-family: var(--font-sharp-25), Sharp Grotesk !important;
+  font-family: $font-sharp-25;
   font-weight: 500;
   text-transform: uppercase;
   line-height: 1.2;
@@ -312,7 +304,7 @@
   font-size: clamp(0.8rem, 1vw, 0.95rem);
   line-height: 1.5;
   color: #9c7f16;
-  font-family: old-school-grotesk;
+  font-family: $font-oldschool;
   margin: 0;
   width: 100%;
   margin-top: auto;
