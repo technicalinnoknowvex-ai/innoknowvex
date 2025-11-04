@@ -18,12 +18,11 @@ export const landingPageData = {
     subheading: "Get to Know Us Better",
     para: `Innoknowvex is a cutting-edge EdTech platform designed to seamlessly connect students with internships, professional training, career development, and expert mentorship. Our mission is to bridge the gap between academic education and industry requirements by providing students with access to industry-relevant programs hands-on training, and specialized mentorship. Through a structured, expert-driven approach, we empower aspiring professionals with the practical skills and industry insights necessary to excel in their chosen fields.`,
     images: [
-     "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Landing/about_us_cell_10%20(1).jpg",
-     "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Landing/about_us_cell_30%20(1).jpg",
-     "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Landing/about_us_cell_40%20(1).jpg",
-      "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Landing/about_us_cell_70%20(1).jpg",
-      "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Landing/about_us_cell_90%20(1).jpg",
-
+     "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/about_us_cell_10%20%281%29.jpg",
+     "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/about_us_cell_30%20%281%29.jpg",
+     "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/about_us_cell_40%20%281%29.jpg",
+      "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/about_us_cell_70%20%281%29.jpg",
+      "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/about_us_cell_90%20%281%29.jpg",
     ],
   },
   programsSection: {
