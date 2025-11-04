@@ -10,7 +10,7 @@ import RangaswamyCollege from "@/components/Pages/Landing/Sections/OurPartners/L
 import Razorpay from "@/components/Pages/Landing/Sections/OurPartners/Logos/Razorpay";
 import RevaUni from "@/components/Pages/Landing/Sections/OurPartners/Logos/RevaUni";
 import Wipro from "@/components/Pages/Landing/Sections/OurPartners/Logos/Wipro";
-import Sona from "@/components/Pages/Landing/Sections/OurPartners/Logos/Sona"
+import Sona from "@/components/Pages/Landing/Sections/OurPartners/Logos/Sona";
 
 export const landingPageData = {
   aboutSection: {
@@ -18,11 +18,11 @@ export const landingPageData = {
     subheading: "Get to Know Us Better",
     para: `Innoknowvex is a cutting-edge EdTech platform designed to seamlessly connect students with internships, professional training, career development, and expert mentorship. Our mission is to bridge the gap between academic education and industry requirements by providing students with access to industry-relevant programs hands-on training, and specialized mentorship. Through a structured, expert-driven approach, we empower aspiring professionals with the practical skills and industry insights necessary to excel in their chosen fields.`,
     images: [
-     "https://res.cloudinary.com/dquwagna6/image/upload/v1762236054/about_us_cell_10_1_kkest3.jpg",
-     "https://res.cloudinary.com/dquwagna6/image/upload/v1762236074/about_us_cell_30_1_hha7az.jpg",
-     "https://res.cloudinary.com/dquwagna6/image/upload/v1762236062/about_us_cell_40_1_lfbrpj.jpg",
-      "https://res.cloudinary.com/dquwagna6/image/upload/v1762236067/about_us_cell_70_1_hmldt2.jpg",
-      "https://res.cloudinary.com/dquwagna6/image/upload/v1762236076/about_us_cell_90_1_ptd0z3.jpg",
+      "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Landing/about_us_cell_10%20(1).jpg",
+      "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Landing/about_us_cell_30%20(1).jpg",
+      "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Landing/about_us_cell_40%20(1).jpg",
+      "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Landing/about_us_cell_40%20(1).jpg",
+      "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Landing/about_us_cell_90%20(1).jpg",
     ],
   },
   programsSection: {
@@ -36,7 +36,8 @@ export const landingPageData = {
         description:
           "Dive into the world of Artificial Intelligence with a hands-on learning experience focused on machine learning, deep learning, and neural networks. Through interactive lessons, real-world projects, and expert guidance, you’ll move beyond theory into practical application. Whether you're starting out or upskilling, this course equips you for real-world challenges and success in an AI-driven future.",
         slug: "artificial-intelligence",
-        image: "https://res.cloudinary.com/dquwagna6/image/upload/v1762238482/AI_kuc5zb.jpg",
+        image:
+          "https://res.cloudinary.com/dquwagna6/image/upload/v1762238482/AI_kuc5zb.jpg",
       },
       {
         title: "Data",
@@ -44,7 +45,8 @@ export const landingPageData = {
         description:
           "Explore the field of Data Science through a structured program covering statistics, data visualization, and predictive modeling. With guided projects, step-by-step lessons, and mentorship, you’ll build the ability to transform raw data into actionable insights. This course ensures you develop industry-ready skills to solve real problems in analytics and data-driven decision-making.",
         slug: "data-science",
-        image: "https://res.cloudinary.com/dquwagna6/image/upload/v1762238495/Data_Science_xlm8uw.jpg",
+        image:
+          "https://res.cloudinary.com/dquwagna6/image/upload/v1762238495/Data_Science_xlm8uw.jpg",
       },
       {
         title: "Cyber",
@@ -52,7 +54,8 @@ export const landingPageData = {
         description:
           "Master the fundamentals of Cyber Security with a practical curriculum emphasizing threat detection, ethical hacking, and network defense. Learn through labs, simulations, and expert-led instruction that mirror real-world security challenges. Gain the confidence and skills required to protect digital environments and build a successful career in one of today’s most critical domains.",
         slug: "cyber-security",
-        image: "https://res.cloudinary.com/dquwagna6/image/upload/v1762238494/Cyber_Security_cxz925.jpg",
+        image:
+          "https://res.cloudinary.com/dquwagna6/image/upload/v1762238494/Cyber_Security_cxz925.jpg",
       },
       {
         title: "Cloud",
@@ -60,7 +63,8 @@ export const landingPageData = {
         description:
           "Step into Cloud Computing with comprehensive training on infrastructure, virtualization, and service deployment across leading platforms. Through hands-on labs, guided exercises, and applied projects, you’ll understand the backbone of modern digital solutions. Whether aiming for certifications or career growth, this program equips you to architect, deploy, and manage scalable cloud systems.",
         slug: "cloud-computing",
-        image: "https://res.cloudinary.com/dquwagna6/image/upload/v1762238485/Cloud_Computing_oahxvt.jpg",
+        image:
+          "https://res.cloudinary.com/dquwagna6/image/upload/v1762238485/Cloud_Computing_oahxvt.jpg",
       },
       {
         title: "Machine",
@@ -68,7 +72,8 @@ export const landingPageData = {
         description:
           "Gain mastery in Machine Learning through a project-based curriculum emphasizing supervised, unsupervised, and reinforcement learning techniques. With real-world case studies, coding exercises, and expert mentorship, you’ll develop the ability to build intelligent models and deploy them in practice. This program prepares you to innovate and excel in AI-powered applications across industries.",
         slug: "machine-learning",
-        image: "https://res.cloudinary.com/dquwagna6/image/upload/v1762238490/Machine_Learning_uhbcvr.jpg",
+        image:
+          "https://res.cloudinary.com/dquwagna6/image/upload/v1762238490/Machine_Learning_uhbcvr.jpg",
       },
     ],
   },
@@ -130,7 +135,7 @@ export const landingPageData = {
       Razorpay,
       IBM,
       Capgemini,
-      Sona
+      Sona,
     ],
     hiringPartners: [
       RangaswamyCollege,
@@ -198,16 +203,36 @@ export const landingPageData = {
         icon: "entypo-social:youtube",
       },
     ],
-     
+
     footerLinks: [
       {
         listLabel: "LINKS",
         links: [
-          { label: "About Us", type: "section", href: "about-us", sectionId: "about-us" },
-          { label: "Programs", type: "section", href: "#programs", sectionId: "programs" },
-          { label: "Blogs", type: "section", href: "#blogs", sectionId: "blogs" },
-          { label: "Testimonials", type: "section", href: "#testimonials", sectionId: "testimonials" },
-                ],
+          {
+            label: "About Us",
+            type: "section",
+            href: "about-us",
+            sectionId: "about-us",
+          },
+          {
+            label: "Programs",
+            type: "section",
+            href: "#programs",
+            sectionId: "programs",
+          },
+          {
+            label: "Blogs",
+            type: "section",
+            href: "#blogs",
+            sectionId: "blogs",
+          },
+          {
+            label: "Testimonials",
+            type: "section",
+            href: "#testimonials",
+            sectionId: "testimonials",
+          },
+        ],
       },
       {
         listLabel: "OUR PROGRAMS",
@@ -244,9 +269,18 @@ export const landingPageData = {
           { label: "Corporate Law", href: "/programs/corporate-law" },
           { label: "Java", href: "/programs/java" },
           { label: "MERN Stack Development", href: "/programs/mern-stack" },
-          { label: "Business & Management", href: "/programs/business-management", },
-          { label: "Clinical Data Management", href: "/programs/clinical-data-management" },
-          { label: "Clinical Trials and Research", href: "/programs/clinical-trials-and-research" },
+          {
+            label: "Business & Management",
+            href: "/programs/business-management",
+          },
+          {
+            label: "Clinical Data Management",
+            href: "/programs/clinical-data-management",
+          },
+          {
+            label: "Clinical Trials and Research",
+            href: "/programs/clinical-trials-and-research",
+          },
           { label: "C & C++", href: "/programs/c-cpp" },
           { label: "AutoCad", href: "/programs/autoCad" },
           { label: "Automobile Design", href: "/programs/automobile-design" },
