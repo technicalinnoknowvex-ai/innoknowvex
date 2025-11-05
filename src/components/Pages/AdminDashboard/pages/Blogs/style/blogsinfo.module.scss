@@ -1,6 +1,826 @@
 // @use "../../../../../../styles/mixins" as m;
+// @use "../../../../../../styles/index" as *;
+
+// // Main page container setup
+// .main {
+//   margin-top: 8rem;
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-between;
+//   align-items: flex-start;
+//   gap: 20px;
+//   padding: 0 20px;
+//   // padding-left: 60px;
+//   margin-bottom: 4rem;
+//   padding-bottom: 200px;
+
+//   // Tablet and smaller: stack elements (SideNavigation and blogsInfoContent)
+//   @include tablet-down {
+//     flex-direction: column;
+//     align-items: center;
+//   }
+// }
+
+// // Blog management content area
+// .blogsInfoContent {
+//   height: auto;
+//   min-height: 75vh;
+//   width: 80%;
+//   border: 2px solid #A69600;
+//   border-radius: 20px;
+//   padding: 30px 20px ;
+//   box-sizing: border-box;
+
+
+//   // 1440-1281
+//   @include screen(xl){
+//     max-width: 100%;
+//     padding: 10px;
+//   }
+//  // 1025-1280
+//   @include screen(lg){
+//     max-width: 70%;
+//   }
+//   // @include large-tablet-down{
+//   //   max-width: 100%;
+//   //   padding-left: 20px;
+//   //   padding-right: 20px;
+//   //   margin-right: 0; 
+//   // }
+
+//   @include screen(md){
+//     width: 70%;
+//     border:2px solid #000;
+//   }
+  
+//   @include tablet-down {
+//     max-width: 100%; // Takes full width of the main container
+//     padding: 20px;
+//     margin-right: 0;
+//   }
+
+//   @include mobile-down {
+//     padding: 15px;
+//     border-radius: 15px;
+//   }
+// }
+
+// // Form Header (Title + Cancel Button)
+// .formHeader {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   margin-bottom: 30px;
+
+//   // Mobile: stack title and button
+//   @include mobile-down {
+//     flex-direction: column;
+//     gap: 12px;
+//     align-items: flex-start;
+//   }
+// }
+
+// .formTitle {
+//   font-size: 24px;
+//   font-weight: 600;
+//   color: #262C35;
+//   margin: 0;
+
+//   @include mobile-down {
+//     font-size: 20px;
+//   }
+// }
+
+// .cancelEditBtn {
+//   display: flex;
+//   align-items: center;
+//   gap: 6px;
+//   padding: 8px 16px;
+//   background-color: #f3f4f6;
+//   color: #374151;
+//   border: 1px solid #d1d5db;
+//   border-radius: 8px;
+//   font-size: 14px;
+//   cursor: pointer;
+//   transition: all 0.3s ease;
+
+//   svg {
+//     width: 16px;
+//     height: 16px;
+//   }
+
+//   &:hover {
+//     background-color: #e5e7eb;
+//     border-color: #9ca3af;
+//   }
+
+//   // Mobile: full width button
+//   @include mobile-down {
+//     width: 100%;
+//     justify-content: center;
+//   }
+// }
+
+// // Form Input Layout
+// .inputGrid {
+//   display: grid;
+//   grid-template-columns: repeat(2, 1fr);
+//   gap: 30px;
+//   margin-top: 20px;
+
+//   // Tablet and smaller: single column layout
+//   @include tablet-down {
+//     grid-template-columns: 1fr;
+//     gap: 25px;
+//   }
+// }
+
+// .inputField {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 0;
+  
+//   label {
+//     background-color: #EDE4D3;
+//     text-transform: uppercase;
+//     letter-spacing: 0.5px;
+//     padding-left: 22px;
+//     padding-top: 5px;
+//     @include m.font($font-oldschool ,$book, $text-secondary);
+//     font-size: 14px;
+//   }
+
+//   input[type="text"],
+//   input[type="url"],
+//   input[type="file"],
+//   textarea {
+//     width: 100%;
+//     padding: 16px 20px;
+//     border: none;
+//     border-radius: 0;
+//     font-size: 16px;
+//     transition: all 0.3s ease;
+//     background-color: #EDE4D3;
+//     border-bottom: #A38907 2px solid;
+//     @include m.font($font-oldschool, $book, #262C35);
+//     box-shadow: none;
+
+//     &:focus {
+//       outline: none;
+//       box-shadow: none;
+//     }
+
+//     &::placeholder {
+//       opacity: 0.7;
+//     }
+//   }
+
+//   input[type="file"] {
+//     padding: 14px 16px;
+//     cursor: pointer;
+//     font-size: 14px;
+
+//     &::file-selector-button {
+//       padding: 10px 20px;
+//       border: none;
+//       border-radius: 0;
+//       background-color: #A69600;
+//       color: white;
+//       cursor: pointer;
+//       margin-right: 16px;
+//       transition: all 0.3s ease;
+//       @include m.font($font-sharp-20, $medium, white);
+//       font-weight: 500;
+
+//       &:hover {
+//         background-color: #8d7a00;
+//       }
+//     }
+//   }
+
+//   textarea {
+//     resize: vertical;
+//     min-height: 140px;
+//     @include m.font($font-oldschool, $book, #262C35);
+//     line-height: 1.6;
+//   }
+// }
+
+// .imagePreviewContainer {
+//   margin-top: 16px;
+//   border-radius: 0;
+//   overflow: hidden;
+//   border: none;
+//   position: relative;
+//   background-color: #EDE4D3;
+//   padding: 10px;
+// }
+
+// .imagePreview {
+//   width: 100%;
+//   height: 220px;
+//   object-fit: cover;
+//   display: block;
+// }
+
+// .removeImageBtn {
+//   position: absolute;
+//   top: 18px;
+//   right: 18px;
+//   width: 36px;
+//   height: 36px;
+//   border-radius: 50%;
+//   background: rgba(255, 255, 255, 0.95);
+//   border: none;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   cursor: pointer;
+//   transition: all 0.3s ease;
+//   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+//   svg {
+//     width: 18px;
+//     height: 18px;
+//     color: #dc2626;
+//   }
+
+//   &:hover {
+//     background: white;
+//     transform: scale(1.1);
+//   }
+// }
+
+// // Forces an input field to span both columns
+// .fullWidth {
+//   grid-column: 1 / -1;
+
+//   @include tablet-down {
+//     grid-column: 1; // Resets to single column on tablet
+//   }
+// }
+
+// .submitButton {
+//   margin-top: 30px;
+//   text-align: center;
+
+//   button {
+//     display: inline-flex;
+//     align-items: center;
+//     gap: 8px;
+//     padding: 14px 40px;
+//     background-color: #A69600;
+//     color: white;
+//     border: none;
+//     border-radius: 0;
+//     font-size: 16px;
+//     font-weight: 500;
+//     cursor: pointer;
+//     transition: all 0.3s ease;
+//     min-width: 180px;
+//     justify-content: center;
+//     font-family: 'Sharp Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+//     text-transform: uppercase;
+//     letter-spacing: 0.5px;
+
+//     svg {
+//       width: 18px;
+//       height: 18px;
+//     }
+
+//     &:hover:not(:disabled) {
+//       background-color: #8d7a00;
+//       transform: translateY(-2px);
+//       box-shadow: 0 4px 12px rgba(166, 150, 0, 0.3);
+//     }
+
+//     &:disabled {
+//       opacity: 0.6;
+//       cursor: not-allowed;
+//     }
+//   }
+// }
+
+// .buttonSpinner {
+//   animation: spin 1s linear infinite;
+// }
+
+// @keyframes spin {
+//   from {
+//     transform: rotate(0deg);
+//   }
+//   to {
+//     transform: rotate(360deg);
+//   }
+// }
+
+// // All Blogs Section
+// .allBlogsSection {
+//   margin-top: 80px;
+//   padding-top: 50px;
+//   border-top: 2px solid #D4C5A9;
+// }
+
+// .sectionTitle {
+//   font-size: 32px;
+//   font-weight: 600;
+//   color: #262C35;
+//   margin-bottom: 40px;
+//   text-align: center;
+//   font-family: 'Sharp Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+
+//   @include tablet-down {
+//     font-size: 28px;
+//     margin-bottom: 30px;
+//   }
+
+//   @include mobile-down {
+//     font-size: 24px;
+//     margin-bottom: 25px;
+//   }
+// }
+
+// .loadingState,
+// .emptyState {
+//   text-align: center;
+//   padding: 80px 20px;
+//   color: #666;
+//   font-size: 16px;
+//   min-height: 250px;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   gap: 12px;
+//   font-family: 'Oldschool Grotesk', Georgia, serif;
+// }
+
+// .spinner {
+//   width: 40px;
+//   height: 40px;
+//   animation: spin 1s linear infinite;
+//   color: #A69600;
+// }
+
+// .emptyIcon {
+//   width: 80px;
+//   height: 80px;
+//   color: #9ca3af;
+//   margin-bottom: 12px;
+// }
+
+// .emptySubtext {
+//   font-size: 14px;
+//   color: #9ca3af;
+//   margin-top: 0;
+// }
+
+// // Carousel Container (Main wrapper for the slider)
+// .carouselContainer {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   width: 100%;
+//   max-width: 100%;
+//   position: relative;
+//   padding: 0 80px; // Space for navigation buttons
+//   box-sizing: border-box;
+//   @include screen(xl) {
+//     padding: 0;
+//   }
+
+//   @include tablet-down {
+//     padding: 0 60px;
+//   }
+
+//   @include mobile-down {
+//     padding: 0 40px;
+//   }
+// }
+
+// // Carousel Navigation Buttons
+// .navButton {
+//   background: rgba(255, 255, 255, 0.95);
+//   border: 2px solid rgba(0, 0, 0, 0.1);
+//   border-radius: 100%;
+//   width: 60px;
+//   height: 60px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   cursor: pointer;
+//   transition: all 0.3s ease;
+//   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+//   z-index: 10;
+//   position: absolute;
+//   top: 50%;
+//   transform: translateY(-50%);
+//   color: #333;
+
+//   &:hover:not(:disabled) {
+//     background: white;
+//     transform: translateY(-50%) scale(1.1);
+//     box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+//     border-color: rgba(0, 0, 0, 0.2);
+//   }
+
+//   &:disabled {
+//     opacity: 0.5;
+//     cursor: not-allowed;
+//   }
+
+//   @include tablet-down {
+//     width: 50px;
+//     height: 50px;
+//   }
+
+//   @include mobile-down {
+//     width: 40px;
+//     height: 40px;
+    
+//     svg {
+//       width: 18px !important;
+//       height: 18px !important;
+//     }
+//   }
+// }
+
+// .navButtonLeft {
+//   left: 10px;
+
+//   @include mobile-down {
+//     left: 5px;
+//   }
+// }
+
+// .navButtonRight {
+//   right: 10px;
+
+//   @include mobile-down {
+//     right: 5px;
+//   }
+// }
+
+// .cardsContainer {
+//   width: 100%;
+//   overflow: hidden;
+//   border-radius: 0;
+// }
+
+// .cardsWrapper {
+//   display: flex;
+//   transition: transform 0.5s ease-in-out;
+//   gap: 30px;
+//   padding: 20px;
+//   box-sizing: border-box;
+
+//   @include tablet-down {
+//     padding: 15px;
+//     gap: 25px;
+//   }
+
+//   @include mobile-down {
+//     padding: 10px;
+//     gap: 15px;
+//   }
+// }
+
+// // Individual Blog Card in Admin Panel
+// .blogCardAdmin {
+//   background: #FFF7E1;
+//   border: 1px solid #262C35;
+//   border-radius: 20px;
+//   overflow: hidden;
+//   transition: all 0.5s ease;
+//   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+//   display: flex;
+//   flex-direction: column;
+//   height: 540px;
+//   flex-shrink: 0;
+//   position: relative;
+//   animation: slideIn 0.6s ease-out; // Initial load animation
+
+//   // Highlight if currently being edited
+//   &.editing {
+//     border: 2px solid #A69600;
+//     box-shadow: 0 0 0 3px rgba(166, 150, 0, 0.1);
+//   }
+
+//   &:hover {
+//     transform: translateY(-8px);
+    
+//     .cardActions {
+//       opacity: 1;
+//     }
+
+//     .blogImageAdmin {
+//       filter: brightness(0.8);
+//       transform: scale(1.1);
+//     }
+//   }
+
+//   @include large-tablet-down {
+   
+//     height: 500px;
+//   }
+
+//   @include tablet-down {
+//     height: 480px;
+//   }
+
+//   @include mobile-down {
+//     height: 440px;
+//     border-radius: 16px;
+//   }
+// }
+
+// // **Responsive Card Width Calculations**
+// // These media queries directly control the card width based on available space,
+// // matching the dynamic calculation logic in the JS.
+// @media (min-width: 1024px) {
+//   // 3 cards per row on large screens (30px gap)
+//   .blogCardAdmin {
+//     width: calc((100% / 3) - (30px * 2 / 3));
+//   }
+// }
+
+// @media (min-width: 768px) and (max-width: 1023px) {
+//   // 2 cards per row on tablets (25px gap - using the tablet-down gap)
+//   .blogCardAdmin {
+//     width: calc((100% / 2) - (25px / 2));
+//   }
+// }
+
+// @media (max-width: 767px) {
+//   // 1 card per row on mobile (15px gap - the gap is between cards, so calc is simply 100%)
+//   .blogCardAdmin {
+//     width: calc((100% / 1));
+//   }
+// }
+// // End Responsive Card Width Calculations
+
+// .imageWrapper {
+//   position: relative;
+//   width: 100%;
+//   height: 210px;
+//   overflow: hidden;
+//   background: white;
+
+//   @include tablet-down {
+//     height: 200px;
+//   }
+
+//   @include mobile-down {
+//     height: 180px;
+//   }
+// }
+
+// .blogImageAdmin {
+//   width: 100%;
+//   height: 100%;
+//   object-fit: cover;
+//   transition: all 0.3s ease;
+// }
+
+// .cardActions {
+//   position: absolute;
+//   top: 12px;
+//   right: 12px;
+//   display: flex;
+//   gap: 8px;
+//   opacity: 0; // Hidden by default, visible on card hover
+//   transition: opacity 0.3s ease;
+//   z-index: 2;
+
+//   // Mobile: always visible for easy access
+//   @include mobile-down {
+//     opacity: 1;
+//   }
+// }
+
+// .editingBadge {
+//   position: absolute;
+//   top: 12px;
+//   left: 12px;
+//   background: #A69600;
+//   color: white;
+//   padding: 6px 12px;
+//   border-radius: 20px;
+//   font-size: 12px;
+//   font-weight: 500;
+//   display: flex;
+//   align-items: center;
+//   gap: 6px;
+//   z-index: 2;
+
+//   svg {
+//     width: 14px;
+//     height: 14px;
+//   }
+// }
+
+// .actionBtn {
+//   width: 36px;
+//   height: 36px;
+//   border-radius: 50%;
+//   border: none;
+//   background: rgba(255, 255, 255, 0.95);
+//   color: #333;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   cursor: pointer;
+//   transition: all 0.3s ease;
+//   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+//   svg {
+//     width: 18px;
+//     height: 18px;
+//   }
+
+//   &:hover {
+//     transform: scale(1.1);
+//     background: white;
+//     color: #A69600;
+//   }
+
+//   &.deleteBtn:hover {
+//     color: #dc2626;
+//   }
+
+//   @include mobile-down {
+//     width: 32px;
+//     height: 32px;
+
+//     svg {
+//       width: 16px;
+//       height: 16px;
+//     }
+//   }
+// }
+
+// .cardContentAdmin {
+//   padding: 20px;
+//   display: flex;
+//   flex-direction: column;
+//   gap: 12px;
+//   flex: 1;
+//   background: #FFF7E1;
+//   justify-content: space-between;
+
+//   @include mobile-down {
+//     padding: 16px;
+//     gap: 10px;
+//   }
+// }
+
+// .cardMeta {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
+
+// .dateTag {
+//   font-size: 12px;
+//   color: #9F8310;
+//   font-weight: 500;
+//   text-transform: uppercase;
+//   letter-spacing: 0.5px;
+//   text-align: center;
+
+//   @include mobile-down {
+//     font-size: 11px;
+//   }
+// }
+
+// .blogTitleAdmin {
+//   font-size: 18px;
+//   font-weight: 600;
+//   color: #A08410;
+//   line-height: 1.5;
+//   margin: 0;
+//   @include m.line-clamp(2); // Use mixin for text truncation
+//   text-align: center;
+//   margin-top: 10px;
+
+//   @include tablet-down {
+//     font-size: 20px;
+//   }
+
+//   @include mobile-down {
+//     font-size: 18px;
+//   }
+// }
+
+// .blogDescriptionAdmin {
+//   font-size: 16px;
+//   color: #A08410;
+//   line-height: 1.6;
+//   margin: 0;
+//   @include m.line-clamp(4); // Use mixin for text truncation
+//   font-weight: 400;
+//   text-align: center;
+//   margin-top: 10px;
+
+//   @include tablet-down {
+//     font-size: 15px;
+//     -webkit-line-clamp: 3;
+//   }
+
+//   @include mobile-down {
+//     font-size: 14px;
+//   }
+// }
+
+// .linkPreview {
+//   display: inline-flex;
+//   align-items: center;
+//   justify-content: center;
+//   gap: 6px;
+//   color: #FF6432;
+//   font-size: 15px;
+//   font-weight: 400;
+//   text-decoration: none;
+//   transition: all 0.3s ease;
+//   margin-top: auto;
+//   padding: 14px 28px;
+//   background: #FF6432;
+//   color: white;
+//   border-radius: 30px;
+//   position: relative;
+//   overflow: hidden;
+//   align-self: center;
+
+//   &::before {
+//     content: '';
+//     position: absolute;
+//     top: 0;
+//     left: -100%;
+//     width: 100%;
+//     height: 100%;
+//     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+//     transition: left 0.6s ease;
+//   }
+
+//   svg {
+//     width: 16px;
+//     height: 16px;
+//   }
+
+//   &:hover {
+//     gap: 8px;
+//   }
+
+//   @include tablet-down {
+//     padding: 12px 24px;
+//     font-size: 14px;
+//   }
+
+//   @include mobile-down {
+//     padding: 10px 20px;
+//     font-size: 13px;
+//   }
+// }
+
+// // Animation
+// @keyframes slideIn {
+//   from {
+//     opacity: 0;
+//     transform: translateX(30px);
+//   }
+//   to {
+//     opacity: 1;
+//     transform: translateX(0);
+//   }
+// }
+
+// // Utility resets/overrides
+// .blogCardAdmin * {
+//   word-wrap: break-word;
+//   overflow-wrap: break-word;
+// }
+
+// .navButton {
+//   user-select: none;
+//   -webkit-user-select: none;
+//   -moz-user-select: none;
+// }
+
+// .cardsWrapper {
+//   scroll-behavior: smooth;
+// }
+
+
+
+
+
+
+
+
+@use "../../../../../../styles/mixins" as m;
 @use "../../../../../../styles/index" as *;
 
+// Main page container setup
 .main {
   margin-top: 8rem;
   display: flex;
@@ -9,26 +829,51 @@
   align-items: flex-start;
   gap: 20px;
   padding: 0 20px;
+  // padding-left: 60px;
   margin-bottom: 4rem;
   padding-bottom: 200px;
 
+  // Tablet and smaller: stack elements (SideNavigation and blogsInfoContent)
   @include tablet-down {
     flex-direction: column;
     align-items: center;
   }
 }
 
+// Blog management content area
 .blogsInfoContent {
   height: auto;
   min-height: 75vh;
-  width: 100%;
-  max-width: 165vh;
+  width: 80%;
   border: 2px solid #A69600;
   border-radius: 20px;
-  padding: 30px;
+  padding: 30px 20px ;
+  box-sizing: border-box;
 
-  @include tablet-down {
+
+  // 1440-1281
+  @include screen(xl){
     max-width: 100%;
+    padding: 10px;
+  }
+ // 1025-1280
+  @include screen(lg){
+    max-width: 70%;
+  }
+  // @include large-tablet-down{
+  //   max-width: 100%;
+  //   padding-left: 20px;
+  //   padding-right: 20px;
+  //   margin-right: 0; 
+  // }
+
+  @include screen(md){
+    width: 70%;
+    border:2px solid #000;
+  }
+  
+  @include tablet-down {
+    max-width: 100%; // Takes full width of the main container
     padding: 20px;
     margin-right: 0;
   }
@@ -39,12 +884,14 @@
   }
 }
 
+// Form Header (Title + Cancel Button)
 .formHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
 
+  // Mobile: stack title and button
   @include mobile-down {
     flex-direction: column;
     gap: 12px;
@@ -86,18 +933,21 @@
     border-color: #9ca3af;
   }
 
+  // Mobile: full width button
   @include mobile-down {
     width: 100%;
     justify-content: center;
   }
 }
 
+// Form Input Layout
 .inputGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 30px;
   margin-top: 20px;
 
+  // Tablet and smaller: single column layout
   @include tablet-down {
     grid-template-columns: 1fr;
     gap: 25px;
@@ -109,15 +959,14 @@
   flex-direction: column;
   gap: 0;
   
-
   label {
     background-color: #EDE4D3;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     padding-left: 22px;
     padding-top: 5px;
-    @include font($font-oldschool ,$book,  $text-secondary);
-     font-size: 14px;
+    @include m.font($font-oldschool ,$book, $text-secondary);
+    font-size: 14px;
   }
 
   input[type="text"],
@@ -132,7 +981,7 @@
     transition: all 0.3s ease;
     background-color: #EDE4D3;
     border-bottom: #A38907 2px solid;
-    @include font($font-oldschool, $book, #262C35);
+    @include m.font($font-oldschool, $book, #262C35);
     box-shadow: none;
 
     &:focus {
@@ -159,8 +1008,7 @@
       cursor: pointer;
       margin-right: 16px;
       transition: all 0.3s ease;
-      // font-family: 'Sharp Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-      @include font($font-sharp-20, $medium, white);
+      @include m.font($font-sharp-20, $medium, white);
       font-weight: 500;
 
       &:hover {
@@ -172,7 +1020,7 @@
   textarea {
     resize: vertical;
     min-height: 140px;
-    @include font($font-oldschool, $book, #262C35);
+    @include m.font($font-oldschool, $book, #262C35);
     line-height: 1.6;
   }
 }
@@ -222,11 +1070,12 @@
   }
 }
 
+// Forces an input field to span both columns
 .fullWidth {
   grid-column: 1 / -1;
 
   @include tablet-down {
-    grid-column: 1;
+    grid-column: 1; // Resets to single column on tablet
   }
 }
 
@@ -345,7 +1194,7 @@
   margin-top: 0;
 }
 
-// Carousel Container
+// Carousel Container (Main wrapper for the slider)
 .carouselContainer {
   display: flex;
   align-items: center;
@@ -353,7 +1202,11 @@
   width: 100%;
   max-width: 100%;
   position: relative;
-  padding: 0 80px;
+  padding: 0 80px; // Space for navigation buttons
+  box-sizing: border-box;
+  @include screen(xl) {
+    padding: 0;
+  }
 
   @include tablet-down {
     padding: 0 60px;
@@ -364,6 +1217,7 @@
   }
 }
 
+// Carousel Navigation Buttons
 .navButton {
   background: rgba(255, 255, 255, 0.95);
   border: 2px solid rgba(0, 0, 0, 0.1);
@@ -450,6 +1304,7 @@
   }
 }
 
+// Individual Blog Card in Admin Panel
 .blogCardAdmin {
   background: #FFF7E1;
   border: 1px solid #262C35;
@@ -462,7 +1317,9 @@
   height: 540px;
   flex-shrink: 0;
   position: relative;
+  animation: slideIn 0.6s ease-out; // Initial load animation
 
+  // Highlight if currently being edited
   &.editing {
     border: 2px solid #A69600;
     box-shadow: 0 0 0 3px rgba(166, 150, 0, 0.1);
@@ -482,6 +1339,7 @@
   }
 
   @include large-tablet-down {
+   
     height: 500px;
   }
 
@@ -495,24 +1353,28 @@
   }
 }
 
-// Media queries to set card widths exactly like original
-@media (min-width: 1024px) {
+// **Responsive Card Width Calculations**
+// 1280px and above: 3 cards per row (30px gap)
+@media (min-width: 1280px) {
   .blogCardAdmin {
     width: calc((100% / 3) - (30px * 2 / 3));
   }
 }
 
-@media (min-width: 768px) and (max-width: 1023px) {
+// 1024px - 1279px: 2 cards per row (30px gap)
+@media (min-width: 1024px) and (max-width: 1279px) {
   .blogCardAdmin {
-    width: calc((100% / 2) - (25px / 2));
+    width: calc((100% / 2) - (30px / 2));
   }
 }
 
-@media (max-width: 767px) {
+// Below 1024px: 1 card per row
+@media (max-width: 1023px) {
   .blogCardAdmin {
-    width: calc((100% / 1));
+    width: 100%;
   }
 }
+// End Responsive Card Width Calculations
 
 .imageWrapper {
   position: relative;
@@ -543,10 +1405,11 @@
   right: 12px;
   display: flex;
   gap: 8px;
-  opacity: 0;
+  opacity: 0; // Hidden by default, visible on card hover
   transition: opacity 0.3s ease;
   z-index: 2;
 
+  // Mobile: always visible for easy access
   @include mobile-down {
     opacity: 1;
   }
@@ -653,12 +1516,7 @@
   color: #A08410;
   line-height: 1.5;
   margin: 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  word-wrap: break-word;
-  hyphens: auto;
+  @include m.line-clamp(2); // Use mixin for text truncation
   text-align: center;
   margin-top: 10px;
 
@@ -676,12 +1534,7 @@
   color: #A08410;
   line-height: 1.6;
   margin: 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  word-wrap: break-word;
-  hyphens: auto;
+  @include m.line-clamp(4); // Use mixin for text truncation
   font-weight: 400;
   text-align: center;
   margin-top: 10px;
@@ -758,10 +1611,7 @@
   }
 }
 
-.blogCardAdmin {
-  animation: slideIn 0.6s ease-out;
-}
-
+// Utility resets/overrides
 .blogCardAdmin * {
   word-wrap: break-word;
   overflow-wrap: break-word;
