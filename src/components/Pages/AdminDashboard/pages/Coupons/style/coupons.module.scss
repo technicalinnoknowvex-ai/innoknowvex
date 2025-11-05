@@ -1,6 +1,939 @@
+// @use "../../../../../../styles/mixins" as m;
+// @use "../../../../../../styles/index" as *;
+
+// .main {
+//   margin-top: 8rem;
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-between;
+//   align-items: flex-start;
+//   gap: 20px;
+//   padding: 0 20px;
+//   margin-bottom: 4rem;
+//   padding-bottom: 200px;
+
+//   @include m.tablet-down {
+//     flex-direction: column;
+//     align-items: center;
+//   }
+// }
+
+// .couponsInfoContent {
+//   height: auto;
+//   min-height: 75vh;
+//   width: 100%;
+//   max-width: 165vh;
+//   border: 2px solid #A69600;
+//   border-radius: 20px;
+//   padding: 30px;
+
+//   @include m.tablet-down {
+//     max-width: 100%;
+//     padding: 20px;
+//     margin-right: 0;
+//   }
+
+//   @include m.mobile-down {
+//     padding: 15px;
+//     border-radius: 15px;
+//   }
+// }
+
+// .formHeader {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   margin-bottom: 30px;
+
+//   @include m.mobile-down {
+//     flex-direction: column;
+//     gap: 12px;
+//     align-items: flex-start;
+//   }
+// }
+
+// .formTitle {
+//   font-size: 24px;
+//   font-weight: 600;
+//   color: #262C35;
+//   margin: 0;
+//   @include m.font($font-sharp-20, $medium, #262C35);
+
+//   @include m.mobile-down {
+//     font-size: 20px;
+//   }
+// }
+
+// .cancelEditBtn {
+//   display: flex;
+//   align-items: center;
+//   gap: 6px;
+//   padding: 8px 16px;
+//   background-color: #f3f4f6;
+//   color: #374151;
+//   border: 1px solid #d1d5db;
+//   border-radius: 8px;
+//   font-size: 14px;
+//   cursor: pointer;
+//   transition: all 0.3s ease;
+//   @include m.font($font-sharp-20, $medium, #374151);
+
+//   svg {
+//     width: 16px;
+//     height: 16px;
+//   }
+
+//   &:hover {
+//     background-color: #e5e7eb;
+//     border-color: #9ca3af;
+//   }
+
+//   @include m.mobile-down {
+//     width: 100%;
+//     justify-content: center;
+//   }
+// }
+
+// .inputGrid {
+//   display: grid;
+//   grid-template-columns: repeat(2, 1fr);
+//   gap: 25px;
+//   // margin-top: 20px;
+
+//   @include m.tablet-down {
+//     grid-template-columns: 1fr;
+//     gap: 20px;
+//   }
+// }
+
+// .inputField {
+//   display: flex;
+//   flex-direction: column;
+//   // gap: 8px;
+
+//   label {
+//     background-color: #EDE4D3;
+//     text-transform: uppercase;
+//     letter-spacing: 0.5px;
+//     padding-left: 22px;
+//     padding-top: 5px;
+//     @include m.font($font-oldschool, $book, $text-secondary);
+//     font-size: 14px;
+//   }
+
+//   input[type="text"],
+//   input[type="number"],
+//   input[type="date"],
+//   textarea,
+//   select {
+//     width: 100%;
+//     padding: 14px 20px;
+//     border: none;
+//     border-radius: 0;
+//     font-size: 16px;
+//     transition: all 0.3s ease;
+//     background-color: #EDE4D3;
+//     border-bottom: #A38907 2px solid;
+//     @include m.font($font-oldschool, $book, #262C35);
+//     box-shadow: none;
+
+//     &:focus {
+//       outline: none;
+//       box-shadow: none;
+//       border-bottom-color: #A69600;
+//     }
+
+//     &::placeholder {
+//       opacity: 0.7;
+//     }
+//   }
+
+//   select {
+//     cursor: pointer;
+//     appearance: none;
+//     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+//     background-repeat: no-repeat;
+//     background-position: right 16px center;
+//     background-size: 16px;
+//   }
+
+//   textarea {
+//     resize: vertical;
+//     min-height: 80px;
+//     @include m.font($font-oldschool, $book, #262C35);
+//     line-height: 1.6;
+//   }
+// }
+
+// .helperText {
+//   font-size: 12px;
+//   color: #666;
+//   margin-top: 4px;
+//   @include m.font($font-oldschool, $book, #666);
+// }
+
+// .checkboxField {
+//   display: flex;
+//   align-items: center;
+//   gap: 10px;
+//   margin-top: 15px;
+
+//   input[type="checkbox"] {
+//     width: 18px;
+//     height: 18px;
+//     cursor: pointer;
+//   }
+
+//   label {
+//     background: none;
+//     padding: 0;
+//     text-transform: none;
+//     letter-spacing: normal;
+//     @include m.font($font-sharp-20, $medium, #262C35);
+//     cursor: pointer;
+//   }
+// }
+
+// .fullWidth {
+//   grid-column: 1 / -1;
+
+//   @include m.tablet-down {
+//     grid-column: 1;
+//   }
+// }
+
+// .submitButton {
+//   margin-top: 30px;
+//   text-align: center;
+
+//   button {
+//     display: inline-flex;
+//     align-items: center;
+//     gap: 8px;
+//     padding: 14px 40px;
+//     background-color: #A69600;
+//     color: white;
+//     border: none;
+//     border-radius: 0;
+//     font-size: 16px;
+//     font-weight: 500;
+//     cursor: pointer;
+//     transition: all 0.3s ease;
+//     min-width: 180px;
+//     justify-content: center;
+//     @include m.font($font-sharp-20, $medium, white);
+//     text-transform: uppercase;
+//     letter-spacing: 0.5px;
+
+//     svg {
+//       width: 18px;
+//       height: 18px;
+//     }
+
+//     &:hover:not(:disabled) {
+//       background-color: #8d7a00;
+//       transform: translateY(-2px);
+//       box-shadow: 0 4px 12px rgba(166, 150, 0, 0.3);
+//     }
+
+//     &:disabled {
+//       opacity: 0.6;
+//       cursor: not-allowed;
+//     }
+//   }
+// }
+
+// .buttonSpinner {
+//   animation: spin 1s linear infinite;
+// }
+
+// @keyframes spin {
+//   from {
+//     transform: rotate(0deg);
+//   }
+//   to {
+//     transform: rotate(360deg);
+//   }
+// }
+
+// // All Coupons Section
+// .allCouponsSection {
+//   margin-top: 80px;
+//   padding-top: 50px;
+//   border-top: 2px solid #D4C5A9;
+// }
+
+// .sectionTitle {
+//   font-size: 32px;
+//   font-weight: 600;
+//   color: #262C35;
+//   margin-bottom: 40px;
+//   text-align: center;
+//   @include m.font($font-sharp-20, $medium, #262C35);
+
+//   @include m.tablet-down {
+//     font-size: 28px;
+//     margin-bottom: 30px;
+//   }
+
+//   @include m.mobile-down {
+//     font-size: 24px;
+//     margin-bottom: 25px;
+//   }
+// }
+
+// .loadingState,
+// .emptyState {
+//   text-align: center;
+//   padding: 80px 20px;
+//   color: #666;
+//   font-size: 16px;
+//   min-height: 250px;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   gap: 12px;
+//   @include m.font($font-oldschool, $book, #666);
+// }
+
+// .spinner {
+//   width: 40px;
+//   height: 40px;
+//   animation: spin 1s linear infinite;
+//   color: #A69600;
+// }
+
+// .emptyIcon {
+//   width: 80px;
+//   height: 80px;
+//   color: #9ca3af;
+//   margin-bottom: 12px;
+// }
+
+// .emptySubtext {
+//   font-size: 14px;
+//   color: #9ca3af;
+//   margin-top: 0;
+// }
+
+// // Carousel Container
+// .carouselContainer {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   width: 100%;
+//   max-width: 100%;
+//   position: relative;
+//   padding: 0 80px;
+
+//   @include m.tablet-down {
+//     padding: 0 60px;
+//   }
+
+//   @include m.mobile-down {
+//     padding: 0 40px;
+//   }
+// }
+
+// .navButton {
+//   background: rgba(255, 255, 255, 0.95);
+//   border: 2px solid rgba(0, 0, 0, 0.1);
+//   border-radius: 100%;
+//   width: 60px;
+//   height: 60px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   cursor: pointer;
+//   transition: all 0.3s ease;
+//   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+//   z-index: 10;
+//   position: absolute;
+//   top: 50%;
+//   transform: translateY(-50%);
+//   color: #333;
+
+//   &:hover:not(:disabled) {
+//     background: white;
+//     transform: translateY(-50%) scale(1.1);
+//     box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+//     border-color: rgba(0, 0, 0, 0.2);
+//   }
+
+//   &:disabled {
+//     opacity: 0.5;
+//     cursor: not-allowed;
+//   }
+
+//   @include m.tablet-down {
+//     width: 50px;
+//     height: 50px;
+//   }
+
+//   @include m.mobile-down {
+//     width: 40px;
+//     height: 40px;
+    
+//     svg {
+//       width: 18px !important;
+//       height: 18px !important;
+//     }
+//   }
+// }
+
+// .navButtonLeft {
+//   left: 10px;
+
+//   @include m.mobile-down {
+//     left: 5px;
+//   }
+// }
+
+// .navButtonRight {
+//   right: 10px;
+
+//   @include m.mobile-down {
+//     right: 5px;
+//   }
+// }
+
+// .cardsContainer {
+//   width: 100%;
+//   overflow: hidden;
+//   border-radius: 0;
+// }
+
+// .cardsWrapper {
+//   display: flex;
+//   transition: transform 0.5s ease-in-out;
+//   gap: 30px;
+//   padding: 20px;
+//   box-sizing: border-box;
+
+//   @include m.tablet-down {
+//     padding: 15px;
+//     gap: 25px;
+//   }
+
+//   @include m.mobile-down {
+//     padding: 10px;
+//     gap: 15px;
+//   }
+// }
+
+// .couponCardAdmin {
+//   background: #FFF7E1;
+//   border: 2px solid #262C35;
+//   border-radius: 16px;
+//   overflow: hidden;
+//   transition: all 0.5s ease;
+//   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+//   display: flex;
+//   flex-direction: column;
+//   height: 320px;
+//   flex-shrink: 0;
+//   position: relative;
+
+//   &.editing {
+//     border-color: #A69600;
+//     box-shadow: 0 0 0 3px rgba(166, 150, 0, 0.1);
+//   }
+
+//   &.inactive {
+//     opacity: 0.7;
+//     background: #f8f9fa;
+    
+//     .cardContentAdmin {
+//       background: #f8f9fa;
+//     }
+//   }
+
+//   &:hover {
+//     transform: translateY(-8px);
+    
+//     .cardActions {
+//       opacity: 1;
+//     }
+//   }
+
+//   @include m.large-tablet-down {
+//     height: 300px;
+//   }
+
+//   @include m.tablet-down {
+//     height: 280px;
+//   }
+
+//   @include m.mobile-down {
+//     height: 260px;
+//     border-radius: 12px;
+//   }
+// }
+
+// // Media queries to set card widths
+// @media (min-width: 1024px) {
+//   .couponCardAdmin {
+//     width: calc((100% / 3) - (30px * 2 / 3));
+//   }
+// }
+
+// @media (min-width: 768px) and (max-width: 1023px) {
+//   .couponCardAdmin {
+//     width: calc((100% / 2) - (25px / 2));
+//   }
+// }
+
+// @media (max-width: 767px) {
+//   .couponCardAdmin {
+//     width: calc((100% / 1));
+//   }
+// }
+
+// .cardContentAdmin {
+//   padding: 20px;
+//   display: flex;
+//   flex-direction: column;
+//   gap: 16px;
+//   flex: 1;
+//   background: #FFF7E1;
+//   justify-content: space-between;
+//   position: relative;
+
+//   @include m.mobile-down {
+//     padding: 16px;
+//     gap: 12px;
+//   }
+// }
+
+// .cardHeader {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: flex-start;
+//   gap: 10px;
+// }
+
+// .couponCode {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 6px;
+// }
+
+// .code {
+//   font-size: 20px;
+//   font-weight: 700;
+//   color: #262C35;
+//   @include m.font($font-sharp-20, $bold, #262C35);
+//   letter-spacing: 1px;
+
+//   @include m.mobile-down {
+//     font-size: 18px;
+//   }
+// }
+
+// .status {
+//   padding: 4px 10px;
+//   border-radius: 12px;
+//   font-size: 11px;
+//   font-weight: 600;
+//   text-transform: uppercase;
+//   letter-spacing: 0.5px;
+//   @include m.font($font-sharp-20, $book, white);
+
+//   &.active {
+//     background: #10b981;
+//   }
+
+//   &.inactive {
+//     background: #6b7280;
+//   }
+// }
+
+// .cardActions {
+//   display: flex;
+//   gap: 6px;
+//   opacity: 0;
+//   transition: opacity 0.3s ease;
+
+//   @include m.mobile-down {
+//     opacity: 1;
+//   }
+// }
+
+// .actionBtn {
+//   width: 32px;
+//   height: 32px;
+//   border-radius: 50%;
+//   border: none;
+//   background: rgba(255, 255, 255, 0.95);
+//   color: #333;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   cursor: pointer;
+//   transition: all 0.3s ease;
+//   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+//   svg {
+//     width: 16px;
+//     height: 16px;
+//   }
+
+//   &:hover {
+//     transform: scale(1.1);
+//     background: white;
+//     color: #A69600;
+//   }
+
+//   &.deleteBtn:hover {
+//     color: #dc2626;
+//   }
+// }
+
+// .discountInfo {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   background: #A69600;
+//   padding: 12px 16px;
+//   border-radius: 8px;
+//   margin: 8px 0;
+
+//   @include m.mobile-down {
+//     padding: 10px 12px;
+//   }
+// }
+
+// .discountPercentage,
+// .discountFixed {
+//   font-size: 24px;
+//   font-weight: 700;
+//   color: white;
+//   @include m.font($font-sharp-20, $bold, white);
+
+//   @include m.mobile-down {
+//     font-size: 20px;
+//   }
+// }
+
+// .discountType {
+//   font-size: 12px;
+//   font-weight: 600;
+//   color: rgba(255, 255, 255, 0.9);
+//   @include m.font($font-sharp-20, $book, rgba(255, 255, 255, 0.9));
+//   text-transform: uppercase;
+//   letter-spacing: 0.5px;
+// }
+
+// .couponDescription {
+//   font-size: 14px;
+//   color: #666;
+//   line-height: 1.5;
+//   margin: 0;
+//   @include m.font($font-oldschool, $book, #666);
+//   display: -webkit-box;
+//   -webkit-line-clamp: 2;
+//   -webkit-box-orient: vertical;
+//   overflow: hidden;
+
+//   @include m.mobile-down {
+//     font-size: 13px;
+//   }
+// }
+
+// .couponDetails {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 8px;
+//   margin-top: auto;
+// }
+
+// .detailItem {
+//   display: flex;
+//   align-items: center;
+//   gap: 8px;
+//   font-size: 13px;
+//   color: #666;
+//   @include m.font($font-sharp-20, $medium, #666);
+
+//   @include m.mobile-down {
+//     font-size: 12px;
+//   }
+// }
+
+// .detailIcon {
+//   width: 14px;
+//   height: 14px;
+//   color: #A69600;
+// }
+
+// .applicableCourses {
+//   margin-top: 8px;
+// }
+
+// .coursesLabel {
+//   font-size: 12px;
+//   color: #8b7355;
+//   @include m.font($font-sharp-20, $medium, #8b7355);
+// }
+
+// .editingBadge {
+//   position: absolute;
+//   top: 15px;
+//   left: 15px;
+//   background: #A69600;
+//   color: white;
+//   padding: 6px 12px;
+//   border-radius: 20px;
+//   font-size: 12px;
+//   font-weight: 500;
+//   display: flex;
+//   align-items: center;
+//   gap: 6px;
+//   z-index: 2;
+//   @include m.font($font-sharp-20, $medium, white);
+
+//   svg {
+//     width: 14px;
+//     height: 14px;
+//   }
+// }
+
+// // Animation
+// @keyframes slideIn {
+//   from {
+//     opacity: 0;
+//     transform: translateX(30px);
+//   }
+//   to {
+//     opacity: 1;
+//     transform: translateX(0);
+//   }
+// }
+
+// .couponCardAdmin {
+//   animation: slideIn 0.6s ease-out;
+// }
+
+// .couponCardAdmin * {
+//   word-wrap: break-word;
+//   overflow-wrap: break-word;
+// }
+
+// .navButton {
+//   user-select: none;
+//   -webkit-user-select: none;
+//   -moz-user-select: none;
+// }
+
+// .cardsWrapper {
+//   scroll-behavior: smooth;
+// }
+
+
+
+// // Course Selection Styles
+// .courseSelector {
+//   position: relative;
+//   width: 100%;
+// }
+
+// .courseSelectorToggle {
+//   width: 100%;
+//   padding: 14px 20px;
+//   border: none;
+//   border-radius: 0;
+//   background-color: #EDE4D3;
+//   border-bottom: #A38907 2px solid;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   cursor: pointer;
+//   transition: all 0.3s ease;
+//   @include m.font($font-oldschool, $book, #262C35);
+
+//   &:hover {
+//     border-bottom-color: #A69600;
+//   }
+// }
+
+// .selectorIcon {
+//   width: 18px;
+//   height: 18px;
+//   transition: transform 0.3s ease;
+// }
+
+// .courseSelectorDropdown {
+//   position: absolute;
+//   top: 100%;
+//   left: 0;
+//   right: 0;
+//   background: white;
+//   border: 1px solid #ddd;
+//   border-top: none;
+//   max-height: 400px;
+//   overflow-y: auto;
+//   z-index: 1000;
+//   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+// }
+
+// .courseSelectorHeader {
+//   padding: 15px;
+//   border-bottom: 1px solid #eee;
+//   background: #f8f9fa;
+// }
+
+// .courseSelectorActions {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+// }
+
+// .selectAllButton {
+//   display: flex;
+//   align-items: center;
+//   gap: 8px;
+//   background: none;
+//   border: none;
+//   cursor: pointer;
+//   @include m.font($font-sharp-20, $medium, #262C35);
+
+//   input[type="checkbox"] {
+//     width: 16px;
+//     height: 16px;
+//   }
+// }
+
+// .selectedCount {
+//   font-size: 14px;
+//   color: #666;
+//   @include m.font($font-oldschool, $book, #666);
+// }
+
+// .loadingCourses {
+//   padding: 40px 20px;
+//   text-align: center;
+//   color: #666;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   gap: 8px;
+//   @include m.font($font-oldschool, $book, #666);
+// }
+
+// .courseCategories {
+//   padding: 0;
+// }
+
+// .courseCategory {
+//   border-bottom: 1px solid #eee;
+
+//   &:last-child {
+//     border-bottom: none;
+//   }
+// }
+
+// .categoryHeader {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   padding: 12px 15px;
+//   background: #f1f3f4;
+//   border-bottom: 1px solid #ddd;
+// }
+
+// .categoryTitle {
+//   margin: 0;
+//   font-size: 14px;
+//   font-weight: 600;
+//   text-transform: uppercase;
+//   letter-spacing: 0.5px;
+//   @include m.font($font-sharp-20, $book, #262C35);
+// }
+
+// .selectCategoryButton {
+//   padding: 4px 8px;
+//   background: #A69600;
+//   color: white;
+//   border: none;
+//   border-radius: 4px;
+//   font-size: 12px;
+//   cursor: pointer;
+//   transition: all 0.3s ease;
+//   @include m.font($font-sharp-20, $medium, white);
+
+//   &:hover {
+//     background: #8d7a00;
+//   }
+// }
+
+// .courseList {
+//   padding: 10px 15px;
+//   display: grid;
+//   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+//   gap: 8px;
+// }
+
+// .courseCheckbox {
+//   display: flex;
+//   align-items: center;
+//   gap: 8px;
+//   padding: 6px 0;
+//   cursor: pointer;
+//   transition: all 0.2s ease;
+
+//   &:hover {
+//     background: #f8f9fa;
+//   }
+
+//   input[type="checkbox"] {
+//     width: 16px;
+//     height: 16px;
+//     cursor: pointer;
+//   }
+// }
+
+// .checkboxLabel {
+//   font-size: 14px;
+//   @include m.font($font-oldschool, $book, #262C35);
+// }
+
+// // Responsive styles for course selector
+// @include m.tablet-down {
+//   .courseList {
+//     grid-template-columns: 1fr;
+//   }
+  
+//   .courseSelectorDropdown {
+//     max-height: 300px;
+//   }
+// }
+
+// @include m.mobile-down {
+//   .courseSelectorHeader {
+//     padding: 10px;
+//   }
+  
+//   .categoryHeader {
+//     padding: 10px 12px;
+//   }
+  
+//   .courseList {
+//     padding: 8px 12px;
+//   }
+  
+//   .courseSelectorDropdown {
+//     max-height: 250px;
+//   }
+// }
+
+
+
+
 @use "../../../../../../styles/mixins" as m;
 @use "../../../../../../styles/index" as *;
 
+// Main page container setup
 .main {
   margin-top: 8rem;
   display: flex;
@@ -12,40 +945,58 @@
   margin-bottom: 4rem;
   padding-bottom: 200px;
 
-  @include m.tablet-down {
+  @include tablet-down {
     flex-direction: column;
     align-items: center;
   }
 }
 
+// Coupons management content area
 .couponsInfoContent {
   height: auto;
   min-height: 75vh;
-  width: 100%;
-  max-width: 165vh;
+  width: 80%;
   border: 2px solid #A69600;
   border-radius: 20px;
-  padding: 30px;
+  padding: 30px 20px;
+  box-sizing: border-box;
 
-  @include m.tablet-down {
+  // 1440-1281
+  @include screen(xl) {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  // 1025-1280
+  @include screen(lg) {
+    max-width: 70%;
+  }
+
+  @include screen(md) {
+    width: 70%;
+    border: 2px solid #A69600;
+  }
+
+  @include tablet-down {
     max-width: 100%;
     padding: 20px;
     margin-right: 0;
   }
 
-  @include m.mobile-down {
+  @include mobile-down {
     padding: 15px;
     border-radius: 15px;
   }
 }
 
+// Form Header (Title + Cancel Button)
 .formHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
 
-  @include m.mobile-down {
+  @include mobile-down {
     flex-direction: column;
     gap: 12px;
     align-items: flex-start;
@@ -57,9 +1008,8 @@
   font-weight: 600;
   color: #262C35;
   margin: 0;
-  @include m.font($font-sharp-20, $medium, #262C35);
 
-  @include m.mobile-down {
+  @include mobile-down {
     font-size: 20px;
   }
 }
@@ -76,7 +1026,6 @@
   font-size: 14px;
   cursor: pointer;
   transition: all 0.3s ease;
-  @include m.font($font-sharp-20, $medium, #374151);
 
   svg {
     width: 16px;
@@ -88,28 +1037,29 @@
     border-color: #9ca3af;
   }
 
-  @include m.mobile-down {
+  @include mobile-down {
     width: 100%;
     justify-content: center;
   }
 }
 
+// Form Input Layout
 .inputGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 25px;
-  // margin-top: 20px;
+  gap: 30px;
+  margin-top: 20px;
 
-  @include m.tablet-down {
+  @include tablet-down {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 25px;
   }
 }
 
 .inputField {
   display: flex;
   flex-direction: column;
-  // gap: 8px;
+  gap: 0;
 
   label {
     background-color: #EDE4D3;
@@ -127,7 +1077,7 @@
   textarea,
   select {
     width: 100%;
-    padding: 14px 20px;
+    padding: 16px 20px;
     border: none;
     border-radius: 0;
     font-size: 16px;
@@ -140,7 +1090,6 @@
     &:focus {
       outline: none;
       box-shadow: none;
-      border-bottom-color: #A69600;
     }
 
     &::placeholder {
@@ -159,17 +1108,10 @@
 
   textarea {
     resize: vertical;
-    min-height: 80px;
+    min-height: 140px;
     @include m.font($font-oldschool, $book, #262C35);
     line-height: 1.6;
   }
-}
-
-.helperText {
-  font-size: 12px;
-  color: #666;
-  margin-top: 4px;
-  @include m.font($font-oldschool, $book, #666);
 }
 
 .checkboxField {
@@ -194,10 +1136,11 @@
   }
 }
 
+// Forces an input field to span both columns
 .fullWidth {
   grid-column: 1 / -1;
 
-  @include m.tablet-down {
+  @include tablet-down {
     grid-column: 1;
   }
 }
@@ -221,7 +1164,7 @@
     transition: all 0.3s ease;
     min-width: 180px;
     justify-content: center;
-    @include m.font($font-sharp-20, $medium, white);
+    font-family: 'Sharp Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 
@@ -269,14 +1212,14 @@
   color: #262C35;
   margin-bottom: 40px;
   text-align: center;
-  @include m.font($font-sharp-20, $medium, #262C35);
+  font-family: 'Sharp Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
 
-  @include m.tablet-down {
+  @include tablet-down {
     font-size: 28px;
     margin-bottom: 30px;
   }
 
-  @include m.mobile-down {
+  @include mobile-down {
     font-size: 24px;
     margin-bottom: 25px;
   }
@@ -294,7 +1237,7 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
-  @include m.font($font-oldschool, $book, #666);
+  font-family: 'Oldschool Grotesk', Georgia, serif;
 }
 
 .spinner {
@@ -317,7 +1260,7 @@
   margin-top: 0;
 }
 
-// Carousel Container
+// Carousel Container (Main wrapper for the slider)
 .carouselContainer {
   display: flex;
   align-items: center;
@@ -326,16 +1269,22 @@
   max-width: 100%;
   position: relative;
   padding: 0 80px;
+  box-sizing: border-box;
+  
+  @include screen(xl) {
+    padding: 0;
+  }
 
-  @include m.tablet-down {
+  @include tablet-down {
     padding: 0 60px;
   }
 
-  @include m.mobile-down {
+  @include mobile-down {
     padding: 0 40px;
   }
 }
 
+// Carousel Navigation Buttons
 .navButton {
   background: rgba(255, 255, 255, 0.95);
   border: 2px solid rgba(0, 0, 0, 0.1);
@@ -366,12 +1315,12 @@
     cursor: not-allowed;
   }
 
-  @include m.tablet-down {
+  @include tablet-down {
     width: 50px;
     height: 50px;
   }
 
-  @include m.mobile-down {
+  @include mobile-down {
     width: 40px;
     height: 40px;
     
@@ -385,7 +1334,7 @@
 .navButtonLeft {
   left: 10px;
 
-  @include m.mobile-down {
+  @include mobile-down {
     left: 5px;
   }
 }
@@ -393,7 +1342,7 @@
 .navButtonRight {
   right: 10px;
 
-  @include m.mobile-down {
+  @include mobile-down {
     right: 5px;
   }
 }
@@ -411,32 +1360,34 @@
   padding: 20px;
   box-sizing: border-box;
 
-  @include m.tablet-down {
+  @include tablet-down {
     padding: 15px;
     gap: 25px;
   }
 
-  @include m.mobile-down {
+  @include mobile-down {
     padding: 10px;
     gap: 15px;
   }
 }
 
+// Individual Coupon Card in Admin Panel
 .couponCardAdmin {
   background: #FFF7E1;
-  border: 2px solid #262C35;
-  border-radius: 16px;
+  border: 1px solid #262C35;
+  border-radius: 20px;
   overflow: hidden;
   transition: all 0.5s ease;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
-  height: 320px;
+  height: 420px;
   flex-shrink: 0;
   position: relative;
+  animation: slideIn 0.6s ease-out;
 
   &.editing {
-    border-color: #A69600;
+    border: 2px solid #A69600;
     box-shadow: 0 0 0 3px rgba(166, 150, 0, 0.1);
   }
 
@@ -457,38 +1408,42 @@
     }
   }
 
-  @include m.large-tablet-down {
-    height: 300px;
+  @include large-tablet-down {
+    height: 400px;
   }
 
-  @include m.tablet-down {
-    height: 280px;
+  @include tablet-down {
+    height: 380px;
   }
 
-  @include m.mobile-down {
-    height: 260px;
-    border-radius: 12px;
+  @include mobile-down {
+    height: 360px;
+    border-radius: 16px;
   }
 }
 
-// Media queries to set card widths
-@media (min-width: 1024px) {
+// **Responsive Card Width Calculations**
+// 1280px and above: 3 cards per row (30px gap)
+@media (min-width: 1280px) {
   .couponCardAdmin {
     width: calc((100% / 3) - (30px * 2 / 3));
   }
 }
 
-@media (min-width: 768px) and (max-width: 1023px) {
+// 1024px - 1279px: 2 cards per row (30px gap)
+@media (min-width: 1024px) and (max-width: 1279px) {
   .couponCardAdmin {
-    width: calc((100% / 2) - (25px / 2));
+    width: calc((100% / 2) - (30px / 2));
   }
 }
 
-@media (max-width: 767px) {
+// Below 1024px: 1 card per row
+@media (max-width: 1023px) {
   .couponCardAdmin {
-    width: calc((100% / 1));
+    width: 100%;
   }
 }
+// End Responsive Card Width Calculations
 
 .cardContentAdmin {
   padding: 20px;
@@ -500,7 +1455,7 @@
   justify-content: space-between;
   position: relative;
 
-  @include m.mobile-down {
+  @include mobile-down {
     padding: 16px;
     gap: 12px;
   }
@@ -526,7 +1481,7 @@
   @include m.font($font-sharp-20, $bold, #262C35);
   letter-spacing: 1px;
 
-  @include m.mobile-down {
+  @include mobile-down {
     font-size: 18px;
   }
 }
@@ -539,6 +1494,8 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   @include m.font($font-sharp-20, $book, white);
+  display: inline-block;
+  width: fit-content;
 
   &.active {
     background: #10b981;
@@ -555,14 +1512,14 @@
   opacity: 0;
   transition: opacity 0.3s ease;
 
-  @include m.mobile-down {
+  @include mobile-down {
     opacity: 1;
   }
 }
 
 .actionBtn {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   border: none;
   background: rgba(255, 255, 255, 0.95);
@@ -575,8 +1532,8 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 
   svg {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
   }
 
   &:hover {
@@ -587,6 +1544,16 @@
 
   &.deleteBtn:hover {
     color: #dc2626;
+  }
+
+  @include mobile-down {
+    width: 32px;
+    height: 32px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
   }
 }
 
@@ -599,7 +1566,7 @@
   border-radius: 8px;
   margin: 8px 0;
 
-  @include m.mobile-down {
+  @include mobile-down {
     padding: 10px 12px;
   }
 }
@@ -611,7 +1578,7 @@
   color: white;
   @include m.font($font-sharp-20, $bold, white);
 
-  @include m.mobile-down {
+  @include mobile-down {
     font-size: 20px;
   }
 }
@@ -631,12 +1598,10 @@
   line-height: 1.5;
   margin: 0;
   @include m.font($font-oldschool, $book, #666);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  @include m.line-clamp(2);
+  text-align: center;
 
-  @include m.mobile-down {
+  @include mobile-down {
     font-size: 13px;
   }
 }
@@ -656,7 +1621,7 @@
   color: #666;
   @include m.font($font-sharp-20, $medium, #666);
 
-  @include m.mobile-down {
+  @include mobile-down {
     font-size: 12px;
   }
 }
@@ -665,10 +1630,12 @@
   width: 14px;
   height: 14px;
   color: #A69600;
+  flex-shrink: 0;
 }
 
 .applicableCourses {
   margin-top: 8px;
+  text-align: center;
 }
 
 .coursesLabel {
@@ -711,10 +1678,7 @@
   }
 }
 
-.couponCardAdmin {
-  animation: slideIn 0.6s ease-out;
-}
-
+// Utility resets/overrides
 .couponCardAdmin * {
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -729,8 +1693,6 @@
 .cardsWrapper {
   scroll-behavior: smooth;
 }
-
-
 
 // Course Selection Styles
 .courseSelector {
@@ -751,6 +1713,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   @include m.font($font-oldschool, $book, #262C35);
+  text-align: left;
 
   &:hover {
     border-bottom-color: #A69600;
@@ -761,6 +1724,7 @@
   width: 18px;
   height: 18px;
   transition: transform 0.3s ease;
+  flex-shrink: 0;
 }
 
 .courseSelectorDropdown {
@@ -775,18 +1739,39 @@
   overflow-y: auto;
   z-index: 1000;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+  @include tablet-down {
+    max-height: 300px;
+  }
+
+  @include mobile-down {
+    max-height: 250px;
+  }
 }
 
 .courseSelectorHeader {
   padding: 15px;
   border-bottom: 1px solid #eee;
   background: #f8f9fa;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+
+  @include mobile-down {
+    padding: 10px;
+  }
 }
 
 .courseSelectorActions {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
+
+  @include mobile-down {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 .selectAllButton {
@@ -840,6 +1825,14 @@
   padding: 12px 15px;
   background: #f1f3f4;
   border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 67px;
+  z-index: 1;
+
+  @include mobile-down {
+    padding: 10px 12px;
+    top: 57px;
+  }
 }
 
 .categoryTitle {
@@ -861,6 +1854,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   @include m.font($font-sharp-20, $medium, white);
+  white-space: nowrap;
 
   &:hover {
     background: #8d7a00;
@@ -872,6 +1866,14 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 8px;
+
+  @include tablet-down {
+    grid-template-columns: 1fr;
+  }
+
+  @include mobile-down {
+    padding: 8px 12px;
+  }
 }
 
 .courseCheckbox {
@@ -890,39 +1892,12 @@
     width: 16px;
     height: 16px;
     cursor: pointer;
+    flex-shrink: 0;
   }
 }
 
 .checkboxLabel {
   font-size: 14px;
   @include m.font($font-oldschool, $book, #262C35);
-}
-
-// Responsive styles for course selector
-@include m.tablet-down {
-  .courseList {
-    grid-template-columns: 1fr;
-  }
-  
-  .courseSelectorDropdown {
-    max-height: 300px;
-  }
-}
-
-@include m.mobile-down {
-  .courseSelectorHeader {
-    padding: 10px;
-  }
-  
-  .categoryHeader {
-    padding: 10px 12px;
-  }
-  
-  .courseList {
-    padding: 8px 12px;
-  }
-  
-  .courseSelectorDropdown {
-    max-height: 250px;
-  }
+  line-height: 1.4;
 }
