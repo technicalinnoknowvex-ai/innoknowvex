@@ -1,3 +1,4 @@
+
 @use "../../../../../../styles/index" as *;
 
 .sectionWrapper {
@@ -7,6 +8,15 @@
   justify-content: center;
   align-items: center;
   padding: 70px 100px 0px 100px;
+  
+  // iOS FIX 1: Handle Safari dynamic viewport
+  @supports (-webkit-touch-callout: none) {
+    min-height: 100vh;
+    height: auto;
+  }
+  
+  // iOS FIX 2: Establish paint containment
+  contain: layout style;
 
   @include large-tablet-down {
     height: auto;
@@ -17,9 +27,12 @@
     width: 100%;
     height: 80%;
     display: flex;
-    display: flex;
     justify-content: center;
     align-items: center;
+    
+    // iOS FIX 3: GPU acceleration for container
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
 
     @include tablet-down {
       height: auto;
@@ -32,12 +45,24 @@
   position: relative;
   width: 50%;
   aspect-ratio: 3/2;
+  
+  // iOS FIX 4: Fallback for aspect-ratio
+  @supports not (aspect-ratio: 3/2) {
+    height: 0;
+    padding-bottom: 66.67%;
+  }
+  
   display: flex;
   flex-direction: column;
   justify-content: center;
   z-index: 1;
-  // border: 1px solid red;
   padding: 2px;
+  
+  // iOS FIX 5: Create compositor layer
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
+  
   @include tablet-down {
     width: 100%;
   }
@@ -49,7 +74,10 @@
     flex-direction: column;
     position: relative;
     z-index: 1;
-    // border: 1px solid green;
+    
+    // iOS FIX 6: Isolate heading container
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
 
     .sparkleDiv {
       top: 0px;
@@ -58,10 +86,21 @@
       position: absolute;
       width: 40px;
       aspect-ratio: 1/1;
+      
+      @supports not (aspect-ratio: 1/1) {
+        height: 40px;
+      }
+      
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 2;
+      
+      // iOS FIX 7: GPU acceleration for sparkle
+      -webkit-transform: translate3d(-80%, -80%, 0);
+      will-change: transform;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
 
       div {
         width: 100%;
@@ -69,18 +108,30 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        
+        // iOS FIX 8: Smooth GSAP animation target
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
       }
+      
       @include tablet-down {
         transform: translate(-50%, -90%);
+        -webkit-transform: translate3d(-50%, -90%, 0);
       }
     }
 
     &__primaryHeading {
-      // border: 1px solid red;
       @include font($font-sharp-25, $medium);
       font-size: 2rem;
       z-index: 2;
       margin-bottom: 5px;
+      
+      // iOS FIX 9: Text rendering optimization
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transform: translate3d(0, 0, 0);
+      -webkit-transform: translate3d(0, 0, 0);
+      
       @include screen(sm) {
         font-size: clamp(
           2rem,
@@ -89,11 +140,19 @@
         ) !important;
       }
     }
+    
     &__secondaryHeading {
       @include font($font-sharp-25, $medium, $text-brand);
       text-transform: uppercase;
       z-index: 2;
       font-size: 1rem;
+      
+      // iOS FIX 10: Text rendering optimization
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transform: translate3d(0, 0, 0);
+      -webkit-transform: translate3d(0, 0, 0);
+      
       @include screen(sm) {
         font-size: clamp(
           1rem,
@@ -112,7 +171,10 @@
     align-items: center;
     z-index: 2;
     padding: 20px 0px;
-    // border: 1px solid green;
+    
+    // iOS FIX 11: Isolate paragraph container
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
 
     @include tablet-down {
       padding: 5px 0px;
@@ -123,6 +185,10 @@
       @include font($font-oldschool, $medium);
       font-size: 0.9rem;
       margin-top: 3%;
+      
+      // iOS FIX 12: Text rendering
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
 
       @include screen(lg) {
         font-size: 1rem;
@@ -143,9 +209,12 @@
   .linkContainer {
     width: 100%;
     height: auto;
-    // border: 1px solid red;
     display: flex;
     align-items: center;
+    
+    // iOS FIX 13: GPU layer for button container
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
 
     &__link {
       width: fit-content;
@@ -157,6 +226,17 @@
       background-color: $brand-primary;
       border-radius: 5px 15px 5px 15px;
       white-space: nowrap;
+      
+      // iOS FIX 14: Smooth button interactions on iOS
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      will-change: transform;
+      
+      // iOS FIX 15: Prevent tap delay on iOS
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
 
       padding: clamp(
           0.8rem,
@@ -177,10 +257,20 @@
   position: relative;
   width: 50%;
   aspect-ratio: 3/2;
+  
+  @supports not (aspect-ratio: 3/2) {
+    height: 0;
+    padding-bottom: 66.67%;
+  }
+  
   display: flex;
   align-items: center;
   justify-content: center;
-  // border: 1px solid blue;
+  
+  // iOS FIX 16: GPU acceleration for entire grid section
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  will-change: transform;
 
   @include tablet-down {
     margin-top: 30px;
@@ -199,6 +289,11 @@
       "cell5 cell7 cell7 cell3 cell3 cell3"
       "cell6 cell7 cell7 cell8 cell9 cell10";
     gap: 1px;
+    
+    // iOS FIX 17: Critical - Isolate grid to prevent layout thrashing
+    contain: layout paint;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
 
     @include large-tablet-down {
       height: 100%;
@@ -207,85 +302,135 @@
 
     .cell1 {
       grid-area: cell1;
-      // background-color: lightgreen;
       border-radius: 50px 3px 50px 3px;
       position: relative;
       overflow: hidden;
+      
+      // iOS FIX 18: GPU layer for image cells
+      transform: translate3d(0, 0, 0);
+      -webkit-transform: translate3d(0, 0, 0);
+      will-change: transform;
 
       @include tablet-down {
         border-radius: 30px 2px 30px 2px !important;
       }
     }
+    
     .cell2 {
       grid-area: cell2;
       background-color: #ff6a4c;
       border-radius: 35px 3px 35px 3px;
+      
+      // iOS FIX 19: GPU layer for colored cells
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
 
       @include tablet-down {
         border-radius: 20px 2px 20px 2px;
       }
     }
+    
     .cell3 {
       grid-area: cell3;
       background-color: lightblue;
       border-radius: 50px 3px 50px 3px;
       position: relative;
       overflow: hidden;
+      
+      // iOS FIX 20: GPU layer for image cells
+      transform: translate3d(0, 0, 0);
+      -webkit-transform: translate3d(0, 0, 0);
+      will-change: transform;
     }
+    
     .cell4 {
       grid-area: cell4;
       border-radius: 50%;
       position: relative;
       overflow: hidden;
+      
+      // iOS FIX 21: GPU layer for circular cells
+      transform: translate3d(0, 0, 0);
+      -webkit-transform: translate3d(0, 0, 0);
+      will-change: transform;
     }
+    
     .cell5 {
       grid-area: cell5;
       background-color: #ff6432;
       border-radius: 3px 35px 3px 35px;
+      
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
 
       @include tablet-down {
         border-radius: 2px 20px 2px 20px;
       }
     }
+    
     .cell6 {
       grid-area: cell6;
       background-color: #fe964f;
       border-radius: 35px 3px 35px 3px;
+      
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
+      
       @include tablet-down {
         border-radius: 20px 2px 20px 2px;
       }
     }
+    
     .cell7 {
       grid-area: cell7;
       background-color: khaki;
       border-radius: 50px 3px 50px 3px;
       position: relative;
       overflow: hidden;
+      
+      // iOS FIX 22: GPU layer for image cells
+      transform: translate3d(0, 0, 0);
+      -webkit-transform: translate3d(0, 0, 0);
+      will-change: transform;
 
       @include tablet-down {
         border-radius: 30px 2px 30px 2px;
       }
     }
+    
     .cell8 {
       grid-area: cell8;
       background-color: #ff6a4c;
       border-radius: 35px 3px 35px 3px;
+      
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
 
       @include tablet-down {
         border-radius: 2px 20px 2px 20px;
       }
     }
+    
     .cell9 {
       grid-area: cell9;
       background-color: thistle;
       border-radius: 50%;
       position: relative;
       overflow: hidden;
+      
+      // iOS FIX 23: GPU layer for circular cells
+      transform: translate3d(0, 0, 0);
+      -webkit-transform: translate3d(0, 0, 0);
+      will-change: transform;
     }
+    
     .cell10 {
       grid-area: cell10;
       background-color: #fe964f;
       border-radius: 35px 3px 35px 3px;
+      
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
 
       @include tablet-down {
         border-radius: 20px 3px 20px 3px;
@@ -298,25 +443,80 @@
   position: absolute;
   align-self: start;
   aspect-ratio: 1/1;
+  
+  @supports not (aspect-ratio: 1/1) {
+    width: auto;
+  }
+  
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(250, 152, 5, 0.74);
-
+  
+  // iOS FIX 24: CRITICAL - Replace blur with gradient (same as Hero)
+  // This is the #1 performance fix for iOS
+  
   &--1 {
     height: 200px;
     top: -80px;
     left: -150px;
     margin-top: auto;
     margin-bottom: auto;
-    filter: blur(5rem);
     z-index: 1;
+    
+    // iOS FIX 25: Optimized gradient blur for iOS (80px blur equivalent)
+    background: radial-gradient(
+      circle at center,
+      rgba(250, 152, 5, 0.74) 0%,
+      rgba(250, 152, 5, 0.6) 20%,
+      rgba(250, 152, 5, 0.4) 40%,
+      rgba(250, 152, 5, 0.2) 60%,
+      rgba(250, 152, 5, 0.1) 80%,
+      rgba(250, 152, 5, 0) 100%
+    );
+    
+    // iOS FIX 26: Only use blur on non-iOS devices
+    @supports not (-webkit-touch-callout: none) {
+      background: rgba(250, 152, 5, 0.74);
+      filter: blur(5rem);
+    }
+    
+    // iOS FIX 27: GPU acceleration for gradient spot
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
+  
   &--2 {
     height: 70%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    filter: blur(10rem);
+    
+    // iOS FIX 28: CRITICAL - Much larger gradient blur (160px equivalent)
+    background: radial-gradient(
+      circle at center,
+      rgba(250, 152, 5, 0.74) 0%,
+      rgba(250, 152, 5, 0.5) 10%,
+      rgba(250, 152, 5, 0.35) 25%,
+      rgba(250, 152, 5, 0.2) 40%,
+      rgba(250, 152, 5, 0.1) 60%,
+      rgba(250, 152, 5, 0.05) 80%,
+      rgba(250, 152, 5, 0) 100%
+    );
+    
+    // iOS FIX 29: Only use blur on non-iOS devices  
+    @supports not (-webkit-touch-callout: none) {
+      background: rgba(250, 152, 5, 0.74);
+      filter: blur(10rem);
+    }
+    
+    // iOS FIX 30: GPU acceleration with 3D transform
+    -webkit-transform: translate3d(-50%, -50%, 0);
+    transform: translate3d(-50%, -50%, 0);
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
 }
