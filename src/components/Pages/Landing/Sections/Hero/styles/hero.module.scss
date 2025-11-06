@@ -1,4 +1,5 @@
 // @use "../../../../../../styles/index" as *;
+
 // .hero {
 //   width: 100%;
 //   height: calc(100vh + 60px);
@@ -9,6 +10,17 @@
 //   padding-top: 60px;
 //   padding-bottom: 60px;
 //   overflow: hidden;
+  
+//   // iOS FIX 1: Establish paint containment for better performance
+//   contain: layout style paint;
+  
+//   // iOS FIX 2: Smooth scrolling on iOS
+//   -webkit-overflow-scrolling: touch;
+  
+//   // iOS FIX 3: Handle iOS Safari's dynamic viewport
+//   @supports (-webkit-touch-callout: none) {
+//     height: calc(-webkit-fill-available + 60px);
+//   }
 // }
 
 // .gradientSpot {
@@ -24,6 +36,18 @@
 //   left: 50%;
 //   transform: translate(-50%, -50%);
 //   z-index: 1;
+  
+//   // iOS FIX 4: GPU acceleration for filtered element
+//   -webkit-transform: translate3d(-50%, -50%, 0);
+//   will-change: transform;
+  
+//   // iOS FIX 5: Prevent rendering glitches with blur
+//   -webkit-backface-visibility: hidden;
+//   backface-visibility: hidden;
+  
+//   // iOS FIX 6: Establish paint boundary for expensive filter
+//   contain: layout paint;
+  
 //   @include tablet-down {
 //     filter: blur(7rem);
 //   }
@@ -37,6 +61,10 @@
 //   align-items: center;
 //   justify-content: center;
 //   z-index: 1;
+  
+//   // iOS FIX 7: Create compositor layer for flex container
+//   transform: translate3d(0, 0, 0);
+//   -webkit-transform: translate3d(0, 0, 0);
 
 //   .textContainer {
 //     position: relative;
@@ -46,6 +74,10 @@
 //     flex-direction: column;
 //     align-items: center;
 //     justify-content: center;
+    
+//     // iOS FIX 8: Optimize aspect-ratio rendering
+//     -webkit-backface-visibility: hidden;
+//     backface-visibility: hidden;
 
 //     &__textDiv {
 //       width: 100%;
@@ -55,10 +87,35 @@
 //       justify-content: center;
 //       overflow: hidden;
 //       padding: 2px 0px;
+      
+//       // iOS FIX 9: Create compositor layer for text container
+//       transform: translate3d(0, 0, 0);
+//       -webkit-transform: translate3d(0, 0, 0);
+      
 //       h1 {
 //         z-index: 2;
 //         line-height: 1.2;
 //         @include font($font-sharp-25, $medium);
+        
+//         /* CRITICAL: Ensure LCP element renders immediately */
+//         opacity: 1 !important;
+//         transform: translateY(0) !important;
+//         visibility: visible !important;
+        
+//         /* Remove any animation delays for initial render */
+//         animation: none !important;
+//         transition: none !important;
+        
+//         // iOS FIX 10: Smooth text rendering on iOS
+//         -webkit-font-smoothing: antialiased;
+//         -moz-osx-font-smoothing: grayscale;
+        
+//         // iOS FIX 11: Prevent text flickering
+//         -webkit-backface-visibility: hidden;
+//         backface-visibility: hidden;
+//         transform: translateZ(0);
+//         -webkit-transform: translateZ(0);
+
 //         font-size: 2rem;
 
 //         @include screen(sm) {
@@ -70,30 +127,22 @@
 //         }
 
 //         @include screen(md) {
-//           font-size: 4rem !important;
-//           font-size: 5rem !important;
-          
 //           font-size: clamp(
 //             4rem,
 //             1.0116731517509727rem + 6.22568093385214vw,
 //             5rem
 //           ) !important;
 //         }
+        
 //         @include screen(lg) {
-
 //           font-size: clamp(5rem, 1rem + 6.25vw, 6rem) !important;
 //         }
 
 //         @include screen(xl) {
-//           font-size: 4rem !important;
-//           font-size: 5rem !important;
-          
 //           font-size: clamp(4rem, -1rem + 6.25vw, 5rem) !important;
 //         }
 
 //         @include screen(2xl) {
-//           font-size: 6rem;
-//           font-size: 9rem;
 //           font-size: clamp(
 //             6rem,
 //             1.2199170124481329rem + 4.979253112033195vw,
@@ -103,6 +152,7 @@
 //       }
 //     }
 
+//     /* Sparkle elements - these can animate without blocking LCP */
 //     .sparkleOne {
 //       position: absolute;
 //       width: 70px;
@@ -114,6 +164,14 @@
 //       transform: translate(-100%, -10%);
 //       top: 0%;
 //       left: 0%;
+      
+//       // iOS FIX 12: Promote sparkle to own compositor layer
+//       -webkit-transform: translate3d(-100%, -10%, 0);
+//       will-change: transform;
+      
+//       // iOS FIX 13: Prevent subpixel rendering issues
+//       -webkit-backface-visibility: hidden;
+//       backface-visibility: hidden;
 
 //       div {
 //         width: 100%;
@@ -121,9 +179,23 @@
 //         display: flex;
 //         justify-content: center;
 //         align-items: center;
+        
+//         /* Initial state for GSAP animation */
+//         transform: scale(0);
+//         opacity: 0;
+        
+//         // iOS FIX 14: GPU acceleration for animated element
+//         -webkit-transform: scale(0) translateZ(0);
+//         will-change: transform, opacity;
+        
+//         // iOS FIX 15: Prevent animation flickering
+//         -webkit-backface-visibility: hidden;
+//         backface-visibility: hidden;
 //       }
+      
 //       @include tablet-down {
 //         transform: translate(-50%, -100%);
+//         -webkit-transform: translate3d(-50%, -100%, 0);
 //         top: 0%;
 //         left: 0%;
 //       }
@@ -143,6 +215,14 @@
 //       right: 0%;
 //       margin-top: auto;
 //       margin-bottom: auto;
+      
+//       // iOS FIX 16: Promote sparkle to own compositor layer
+//       -webkit-transform: translate3d(150%, 0, 0);
+//       will-change: transform;
+      
+//       // iOS FIX 17: Prevent subpixel rendering issues
+//       -webkit-backface-visibility: hidden;
+//       backface-visibility: hidden;
 
 //       div {
 //         width: 100%;
@@ -150,10 +230,23 @@
 //         display: flex;
 //         justify-content: center;
 //         align-items: center;
+        
+//         /* Initial state for GSAP animation */
+//         transform: scale(0);
+//         opacity: 0;
+        
+//         // iOS FIX 18: GPU acceleration for animated element
+//         -webkit-transform: scale(0) translateZ(0);
+//         will-change: transform, opacity;
+        
+//         // iOS FIX 19: Prevent animation flickering
+//         -webkit-backface-visibility: hidden;
+//         backface-visibility: hidden;
 //       }
 
 //       @include tablet-down {
 //         transform: translate(50%, 100%);
+//         -webkit-transform: translate3d(50%, 100%, 0);
 //         top: unset;
 //         bottom: 0%;
 //         right: 0%;
@@ -169,12 +262,29 @@
 //   display: flex;
 //   align-items: center;
 //   justify-content: center;
+  
+//   // iOS FIX 20: Create compositor layer
+//   transform: translate3d(0, 0, 0);
+//   -webkit-transform: translate3d(0, 0, 0);
+  
+//   // iOS FIX 21: Prevent rendering issues
+//   -webkit-backface-visibility: hidden;
+//   backface-visibility: hidden;
+  
 //   @include screen(sm) {
 //     min-height: clamp(
 //       5rem,
 //       4.090909090909091rem + 4.545454545454546vw,
 //       15rem
 //     ) !important;
+//   }
+// }
+
+// /* Optional: Add a loading state class that GSAP can target */
+// .hero--loaded {
+//   .textContainer__textDiv h1 {
+//     /* GSAP can animate these properties after LCP is recorded */
+//     transition: all 0.8s ease-out;
 //   }
 // }
 
@@ -193,6 +303,17 @@
   padding-top: 60px;
   padding-bottom: 60px;
   overflow: hidden;
+  
+  // iOS FIX 1: Establish paint containment for better performance
+  contain: layout style paint;
+  
+  // iOS FIX 2: Smooth scrolling on iOS
+  -webkit-overflow-scrolling: touch;
+  
+  // iOS FIX 3: Handle iOS Safari's dynamic viewport
+  @supports (-webkit-touch-callout: none) {
+    height: calc(-webkit-fill-available + 60px);
+  }
 }
 
 .gradientSpot {
@@ -209,6 +330,17 @@
   transform: translate(-50%, -50%);
   z-index: 1;
   
+  // iOS FIX 4: GPU acceleration for filtered element
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  will-change: transform;
+  
+  // iOS FIX 5: Prevent rendering glitches with blur
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  
+  // iOS FIX 6: Establish paint boundary for expensive filter
+  contain: layout paint;
+  
   @include tablet-down {
     filter: blur(7rem);
   }
@@ -222,6 +354,10 @@
   align-items: center;
   justify-content: center;
   z-index: 1;
+  
+  // iOS FIX 7: Create compositor layer for flex container
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
 
   .textContainer {
     position: relative;
@@ -231,8 +367,15 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    // Create explicit stacking context with z-index
+    z-index: 1;
+    
+    // iOS FIX 8: Optimize aspect-ratio rendering
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 
     &__textDiv {
+      position: relative;  // Added position relative
       width: 100%;
       height: fit-content;
       display: flex;
@@ -240,9 +383,15 @@
       justify-content: center;
       overflow: hidden;
       padding: 2px 0px;
+      z-index: 10;  // Higher than sparkleOne
+      
+      // iOS FIX 9: Create compositor layer for text container
+      transform: translate3d(0, 0, 0);
+      -webkit-transform: translate3d(0, 0, 0);
       
       h1 {
-        z-index: 2;
+        position: relative;  // Added position relative
+        z-index: 10;  // Ensure text is on top
         line-height: 1.2;
         @include font($font-sharp-25, $medium);
         
@@ -254,6 +403,16 @@
         /* Remove any animation delays for initial render */
         animation: none !important;
         transition: none !important;
+        
+        // iOS FIX 10: Smooth text rendering on iOS
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        
+        // iOS FIX 11: Prevent text flickering
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
 
         font-size: 2rem;
 
@@ -266,9 +425,6 @@
         }
 
         @include screen(md) {
-          font-size: 4rem !important;
-          font-size: 5rem !important;
-          
           font-size: clamp(
             4rem,
             1.0116731517509727rem + 6.22568093385214vw,
@@ -281,15 +437,10 @@
         }
 
         @include screen(xl) {
-          font-size: 4rem !important;
-          font-size: 5rem !important;
-          
           font-size: clamp(4rem, -1rem + 6.25vw, 5rem) !important;
         }
 
         @include screen(2xl) {
-          font-size: 6rem;
-          font-size: 9rem;
           font-size: clamp(
             6rem,
             1.2199170124481329rem + 4.979253112033195vw,
@@ -311,6 +462,14 @@
       transform: translate(-100%, -10%);
       top: 0%;
       left: 0%;
+      
+      // iOS FIX 12: Promote sparkle to own compositor layer
+      -webkit-transform: translate3d(-100%, -10%, 0);
+      will-change: transform;
+      
+      // iOS FIX 13: Prevent subpixel rendering issues
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
 
       div {
         width: 100%;
@@ -322,10 +481,19 @@
         /* Initial state for GSAP animation */
         transform: scale(0);
         opacity: 0;
+        
+        // iOS FIX 14: GPU acceleration for animated element
+        -webkit-transform: scale(0) translateZ(0);
+        will-change: transform, opacity;
+        
+        // iOS FIX 15: Prevent animation flickering
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
       }
       
       @include tablet-down {
         transform: translate(-50%, -100%);
+        -webkit-transform: translate3d(-50%, -100%, 0);
         top: 0%;
         left: 0%;
       }
@@ -345,6 +513,14 @@
       right: 0%;
       margin-top: auto;
       margin-bottom: auto;
+      
+      // iOS FIX 16: Promote sparkle to own compositor layer
+      -webkit-transform: translate3d(150%, 0, 0);
+      will-change: transform;
+      
+      // iOS FIX 17: Prevent subpixel rendering issues
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
 
       div {
         width: 100%;
@@ -356,10 +532,19 @@
         /* Initial state for GSAP animation */
         transform: scale(0);
         opacity: 0;
+        
+        // iOS FIX 18: GPU acceleration for animated element
+        -webkit-transform: scale(0) translateZ(0);
+        will-change: transform, opacity;
+        
+        // iOS FIX 19: Prevent animation flickering
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
       }
 
       @include tablet-down {
         transform: translate(50%, 100%);
+        -webkit-transform: translate3d(50%, 100%, 0);
         top: unset;
         bottom: 0%;
         right: 0%;
@@ -375,6 +560,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  // iOS FIX 20: Create compositor layer
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  
+  // iOS FIX 21: Prevent rendering issues
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
   
   @include screen(sm) {
     min-height: clamp(

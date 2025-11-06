@@ -1,5 +1,13 @@
-@use "../../../../styles/fonts" as *;
 
+@font-face {
+  font-family: sharp-grotesk;
+  src: url('/fonts/sharpGrotesk/SharpGrotesk-Medium25.otf');
+}
+
+@font-face {
+  font-family: old-school-grotesk;
+  src: url('/fonts/oldSchoolGrotesk/OldschoolGroteskVar.ttf');
+}
 
 $mobile: 393px;
 $tablet: 830px;

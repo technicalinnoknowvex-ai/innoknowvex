@@ -1,0 +1,42 @@
+"use client";
+import React, { useState, useEffect } from "react";
+import style from "./style/sidenavigation.module.scss";
+import { useRouter, usePathname } from "next/navigation";
+
+const sidebarArray = [
+  { key: "/admin", label: "Personal Info" },
+  { key: "/admin/courses", label: "Courses Info" },
+  { key: "/admin/blogs", label: "Blogs" },
+  { key: "/admin/testimonials", label: "Testimonials" },
+  { key: "/admin/coupons", label: "Coupons" },
+];
+
+const SideNavigation = () => {
+  const router = useRouter();
+  const pathname = usePathname(); // ✅ get current route path
+  const [activeTab, setActiveTab] = useState(pathname);
+
+  useEffect(() => {
+    setActiveTab(pathname); // ✅ update activeTab on route change
+  }, [pathname]);
+
+  return (
+    <div className={style.main}>
+      <div className={style.sidebar}>
+        {sidebarArray.map((tab) => (
+          <button
+            key={tab.key}
+            className={`${style.sidebtn} ${
+              activeTab === tab.key ? style.active : ""
+            }`}
+            onClick={() => router.push(tab.key)}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default SideNavigation;
