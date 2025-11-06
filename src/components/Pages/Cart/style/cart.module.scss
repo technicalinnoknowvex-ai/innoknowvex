@@ -1,13 +1,17 @@
+// @font-face {
+//   font-family: sharp-grotesk;
+//   src: url('/fonts/sharpGrotesk/SharpGrotesk-Medium25.otf');
+// }
 
-@font-face {
-  font-family: sharp-grotesk;
-  src: url('/fonts/sharpGrotesk/SharpGrotesk-Medium25.otf');
-}
+// @font-face {
+//   font-family: old-school-grotesk;
+//   src: url('/fonts/oldSchoolGrotesk/OldschoolGroteskVar.ttf');
+// }
 
-@font-face {
-  font-family: old-school-grotesk;
-  src: url('/fonts/oldSchoolGrotesk/OldschoolGroteskVar.ttf');
-}
+@use "../../../../styles/index" as *;
+// @include font($font-sharp-25, $medium);
+
+
 
 $mobile: 393px;
 $tablet: 830px;
