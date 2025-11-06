@@ -1,16 +1,159 @@
+@use "../../../../../../styles//fonts" as *;
+
 .main {
   margin-top: 8rem;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 30px;
   align-items: center;
 }
 
 .coursesInfoContent {
-  height: 75vh;
-  width: 140vh;
-  border: 2px solid #A69600;
-  border-radius: 20px;
-  padding: 30px;
+  height: 83vh;
+  width: 150vh;
   margin-right: 20px;
+  border-radius: 20px;
+  background-color: #faf7e9;
+  padding: 30px;
+}
+
+.figures {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  font-family: $font-sharp-20;
+  color: #a49e00;
+  font-size: 1.5rem;
+}
+
+.allcards {
+  height: 70vh;
+  width: 100%;
+  margin-top: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.cardsection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-bottom: 34px;
+  gap: 20px;
+}
+
+.card {
+  height: 20vh;
+  width: 50vh;
+  border: 2px solid #dfd995;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.left {
+  height: 19.6vh;
+  width: 20vh;
+  background-color: #fefde1;
+  border-radius: 8px 0 0 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.courseimg {
+  border-radius: 10px;
+  margin-top: 15px;
+}
+
+.left p {
+  font-family: $font-sharp-20;
+  margin-top: 12px;
+  color: #a49e00;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-left: 10px;
+}
+
+.left p {
+  font-family: $font-sharp-20;
+  margin-top: 12px;
+  color: #a49e00;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-left: 5px;
+}
+
+.right {
+  height: 20vh;
+  width: 25vh;
+  border-radius: 0 10px 10px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  // align-items: center;
+}
+
+.right p {
+  font-family: $font-sharp-20;
+  color: #a49e00;
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+
+.p1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 7rem;
+}
+
+.svglink {
+  border: 1px solid #a49e00;
+  padding: 4px;
+  border-radius: 5px;
+  scale: 1.2;
+}
+
+.currentPrice {
+  margin-left: 20px;
+}
+
+.originalPrice {
+  margin-left: 10px;
+  font-size: 15px;
+  color: gray;
+  text-decoration: line-through;
+}
+
+.discount {
+  margin-left: 20px;
+  background-color: #ff164f;
+  color: white !important;
+  width: 80px;
+  padding: 7px;
+  border-radius: 10px;
+  font-size: 16px !important;
+}
+
+.edit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 12vh;
+  padding: 6px;
+  background: none;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-family: $font-oldschool;
+  font-size: 20px;
+  font-weight: 00;
+  margin-left: 20px;
+  background-color: #A58F00;
 }
