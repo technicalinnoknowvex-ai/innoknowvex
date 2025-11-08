@@ -135,7 +135,7 @@ export const landingPageData = {
       Razorpay,
       IBM,
       Capgemini,
-      Sona,
+      
     ],
     hiringPartners: [
       RangaswamyCollege,
@@ -146,6 +146,7 @@ export const landingPageData = {
       RangaswamyCollege,
       KLUni,
       AmityUni,
+      Sona,
     ],
   },
   faqSection: {
