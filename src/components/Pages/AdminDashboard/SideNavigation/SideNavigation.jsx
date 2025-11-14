@@ -13,11 +13,11 @@ const sidebarArray = [
 
 const SideNavigation = () => {
   const router = useRouter();
-  const pathname = usePathname(); // ✅ get current route path
+  const pathname = usePathname();
   const [activeTab, setActiveTab] = useState(pathname);
 
   useEffect(() => {
-    setActiveTab(pathname); // ✅ update activeTab on route change
+    setActiveTab(pathname);
   }, [pathname]);
 
   return (

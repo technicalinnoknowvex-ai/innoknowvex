@@ -4,6 +4,7 @@ import style from "./style/coursesinfo.module.scss";
 import SideNavigation from "../../SideNavigation/SideNavigation";
 import Image from "next/image";
 import { getPrograms, updateProgram, uploadImage, deleteImage, uploadBrochure, deleteBrochure } from "@/app/api/programs/programs";
+import { getPricingByCourse, upsertPricing, calculateSavings } from "@/app/api/programs/programs";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
 const CoursesInfoPage = () => {
@@ -30,7 +31,15 @@ const CoursesInfoPage = () => {
     overview: "",
     skills: [],
     price_search_tag: "",
-    category: ""
+    category: "",
+    // Pricing fields
+    self_actual_price: "",
+    self_current_price: "",
+    mentor_actual_price: "",
+    mentor_current_price: "",
+    professional_actual_price: "",
+    professional_current_price: "",
+    currency: "INR"
   });
 
   const [imageFile, setImageFile] = useState(null);
@@ -145,7 +154,14 @@ const CoursesInfoPage = () => {
       overview: "",
       skills: [],
       price_search_tag: "",
-      category: ""
+      category: "",
+      self_actual_price: "",
+      self_current_price: "",
+      mentor_actual_price: "",
+      mentor_current_price: "",
+      professional_actual_price: "",
+      professional_current_price: "",
+      currency: "INR"
     });
     setImageFile(null);
     setImagePreview("");
@@ -168,6 +184,20 @@ const CoursesInfoPage = () => {
       return false;
     }
 
+    // Validate pricing fields
+    const priceFields = [
+      'self_actual_price', 'self_current_price',
+      'mentor_actual_price', 'mentor_current_price',
+      'professional_actual_price', 'professional_current_price'
+    ];
+
+    for (const field of priceFields) {
+      if (formData[field] && isNaN(parseFloat(formData[field]))) {
+        alert(`Please enter a valid number for ${field.replace(/_/g, ' ')}`);
+        return false;
+      }
+    }
+
     return true;
   };
 
@@ -184,7 +214,6 @@ const CoursesInfoPage = () => {
 
       // Handle image upload if new image is selected
       if (imageFile) {
-        // Delete old image if it exists
         if (formData.image) {
           try {
             await deleteImage(formData.image);
@@ -193,7 +222,6 @@ const CoursesInfoPage = () => {
           }
         }
 
-        // Upload new image
         const uploadResult = await uploadImage(imageFile, editingProgramId);
         if (uploadResult.success) {
           imageUrl = uploadResult.url;
@@ -204,7 +232,6 @@ const CoursesInfoPage = () => {
 
       // Handle brochure upload if new brochure is selected
       if (brochureFile) {
-        // Delete old brochure if it exists
         if (formData.brochure) {
           try {
             await deleteBrochure(formData.brochure);
@@ -213,7 +240,6 @@ const CoursesInfoPage = () => {
           }
         }
 
-        // Upload new brochure
         const uploadResult = await uploadBrochure(brochureFile, editingProgramId);
         if (uploadResult.success) {
           brochureUrl = uploadResult.url;
@@ -222,6 +248,7 @@ const CoursesInfoPage = () => {
         }
       }
 
+      // Update program data
       const programData = {
         image: imageUrl,
         brochure: brochureUrl,
@@ -232,11 +259,31 @@ const CoursesInfoPage = () => {
       };
 
       const result = await updateProgram(editingProgramId, programData);
-      if (result.success) {
-        alert("Course updated successfully!");
-        resetForm();
-        await loadPrograms();
+      if (!result.success) {
+        throw new Error("Failed to update program");
       }
+
+      // Update pricing data
+      const pricingData = {
+        self_actual_price: formData.self_actual_price || 0,
+        self_current_price: formData.self_current_price || 0,
+        mentor_actual_price: formData.mentor_actual_price || 0,
+        mentor_current_price: formData.mentor_current_price || 0,
+        professional_actual_price: formData.professional_actual_price || 0,
+        professional_current_price: formData.professional_current_price || 0,
+        currency: formData.currency
+      };
+
+      const pricingResult = await upsertPricing(formData.title, pricingData);
+      if (!pricingResult.success) {
+        console.error("Failed to update pricing:", pricingResult.error);
+        alert("Course updated but pricing update failed. Please try again.");
+      } else {
+        alert("Course and pricing updated successfully!");
+      }
+
+      resetForm();
+      await loadPrograms();
     } catch (error) {
       console.error("Error updating course:", error);
       alert(error.message || "Failed to update course. Please try again.");
@@ -245,9 +292,12 @@ const CoursesInfoPage = () => {
     }
   };
 
-  const handleEdit = (program) => {
+  const handleEdit = async (program) => {
     setEditMode(true);
     setEditingProgramId(program.id);
+    
+    // Fetch pricing data
+    const pricingData = await getPricingByCourse(program.title);
     
     setFormData({
       title: program.title || "",
@@ -256,11 +306,18 @@ const CoursesInfoPage = () => {
       overview: program.overview || "",
       skills: program.skills || [],
       price_search_tag: program.price_search_tag || "",
-      category: program.category || ""
+      category: program.category || "",
+      self_actual_price: pricingData?.self_actual_price || "",
+      self_current_price: pricingData?.self_current_price || "",
+      mentor_actual_price: pricingData?.mentor_actual_price || "",
+      mentor_current_price: pricingData?.mentor_current_price || "",
+      professional_actual_price: pricingData?.professional_actual_price || "",
+      professional_current_price: pricingData?.professional_current_price || "",
+      currency: pricingData?.currency || "INR"
     });
     
     setImagePreview(program.image || "");
-    setBrochureFileName(program.brochure ? "Current brochure" : "");
+    // setBrochureFileName(program.brochure ? "Current brochure" : "");
     
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -277,6 +334,20 @@ const CoursesInfoPage = () => {
 
   const showNavigation = programsData.length > cardsToShow;
   const translateX = -(currentIndex * (cardWidth + gap));
+
+  // Calculate savings for display
+  const selfSavings = calculateSavings(
+    parseFloat(formData.self_actual_price) || 0,
+    parseFloat(formData.self_current_price) || 0
+  );
+  const mentorSavings = calculateSavings(
+    parseFloat(formData.mentor_actual_price) || 0,
+    parseFloat(formData.mentor_current_price) || 0
+  );
+  const professionalSavings = calculateSavings(
+    parseFloat(formData.professional_actual_price) || 0,
+    parseFloat(formData.professional_current_price) || 0
+  );
 
   return (
     <>
@@ -326,7 +397,7 @@ const CoursesInfoPage = () => {
                   </div>
 
                   <div className={style.inputField}>
-                    <label htmlFor="price_search_tag">Price</label>
+                    <label htmlFor="price_search_tag">Price Tag</label>
                     <input
                       type="text"
                       id="price_search_tag"
@@ -335,6 +406,146 @@ const CoursesInfoPage = () => {
                       value={formData.price_search_tag}
                       onChange={handleInputChange}
                     />
+                  </div>
+
+                  <div className={style.inputField}>
+                    <label htmlFor="currency">Currency</label>
+                    <select
+                      id="currency"
+                      name="currency"
+                      value={formData.currency}
+                      onChange={handleInputChange}
+                    >
+                      <option value="INR">INR (₹)</option>
+                      <option value="USD">USD ($)</option>
+                      <option value="EUR">EUR (€)</option>
+                      <option value="GBP">GBP (£)</option>
+                    </select>
+                  </div>
+
+                  {/* Pricing Section Header */}
+                  <div className={`${style.inputField} ${style.fullWidth}`}>
+                    <div className={style.sectionHeader}>
+                      <Icon icon="lucide:indian-rupee" />
+                      <h3>Pricing Information</h3>
+                    </div>
+                  </div>
+
+                  {/* Self-Paced Pricing */}
+                  <div className={`${style.inputField} ${style.fullWidth}`}>
+                    <div className={style.pricingGroup}>
+                      <h4 className={style.pricingTitle}>
+                        <Icon icon="lucide:user" />
+                        Self-Paced Learning
+                        {selfSavings > 0 && (
+                          <span className={style.savingsBadge}>{selfSavings}% OFF</span>
+                        )}
+                      </h4>
+                      <div className={style.pricingInputs}>
+                        <div className={style.inputField}>
+                          <label htmlFor="self_actual_price">Actual Price</label>
+                          <input
+                            type="number"
+                            id="self_actual_price"
+                            name="self_actual_price"
+                            placeholder="0.00"
+                            step="0.01"
+                            value={formData.self_actual_price}
+                            onChange={handleInputChange}
+                          />
+                        </div>
+                        <div className={style.inputField}>
+                          <label htmlFor="self_current_price">Current Price</label>
+                          <input
+                            type="number"
+                            id="self_current_price"
+                            name="self_current_price"
+                            placeholder="0.00"
+                            step="0.01"
+                            value={formData.self_current_price}
+                            onChange={handleInputChange}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Mentor-Led Pricing */}
+                  <div className={`${style.inputField} ${style.fullWidth}`}>
+                    <div className={style.pricingGroup}>
+                      <h4 className={style.pricingTitle}>
+                        <Icon icon="lucide:users" />
+                        Mentor-Led Learning
+                        {mentorSavings > 0 && (
+                          <span className={style.savingsBadge}>{mentorSavings}% OFF</span>
+                        )}
+                      </h4>
+                      <div className={style.pricingInputs}>
+                        <div className={style.inputField}>
+                          <label htmlFor="mentor_actual_price">Actual Price</label>
+                          <input
+                            type="number"
+                            id="mentor_actual_price"
+                            name="mentor_actual_price"
+                            placeholder="0.00"
+                            step="0.01"
+                            value={formData.mentor_actual_price}
+                            onChange={handleInputChange}
+                          />
+                        </div>
+                        <div className={style.inputField}>
+                          <label htmlFor="mentor_current_price">Current Price</label>
+                          <input
+                            type="number"
+                            id="mentor_current_price"
+                            name="mentor_current_price"
+                            placeholder="0.00"
+                            step="0.01"
+                            value={formData.mentor_current_price}
+                            onChange={handleInputChange}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Professional Pricing */}
+                  <div className={`${style.inputField} ${style.fullWidth}`}>
+                    <div className={style.pricingGroup}>
+                      <h4 className={style.pricingTitle}>
+                        <Icon icon="lucide:briefcase" />
+                        Professional Track
+                        {professionalSavings > 0 && (
+                          <span className={style.savingsBadge}>{professionalSavings}% OFF</span>
+                        )}
+                      </h4>
+                      <div className={style.pricingInputs}>
+                        <div className={style.inputField}>
+                          <label htmlFor="professional_actual_price">Actual Price</label>
+                          <input
+                            type="number"
+                            id="professional_actual_price"
+                            name="professional_actual_price"
+                            placeholder="0.00"
+                            step="0.01"
+                            value={formData.professional_actual_price}
+                            onChange={handleInputChange}
+                          />
+                        </div>
+                        <div className={style.inputField}>
+                          <label htmlFor="professional_current_price">Current Price</label>
+                          <input
+                            type="number"
+                            id="professional_current_price"
+                            name="professional_current_price"
+                            placeholder="0.00"
+                            step="0.01"
+                            value={formData.professional_current_price}
+                            onChange={handleInputChange}
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <div className={`${style.inputField} ${style.fullWidth}`}>

@@ -1,15 +1,17 @@
 "use client";
 import React from "react";
+import dynamic from "next/dynamic";
 import landingStyles from "./styles/landing.module.scss";
-import Hero from "./Sections/Hero/Hero";
-import AboutUs from "./Sections/AboutUs/AboutUs";
-import Programs from "./Sections/Programs/Programs";
-import WhyChooseUs from "./Sections/WhyChooseUs/WhyChooseUs";
-import OurPartners from "./Sections/OurPartners/OurPartners";
-import Testimonials from "./Sections/Testimonials/Testimonials";
-import FAQ from "./Sections/FAQ/FAQ";
-import Footer from "./Sections/Footer/Footer";
-import Blogs from "./Sections/Blogs/BlogCard";
+
+const Hero=dynamic(()=>import ("./Sections/Hero/Hero"));
+const AboutUs=dynamic(()=>import ("./Sections/AboutUs/AboutUs"));
+const Programs=dynamic(()=>import ("./Sections/Programs/Programs"));
+const WhyChooseUs=dynamic(()=>import ("./Sections/WhyChooseUs/WhyChooseUs"));
+const OurPartners=dynamic(()=>import ("./Sections/OurPartners/OurPartners"));
+const Testimonials=dynamic(()=>import ("./Sections/Testimonials/Testimonials"));
+const FAQ=dynamic(()=>import ("./Sections/FAQ/FAQ"));
+const Footer=dynamic(()=>import ("./Sections/Footer/Footer"));
+const Blogs=dynamic(()=>import ("./Sections/Blogs/BlogCard"));
 
 const LandingPage = () => {
   return (
@@ -23,8 +25,6 @@ const LandingPage = () => {
       <Blogs />
       <FAQ />
       <Footer />
-
-     
     </div>
   );
 };

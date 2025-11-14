@@ -127,6 +127,114 @@
   }
 }
 
+// Section Header for Pricing
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 0 10px;
+  border-bottom: 2px solid #A69600;
+  margin-bottom: 20px;
+
+  svg {
+    width: 28px;
+    height: 28px;
+    color: #A69600;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+    color: #262C35;
+    font-family: 'Sharp Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  @include mobile-down {
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    h3 {
+      font-size: 18px;
+    }
+  }
+}
+
+// Pricing Group Container
+.pricingGroup {
+  background-color: #f9fafb;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: #A69600;
+    box-shadow: 0 4px 12px rgba(166, 150, 0, 0.1);
+  }
+
+  @include mobile-down {
+    padding: 18px;
+  }
+}
+
+.pricingTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #262C35;
+  margin: 0 0 20px 0;
+  font-family: 'Sharp Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  svg {
+    width: 22px;
+    height: 22px;
+    color: #A69600;
+  }
+
+  @include mobile-down {
+    font-size: 16px;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.savingsBadge {
+  margin-left: auto;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+
+  @include mobile-down {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+}
+
+.pricingInputs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+
+  @include mobile-down {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}
+
 // Form Input Layout
 .inputGrid {
   display: grid;
