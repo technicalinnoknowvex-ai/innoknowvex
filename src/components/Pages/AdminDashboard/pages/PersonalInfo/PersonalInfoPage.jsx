@@ -1,24 +1,66 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SideNavigation from "../../SideNavigation/SideNavigation";
 import style from "./style/personalinfo.module.scss";
 import Image from "next/image";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { getAdmin, updateAdmin, uploadAdminImage } from "@/app/api/admin/admin";
 
 const PersonalInfoPage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [adminId, setAdminId] = useState("EMP001");
+  
   const [formData, setFormData] = useState({
-    name: "Anshuman",
-    email: "anshuman@example.com",
-    dob: "1995-06-15",
-    companyId: "EMP001"
+    name: "",
+    email: "",
+    dob: "",
+    companyId: ""
   });
 
   const [profileImage, setProfileImage] = useState(
     "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/anime-3083036_1280.jpg"
   );
   const [imagePreview, setImagePreview] = useState("");
+  const [selectedImageFile, setSelectedImageFile] = useState(null);
+
+  useEffect(() => {
+    fetchAdminData();
+  }, [adminId]);
+
+  const fetchAdminData = async () => {
+    try {
+      setLoading(true);
+      console.log("Fetching admin data for ID:", adminId);
+      
+      const result = await getAdmin(adminId);
+      console.log("Fetch result:", result);
+      
+      if (result.success && result.data) {
+        const adminData = result.data;
+        
+        setFormData({
+          name: adminData.name || "",
+          email: adminData.email || "",
+          dob: adminData.dob || "",
+          companyId: adminData.id || ""
+        });
+        
+        if (adminData.image) {
+          setProfileImage(adminData.image);
+        }
+      } else {
+        console.error("Failed to fetch admin data:", result.error);
+        alert(`Failed to load profile data: ${result.error || 'Unknown error'}`);
+      }
+    } catch (error) {
+      console.error("Error fetching admin data:", error);
+      alert(`An error occurred while loading profile data: ${error.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -36,6 +78,8 @@ const PersonalInfoPage = () => {
         return;
       }
 
+      setSelectedImageFile(file);
+
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result);
@@ -48,6 +92,7 @@ const PersonalInfoPage = () => {
     setIsEditing(!isEditing);
     if (isEditing) {
       setImagePreview("");
+      setSelectedImageFile(null);
     }
   };
 
@@ -61,19 +106,47 @@ const PersonalInfoPage = () => {
 
     try {
       setSaving(true);
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      console.log("Starting save process...");
       
-      if (imagePreview) {
-        setProfileImage(imagePreview);
-        setImagePreview("");
+      let imageUrl = profileImage;
+      
+      if (selectedImageFile) {
+        console.log("Uploading new image...");
+        const uploadResult = await uploadAdminImage(selectedImageFile, adminId);
+        console.log("Upload result:", uploadResult);
+        
+        if (uploadResult.success && uploadResult.url) {
+          imageUrl = uploadResult.url;
+        } else {
+          console.error("Image upload failed:", uploadResult.error);
+          alert("Failed to upload image. Continuing with profile update...");
+        }
       }
       
-      alert("Profile updated successfully!");
-      setIsEditing(false);
+      const updateData = {
+        name: formData.name,
+        email: formData.email,
+        dob: formData.dob || null,
+        image: imageUrl
+      };
+      
+      console.log("Updating admin with data:", updateData);
+      const result = await updateAdmin(adminId, updateData);
+      console.log("Update result:", result);
+      
+      if (result.success) {
+        setProfileImage(imageUrl);
+        setImagePreview("");
+        setSelectedImageFile(null);
+        alert("Profile updated successfully!");
+        setIsEditing(false);
+        await fetchAdminData();
+      } else {
+        alert(`Failed to update profile: ${result.error || 'Unknown error'}`);
+      }
     } catch (error) {
       console.error("Error saving profile:", error);
-      alert("Failed to update profile. Please try again.");
+      alert(`Failed to update profile: ${error.message}`);
     } finally {
       setSaving(false);
     }
@@ -83,9 +156,24 @@ const PersonalInfoPage = () => {
     if (window.confirm("Are you sure you want to cancel? All unsaved changes will be lost.")) {
       setIsEditing(false);
       setImagePreview("");
-      // Reset form data if needed
+      setSelectedImageFile(null);
+      fetchAdminData();
     }
   };
+
+  if (loading) {
+    return (
+      <div className={style.main}>
+        <SideNavigation />
+        <div className={style.personalInfoContainer}>
+          <div className={style.loadingContainer}>
+            <Icon icon="lucide:loader-2" className={style.spinner} />
+            <p>Loading profile...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={style.main}>
@@ -129,7 +217,7 @@ const PersonalInfoPage = () => {
             </div>
 
             <div className={style.userDetails}>
-              <p className={style.userName}>{formData.name}</p>
+              <p className={style.userName}>{formData.name || "Loading..."}</p>
               <div className={style.line}></div>
               <p className={style.userRole}>Admin</p>
               {!isEditing && (
@@ -194,8 +282,8 @@ const PersonalInfoPage = () => {
                   id="companyId"
                   name="companyId"
                   value={formData.companyId}
-                  onChange={handleInputChange}
-                  disabled={!isEditing}
+                  disabled={true}
+                  readOnly
                 />
               </div>
             </div>
