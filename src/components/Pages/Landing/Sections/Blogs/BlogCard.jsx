@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { getBlogs } from "@/app/api/admin/blogs/blogs"; // API fetch helper
+import { getBlogs } from "@/app/api/blogs/blogs"; // API fetch helper
 import Sparkle from "@/components/Common/Icons/Sparkle";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
