@@ -2,6 +2,7 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import landingStyles from "./styles/landing.module.scss";
+import SmoothScroller from "@/components/Layouts/SmoothScroller";
 
 const Hero = dynamic(() => import("./Sections/Hero/Hero"));
 const AboutUs = dynamic(() => import("./Sections/AboutUs/AboutUs"));
@@ -17,42 +18,20 @@ const Blogs = dynamic(() => import("./Sections/Blogs/BlogCard"));
 
 const LandingPage = () => {
   return (
-    <div className={landingStyles.landing}>
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          backgroundColor: "pink",
-        }}
-      />
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          backgroundColor: "lightblue",
-        }}
-      />
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          backgroundColor: "lightsalmon",
-        }}
-      />
-    </div>
+    <SmoothScroller>
+      <div className={landingStyles.landing}>
+        <Hero />
+        <AboutUs />
+        <Programs />
+        <WhyChooseUs />
+        <OurPartners />
+        <Testimonials />
+        <Blogs />
+        <FAQ />
+        <Footer />
+      </div>
+    </SmoothScroller>
   );
 };
 
 export default LandingPage;
-
-{
-  /* <Hero />
-      <AboutUs />
-      <Programs />
-      <WhyChooseUs />
-      <OurPartners />
-      <Testimonials />
-      <Blogs />
-      <FAQ />
-      <Footer /> */
-}

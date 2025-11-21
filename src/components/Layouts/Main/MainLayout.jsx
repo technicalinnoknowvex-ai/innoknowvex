@@ -9,7 +9,7 @@ const MainLayout = ({ children }) => {
     <NavColorProvider>
       <PopupFormProvider>
         <div className={styles.mainLayout}>
-          {/* <Navbar /> */}
+          <Navbar />
           <PopUpForm />
           {children}
         </div>
