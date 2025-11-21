@@ -14,22 +14,26 @@ const SmoothScroller = ({ children }) => {
 
   useGSAP(
     () => {
+      // Ensure DOM is ready
+      if (typeof window === "undefined") return;
+
       // Create ScrollSmoother instance
       const smoother = ScrollSmoother.create({
         wrapper: scrollContainerRef.current,
         content: scrollerRef.current,
-        smooth: 3, // Duration in seconds for scroll animation
+        smooth: 1.5, // How long it takes to "catch up" (in seconds)
         effects: true, // Enable data-speed and data-lag effects
         smoothTouch: 0.1, // Smooth scrolling on touch devices
-        normalizeScroll: true, // Normalize scroll across different devices
+        normalizeScroll: false, // Set to false to avoid conflicts
         ignoreMobileResize: true, // Ignore mobile resize events
       });
 
       return () => {
         smoother.kill();
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
       };
     },
-    { scope: scrollContainerRef }
+    { scope: scrollContainerRef, dependencies: [] }
   );
 
   return (

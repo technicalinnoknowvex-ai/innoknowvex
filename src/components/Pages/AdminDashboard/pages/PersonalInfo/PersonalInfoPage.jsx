@@ -4,19 +4,23 @@ import SideNavigation from "../../SideNavigation/SideNavigation";
 import style from "./style/personalinfo.module.scss";
 import Image from "next/image";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { getAdmin, updateAdmin, uploadAdminImage } from "@/app/api/admin/admin";
+import {
+  getAdmin,
+  updateAdmin,
+  uploadAdminImage,
+} from "@/app/(backend)/api/admin/admin";
 
 const PersonalInfoPage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
   const [adminId, setAdminId] = useState("EMP001");
-  
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     dob: "",
-    companyId: ""
+    companyId: "",
   });
 
   const [profileImage, setProfileImage] = useState(
@@ -33,26 +37,28 @@ const PersonalInfoPage = () => {
     try {
       setLoading(true);
       console.log("Fetching admin data for ID:", adminId);
-      
+
       const result = await getAdmin(adminId);
       console.log("Fetch result:", result);
-      
+
       if (result.success && result.data) {
         const adminData = result.data;
-        
+
         setFormData({
           name: adminData.name || "",
           email: adminData.email || "",
           dob: adminData.dob || "",
-          companyId: adminData.id || ""
+          companyId: adminData.id || "",
         });
-        
+
         if (adminData.image) {
           setProfileImage(adminData.image);
         }
       } else {
         console.error("Failed to fetch admin data:", result.error);
-        alert(`Failed to load profile data: ${result.error || 'Unknown error'}`);
+        alert(
+          `Failed to load profile data: ${result.error || "Unknown error"}`
+        );
       }
     } catch (error) {
       console.error("Error fetching admin data:", error);
@@ -98,7 +104,7 @@ const PersonalInfoPage = () => {
 
   const handleSave = async (e) => {
     e.preventDefault();
-    
+
     if (!formData.name.trim() || !formData.email.trim()) {
       alert("Please fill in all required fields");
       return;
@@ -107,14 +113,14 @@ const PersonalInfoPage = () => {
     try {
       setSaving(true);
       console.log("Starting save process...");
-      
+
       let imageUrl = profileImage;
-      
+
       if (selectedImageFile) {
         console.log("Uploading new image...");
         const uploadResult = await uploadAdminImage(selectedImageFile, adminId);
         console.log("Upload result:", uploadResult);
-        
+
         if (uploadResult.success && uploadResult.url) {
           imageUrl = uploadResult.url;
         } else {
@@ -122,18 +128,18 @@ const PersonalInfoPage = () => {
           alert("Failed to upload image. Continuing with profile update...");
         }
       }
-      
+
       const updateData = {
         name: formData.name,
         email: formData.email,
         dob: formData.dob || null,
-        image: imageUrl
+        image: imageUrl,
       };
-      
+
       console.log("Updating admin with data:", updateData);
       const result = await updateAdmin(adminId, updateData);
       console.log("Update result:", result);
-      
+
       if (result.success) {
         setProfileImage(imageUrl);
         setImagePreview("");
@@ -142,7 +148,7 @@ const PersonalInfoPage = () => {
         setIsEditing(false);
         await fetchAdminData();
       } else {
-        alert(`Failed to update profile: ${result.error || 'Unknown error'}`);
+        alert(`Failed to update profile: ${result.error || "Unknown error"}`);
       }
     } catch (error) {
       console.error("Error saving profile:", error);
@@ -153,7 +159,11 @@ const PersonalInfoPage = () => {
   };
 
   const handleCancel = () => {
-    if (window.confirm("Are you sure you want to cancel? All unsaved changes will be lost.")) {
+    if (
+      window.confirm(
+        "Are you sure you want to cancel? All unsaved changes will be lost."
+      )
+    ) {
       setIsEditing(false);
       setImagePreview("");
       setSelectedImageFile(null);
@@ -294,7 +304,10 @@ const PersonalInfoPage = () => {
               <button type="submit" className={style.savebtn} disabled={saving}>
                 {saving ? (
                   <>
-                    <Icon icon="lucide:loader-2" className={style.buttonSpinner} />
+                    <Icon
+                      icon="lucide:loader-2"
+                      className={style.buttonSpinner}
+                    />
                     Saving...
                   </>
                 ) : (

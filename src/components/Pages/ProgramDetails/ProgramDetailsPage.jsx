@@ -10,6 +10,7 @@ import WhyLearnSection from "./Sections/WhyLearnSection/WhyLearnSection";
 import TestimonialSection from "../Landing/Sections/Testimonials/Testimonials";
 
 import styles from "./styles/programDetails.module.scss";
+import SmoothScroller from "@/components/Layouts/SmoothScroller";
 
 export default function ProgramDetailsPage({ program }) {
   if (!program) {
@@ -23,16 +24,18 @@ export default function ProgramDetailsPage({ program }) {
   }
 
   return (
-    <div className={styles.courseContainer}>
-      <DescriptionSection program={program} />
-      <KeyHighlightsSection program={program} />
-      <CurriculumSection program={program} />
-      <WhyLearnSection />
-      <CardsSection />
-      <CertificationSection program={program} />
-      <PlansSection />
-      <TestimonialSection />
-      <Footer />
-    </div>
+    <SmoothScroller>
+      <div className={styles.courseContainer}>
+        <DescriptionSection program={program} />
+        <KeyHighlightsSection program={program} />
+        <CurriculumSection program={program} />
+        <WhyLearnSection />
+        <CardsSection />
+        <CertificationSection program={program} />
+        <PlansSection />
+        <TestimonialSection />
+        <Footer />
+      </div>
+    </SmoothScroller>
   );
 }

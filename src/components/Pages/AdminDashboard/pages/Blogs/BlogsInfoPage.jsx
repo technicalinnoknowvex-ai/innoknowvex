@@ -2,7 +2,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import style from "./style/blogsinfo.module.scss";
 import SideNavigation from "../../SideNavigation/SideNavigation";
-import { getBlogs, createBlog, updateBlog, deleteBlog } from "@/app/api/blogs/blogs";
+import {
+  getBlogs,
+  createBlog,
+  updateBlog,
+  deleteBlog,
+} from "@/app/(backend)/api/blogs/blogs";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
 const BlogsInfoPage = () => {
@@ -61,18 +66,19 @@ const BlogsInfoPage = () => {
     }
   };
 
-  const cardsToShow = containerWidth > 0 && cardWidth > 0
-    ? Math.floor(containerWidth / (cardWidth + gap))
-    : 3;
+  const cardsToShow =
+    containerWidth > 0 && cardWidth > 0
+      ? Math.floor(containerWidth / (cardWidth + gap))
+      : 3;
 
   const maxIndex = Math.max(0, blogsData.length - cardsToShow);
 
   const nextSlide = () => {
-    if (currentIndex < maxIndex) setCurrentIndex(prev => prev + 1);
+    if (currentIndex < maxIndex) setCurrentIndex((prev) => prev + 1);
   };
 
   const prevSlide = () => {
-    if (currentIndex > 0) setCurrentIndex(prev => prev - 1);
+    if (currentIndex > 0) setCurrentIndex((prev) => prev - 1);
   };
 
   const handleInputChange = (e) => {
@@ -116,7 +122,7 @@ const BlogsInfoPage = () => {
     setImagePreview("");
     setEditMode(false);
     setEditingBlogId(null);
-    
+
     // Reset file input
     const fileInput = document.getElementById("image");
     if (fileInput) {
@@ -196,7 +202,7 @@ const BlogsInfoPage = () => {
       image: blog.image,
     });
     setImagePreview(blog.image);
-    
+
     // Scroll to top of page
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -205,7 +211,7 @@ const BlogsInfoPage = () => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this blog? This action cannot be undone."
     );
-    
+
     if (!confirmDelete) return;
 
     try {
@@ -213,14 +219,17 @@ const BlogsInfoPage = () => {
       if (result.success) {
         alert("Blog deleted successfully!");
         await loadBlogs();
-        
+
         // If we're editing the deleted blog, reset the form
         if (editingBlogId === blogId) {
           resetForm();
         }
-        
+
         // Reset carousel index if needed
-        if (currentIndex > 0 && currentIndex >= blogsData.length - cardsToShow - 1) {
+        if (
+          currentIndex > 0 &&
+          currentIndex >= blogsData.length - cardsToShow - 1
+        ) {
           setCurrentIndex(Math.max(0, currentIndex - 1));
         }
       }
@@ -231,13 +240,19 @@ const BlogsInfoPage = () => {
   };
 
   const handleCancelEdit = () => {
-    if (window.confirm("Are you sure you want to cancel editing? All unsaved changes will be lost.")) {
+    if (
+      window.confirm(
+        "Are you sure you want to cancel editing? All unsaved changes will be lost."
+      )
+    ) {
       resetForm();
     }
   };
 
   const truncateText = (text, maxLength = 100) =>
-    text?.length > maxLength ? `${text.substring(0, maxLength)}...` : text || "";
+    text?.length > maxLength
+      ? `${text.substring(0, maxLength)}...`
+      : text || "";
 
   const showNavigation = blogsData.length > cardsToShow;
   const translateX = -(currentIndex * (cardWidth + gap));
@@ -293,7 +308,8 @@ const BlogsInfoPage = () => {
 
               <div className={style.inputField}>
                 <label htmlFor="image">
-                  Upload Image * {editMode && "(Leave empty to keep current image)"}
+                  Upload Image *{" "}
+                  {editMode && "(Leave empty to keep current image)"}
                 </label>
                 <input
                   type="file"
@@ -342,7 +358,10 @@ const BlogsInfoPage = () => {
                   <button type="submit" disabled={submitting}>
                     {submitting ? (
                       <>
-                        <Icon icon="lucide:loader-2" className={style.buttonSpinner} />
+                        <Icon
+                          icon="lucide:loader-2"
+                          className={style.buttonSpinner}
+                        />
                         {editMode ? "Updating..." : "Creating..."}
                       </>
                     ) : (
@@ -372,7 +391,9 @@ const BlogsInfoPage = () => {
               <div className={style.emptyState}>
                 <Icon icon="lucide:inbox" className={style.emptyIcon} />
                 <p>No blogs available</p>
-                <p className={style.emptySubtext}>Create your first blog to get started!</p>
+                <p className={style.emptySubtext}>
+                  Create your first blog to get started!
+                </p>
               </div>
             ) : (
               <div className={style.carouselContainer} ref={containerRef}>
@@ -384,7 +405,10 @@ const BlogsInfoPage = () => {
                       disabled={currentIndex === 0}
                       aria-label="Previous blogs"
                     >
-                      <Icon icon="famicons:chevron-back" style={{ width: "24px", height: "24px" }} />
+                      <Icon
+                        icon="famicons:chevron-back"
+                        style={{ width: "24px", height: "24px" }}
+                      />
                     </button>
                     <button
                       className={`${style.navButton} ${style.navButtonRight}`}
@@ -392,19 +416,27 @@ const BlogsInfoPage = () => {
                       disabled={currentIndex >= maxIndex}
                       aria-label="Next blogs"
                     >
-                      <Icon icon="famicons:chevron-forward" style={{ width: "24px", height: "24px" }} />
+                      <Icon
+                        icon="famicons:chevron-forward"
+                        style={{ width: "24px", height: "24px" }}
+                      />
                     </button>
                   </>
                 )}
                 <div className={style.cardsContainer}>
                   <div
                     className={style.cardsWrapper}
-                    style={{ transform: `translateX(${translateX}px)`, gap: `${gap}px` }}
+                    style={{
+                      transform: `translateX(${translateX}px)`,
+                      gap: `${gap}px`,
+                    }}
                   >
                     {blogsData.map((blog) => (
-                      <div 
-                        key={blog.id} 
-                        className={`${style.blogCardAdmin} ${editingBlogId === blog.id ? style.editing : ''}`}
+                      <div
+                        key={blog.id}
+                        className={`${style.blogCardAdmin} ${
+                          editingBlogId === blog.id ? style.editing : ""
+                        }`}
                       >
                         <div className={style.imageWrapper}>
                           <img
@@ -413,7 +445,8 @@ const BlogsInfoPage = () => {
                             className={style.blogImageAdmin}
                             loading="lazy"
                             onError={(e) => {
-                              e.target.src = "https://via.placeholder.com/400x200?text=Image+Not+Found";
+                              e.target.src =
+                                "https://via.placeholder.com/400x200?text=Image+Not+Found";
                             }}
                           />
                           <div className={style.cardActions}>
@@ -446,11 +479,14 @@ const BlogsInfoPage = () => {
                           <div className={style.cardMeta}>
                             <span className={style.dateTag}>
                               {blog.date
-                                ? new Date(blog.date).toLocaleDateString('en-US', {
-                                    year: 'numeric',
-                                    month: 'short',
-                                    day: 'numeric'
-                                  })
+                                ? new Date(blog.date).toLocaleDateString(
+                                    "en-US",
+                                    {
+                                      year: "numeric",
+                                      month: "short",
+                                      day: "numeric",
+                                    }
+                                  )
                                 : "No Date"}
                             </span>
                           </div>

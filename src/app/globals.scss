@@ -7,10 +7,18 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-html,
+html {
+  height: 100%; // Changed from position: fixed
+  width: 100%;
+  overflow-x: hidden;
+}
+
 body {
-  max-width: 100%;
-  height: 100%;
+  width: 100%;
+  height: 100%; // Changed from min-height to height
+  // Fallback for older browsers
+  height: 100vh;
+  height: 100dvh;
   overflow-x: hidden;
   scrollbar-width: none;
   -webkit-font-smoothing: antialiased;
@@ -18,11 +26,24 @@ body {
   background: $app-background-base;
   cursor: none;
   @include hide-scrollbar;
+
+  // iOS Safari: Use -webkit-fill-available as additional fallback
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
+}
+
+.app-root-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; // Prevent default scrolling, let nested layouts handle it
+  padding: 5px;
 }
 
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
-  display: none; // Chrome, Safari
+  display: none;
 }
 
 a {
@@ -32,11 +53,6 @@ a {
 
 button {
   font-family: inherit;
-}
-
-html,
-body {
-  height: auto;
 }
 
 input:-webkit-autofill,

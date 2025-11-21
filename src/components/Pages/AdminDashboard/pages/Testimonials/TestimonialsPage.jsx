@@ -2,7 +2,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import style from "./style/testimonials.module.scss";
 import SideNavigation from "../../SideNavigation/SideNavigation";
-import { getTestimonials, createTestimonial, updateTestimonial, deleteTestimonial } from "@/app/api/testimonials/testimonials";
+import {
+  getTestimonials,
+  createTestimonial,
+  updateTestimonial,
+  deleteTestimonial,
+} from "@/app/(backend)/api/testimonials/testimonials";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
 const TestimonialsPage = () => {
@@ -25,7 +30,7 @@ const TestimonialsPage = () => {
     name: "",
     profession: "",
     avatar: "",
-    position: "top"
+    position: "top",
   });
 
   const [avatarFile, setAvatarFile] = useState(null);
@@ -62,18 +67,19 @@ const TestimonialsPage = () => {
     }
   };
 
-  const cardsToShow = containerWidth > 0 && cardWidth > 0
-    ? Math.floor(containerWidth / (cardWidth + gap))
-    : 3;
+  const cardsToShow =
+    containerWidth > 0 && cardWidth > 0
+      ? Math.floor(containerWidth / (cardWidth + gap))
+      : 3;
 
   const maxIndex = Math.max(0, testimonialsData.length - cardsToShow);
 
   const nextSlide = () => {
-    if (currentIndex < maxIndex) setCurrentIndex(prev => prev + 1);
+    if (currentIndex < maxIndex) setCurrentIndex((prev) => prev + 1);
   };
 
   const prevSlide = () => {
-    if (currentIndex > 0) setCurrentIndex(prev => prev - 1);
+    if (currentIndex > 0) setCurrentIndex((prev) => prev - 1);
   };
 
   const handleInputChange = (e) => {
@@ -112,13 +118,13 @@ const TestimonialsPage = () => {
       name: "",
       profession: "",
       avatar: "",
-      position: "top"
+      position: "top",
     });
     setAvatarFile(null);
     setAvatarPreview("");
     setEditMode(false);
     setEditingTestimonialId(null);
-    
+
     // Reset file input
     const fileInput = document.getElementById("avatar");
     if (fileInput) {
@@ -167,7 +173,10 @@ const TestimonialsPage = () => {
       }
 
       if (editMode) {
-        const result = await updateTestimonial(editingTestimonialId, testimonialData);
+        const result = await updateTestimonial(
+          editingTestimonialId,
+          testimonialData
+        );
         if (result.success) {
           alert("Testimonial updated successfully!");
           resetForm();
@@ -197,10 +206,10 @@ const TestimonialsPage = () => {
       name: testimonial.name,
       profession: testimonial.profession,
       avatar: testimonial.avatar,
-      position: testimonial.position
+      position: testimonial.position,
     });
     setAvatarPreview(testimonial.avatar);
-    
+
     // Scroll to top of page
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -209,7 +218,7 @@ const TestimonialsPage = () => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this testimonial? This action cannot be undone."
     );
-    
+
     if (!confirmDelete) return;
 
     try {
@@ -217,14 +226,17 @@ const TestimonialsPage = () => {
       if (result.success) {
         alert("Testimonial deleted successfully!");
         await loadTestimonials();
-        
+
         // If we're editing the deleted testimonial, reset the form
         if (editingTestimonialId === testimonialId) {
           resetForm();
         }
-        
+
         // Reset carousel index if needed
-        if (currentIndex > 0 && currentIndex >= testimonialsData.length - cardsToShow - 1) {
+        if (
+          currentIndex > 0 &&
+          currentIndex >= testimonialsData.length - cardsToShow - 1
+        ) {
           setCurrentIndex(Math.max(0, currentIndex - 1));
         }
       }
@@ -235,13 +247,19 @@ const TestimonialsPage = () => {
   };
 
   const handleCancelEdit = () => {
-    if (window.confirm("Are you sure you want to cancel editing? All unsaved changes will be lost.")) {
+    if (
+      window.confirm(
+        "Are you sure you want to cancel editing? All unsaved changes will be lost."
+      )
+    ) {
       resetForm();
     }
   };
 
   const truncateText = (text, maxLength = 100) =>
-    text?.length > maxLength ? `${text.substring(0, maxLength)}...` : text || "";
+    text?.length > maxLength
+      ? `${text.substring(0, maxLength)}...`
+      : text || "";
 
   const showNavigation = testimonialsData.length > cardsToShow;
   const translateX = -(currentIndex * (cardWidth + gap));
@@ -310,7 +328,8 @@ const TestimonialsPage = () => {
 
               <div className={style.inputField}>
                 <label htmlFor="avatar">
-                  Upload Avatar * {editMode && "(Leave empty to keep current avatar)"}
+                  Upload Avatar *{" "}
+                  {editMode && "(Leave empty to keep current avatar)"}
                 </label>
                 <input
                   type="file"
@@ -359,7 +378,10 @@ const TestimonialsPage = () => {
                   <button type="submit" disabled={submitting}>
                     {submitting ? (
                       <>
-                        <Icon icon="lucide:loader-2" className={style.buttonSpinner} />
+                        <Icon
+                          icon="lucide:loader-2"
+                          className={style.buttonSpinner}
+                        />
                         {editMode ? "Updating..." : "Creating..."}
                       </>
                     ) : (
@@ -377,7 +399,8 @@ const TestimonialsPage = () => {
           {/* All Testimonials Section with Carousel */}
           <div className={style.allTestimonialsSection}>
             <h2 className={style.sectionTitle}>
-              All Testimonials {testimonialsData.length > 0 && `(${testimonialsData.length})`}
+              All Testimonials{" "}
+              {testimonialsData.length > 0 && `(${testimonialsData.length})`}
             </h2>
 
             {loading ? (
@@ -389,7 +412,9 @@ const TestimonialsPage = () => {
               <div className={style.emptyState}>
                 <Icon icon="lucide:inbox" className={style.emptyIcon} />
                 <p>No testimonials available</p>
-                <p className={style.emptySubtext}>Create your first testimonial to get started!</p>
+                <p className={style.emptySubtext}>
+                  Create your first testimonial to get started!
+                </p>
               </div>
             ) : (
               <div className={style.carouselContainer} ref={containerRef}>
@@ -401,7 +426,10 @@ const TestimonialsPage = () => {
                       disabled={currentIndex === 0}
                       aria-label="Previous testimonials"
                     >
-                      <Icon icon="famicons:chevron-back" style={{ width: "24px", height: "24px" }} />
+                      <Icon
+                        icon="famicons:chevron-back"
+                        style={{ width: "24px", height: "24px" }}
+                      />
                     </button>
                     <button
                       className={`${style.navButton} ${style.navButtonRight}`}
@@ -409,19 +437,29 @@ const TestimonialsPage = () => {
                       disabled={currentIndex >= maxIndex}
                       aria-label="Next testimonials"
                     >
-                      <Icon icon="famicons:chevron-forward" style={{ width: "24px", height: "24px" }} />
+                      <Icon
+                        icon="famicons:chevron-forward"
+                        style={{ width: "24px", height: "24px" }}
+                      />
                     </button>
                   </>
                 )}
                 <div className={style.cardsContainer}>
                   <div
                     className={style.cardsWrapper}
-                    style={{ transform: `translateX(${translateX}px)`, gap: `${gap}px` }}
+                    style={{
+                      transform: `translateX(${translateX}px)`,
+                      gap: `${gap}px`,
+                    }}
                   >
                     {testimonialsData.map((testimonial) => (
-                      <div 
-                        key={testimonial.id} 
-                        className={`${style.testimonialCardAdmin} ${editingTestimonialId === testimonial.id ? style.editing : ''}`}
+                      <div
+                        key={testimonial.id}
+                        className={`${style.testimonialCardAdmin} ${
+                          editingTestimonialId === testimonial.id
+                            ? style.editing
+                            : ""
+                        }`}
                       >
                         <div className={style.cardContentAdmin}>
                           {testimonial.position === "top" && (
@@ -431,18 +469,26 @@ const TestimonialsPage = () => {
                                 alt={testimonial.name}
                                 className={style.avatar}
                                 onError={(e) => {
-                                  e.target.src = "https://via.placeholder.com/80x80?text=Avatar";
+                                  e.target.src =
+                                    "https://via.placeholder.com/80x80?text=Avatar";
                                 }}
                               />
                               <div className={style.authorDetails}>
-                                <h3 className={style.authorName}>{testimonial.name}</h3>
-                                <p className={style.authorProfession}>{testimonial.profession}</p>
+                                <h3 className={style.authorName}>
+                                  {testimonial.name}
+                                </h3>
+                                <p className={style.authorProfession}>
+                                  {testimonial.profession}
+                                </p>
                               </div>
                             </div>
                           )}
 
                           <div className={style.testimonialText}>
-                            <Icon icon="lucide:quote" className={style.quoteIcon} />
+                            <Icon
+                              icon="lucide:quote"
+                              className={style.quoteIcon}
+                            />
                             <p>{truncateText(testimonial.testimonial, 150)}</p>
                           </div>
 
@@ -453,12 +499,17 @@ const TestimonialsPage = () => {
                                 alt={testimonial.name}
                                 className={style.avatar}
                                 onError={(e) => {
-                                  e.target.src = "https://via.placeholder.com/80x80?text=Avatar";
+                                  e.target.src =
+                                    "https://via.placeholder.com/80x80?text=Avatar";
                                 }}
                               />
                               <div className={style.authorDetails}>
-                                <h3 className={style.authorName}>{testimonial.name}</h3>
-                                <p className={style.authorProfession}>{testimonial.profession}</p>
+                                <h3 className={style.authorName}>
+                                  {testimonial.name}
+                                </h3>
+                                <p className={style.authorProfession}>
+                                  {testimonial.profession}
+                                </p>
                               </div>
                             </div>
                           )}
@@ -466,11 +517,14 @@ const TestimonialsPage = () => {
                           <div className={style.cardMeta}>
                             <span className={style.dateTag}>
                               {testimonial.date
-                                ? new Date(testimonial.date).toLocaleDateString('en-US', {
-                                    year: 'numeric',
-                                    month: 'short',
-                                    day: 'numeric'
-                                  })
+                                ? new Date(testimonial.date).toLocaleDateString(
+                                    "en-US",
+                                    {
+                                      year: "numeric",
+                                      month: "short",
+                                      day: "numeric",
+                                    }
+                                  )
                                 : "No Date"}
                             </span>
                           </div>

@@ -10,6 +10,7 @@ import Ellipse1 from "./svgImages/Ellipse1";
 import Ellipse2 from "./svgImages/Ellipse2";
 import StarIcon from "./svgImages/Star";
 import Bg from "./svgImages/Bg";
+import SmoothScroller from "@/components/Layouts/SmoothScroller";
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -56,7 +57,14 @@ const AboutDetailsPage = () => {
 
     // ✨ Animate text
     gsap.fromTo(
-      [headRef.current, headSmallRef.current, pRef.current, headRef2.current, headSmallRef2.current, pRef2.current],
+      [
+        headRef.current,
+        headSmallRef.current,
+        pRef.current,
+        headRef2.current,
+        headSmallRef2.current,
+        pRef2.current,
+      ],
       { y: 30, opacity: 0 },
       {
         y: 0,
@@ -118,7 +126,7 @@ const AboutDetailsPage = () => {
 
     // ⭐ Animate remaining stars
     gsap.fromTo(
-      [starRef3.current,starRef6.current],
+      [starRef3.current, starRef6.current],
       { opacity: 0, scale: 0, rotate: -720 },
       {
         opacity: 1,
@@ -129,7 +137,7 @@ const AboutDetailsPage = () => {
         scrollTrigger: {
           trigger: starRef3.current,
           start: "top 90%",
-          toggleActions: "play reverse play reverse", 
+          toggleActions: "play reverse play reverse",
         },
       }
     );
@@ -146,21 +154,25 @@ const AboutDetailsPage = () => {
         scrollTrigger: {
           trigger: starRef4.current,
           start: "top 70%",
-          toggleActions: "play reverse play reverse", 
+          toggleActions: "play reverse play reverse",
         },
       }
     );
   }, []);
 
-
   return (
-    <>
+    <SmoothScroller>
       <div className={style.section}>
         <div className={style.first}>
-          <Ellipse1/>
+          <Ellipse1 />
 
           <div className={style.content1}>
-            <StarIcon ref={starRef} className={style.star1} width={50} height={50} />
+            <StarIcon
+              ref={starRef}
+              className={style.star1}
+              width={50}
+              height={50}
+            />
 
             <h1 ref={headRef}>Our vision.</h1>
             <h4 ref={headSmallRef}>What Drive Us Forward</h4>
@@ -176,10 +188,15 @@ const AboutDetailsPage = () => {
 
       <div className={style.section2}>
         <div className={style.second}>
-          <Ellipse2/>
+          <Ellipse2 />
 
           <div className={style.content2}>
-            <StarIcon ref={starRef1} className={style.star2} width={50} height={50} />
+            <StarIcon
+              ref={starRef1}
+              className={style.star2}
+              width={50}
+              height={50}
+            />
 
             <h1 ref={headRef2}>Our mission</h1>
             <h4 ref={headSmallRef2}>GUIDED BY PURPOSE</h4>
@@ -199,10 +216,15 @@ const AboutDetailsPage = () => {
 
       <div className={style.section3}>
         <div className={style.first}>
-          <Ellipse1/>
+          <Ellipse1 />
 
           <div className={style.content1}>
-            <StarIcon ref={starRef2} className={style.star3} width={50} height={50} />
+            <StarIcon
+              ref={starRef2}
+              className={style.star3}
+              width={50}
+              height={50}
+            />
 
             <h1 ref={headRef1}>Meet The</h1>
             <h4 ref={headSmallRef1}>TEAM.</h4>
@@ -218,7 +240,6 @@ const AboutDetailsPage = () => {
 
       <div className={style.team}>
         <div className={style.cell1}>
-
           <div className={style.pic1}>
             <Image
               className={style.ceo}
@@ -227,8 +248,13 @@ const AboutDetailsPage = () => {
               width={400}
               alt="CEO image"
             />
-            <StarIcon ref={starRef3} className={style.star} width={50} height={50} />
-            <Bg className={style.bg} width={300} height={300}/>
+            <StarIcon
+              ref={starRef3}
+              className={style.star}
+              width={50}
+              height={50}
+            />
+            <Bg className={style.bg} width={300} height={300} />
             <h1>FARUK</h1>
             <div></div>
             <h4>Founder and CEO</h4>
@@ -247,8 +273,13 @@ const AboutDetailsPage = () => {
               alt="COO image"
             />
 
-            <StarIcon ref={starRef6} className={style.star} width={50} height={50} />
-            <Bg className={style.bg} width={300} height={300}/>
+            <StarIcon
+              ref={starRef6}
+              className={style.star}
+              width={50}
+              height={50}
+            />
+            <Bg className={style.bg} width={300} height={300} />
             <h1>Vamsi Krishna</h1>
             <div></div>
             <h4>COO (Founder)</h4>
@@ -257,7 +288,6 @@ const AboutDetailsPage = () => {
               audiences and grow the company's reach.
             </p>
           </div>
-          
         </div>
 
         <div className={style.cell2}>
@@ -269,14 +299,19 @@ const AboutDetailsPage = () => {
               width={400}
               alt="CGO image"
             />
-            <StarIcon ref={starRef4} className={style.star} width={50} height={50} />
-            <Bg className={style.bg} width={300} height={300}/>
+            <StarIcon
+              ref={starRef4}
+              className={style.star}
+              width={50}
+              height={50}
+            />
+            <Bg className={style.bg} width={300} height={300} />
             <h1>DURGESH C.</h1>
             <div></div>
             <h4>CGO (Co-Founder) </h4>
             <p>
-              Builds client relationships, drives revenue growth, and ensures the
-              company's solutions meet market needs.
+              Builds client relationships, drives revenue growth, and ensures
+              the company's solutions meet market needs.
             </p>
           </div>
 
@@ -289,25 +324,28 @@ const AboutDetailsPage = () => {
               alt="CEO image"
             />
 
-            <StarIcon ref={starRef5} className={style.star} width={50} height={50} />
-            <Bg className={style.bg} width={300} height={300}/>
+            <StarIcon
+              ref={starRef5}
+              className={style.star}
+              width={50}
+              height={50}
+            />
+            <Bg className={style.bg} width={300} height={300} />
             <h4>Team Members</h4>
             <ul>
               <li>Vimalraj (Team leader)</li>
               <li>Logesh (Assistant team leader)</li>
               <li>Bhumika Muthamma (Assistant team leader)</li>
             </ul>
-
           </div>
         </div>
-
       </div>
 
       <div className={style.images}>
         <div className={style.shell}>
           <Image
-          src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Page/WhatsApp%20Image%202025-08-31%20at%2018.43.03_01c3f1f9.jpg" 
-                     alt="Certificate 1"
+            src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Page/WhatsApp%20Image%202025-08-31%20at%2018.43.03_01c3f1f9.jpg"
+            alt="Certificate 1"
             width={600}
             height={400}
             className={style.photo}
@@ -338,8 +376,6 @@ const AboutDetailsPage = () => {
             className={style.photo}
           />
         </div>
-
-        
 
         <div className={style.shell}>
           <Image
@@ -383,7 +419,7 @@ const AboutDetailsPage = () => {
             height={400}
             className={style.photo}
           />
-           <Image
+          <Image
             src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Page/WhatsApp%20Image%202025-08-31%20at%2018.43.04_c910bfdb.jpg"
             alt="Certificate 5"
             width={600}
@@ -401,12 +437,11 @@ const AboutDetailsPage = () => {
             className={style.photo}
           />
         </div> */}
-
       </div>
 
       <Testimonials />
       <Footer />
-    </>
+    </SmoothScroller>
   );
 };
 

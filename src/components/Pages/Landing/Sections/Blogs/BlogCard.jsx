@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { getBlogs } from "@/app/api/blogs/blogs"; // API fetch helper
+import { getBlogs } from "@/app/(backend)/api/blogs/blogs"; // API fetch helper
 import Sparkle from "@/components/Common/Icons/Sparkle";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -47,37 +47,57 @@ const BlogCardCarousel = () => {
     return () => window.removeEventListener("resize", calculateDimensions);
   }, [blogsData.length]);
 
-  useGSAP(() => {
-    const sparkleTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top 60%",
-        end: "bottom 40%",
-        toggleActions: "play none none reverse",
-      },
-    });
-    sparkleTl
-      .fromTo(sparkleRef.current, { scale: 0, opacity: 0, rotation: -360 }, { scale: 1.2, opacity: 1, rotation: 0, duration: 0.5, ease: "power2.out" })
-      .to(sparkleRef.current, { scale: 1, duration: 0.3, ease: "power2.out" })
-      .to(sparkleRef.current, { rotation: 360, duration: 0.8, ease: "power1.inOut" }, "<0.1");
-  }, { scope: sectionRef });
+  useGSAP(
+    () => {
+      const sparkleTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 60%",
+          end: "bottom 40%",
+          toggleActions: "play none none reverse",
+        },
+      });
+      sparkleTl
+        .fromTo(
+          sparkleRef.current,
+          { scale: 0, opacity: 0, rotation: -360 },
+          {
+            scale: 1.2,
+            opacity: 1,
+            rotation: 0,
+            duration: 0.5,
+            ease: "power2.out",
+          }
+        )
+        .to(sparkleRef.current, { scale: 1, duration: 0.3, ease: "power2.out" })
+        .to(
+          sparkleRef.current,
+          { rotation: 360, duration: 0.8, ease: "power1.inOut" },
+          "<0.1"
+        );
+    },
+    { scope: sectionRef }
+  );
 
-  const cardsToShow = containerWidth > 0 && cardWidth > 0
-    ? Math.floor(containerWidth / (cardWidth + gap))
-    : 3;
+  const cardsToShow =
+    containerWidth > 0 && cardWidth > 0
+      ? Math.floor(containerWidth / (cardWidth + gap))
+      : 3;
 
   const maxIndex = Math.max(0, blogsData.length - cardsToShow);
 
   const nextSlide = () => {
-    if (currentIndex < maxIndex) setCurrentIndex(prev => prev + 1);
+    if (currentIndex < maxIndex) setCurrentIndex((prev) => prev + 1);
   };
 
   const prevSlide = () => {
-    if (currentIndex > 0) setCurrentIndex(prev => prev - 1);
+    if (currentIndex > 0) setCurrentIndex((prev) => prev - 1);
   };
 
   const truncateDescription = (text, maxLength = 150) =>
-    text?.length > maxLength ? `${text.substring(0, maxLength)}...` : text || "";
+    text?.length > maxLength
+      ? `${text.substring(0, maxLength)}...`
+      : text || "";
 
   const handleReadMore = (blog, e) => {
     if (!blog.link || blog.link === "#") {
@@ -86,7 +106,8 @@ const BlogCardCarousel = () => {
     }
   };
 
-  if (!blogsData.length) return <div className={styles.noData}>No Blogs available</div>;
+  if (!blogsData.length)
+    return <div className={styles.noData}>No Blogs available</div>;
 
   const showNavigation = blogsData.length > 1;
   const translateX = -(currentIndex * (cardWidth + gap));
@@ -95,8 +116,12 @@ const BlogCardCarousel = () => {
     <div className={styles.landing} ref={sectionRef} id="blogs">
       <div className={styles.headingSection}>
         <div className={styles.sectionHeadingContainer}>
-          <div className={styles.sparkleDiv} ref={sparkleRef}><Sparkle /></div>
-          <h2 className={styles.sectionHeadingContainer__primaryHeading}>Blog</h2>
+          <div className={styles.sparkleDiv} ref={sparkleRef}>
+            <Sparkle />
+          </div>
+          <h2 className={styles.sectionHeadingContainer__primaryHeading}>
+            Blog
+          </h2>
         </div>
         <h3 className={styles.sectionHeadingContainer__secondaryHeading}>
           Discover our latest insights and stories
@@ -110,31 +135,47 @@ const BlogCardCarousel = () => {
               onClick={prevSlide}
               disabled={currentIndex === 0}
             >
-              <Icon icon="famicons:chevron-back" style={{ width: "24px", height: "24px" }} />
+              <Icon
+                icon="famicons:chevron-back"
+                style={{ width: "24px", height: "24px" }}
+              />
             </button>
             <button
               className={`${styles.navButton} ${styles.navButtonRight}`}
               onClick={nextSlide}
               disabled={currentIndex >= maxIndex}
             >
-              <Icon icon="famicons:chevron-forward" style={{ width: "24px", height: "24px" }} />
+              <Icon
+                icon="famicons:chevron-forward"
+                style={{ width: "24px", height: "24px" }}
+              />
             </button>
           </>
         )}
         <div className={styles.cardsContainer}>
           <div
             className={styles.cardsWrapper}
-            style={{ transform: `translateX(${translateX}px)`, gap: `${gap}px` }}
+            style={{
+              transform: `translateX(${translateX}px)`,
+              gap: `${gap}px`,
+            }}
           >
             {blogsData.map((blog) => (
               <div key={blog.id} className={styles.blogCard}>
                 <div className={styles.imageContainer}>
-                  <img src={blog.image} alt={blog.title} className={styles.blogImage} loading="lazy" />
+                  <img
+                    src={blog.image}
+                    alt={blog.title}
+                    className={styles.blogImage}
+                    loading="lazy"
+                  />
                 </div>
                 <div className={styles.cardContent}>
                   <div className={styles.cardInfo}>
                     <span className={styles.page}>
-                      {blog.date_added ? new Date(blog.date_added).toLocaleDateString() : "Blog Post"}
+                      {blog.date_added
+                        ? new Date(blog.date_added).toLocaleDateString()
+                        : "Blog Post"}
                     </span>
                     <h3 className={styles.blogTitle}>{blog.title}</h3>
                     <p className={styles.blogDescription}>
@@ -149,7 +190,8 @@ const BlogCardCarousel = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <Icon icon="quill:link-out" className={styles.linkIcon} /> Read More
+                      <Icon icon="quill:link-out" className={styles.linkIcon} />{" "}
+                      Read More
                     </a>
                   </div>
                 </div>
@@ -163,4 +205,3 @@ const BlogCardCarousel = () => {
 };
 
 export default BlogCardCarousel;
-
