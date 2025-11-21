@@ -1,6 +1,6 @@
 @use "../../../../../styles/index" as *;
 
-.signUpPageWrapper {
+.signInPageWrapper {
   width: 100%;
   height: 100%;
   display: flex;
@@ -15,31 +15,23 @@
   background: linear-gradient(168.99deg, #fff7e1 8.13%, #f8f1de 114.75%);
   border: 1px solid #715c1121;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-template-areas:
-    "headerCell headerCell"
-    "fullnameCell fullnameCell"
-    "emailCell emailCell"
-    "passwordCell confirmPasswordCell"
-    "buttonCell buttonCell"
-    "linkCell linkCell";
+    "headerCell"
+    "emailCell"
+    "passwordCell"
+    "buttonCell"
+    "linkCell";
   gap: 2px;
   padding: 2rem;
 
   @include tablet-down {
     width: 95%;
-    grid-template-areas:
-      "headerCell headerCell"
-      "fullnameCell fullnameCell"
-      "emailCell emailCell"
-      "passwordCell passwordCell"
-      "confirmPasswordCell confirmPasswordCell"
-      "buttonCell buttonCell"
-      "linkCell linkCell";
   }
 
   @include mobile-down {
     padding: 1.5rem;
+    width: 98%;
   }
 }
 
@@ -63,12 +55,6 @@
   }
 }
 
-.fullnameCell {
-  grid-area: fullnameCell;
-  width: 100%;
-  height: auto;
-}
-
 .emailCell {
   grid-area: emailCell;
   width: 100%;
@@ -77,12 +63,6 @@
 
 .passwordCell {
   grid-area: passwordCell;
-  width: 100%;
-  height: auto;
-}
-
-.confirmPasswordCell {
-  grid-area: confirmPasswordCell;
   width: 100%;
   height: auto;
 }
@@ -109,7 +89,7 @@
   margin-top: 1rem;
 }
 
-.signInPrompt {
+.signUpPrompt {
   @include font($font-oldschool, $book, #666);
   font-size: 0.9rem;
   margin: 0;
@@ -120,7 +100,7 @@
   }
 }
 
-.signInLink {
+.signUpLink {
   @include font($font-oldschool, $medium, #9c7f16);
   text-decoration: none;
   position: relative;

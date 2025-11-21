@@ -20,7 +20,8 @@
     "headerCell"
     "emailCell"
     "passwordCell"
-    "buttonCell";
+    "buttonCell"
+    "linkCell";
   gap: 2px;
   padding: 2rem;
 
@@ -75,6 +76,55 @@
   justify-content: center;
   padding: 10px;
   margin-top: 1rem;
+}
+
+.linkCell {
+  grid-area: linkCell;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 10px 0.5rem;
+  border-top: 1px solid rgba(122, 101, 20, 0.2);
+  margin-top: 1rem;
+}
+
+.signUpPrompt {
+  @include font($font-oldschool, $book, #666);
+  font-size: 0.9rem;
+  margin: 0;
+  text-align: center;
+
+  @include mobile-down {
+    font-size: 0.85rem;
+  }
+}
+
+.signUpLink {
+  @include font($font-oldschool, $medium, #9c7f16);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.2s ease;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: linear-gradient(90deg, #9c7f16, #b8951a);
+    transition: width 0.3s ease;
+  }
+
+  &:hover {
+    color: #7a6514;
+
+    &::after {
+      height: 1px;
+      width: 100%;
+    }
+  }
 }
 
 .fieldSet {

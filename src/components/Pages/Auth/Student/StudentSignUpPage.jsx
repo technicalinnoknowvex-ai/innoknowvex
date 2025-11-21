@@ -35,7 +35,7 @@ const signUpSchema = z
     path: ["confirmPassword"],
   });
 
-const AdminSignUpPage = () => {
+const StudentSignUpPage = () => {
   const {
     register,
     handleSubmit,
@@ -54,7 +54,7 @@ const AdminSignUpPage = () => {
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // Your API call here
-      // const response = await fetch('/api/admin/signup', {
+      // const response = await fetch('/api/student/signup', {
       //   method: 'POST',
       //   body: JSON.stringify(data),
       // });
@@ -71,7 +71,7 @@ const AdminSignUpPage = () => {
     <div className={styles.signUpPageWrapper}>
       <form className={styles.formWrapper} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.headerCell}>
-          <h2>ADMIN SIGNUP</h2>
+          <h2>STUDENT SIGNUP</h2>
         </div>
 
         <fieldset className={`${styles.fieldSet} ${styles.fullnameCell}`}>
@@ -141,7 +141,7 @@ const AdminSignUpPage = () => {
         <div className={styles.linkCell}>
           <p className={styles.signInPrompt}>
             Already have an account?{" "}
-            <Link href="/auth/admin/sign-in" className={styles.signInLink}>
+            <Link href="/auth/student/sign-in" className={styles.signInLink}>
               Sign In
             </Link>
           </p>
@@ -151,4 +151,4 @@ const AdminSignUpPage = () => {
   );
 };
 
-export default AdminSignUpPage;
+export default StudentSignUpPage;

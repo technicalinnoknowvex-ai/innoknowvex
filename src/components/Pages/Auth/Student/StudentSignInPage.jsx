@@ -15,7 +15,7 @@ const signInSchema = z.object({
   password: z.string().min(1, "Password is required"),
 });
 
-const AdminSignInPage = () => {
+const StudentSignInPage = () => {
   const {
     register,
     handleSubmit,
@@ -34,7 +34,7 @@ const AdminSignInPage = () => {
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // Your API call here
-      // const response = await fetch('/api/admin/signin', {
+      // const response = await fetch('/api/student/signin', {
       //   method: 'POST',
       //   body: JSON.stringify(data),
       // });
@@ -51,7 +51,7 @@ const AdminSignInPage = () => {
     <div className={styles.signInPageWrapper}>
       <form className={styles.formWrapper} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.headerCell}>
-          <h2>ADMIN SIGN IN</h2>
+          <h2>STUDENT SIGN IN</h2>
         </div>
 
         <fieldset className={`${styles.fieldSet} ${styles.emailCell}`}>
@@ -93,7 +93,7 @@ const AdminSignInPage = () => {
         <div className={styles.linkCell}>
           <p className={styles.signUpPrompt}>
             Don't have an account?{" "}
-            <Link href="/auth/admin/sign-up" className={styles.signUpLink}>
+            <Link href="/auth/student/sign-up" className={styles.signUpLink}>
               Sign Up
             </Link>
           </p>
@@ -103,4 +103,4 @@ const AdminSignInPage = () => {
   );
 };
 
-export default AdminSignInPage;
+export default StudentSignInPage;
