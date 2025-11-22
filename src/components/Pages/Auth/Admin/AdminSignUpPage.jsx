@@ -5,6 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Link from "next/link";
 import styles from "./styles/signUp.module.scss";
+import { ROLES } from "@/constants/roles";
+import { registerUser } from "@/services/auth/authServices";
 
 // Zod validation schema
 const signUpSchema = z
@@ -48,22 +50,20 @@ const AdminSignUpPage = () => {
 
   const onSubmit = async (data) => {
     try {
-      console.log("Form submitted:", data);
+      const payload = {
+        name: data.fullName,
+        email: data.email,
+        password: data.password, // q48BPh3MeEHgKTd@
+        role: ROLES.ADMIN,
+      };
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      // Your API call here
-      // const response = await fetch('/api/admin/signup', {
-      //   method: 'POST',
-      //   body: JSON.stringify(data),
-      // });
+      await registerUser(payload);
 
       alert("Sign up successful!");
       reset();
     } catch (error) {
       console.error("Sign up error:", error);
-      alert("Sign up failed. Please try again.");
+      alert(error.message || "Sign up failed. Please try again.");
     }
   };
 

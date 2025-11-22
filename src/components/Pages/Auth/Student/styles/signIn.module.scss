@@ -13,10 +13,12 @@
   height: auto;
   border-radius: 30px;
   background: linear-gradient(168.99deg, #fff7e1 8.13%, #f8f1de 114.75%);
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   border: 1px solid #715c1121;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-areas:
+    "errorMessageCell"
     "headerCell"
     "emailCell"
     "passwordCell"
@@ -34,7 +36,21 @@
     width: 98%;
   }
 }
-
+.errorMessageCell {
+  grid-area: errorMessageCell;
+  border: 1px solid #f04438;
+  display: flex;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 5px;
+  background-color: #fecdca;
+  padding: 10px 5px;
+  p {
+    @include font($font-oldschool, $medium, #f04438);
+    font-size: 0.95rem;
+    margin-top: 3px;
+  }
+}
 .headerCell {
   grid-area: headerCell;
   width: 100%;

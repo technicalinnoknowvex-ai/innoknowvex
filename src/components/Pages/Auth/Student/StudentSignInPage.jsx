@@ -1,55 +1,71 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./styles/signIn.module.scss";
+import { studentSignIn, validateUserRole } from "@/actions/authActions";
+import { ROLES } from "@/constants/roles";
 
-// Zod validation schema
 const signInSchema = z.object({
-  email: z
-    .string()
-    .min(1, "Email is required")
-    .email("Please enter a valid email address"),
+  email: z.string().min(1, "Email is required").email({
+    message: "Please enter a valid email address",
+  }),
   password: z.string().min(1, "Password is required"),
 });
 
 const StudentSignInPage = () => {
+  const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect");
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    reset,
   } = useForm({
     resolver: zodResolver(signInSchema),
     mode: "onBlur",
   });
 
   const onSubmit = async (data) => {
+    setErrorMessage("");
+
     try {
-      console.log("Sign in submitted:", data);
+      // Step 1: Validate user exists and has correct role
+      const validation = await validateUserRole({
+        email: data.email,
+        expectedRole: ROLES.STUDENT,
+      });
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      if (!validation.isValid) {
+        setErrorMessage(validation.error);
+        return;
+      }
 
-      // Your API call here
-      // const response = await fetch('/api/student/signin', {
-      //   method: 'POST',
-      //   body: JSON.stringify(data),
-      // });
+      // Step 2: Attempt sign in only if validation passed
+      const result = await studentSignIn(data);
 
-      alert("Sign in successful!");
-      reset();
+      // Step 3: Redirect to original page or home
+      const redirectPath = redirect || "/";
+      router.push(redirectPath);
+      router.refresh();
     } catch (error) {
-      console.error("Sign in error:", error);
-      alert("Sign in failed. Please try again.");
+      setErrorMessage(error.message || "Sign in failed. Please try again.");
     }
   };
 
   return (
     <div className={styles.signInPageWrapper}>
       <form className={styles.formWrapper} onSubmit={handleSubmit(onSubmit)}>
+        {errorMessage && (
+          <div className={styles.errorMessageCell} role="alert">
+            <p>{errorMessage}</p>
+          </div>
+        )}
         <div className={styles.headerCell}>
           <h2>STUDENT SIGN IN</h2>
         </div>

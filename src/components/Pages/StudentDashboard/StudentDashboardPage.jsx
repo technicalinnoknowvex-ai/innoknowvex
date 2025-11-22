@@ -8,12 +8,13 @@ import {
   updateStudent,
   uploadStudentImage,
 } from "@/app/(backend)/api/student/student";
+import useUserSession from "@/hooks/useUserSession";
 
-const StudentInfoPage = () => {
+const StudentDashboardPage = ({ studentDetails }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [studentId, setStudentId] = useState("STU001");
+  const { session, isSessionLoading } = useUserSession();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -39,11 +40,17 @@ const StudentInfoPage = () => {
   });
   const [newCourse, setNewCourse] = useState("");
 
-  useEffect(() => {
-    fetchStudentData();
-  }, [studentId]);
-
   const fetchStudentData = async () => {
+    if (isSessionLoading) return;
+
+    if (!session?.user_id) {
+      console.error("No session or user_id found");
+      setLoading(false);
+      return;
+    }
+
+    const studentId = session.user_id;
+
     try {
       setLoading(true);
       const result = await getStudent(studentId);
@@ -64,7 +71,6 @@ const StudentInfoPage = () => {
         }
       } else {
         console.error("Failed to fetch student data:", result.error);
-        alert("Failed to load profile data");
       }
     } catch (error) {
       console.error("Error fetching student data:", error);
@@ -73,6 +79,10 @@ const StudentInfoPage = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchStudentData();
+  }, [session, isSessionLoading]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -174,6 +184,13 @@ const StudentInfoPage = () => {
       return;
     }
 
+    if (!session?.user_id) {
+      alert("Session expired. Please log in again.");
+      return;
+    }
+
+    const studentId = session.user_id;
+
     try {
       setSaving(true);
 
@@ -238,7 +255,7 @@ const StudentInfoPage = () => {
     }
   };
 
-  if (loading) {
+  if (isSessionLoading || loading) {
     return (
       <div className={style.main}>
         <div className={style.personalInfoContainer}>
@@ -251,11 +268,21 @@ const StudentInfoPage = () => {
     );
   }
 
+  if (!session?.user_id) {
+    return (
+      <div className={style.main}>
+        <div className={style.personalInfoContainer}>
+          <p>No session found. Please log in.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={style.main}>
       <div className={style.personalInfoContainer}>
         <div className={style.formHeader}>
-          <h2 className={style.formTitle}>Student Information</h2>
+          <h2 className={style.formTitle}>STUDENT INFORMATION</h2>
           {isEditing && (
             <button
               className={style.cancelEditBtn}
@@ -268,7 +295,7 @@ const StudentInfoPage = () => {
           )}
         </div>
 
-        <form onSubmit={handleSave}>
+        <form onSubmit={handleSave} className={style.formWrapper}>
           <div className={style.profileHeader}>
             <div className={style.profileImageWrapper}>
               <Image
@@ -292,7 +319,7 @@ const StudentInfoPage = () => {
             </div>
 
             <div className={style.userDetails}>
-              <p className={style.userName}>{formData.name}</p>
+              <p className={style.userName}>{formData.name || "Student Name"}</p>
               <div className={style.line}></div>
               <p className={style.userRole}>Student</p>
               {!isEditing && (
@@ -302,70 +329,64 @@ const StudentInfoPage = () => {
                   onClick={handleEditToggle}
                 >
                   <Icon icon="lucide:edit" />
-                  Edit
+                  Edit Profile
                 </button>
               )}
             </div>
           </div>
 
           <div className={style.userInfoFields}>
-            <div className={style.upperFields}>
-              <div className={style.fieldGroup}>
-                <label htmlFor="name">Name *</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  disabled={!isEditing}
-                  required
-                />
-              </div>
+            <fieldset className={`${style.fieldSet} ${style.nameField}`}>
+              <span>FULL NAME *</span>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                disabled={!isEditing}
+                placeholder="Enter your full name"
+                required
+              />
+            </fieldset>
 
-              <div className={style.fieldGroup}>
-                <label htmlFor="email">Email *</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  disabled={!isEditing}
-                  required
-                />
-              </div>
-            </div>
+            <fieldset className={`${style.fieldSet} ${style.emailField}`}>
+              <span>EMAIL ADDRESS *</span>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                disabled={!isEditing}
+                placeholder="Enter your email"
+                required
+              />
+            </fieldset>
 
-            <div className={style.lowerFields}>
-              <div className={style.fieldGroup}>
-                <label htmlFor="dob">Date of Birth</label>
-                <input
-                  type="date"
-                  id="dob"
-                  name="dob"
-                  value={formData.dob}
-                  onChange={handleInputChange}
-                  disabled={!isEditing}
-                />
-              </div>
+            <fieldset className={`${style.fieldSet} ${style.dobField}`}>
+              <span>DATE OF BIRTH</span>
+              <input
+                type="date"
+                name="dob"
+                value={formData.dob}
+                onChange={handleInputChange}
+                disabled={!isEditing}
+              />
+            </fieldset>
 
-              <div className={style.fieldGroup}>
-                <label htmlFor="uniqueId">Student ID</label>
-                <input
-                  type="text"
-                  id="uniqueId"
-                  name="uniqueId"
-                  value={formData.uniqueId}
-                  disabled={true}
-                  readOnly
-                />
-              </div>
-            </div>
+            <fieldset className={`${style.fieldSet} ${style.idField}`}>
+              <span>STUDENT ID</span>
+              <input
+                type="text"
+                name="uniqueId"
+                value={formData.uniqueId}
+                disabled={true}
+                readOnly
+              />
+            </fieldset>
           </div>
 
           <div className={style.sectionContainer}>
-            <h3 className={style.sectionTitle}>Skills</h3>
+            <h3 className={style.sectionTitle}>SKILLS</h3>
             <div className={style.tagsContainer}>
               {formData.skills.map((skill, index) => (
                 <div key={index} className={style.tag}>
@@ -410,7 +431,7 @@ const StudentInfoPage = () => {
           </div>
 
           <div className={style.sectionContainer}>
-            <h3 className={style.sectionTitle}>Projects</h3>
+            <h3 className={style.sectionTitle}>PROJECTS</h3>
             <div className={style.projectsContainer}>
               {formData.projects.map((project, index) => (
                 <div key={index} className={style.projectCard}>
@@ -492,7 +513,7 @@ const StudentInfoPage = () => {
           </div>
 
           <div className={style.sectionContainer}>
-            <h3 className={style.sectionTitle}>Courses Enrolled</h3>
+            <h3 className={style.sectionTitle}>COURSES ENROLLED</h3>
             <div className={style.tagsContainer}>
               {formData.coursesEnrolled.map((course, index) => (
                 <div key={index} className={style.tag}>
@@ -545,12 +566,12 @@ const StudentInfoPage = () => {
                       icon="lucide:loader-2"
                       className={style.buttonSpinner}
                     />
-                    Saving...
+                    SAVING...
                   </>
                 ) : (
                   <>
                     <Icon icon="lucide:save" />
-                    Save Changes
+                    SAVE CHANGES
                   </>
                 )}
               </button>
@@ -562,4 +583,4 @@ const StudentInfoPage = () => {
   );
 };
 
-export default StudentInfoPage;
+export default StudentDashboardPage;
