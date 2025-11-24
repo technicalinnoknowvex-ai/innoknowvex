@@ -183,6 +183,10 @@ const Navbar = () => {
   const { session, isSessionLoading } = useUserSession();
   const studentId = session?.user_id;
 
+    const handleSignInClick = () => {
+    router.push("/auth/student/sign-in");
+  };
+
   const getUserInitials = (fullname) => {
     if (!fullname) return "U";
     const names = fullname.trim().split(" ");
@@ -842,6 +846,31 @@ const Navbar = () => {
                 ) : null}
               </React.Fragment>
             ))}
+            {/* SIGN IN BUTTON - Only show when user is NOT logged in */}
+{!isSessionLoading && !session && (
+  <div className={styles.signInWrapper}>
+    <button
+      className={styles.signInButton}
+      onClick={handleSignInClick}
+    >
+      <span>Sign In</span>
+      <Icon icon="lucide:log-in" width="16" height="16" />
+    </button>
+  </div>
+)}
+
+{/* Mobile Sign In Button
+{!isSessionLoading && !session && (
+  <li className={styles.navItem}>
+    <Link
+      href="/auth/student/signin"
+      className={styles.navLink}
+      onClick={() => setIsOpen(false)}
+    >
+      Sign In
+    </Link>
+  </li>
+)} */}
             {/* User Profile Badge */}
             {!isSessionLoading && session && (
               <div className={styles.profileBadgeWrapper}>
@@ -993,6 +1022,7 @@ const Navbar = () => {
                   </ul>
                 )}
               </li>
+              
             );
           })}
         </ul>
