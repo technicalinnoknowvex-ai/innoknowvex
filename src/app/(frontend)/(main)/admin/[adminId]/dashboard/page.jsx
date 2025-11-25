@@ -1,10 +1,5 @@
-import AdminDashboardPage from '@/components/Pages/AdminDashboard/AdminDashboardPage'
-import React from 'react'
+import PersonalInfoPage from '@/components/Pages/AdminDashboard/pages/PersonalInfo/PersonalInfoPage';
 
-const page = () => {
-  return (
-    <AdminDashboardPage/>
-  )
+export default function DashboardPage() {
+  return <PersonalInfoPage />;
 }
-
-export default page

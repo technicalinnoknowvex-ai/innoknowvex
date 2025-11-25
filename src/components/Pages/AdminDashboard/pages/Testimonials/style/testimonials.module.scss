@@ -2,7 +2,7 @@
 @use "../../../../../../styles/index" as *;
 
 .main {
-  margin-top: 8rem;
+  margin-top: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -20,8 +20,12 @@
 
 .testimonialInfoContent {
   height: auto;
-  min-height: 75vh;
-  width: 80%;
+  height: auto;
+  max-height: 85vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+  background-color: #faf7e9;
   border: 2px solid #A69600;
   border-radius: 20px;
   padding: 30px 20px;
@@ -35,12 +39,31 @@
   
   // 1025-1280
   @include screen(lg){
-    max-width: 70%;
+    max-width: 100%;
   }
 
   @include screen(md){
-    width: 70%;
+    width: 100%;
     border: 2px solid #A69600;
+  }
+
+  /* Custom scrollbar styling to match other admin panels */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1edd8;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #A69600;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #8d7a00;
   }
 
   @include m.tablet-down {
@@ -771,4 +794,11 @@
 
 .cardsWrapper {
   scroll-behavior: smooth;
+}
+
+/* Page wrapper used by components to fill remaining width */
+.pageInner {
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
 }

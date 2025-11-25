@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import style from "./style/coursesinfo.module.scss";
-import SideNavigation from "../../SideNavigation/SideNavigation";
 import Image from "next/image";
 import {
   getPrograms,
@@ -373,9 +372,8 @@ const CoursesInfoPage = () => {
 
   return (
     <>
-      <div className={style.main}>
-        <SideNavigation />
-        <div className={style.coursesInfoContent}>
+      <div className={style.pageInner}>
+      <div className={style.coursesInfoContent}>
           {!editMode && (
             <div className={style.figures}>
               <p>Total Students: {totalStudents}</p>

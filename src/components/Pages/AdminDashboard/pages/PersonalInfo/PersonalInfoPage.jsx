@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import SideNavigation from "../../SideNavigation/SideNavigation";
 import style from "./style/personalinfo.module.scss";
 import Image from "next/image";
 import { Icon } from "@iconify/react/dist/iconify.js";
@@ -193,8 +192,7 @@ const PersonalInfoPage = () => {
 
   if (isSessionLoading || loading) {
     return (
-      <div className={style.main}>
-        <SideNavigation />
+      <div className={style.pageInner}>
         <div className={style.personalInfoContainer}>
           <div className={style.loadingContainer}>
             <Icon icon="lucide:loader-2" className={style.spinner} />
@@ -207,8 +205,7 @@ const PersonalInfoPage = () => {
 
   if (!session?.user_id) {
     return (
-      <div className={style.main}>
-        <SideNavigation />
+      <div className={style.pageInner}>
         <div className={style.personalInfoContainer}>
           <p>No session found. Please log in.</p>
         </div>
@@ -217,8 +214,7 @@ const PersonalInfoPage = () => {
   }
 
   return (
-    <div className={style.main}>
-      <SideNavigation />
+    <div className={style.pageInner}>
       <div className={style.personalInfoContainer}>
         <div className={style.formHeader}>
           <h2 className={style.formTitle}>Personal Information</h2>

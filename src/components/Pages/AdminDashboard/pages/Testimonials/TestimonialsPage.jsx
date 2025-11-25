@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import style from "./style/testimonials.module.scss";
-import SideNavigation from "../../SideNavigation/SideNavigation";
 import {
   getTestimonials,
   createTestimonial,
@@ -267,8 +266,8 @@ const TestimonialsPage = () => {
   return (
     <>
       <div className={style.main}>
-        <SideNavigation />
-        <div className={style.testimonialInfoContent}>
+        <div className={style.pageInner}>
+          <div className={style.testimonialInfoContent}>
           <div className={style.formHeader}>
             <h2 className={style.formTitle}>
               {editMode ? "Edit Testimonial" : "Create New Testimonial"}
@@ -561,6 +560,7 @@ const TestimonialsPage = () => {
                 </div>
               </div>
             )}
+          </div>
           </div>
         </div>
       </div>

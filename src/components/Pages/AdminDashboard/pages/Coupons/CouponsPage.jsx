@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import style from "./style/coupons.module.scss";
-import SideNavigation from "../../SideNavigation/SideNavigation";
 import {
   getCoupons,
   createCoupon,
@@ -421,10 +420,8 @@ const CouponsPage = () => {
   const translateX = -(currentIndex * (cardWidth + gap));
 
   return (
-    <>
-      <div className={style.main}>
-        <SideNavigation />
-        <div className={style.couponsInfoContent}>
+    <div className={style.pageInner}>
+      <div className={style.couponsInfoContent}>
           <div className={style.formHeader}>
             <h2 className={style.formTitle}>
               {editMode ? "Edit Coupon" : "Create New Coupon"}
@@ -901,9 +898,8 @@ const CouponsPage = () => {
               </div>
             )}
           </div>
-        </div>
       </div>
-    </>
+    </div>
   );
 };
 

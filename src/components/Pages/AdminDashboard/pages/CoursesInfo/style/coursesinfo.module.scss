@@ -23,7 +23,10 @@
 .coursesInfoContent {
   height: auto;
   min-height: 75vh;
-  width: 80%;
+  width: 100%;
+  max-height: calc(100vh - 8rem);
+  overflow-y: auto;
+  overflow-x: hidden;
   border: 2px solid #A69600;
   border-radius: 20px;
   padding: 30px 20px;
@@ -35,11 +38,11 @@
   }
 
   @include screen(lg) {
-    max-width: 70%;
+    max-width: 100%;
   }
 
   @include screen(md) {
-    width: 70%;
+    width: 100%;
     border: 2px solid #A69600;
   }
 
@@ -875,4 +878,11 @@
 
 .cardsWrapper {
   scroll-behavior: smooth;
+}
+
+/* Page wrapper used by components to fill remaining width */
+.pageInner {
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
 }

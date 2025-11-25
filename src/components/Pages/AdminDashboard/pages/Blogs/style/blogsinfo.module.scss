@@ -10,51 +10,43 @@
   align-items: flex-start;
   gap: 20px;
   padding: 0 20px;
-  // padding-left: 60px;
   margin-bottom: 4rem;
   padding-bottom: 200px;
 
-  // Tablet and smaller: stack elements (SideNavigation and blogsInfoContent)
   @include tablet-down {
     flex-direction: column;
     align-items: center;
   }
 }
-
 // Blog management content area
 .blogsInfoContent {
   height: auto;
   min-height: 75vh;
-  width: 80%;
+  width: 100%;
+  max-height: calc(100vh - 8rem);
+  overflow-y: auto;
+  overflow-x: hidden;
   border: 2px solid #A69600;
   border-radius: 20px;
-  padding: 30px 20px ;
+  padding: 30px 20px;
   box-sizing: border-box;
 
-
-  // 1440-1281
-  @include screen(xl){
+  @include screen(xl) {
     max-width: 100%;
     padding: 10px;
   }
- // 1025-1280
-  @include screen(lg){
-    max-width: 70%;
-  }
-  // @include large-tablet-down{
-  //   max-width: 100%;
-  //   padding-left: 20px;
-  //   padding-right: 20px;
-  //   margin-right: 0; 
-  // }
 
-  @include screen(md){
-    width: 70%;
-    border:2px solid #A69600;
+  @include screen(lg) {
+    max-width: 100%;
   }
-  
+
+  @include screen(md) {
+    width: 100%;
+    border: 2px solid #A69600;
+  }
+
   @include tablet-down {
-    max-width: 100%; // Takes full width of the main container
+    max-width: 100%;
     padding: 20px;
     margin-right: 0;
   }
@@ -806,4 +798,11 @@
 
 .cardsWrapper {
   scroll-behavior: smooth;
+}
+
+/* Page wrapper used by components to fill remaining width */
+.pageInner {
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
 }

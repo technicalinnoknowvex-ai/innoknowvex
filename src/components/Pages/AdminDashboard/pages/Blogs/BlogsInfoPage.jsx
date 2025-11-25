@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import style from "./style/blogsinfo.module.scss";
-import SideNavigation from "../../SideNavigation/SideNavigation";
+// SideNavigation is provided by the dashboard layout; remove duplicated import
 import {
   getBlogs,
   createBlog,
@@ -259,8 +259,7 @@ const BlogsInfoPage = () => {
 
   return (
     <>
-      <div className={style.main}>
-        <SideNavigation />
+      <div className={style.pageInner}>
         <div className={style.blogsInfoContent}>
           <div className={style.formHeader}>
             <h2 className={style.formTitle}>
@@ -292,7 +291,6 @@ const BlogsInfoPage = () => {
                   required
                 />
               </div>
-
               <div className={style.inputField}>
                 <label htmlFor="link">Blog Link *</label>
                 <input
@@ -305,11 +303,9 @@ const BlogsInfoPage = () => {
                   required
                 />
               </div>
-
               <div className={style.inputField}>
                 <label htmlFor="image">
-                  Upload Image *{" "}
-                  {editMode && "(Leave empty to keep current image)"}
+                  Upload Image * {editMode && "(Leave empty to keep current image)"}
                 </label>
                 <input
                   type="file"
@@ -320,11 +316,7 @@ const BlogsInfoPage = () => {
                 />
                 {imagePreview && (
                   <div className={style.imagePreviewContainer}>
-                    <img
-                      src={imagePreview}
-                      alt="Preview"
-                      className={style.imagePreview}
-                    />
+                    <img src={imagePreview} alt="Preview" className={style.imagePreview} />
                     <button
                       type="button"
                       className={style.removeImageBtn}
@@ -341,7 +333,6 @@ const BlogsInfoPage = () => {
                   </div>
                 )}
               </div>
-
               <div className={`${style.inputField} ${style.fullWidth}`}>
                 <label htmlFor="description">Description *</label>
                 <textarea
@@ -353,15 +344,11 @@ const BlogsInfoPage = () => {
                   onChange={handleInputChange}
                   required
                 />
-
                 <div className={style.submitButton}>
                   <button type="submit" disabled={submitting}>
                     {submitting ? (
                       <>
-                        <Icon
-                          icon="lucide:loader-2"
-                          className={style.buttonSpinner}
-                        />
+                        <Icon icon="lucide:loader-2" className={style.buttonSpinner} />
                         {editMode ? "Updating..." : "Creating..."}
                       </>
                     ) : (
@@ -381,7 +368,6 @@ const BlogsInfoPage = () => {
             <h2 className={style.sectionTitle}>
               All Blogs {blogsData.length > 0 && `(${blogsData.length})`}
             </h2>
-
             {loading ? (
               <div className={style.loadingState}>
                 <Icon icon="lucide:loader-2" className={style.spinner} />
@@ -391,9 +377,7 @@ const BlogsInfoPage = () => {
               <div className={style.emptyState}>
                 <Icon icon="lucide:inbox" className={style.emptyIcon} />
                 <p>No blogs available</p>
-                <p className={style.emptySubtext}>
-                  Create your first blog to get started!
-                </p>
+                <p className={style.emptySubtext}>Create your first blog to get started!</p>
               </div>
             ) : (
               <div className={style.carouselContainer} ref={containerRef}>
@@ -405,10 +389,7 @@ const BlogsInfoPage = () => {
                       disabled={currentIndex === 0}
                       aria-label="Previous blogs"
                     >
-                      <Icon
-                        icon="famicons:chevron-back"
-                        style={{ width: "24px", height: "24px" }}
-                      />
+                      <Icon icon="famicons:chevron-back" style={{ width: "24px", height: "24px" }} />
                     </button>
                     <button
                       className={`${style.navButton} ${style.navButtonRight}`}
@@ -416,97 +397,30 @@ const BlogsInfoPage = () => {
                       disabled={currentIndex >= maxIndex}
                       aria-label="Next blogs"
                     >
-                      <Icon
-                        icon="famicons:chevron-forward"
-                        style={{ width: "24px", height: "24px" }}
-                      />
+                      <Icon icon="famicons:chevron-forward" style={{ width: "24px", height: "24px" }} />
                     </button>
                   </>
                 )}
                 <div className={style.cardsContainer}>
-                  <div
-                    className={style.cardsWrapper}
-                    style={{
-                      transform: `translateX(${translateX}px)`,
-                      gap: `${gap}px`,
-                    }}
-                  >
+                  <div className={style.cardsWrapper} style={{ transform: `translateX(${translateX}px)`, gap: `${gap}px` }}>
                     {blogsData.map((blog) => (
-                      <div
-                        key={blog.id}
-                        className={`${style.blogCardAdmin} ${
-                          editingBlogId === blog.id ? style.editing : ""
-                        }`}
-                      >
+                      <div key={blog.id} className={`${style.blogCardAdmin} ${editingBlogId === blog.id ? style.editing : ""}`}>
                         <div className={style.imageWrapper}>
-                          <img
-                            src={blog.image}
-                            alt={blog.title}
-                            className={style.blogImageAdmin}
-                            loading="lazy"
-                            onError={(e) => {
-                              e.target.src =
-                                "https://via.placeholder.com/400x200?text=Image+Not+Found";
-                            }}
-                          />
+                          <img src={blog.image} alt={blog.title} className={style.blogImageAdmin} loading="lazy" onError={(e) => { e.target.src = "https://via.placeholder.com/400x200?text=Image+Not+Found"; }} />
                           <div className={style.cardActions}>
-                            <button
-                              className={style.actionBtn}
-                              onClick={() => handleEdit(blog)}
-                              title="Edit"
-                              aria-label="Edit blog"
-                            >
-                              <Icon icon="lucide:edit" />
-                            </button>
-                            <button
-                              className={`${style.actionBtn} ${style.deleteBtn}`}
-                              onClick={() => handleDelete(blog.id)}
-                              title="Delete"
-                              aria-label="Delete blog"
-                            >
-                              <Icon icon="lucide:trash-2" />
-                            </button>
+                            <button className={style.actionBtn} onClick={() => handleEdit(blog)} title="Edit" aria-label="Edit blog"><Icon icon="lucide:edit" /></button>
+                            <button className={`${style.actionBtn} ${style.deleteBtn}`} onClick={() => handleDelete(blog.id)} title="Delete" aria-label="Delete blog"><Icon icon="lucide:trash-2" /></button>
                           </div>
                           {editingBlogId === blog.id && (
-                            <div className={style.editingBadge}>
-                              <Icon icon="lucide:edit-3" />
-                              Editing
-                            </div>
+                            <div className={style.editingBadge}><Icon icon="lucide:edit-3" />Editing</div>
                           )}
                         </div>
-
                         <div className={style.cardContentAdmin}>
-                          <div className={style.cardMeta}>
-                            <span className={style.dateTag}>
-                              {blog.date
-                                ? new Date(blog.date).toLocaleDateString(
-                                    "en-US",
-                                    {
-                                      year: "numeric",
-                                      month: "short",
-                                      day: "numeric",
-                                    }
-                                  )
-                                : "No Date"}
-                            </span>
-                          </div>
-
+                          <div className={style.cardMeta}><span className={style.dateTag}>{blog.date ? new Date(blog.date).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }) : "No Date"}</span></div>
                           <h3 className={style.blogTitleAdmin}>{blog.title}</h3>
-
-                          <p className={style.blogDescriptionAdmin}>
-                            {truncateText(blog.description, 120)}
-                          </p>
-
+                          <p className={style.blogDescriptionAdmin}>{truncateText(blog.description, 120)}</p>
                           {blog.link && blog.link !== "#" && (
-                            <a
-                              href={blog.link}
-                              className={style.linkPreview}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <Icon icon="lucide:external-link" />
-                              View Article
-                            </a>
+                            <a href={blog.link} className={style.linkPreview} target="_blank" rel="noopener noreferrer"><Icon icon="lucide:external-link" />View Article</a>
                           )}
                         </div>
                       </div>

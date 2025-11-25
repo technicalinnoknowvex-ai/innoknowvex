@@ -23,7 +23,7 @@
 .couponsInfoContent {
   height: auto;
   min-height: 75vh;
-  width: 80%;
+  width: 100%;
   border: 2px solid #A69600;
   border-radius: 20px;
   padding: 30px 20px;
@@ -37,11 +37,11 @@
 
   // 1025-1280
   @include screen(lg) {
-    max-width: 70%;
+    max-width: 100%;
   }
 
   @include screen(md) {
-    width: 70%;
+    width: 100%;
     border: 2px solid #A69600;
   }
 
@@ -968,4 +968,11 @@
   font-size: 14px;
   @include m.font($font-oldschool, $book, #262C35);
   line-height: 1.4;
+}
+
+/* Page wrapper used by components to fill remaining width */
+.pageInner {
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
 }
