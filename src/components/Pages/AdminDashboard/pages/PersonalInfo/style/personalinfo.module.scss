@@ -20,13 +20,34 @@
 
 .personalInfoContainer {
   height: auto;
-  min-height: 75vh;
+  max-height: 85vh;
+  overflow-y: auto;
+  overflow-x: hidden;
   width: 80%;
   border: 2px solid #A69600;
   border-radius: 20px;
   padding: 30px 20px;
   box-sizing: border-box;
   background-color: #faf7e9;
+
+  /* Custom scrollbar styling */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1edd8;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #A69600;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #8d7a00;
+  }
 
   @include screen(xl) {
     max-width: 100%;
@@ -43,6 +64,7 @@
 
   @include m.tablet-down {
     max-width: 100%;
+    max-height: 80vh;
     padding: 20px;
     margin-right: 0;
   }
@@ -50,6 +72,7 @@
   @include m.mobile-down {
     padding: 15px;
     border-radius: 15px;
+    max-height: 75vh;
   }
 }
 
@@ -415,6 +438,27 @@
 }
 
 .buttonSpinner {
+  animation: spin 1s linear infinite;
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  gap: 16px;
+
+  p {
+    @include m.font($font-sharp-20, $medium, #262C35);
+    font-size: 16px;
+  }
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  color: #A69600;
   animation: spin 1s linear infinite;
 }
 

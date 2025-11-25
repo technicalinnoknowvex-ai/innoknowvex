@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import SideNavigation from "../../SideNavigation/SideNavigation";
 import style from "./style/personalinfo.module.scss";
 import Image from "next/image";
@@ -9,12 +10,14 @@ import {
   updateAdmin,
   uploadAdminImage,
 } from "@/app/(backend)/api/admin/admin";
+import useUserSession from "@/hooks/useUserSession";
 
 const PersonalInfoPage = () => {
+  const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [adminId, setAdminId] = useState("EMP001");
+  const { session, isSessionLoading } = useUserSession();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -24,16 +27,22 @@ const PersonalInfoPage = () => {
   });
 
   const [profileImage, setProfileImage] = useState(
-    "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/anime-3083036_1280.jpg"
+    "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/Profile%20Images/images.jpg"
   );
   const [imagePreview, setImagePreview] = useState("");
   const [selectedImageFile, setSelectedImageFile] = useState(null);
 
-  useEffect(() => {
-    fetchAdminData();
-  }, [adminId]);
-
   const fetchAdminData = async () => {
+    if (isSessionLoading) return;
+
+    if (!session?.user_id) {
+      console.error("No session or user_id found");
+      setLoading(false);
+      return;
+    }
+
+    const adminId = session.user_id;
+
     try {
       setLoading(true);
       console.log("Fetching admin data for ID:", adminId);
@@ -67,6 +76,10 @@ const PersonalInfoPage = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchAdminData();
+  }, [session, isSessionLoading]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -109,6 +122,13 @@ const PersonalInfoPage = () => {
       alert("Please fill in all required fields");
       return;
     }
+
+    if (!session?.user_id) {
+      alert("Session expired. Please log in again.");
+      return;
+    }
+
+    const adminId = session.user_id;
 
     try {
       setSaving(true);
@@ -171,7 +191,7 @@ const PersonalInfoPage = () => {
     }
   };
 
-  if (loading) {
+  if (isSessionLoading || loading) {
     return (
       <div className={style.main}>
         <SideNavigation />
@@ -180,6 +200,17 @@ const PersonalInfoPage = () => {
             <Icon icon="lucide:loader-2" className={style.spinner} />
             <p>Loading profile...</p>
           </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!session?.user_id) {
+    return (
+      <div className={style.main}>
+        <SideNavigation />
+        <div className={style.personalInfoContainer}>
+          <p>No session found. Please log in.</p>
         </div>
       </div>
     );

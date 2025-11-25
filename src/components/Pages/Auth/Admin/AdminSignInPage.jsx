@@ -48,11 +48,16 @@ const AdminSignInPage = () => {
 
       // Step 2: Attempt sign in only if validation passed
       const result = await adminSignIn(data);
+      console.log("Sign-in result:", result);
 
-      // Step 3: Redirect to original page or default admin dashboard
-      const redirectPath = redirect || "/admin/dashboard";
-      router.push(redirectPath);
-      router.refresh();
+      if (result.success && result.userId) {
+        // Step 3: Redirect to dashboard using the userId from sign-in result
+        const redirectPath = redirect || `/admin/${result.userId}/dashboard`;
+        router.push(redirectPath);
+        router.refresh();
+      } else {
+        setErrorMessage(result.error || "Sign in failed. Please try again.");
+      }
     } catch (error) {
       setErrorMessage(error.message || "Sign in failed. Please try again.");
     }

@@ -1,4 +1,3 @@
-// app/api/admin/admin.js
 import { createClient } from '@supabase/supabase-js';
 
 // Initialize Supabase client
@@ -13,19 +12,17 @@ const supabase = createClient(
  * @returns {Promise<Object>} Admin data
  */
 export async function getAdmin(adminId) {
+  console.log("🚀 ~ adminId:", adminId);
   try {
     const { data, error } = await supabase
       .from('admin')
       .select('*')
       .eq('id', adminId)
-      .single();
+      .limit(1);
 
-    if (error) {
-      console.error('Supabase error:', error);
-      throw error;
-    }
-    
-    return { success: true, data };
+    if (error) throw error;
+
+    return { success: true, data: data && data.length > 0 ? data[0] : null };
   } catch (error) {
     console.error('Error fetching admin:', error);
     return { success: false, error: error.message, data: null };
@@ -43,10 +40,7 @@ export async function getAllAdmins() {
       .select('*')
       .order('name', { ascending: true });
 
-    if (error) {
-      console.error('Supabase error:', error);
-      throw error;
-    }
+    if (error) throw error;
     
     return { success: true, data };
   } catch (error) {
@@ -67,26 +61,23 @@ export async function getAllAdmins() {
  */
 export async function createAdmin(adminData) {
   try {
-    const insertData = {
-      id: adminData.id,
-      name: adminData.name,
-      email: adminData.email,
-      image: adminData.image || null,
-      dob: adminData.dob || null
-    };
-
     const { data, error } = await supabase
       .from('admin')
-      .insert([insertData])
+      .insert([
+        {
+          id: adminData.id,
+          name: adminData.name,
+          email: adminData.email,
+          image: adminData.image || null,
+          dob: adminData.dob || null
+        }
+      ])
       .select()
-      .single();
+      .limit(1);
 
-    if (error) {
-      console.error('Supabase error:', error);
-      throw error;
-    }
+    if (error) throw error;
     
-    return { success: true, data };
+    return { success: true, data: data && data.length > 0 ? data[0] : null };
   } catch (error) {
     console.error('Error creating admin:', error);
     return { success: false, error: error.message, data: null };
@@ -113,14 +104,11 @@ export async function updateAdmin(adminId, updates) {
       .update(updateData)
       .eq('id', adminId)
       .select()
-      .single();
+      .limit(1);
 
-    if (error) {
-      console.error('Supabase error:', error);
-      throw error;
-    }
+    if (error) throw error;
     
-    return { success: true, data };
+    return { success: true, data: data && data.length > 0 ? data[0] : null };
   } catch (error) {
     console.error('Error updating admin:', error);
     return { success: false, error: error.message, data: null };
@@ -139,10 +127,7 @@ export async function deleteAdmin(adminId) {
       .delete()
       .eq('id', adminId);
 
-    if (error) {
-      console.error('Supabase error:', error);
-      throw error;
-    }
+    if (error) throw error;
     
     return { success: true, message: 'Admin deleted successfully' };
   } catch (error) {
@@ -163,25 +148,20 @@ export async function uploadAdminImage(file, adminId) {
     const fileName = `${adminId}-${Date.now()}.${fileExt}`;
     const filePath = `admin-profiles/${fileName}`;
 
-    // Upload file
-    const { data: uploadData, error: uploadError } = await supabase.storage
+    const { error: uploadError } = await supabase.storage
       .from('admin-images')
       .upload(filePath, file, {
         cacheControl: '3600',
         upsert: false
       });
 
-    if (uploadError) {
-      console.error('Upload error:', uploadError);
-      throw uploadError;
-    }
+    if (uploadError) throw uploadError;
 
-    // Get public URL
-    const { data: urlData } = supabase.storage
+    const { data: { publicUrl } } = supabase.storage
       .from('admin-images')
       .getPublicUrl(filePath);
 
-    return { success: true, url: urlData.publicUrl };
+    return { success: true, url: publicUrl };
   } catch (error) {
     console.error('Error uploading image:', error);
     return { success: false, error: error.message, url: null };
