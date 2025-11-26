@@ -12,11 +12,41 @@
   padding: 0 20px;
   margin-bottom: 4rem;
   padding-bottom: 200px;
+  
 
   @include tablet-down {
     flex-direction: column;
     align-items: center;
   }
+}
+
+// Custom scrollbar styles for all scrollable containers
+.coursesInfoContent,
+.cardsContainer,
+.courseSelectorDropdown {
+  // Webkit browsers (Chrome, Safari, Edge)
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #FAF7E9;
+    border-radius: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #8d7a00;
+    border-radius: 6px;
+    border: 2px solid #FAF7E9;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #756300;
+  }
+
+  // Firefox
+  scrollbar-width: thin;
+  scrollbar-color: #8d7a00 #FAF7E9;
 }
 
 // Courses management content area
@@ -31,6 +61,7 @@
   border-radius: 20px;
   padding: 30px 20px;
   box-sizing: border-box;
+  background-color: #FAF7E9;
 
   @include screen(xl) {
     max-width: 100%;
@@ -50,11 +81,13 @@
     max-width: 100%;
     padding: 20px;
     margin-right: 0;
+    max-height: calc(100vh - 6rem);
   }
 
   @include mobile-down {
     padding: 15px;
     border-radius: 15px;
+    max-height: calc(100vh - 4rem);
   }
 }
 
@@ -653,6 +686,30 @@
   width: 100%;
   overflow: hidden;
   border-radius: 0;
+  overflow-x: auto; // Enable horizontal scrolling for carousel
+
+  // Custom scrollbar for horizontal scrolling in carousel
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #FAF7E9;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #8d7a00;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #756300;
+  }
+
+  // Firefox
+  scrollbar-width: thin;
+  scrollbar-color: #8d7a00 #FAF7E9;
 }
 
 .cardsWrapper {
@@ -878,6 +935,34 @@
 
 .cardsWrapper {
   scroll-behavior: smooth;
+}
+
+// Course Selection Styles
+.courseSelector {
+  position: relative;
+  width: 100%;
+}
+
+.courseSelectorDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-top: none;
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+  @include tablet-down {
+    max-height: 300px;
+  }
+
+  @include mobile-down {
+    max-height: 250px;
+  }
 }
 
 /* Page wrapper used by components to fill remaining width */

@@ -18,6 +18,35 @@
   }
 }
 
+// Custom scrollbar styles for all scrollable containers
+.personalInfoContainer,
+.cardsContainer,
+.courseSelectorDropdown {
+  // Webkit browsers (Chrome, Safari, Edge)
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #FAF7E9;
+    border-radius: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #8d7a00;
+    border-radius: 6px;
+    border: 2px solid #FAF7E9;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #756300;
+  }
+
+  // Firefox
+  scrollbar-width: thin;
+  scrollbar-color: #8d7a00 #FAF7E9;
+}
+
 .personalInfoContainer {
   height: auto;
   max-height: 85vh;
@@ -29,25 +58,6 @@
   padding: 30px 20px;
   box-sizing: border-box;
   background-color: #faf7e9;
-
-  /* Custom scrollbar styling */
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: #f1edd8;
-    border-radius: 10px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: #A69600;
-    border-radius: 10px;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: #8d7a00;
-  }
 
   @include screen(xl) {
     max-width: 100%;
@@ -468,6 +478,64 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+// Additional scrollable containers (for consistency)
+.cardsContainer {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0;
+  overflow-x: auto; // Enable horizontal scrolling for carousel
+
+  // Custom scrollbar for horizontal scrolling in carousel
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #FAF7E9;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #8d7a00;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #756300;
+  }
+
+  // Firefox
+  scrollbar-width: thin;
+  scrollbar-color: #8d7a00 #FAF7E9;
+}
+
+.courseSelector {
+  position: relative;
+  width: 100%;
+}
+
+.courseSelectorDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-top: none;
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+  @include m.tablet-down {
+    max-height: 300px;
+  }
+
+  @include m.mobile-down {
+    max-height: 250px;
   }
 }
 
