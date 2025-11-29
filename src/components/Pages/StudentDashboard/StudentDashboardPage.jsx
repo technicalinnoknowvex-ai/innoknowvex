@@ -27,7 +27,7 @@ const StudentDashboardPage = ({ studentDetails }) => {
   });
 
   const [profileImage, setProfileImage] = useState(
-    "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/anime-3083036_1280.jpg"
+    "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/Profile%20Images/images.jpg"
   );
   const [imagePreview, setImagePreview] = useState("");
   const [selectedImageFile, setSelectedImageFile] = useState(null);
@@ -60,7 +60,7 @@ const StudentDashboardPage = ({ studentDetails }) => {
           name: result.data.name || "",
           email: result.data.email || "",
           dob: result.data.dob || "",
-          uniqueId: result.data.id || "",
+          uniqueId: result.data.user_code || "",
           skills: result.data.skills || [],
           projects: result.data.projects || [],
           coursesEnrolled: result.data.courses_enrolled || [],
@@ -197,10 +197,11 @@ const StudentDashboardPage = ({ studentDetails }) => {
       let imageUrl = profileImage;
 
       if (selectedImageFile) {
-        const uploadResult = await uploadStudentImage(
-          selectedImageFile,
-          studentId
-        );
+       const uploadResult = await uploadStudentImage(
+  selectedImageFile,
+  studentId,
+  profileImage
+);
 
         if (uploadResult.success) {
           imageUrl = uploadResult.url;
@@ -413,9 +414,12 @@ const StudentDashboardPage = ({ studentDetails }) => {
                   placeholder="Add a skill"
                   value={newSkill}
                   onChange={(e) => setNewSkill(e.target.value)}
-                  onKeyPress={(e) =>
-                    e.key === "Enter" && (e.preventDefault(), addSkill())
-                  }
+                 onKeyPress={(e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    addSkill();
+  }
+}}
                   className={style.addInput}
                 />
                 <button
@@ -540,9 +544,12 @@ const StudentDashboardPage = ({ studentDetails }) => {
                   placeholder="Add a course"
                   value={newCourse}
                   onChange={(e) => setNewCourse(e.target.value)}
-                  onKeyPress={(e) =>
-                    e.key === "Enter" && (e.preventDefault(), addCourse())
-                  }
+                 onKeyPress={(e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    addCourse();
+  }
+}}
                   className={style.addInput}
                 />
                 <button

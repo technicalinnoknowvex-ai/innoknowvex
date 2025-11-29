@@ -1,14 +1,13 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import styles from "./styles/signUp.module.scss";
-import { ROLES } from "@/constants/roles";
-import { registerUser } from "@/services/auth/authServices";
+import { signUpWithEmail } from "@/lib/supabase";
 
-// Zod validation schema
 const signUpSchema = z
   .object({
     fullName: z
@@ -22,14 +21,7 @@ const signUpSchema = z
       .email("Please enter a valid email address"),
     password: z
       .string()
-      .min(8, "Password must be at least 8 characters")
-      .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
-      .regex(/[a-z]/, "Password must contain at least one lowercase letter")
-      .regex(/[0-9]/, "Password must contain at least one number")
-      .regex(
-        /[^A-Za-z0-9]/,
-        "Password must contain at least one special character"
-      ),
+      .min(6, "Password must be at least 6 characters"),
     confirmPassword: z.string().min(1, "Please confirm your password"),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -38,6 +30,10 @@ const signUpSchema = z
   });
 
 const AdminSignUpPage = () => {
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -49,27 +45,74 @@ const AdminSignUpPage = () => {
   });
 
   const onSubmit = async (data) => {
+    setErrorMessage("");
+    setSuccessMessage("");
+
     try {
-      const payload = {
-        name: data.fullName,
-        email: data.email,
-        password: data.password, // q48BPh3MeEHgKTd@
-        role: ROLES.ADMIN,
-      };
+      const redirectUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL || window.location.origin}/api/auth/callback`;
+      
+      console.log('🔵 ADMIN SIGNUP CHECKPOINT 1: Starting signup process');
+      console.log('🔵 ADMIN SIGNUP CHECKPOINT 2: Redirect URL:', redirectUrl);
 
-      await registerUser(payload);
+      const result = await signUpWithEmail(
+        data.email,
+        data.password,
+        redirectUrl,
+        {
+          full_name: data.fullName,
+          user_type: 'admin',
+          role: 'admin'
+        }
+      );
 
-      alert("Sign up successful!");
-      reset();
+      console.log('🔵 ADMIN SIGNUP CHECKPOINT 3: Signup result:', result);
+
+      if (!result.success) {
+        throw new Error(result.error);
+      }
+
+      if (result.emailConfirmationRequired) {
+        console.log('🔵 ADMIN SIGNUP CHECKPOINT 4: Email confirmation required');
+        
+        setSuccessMessage(
+          `Registration successful! We've sent a verification email to ${data.email}. Please check your inbox and click the verification link. Note: Admin accounts require approval before you can access the system.`
+        );
+        
+        reset();
+
+        setTimeout(() => {
+          router.push('/auth/admin/sign-in');
+        }, 7000);
+      } else {
+        console.log('🔵 ADMIN SIGNUP CHECKPOINT 5: No email confirmation needed');
+        
+        setSuccessMessage("Registration successful! Redirecting...");
+        setTimeout(() => {
+          router.push('/admin/profile');
+        }, 2000);
+      }
+
     } catch (error) {
-      console.error("Sign up error:", error);
-      alert(error.message || "Sign up failed. Please try again.");
+      console.error("❌ Admin sign up error:", error);
+      setErrorMessage(error.message || "Sign up failed. Please try again.");
     }
   };
 
   return (
     <div className={styles.signUpPageWrapper}>
       <form className={styles.formWrapper} onSubmit={handleSubmit(onSubmit)}>
+        {errorMessage && (
+          <div className={styles.errorMessageCell} role="alert">
+            <p>{errorMessage}</p>
+          </div>
+        )}
+
+        {successMessage && (
+          <div className={styles.successMessageCell} role="alert">
+            <p>{successMessage}</p>
+          </div>
+        )}
+
         <div className={styles.headerCell}>
           <h2>ADMIN SIGNUP</h2>
         </div>
@@ -81,6 +124,7 @@ const AdminSignUpPage = () => {
             {...register("fullName")}
             placeholder="Enter your full name"
             autoComplete="name"
+            disabled={isSubmitting || !!successMessage}
           />
           <div className={styles.errorGroup}>
             {errors.fullName && <p>{errors.fullName.message}</p>}
@@ -94,6 +138,7 @@ const AdminSignUpPage = () => {
             {...register("email")}
             placeholder="Enter your email"
             autoComplete="email"
+            disabled={isSubmitting || !!successMessage}
           />
           <div className={styles.errorGroup}>
             {errors.email && <p>{errors.email.message}</p>}
@@ -105,8 +150,9 @@ const AdminSignUpPage = () => {
           <input
             type="password"
             {...register("password")}
-            placeholder="Create password"
+            placeholder="Create password (min. 6 characters)"
             autoComplete="new-password"
+            disabled={isSubmitting || !!successMessage}
           />
           <div className={styles.errorGroup}>
             {errors.password && <p>{errors.password.message}</p>}
@@ -122,6 +168,7 @@ const AdminSignUpPage = () => {
             {...register("confirmPassword")}
             placeholder="Confirm password"
             autoComplete="new-password"
+            disabled={isSubmitting || !!successMessage}
           />
           <div className={styles.errorGroup}>
             {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
@@ -132,7 +179,7 @@ const AdminSignUpPage = () => {
           <button
             type="submit"
             className={styles.submitButton}
-            disabled={isSubmitting}
+            disabled={isSubmitting || !!successMessage}
           >
             {isSubmitting ? "SIGNING UP..." : "SIGN UP"}
           </button>

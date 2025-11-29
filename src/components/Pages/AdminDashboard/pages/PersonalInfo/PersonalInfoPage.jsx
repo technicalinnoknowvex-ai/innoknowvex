@@ -22,7 +22,7 @@ const PersonalInfoPage = () => {
     name: "",
     email: "",
     dob: "",
-    companyId: "",
+    userCode: "", // ✅ Changed from companyId to userCode
   });
 
   const [profileImage, setProfileImage] = useState(
@@ -56,7 +56,7 @@ const PersonalInfoPage = () => {
           name: adminData.name || "",
           email: adminData.email || "",
           dob: adminData.dob || "",
-          companyId: adminData.id || "",
+          userCode: adminData.user_code || "", // ✅ Changed from id to user_code
         });
 
         if (adminData.image) {
@@ -93,6 +93,13 @@ const PersonalInfoPage = () => {
     if (file) {
       if (file.size > 5 * 1024 * 1024) {
         alert("Image size should be less than 5MB");
+        return;
+      }
+
+      // Validate file type
+      const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+      if (!validTypes.includes(file.type)) {
+        alert("Please upload a valid image file (JPEG, PNG, GIF, or WebP)");
         return;
       }
 
@@ -135,9 +142,14 @@ const PersonalInfoPage = () => {
 
       let imageUrl = profileImage;
 
+      // ✅ Upload new image and delete old one
       if (selectedImageFile) {
         console.log("Uploading new image...");
-        const uploadResult = await uploadAdminImage(selectedImageFile, adminId);
+        const uploadResult = await uploadAdminImage(
+          selectedImageFile,
+          adminId,
+          profileImage // ✅ Pass old image URL to delete it
+        );
         console.log("Upload result:", uploadResult);
 
         if (uploadResult.success && uploadResult.url) {
@@ -245,7 +257,7 @@ const PersonalInfoPage = () => {
                   <Icon icon="lucide:camera" />
                   <input
                     type="file"
-                    accept="image/*"
+                    accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
                     onChange={handleImageChange}
                     style={{ display: "none" }}
                   />
@@ -313,12 +325,13 @@ const PersonalInfoPage = () => {
               </div>
 
               <div className={style.fieldGroup}>
-                <label htmlFor="companyId">Company ID</label>
+                <label htmlFor="userCode">User Code</label> {/* ✅ Changed label */}
                 <input
                   type="text"
-                  id="companyId"
-                  name="companyId"
-                  value={formData.companyId}
+                  id="userCode" 
+                  
+                  name="userCode"
+                  value={formData.userCode} 
                   disabled={true}
                   readOnly
                 />

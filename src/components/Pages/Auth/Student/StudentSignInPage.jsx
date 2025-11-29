@@ -1,12 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import styles from "./styles/signIn.module.scss";
 import { studentSignIn, validateUserRole } from "@/actions/authActions";
+import styles from "./styles/signIn.module.scss";
 import { ROLES } from "@/constants/roles";
 
 const signInSchema = z.object({
@@ -18,9 +18,28 @@ const signInSchema = z.object({
 
 const StudentSignInPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect");
+
+  // Check for verification success message on component mount
+  useEffect(() => {
+    const verified = searchParams.get("verified");
+    const message = searchParams.get("message");
+    const error = searchParams.get("error");
+
+    if (verified === "true" && message) {
+      setSuccessMessage(decodeURIComponent(message));
+    } else if (error) {
+      const errorMsg = searchParams.get("message");
+      setErrorMessage(
+        errorMsg 
+          ? decodeURIComponent(errorMsg) 
+          : "Verification failed. Please try again."
+      );
+    }
+  }, [searchParams]);
 
   const {
     register,
@@ -32,89 +51,102 @@ const StudentSignInPage = () => {
   });
 
   const onSubmit = async (data) => {
-    setErrorMessage("");
+  setErrorMessage("");
+  setSuccessMessage("");
 
-    try {
-      // Step 1: Validate user exists and has correct role
-      const validation = await validateUserRole({
-        email: data.email,
-        expectedRole: ROLES.STUDENT,
-      });
+  try {
+    // ✅ FIXED: Sign in directly without pre-validation
+    const result = await studentSignIn(data);
 
-      if (!validation.isValid) {
-        setErrorMessage(validation.error);
-        return;
-      }
-
-      // Step 2: Attempt sign in only if validation passed
-      const result = await studentSignIn(data);
-
-      // Step 3: Redirect to original page or home
-      const redirectPath = redirect || "/";
-      router.push(redirectPath);
-      router.refresh();
-    } catch (error) {
-      setErrorMessage(error.message || "Sign in failed. Please try again.");
-    }
-  };
+    // Successful sign in - redirect to student dashboard
+    const redirectPath = redirect || `/student/${result.userId}/dashboard`;
+    router.push(redirectPath);
+    router.refresh();
+  } catch (error) {
+    setErrorMessage(error.message || "Sign in failed. Please try again.");
+  }
+};
 
   return (
-    <div className={styles.signInPageWrapper}>
-      <form className={styles.formWrapper} onSubmit={handleSubmit(onSubmit)}>
-        {errorMessage && (
-          <div className={styles.errorMessageCell} role="alert">
-            <p>{errorMessage}</p>
-          </div>
-        )}
-        <div className={styles.headerCell}>
-          <h2>STUDENT SIGN IN</h2>
-        </div>
+    <div className={styles.signInContainer}>
+      <div className={styles.signInCard}>
+        <form className={styles.signInForm} onSubmit={handleSubmit(onSubmit)}>
+          {successMessage && (
+            <div className={styles.successAlert} role="alert">
+              <span className={styles.successIcon}>✓</span>
+              <p className={styles.successText}>{successMessage}</p>
+            </div>
+          )}
 
-        <fieldset className={`${styles.fieldSet} ${styles.emailCell}`}>
-          <span>EMAIL ADDRESS</span>
-          <input
-            type="email"
-            {...register("email")}
-            placeholder="Enter your email"
-            autoComplete="email"
-          />
-          <div className={styles.errorGroup}>
-            {errors.email && <p>{errors.email.message}</p>}
+          {errorMessage && (
+            <div className={styles.errorAlert} role="alert">
+              <span className={styles.errorIcon}>!</span>
+              <p className={styles.errorText}>{errorMessage}</p>
+            </div>
+          )}
+          
+          <div className={styles.signInHeader}>
+            <h2 className={styles.signInTitle}>STUDENT SIGN IN</h2>
           </div>
-        </fieldset>
 
-        <fieldset className={`${styles.fieldSet} ${styles.passwordCell}`}>
-          <span>PASSWORD</span>
-          <input
-            type="password"
-            {...register("password")}
-            placeholder="Enter your password"
-            autoComplete="current-password"
-          />
-          <div className={styles.errorGroup}>
-            {errors.password && <p>{errors.password.message}</p>}
+          <div className={styles.formGroup}>
+            <label className={styles.formLabel}>EMAIL ADDRESS</label>
+            <input
+              type="email"
+              className={styles.formInput}
+              {...register("email")}
+              placeholder="Enter your email"
+              autoComplete="email"
+            />
+            <div className={styles.errorGroup}>
+              {errors.email && <p className={styles.errorText}>{errors.email.message}</p>}
+            </div>
           </div>
-        </fieldset>
 
-        <div className={styles.buttonCell}>
+          <div className={styles.formGroup}>
+            <label className={styles.formLabel}>PASSWORD</label>
+            <input
+              type="password"
+              className={styles.formInput}
+              {...register("password")}
+              placeholder="Enter your password"
+              autoComplete="current-password"
+            />
+            <div className={styles.errorGroup}>
+              {errors.password && <p className={styles.errorText}>{errors.password.message}</p>}
+            </div>
+            <div className={styles.forgotPasswordWrapper}>
+              <Link href="/auth/student/forgot-password" className={styles.forgotPasswordLink}>
+                Forgot Password?
+              </Link>
+            </div>
+          </div>
+
           <button
             type="submit"
-            className={styles.submitButton}
+            className={styles.submitBtn}
             disabled={isSubmitting}
           >
-            {isSubmitting ? "SIGNING IN..." : "SIGN IN"}
+            {isSubmitting ? (
+              <>
+                <span className={styles.spinner}></span>
+                SIGNING IN...
+              </>
+            ) : (
+              "SIGN IN"
+            )}
           </button>
-        </div>
 
-        <div className={styles.linkCell}>
-          <p className={styles.signUpPrompt}>
-            Don't have an account?{" "}
-            <Link href="/auth/student/sign-up" className={styles.signUpLink}>
-              Sign Up
-            </Link>
-          </p>
-        </div>
-      </form>
+          <div className={styles.signInFooter}>
+            <p className={styles.footerText}>
+              Don't have an account?{" "}
+              <Link href="/auth/student/sign-up" className={styles.footerLink}>
+                Sign Up
+              </Link>
+            </p>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

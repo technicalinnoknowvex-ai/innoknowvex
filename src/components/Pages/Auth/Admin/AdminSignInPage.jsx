@@ -1,12 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { adminSignIn } from "@/actions/authActions";
 import styles from "./styles/signIn.module.scss";
-import { adminSignIn, validateUserRole } from "@/actions/authActions";
 import { ROLES } from "@/constants/roles";
 
 const signInSchema = z.object({
@@ -18,9 +18,27 @@ const signInSchema = z.object({
 
 const AdminSignInPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect");
+
+  useEffect(() => {
+    const verified = searchParams.get("verified");
+    const message = searchParams.get("message");
+    const error = searchParams.get("error");
+
+    if (verified === "true" && message) {
+      setSuccessMessage(decodeURIComponent(message));
+    } else if (error) {
+      const errorMsg = searchParams.get("message");
+      setErrorMessage(
+        errorMsg 
+          ? decodeURIComponent(errorMsg) 
+          : "Verification failed. Please try again."
+      );
+    }
+  }, [searchParams]);
 
   const {
     register,
@@ -33,31 +51,14 @@ const AdminSignInPage = () => {
 
   const onSubmit = async (data) => {
     setErrorMessage("");
+    setSuccessMessage("");
 
     try {
-      // Step 1: Validate user exists and has correct role
-      const validation = await validateUserRole({
-        email: data.email,
-        expectedRole: ROLES.ADMIN,
-      });
-
-      if (!validation.isValid) {
-        setErrorMessage(validation.error);
-        return;
-      }
-
-      // Step 2: Attempt sign in only if validation passed
       const result = await adminSignIn(data);
-      console.log("Sign-in result:", result);
 
-      if (result.success && result.userId) {
-        // Step 3: Redirect to dashboard using the userId from sign-in result
-        const redirectPath = redirect || `/admin/${result.userId}/dashboard`;
-        router.push(redirectPath);
-        router.refresh();
-      } else {
-        setErrorMessage(result.error || "Sign in failed. Please try again.");
-      }
+      const redirectPath = redirect || `/admin/${result.userId}/dashboard`;
+      router.push(redirectPath);
+      router.refresh();
     } catch (error) {
       setErrorMessage(error.message || "Sign in failed. Please try again.");
     }
@@ -71,6 +72,13 @@ const AdminSignInPage = () => {
             <p>{errorMessage}</p>
           </div>
         )}
+
+        {successMessage && (
+          <div className={styles.successMessageCell} role="alert">
+            <p>{successMessage}</p>
+          </div>
+        )}
+        
         <div className={styles.headerCell}>
           <h2>ADMIN SIGN IN</h2>
         </div>
@@ -98,6 +106,11 @@ const AdminSignInPage = () => {
           />
           <div className={styles.errorGroup}>
             {errors.password && <p>{errors.password.message}</p>}
+          </div>
+          <div className={styles.forgotPasswordWrapper}>
+            <Link href="/auth/admin/forgot-password" className={styles.forgotPasswordLink}>
+              Forgot Password?
+            </Link>
           </div>
         </fieldset>
 

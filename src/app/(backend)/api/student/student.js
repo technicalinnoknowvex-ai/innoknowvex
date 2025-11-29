@@ -13,7 +13,7 @@ const supabase = createClient(
  * @returns {Promise<Object>} Student data
  */
 export async function getStudent(studentId) {
-  console.log("🚀 ~ studentIdffffffffffffffffffffff:", studentId);
+  console.log("🚀 ~ studentId:", studentId);
   try {
     const { data, error } = await supabase
       .from("student")
@@ -52,14 +52,6 @@ export async function getAllStudents() {
 /**
  * Create new student
  * @param {Object} studentData - Student information
- * @param {string} studentData.id - Student ID (required)
- * @param {string} studentData.name - Student name (required)
- * @param {string} studentData.email - Student email (required)
- * @param {string} studentData.image - Profile image URL (optional)
- * @param {string} studentData.dob - Date of birth (optional)
- * @param {Array} studentData.skills - Array of skills (optional)
- * @param {Array} studentData.projects - Array of project objects (optional)
- * @param {Array} studentData.courses_enrolled - Array of courses (optional)
  * @returns {Promise<Object>} Created student data
  */
 export async function createStudent(studentData) {
@@ -144,31 +136,105 @@ export async function deleteStudent(studentId) {
 }
 
 /**
+ * Delete old student profile image from Supabase Storage
+ * @param {string} imageUrl - The full image URL to delete
+ * @returns {Promise<Object>} Deletion result
+ */
+export async function deleteStudentImage(imageUrl) {
+  try {
+    if (!imageUrl) return { success: true };
+
+    // Don't delete the default placeholder image
+    if (imageUrl.includes('images.jpg')) {
+      console.log('Skipping deletion of default image');
+      return { success: true };
+    }
+
+    // Extract the file path from the URL
+    const bucketName = 'Innoknowvex website content';
+    const folderPath = 'Profile Images';
+    
+    // Try to extract filename from URL
+    const urlParts = imageUrl.split(`${folderPath}/`);
+    if (urlParts.length < 2) {
+      console.log('Invalid image URL format, skipping deletion');
+      return { success: true };
+    }
+
+    const fileName = decodeURIComponent(urlParts[1]);
+    const filePath = `${folderPath}/${fileName}`;
+    
+    console.log('Deleting image at path:', filePath);
+
+    const { error } = await supabase.storage
+      .from(bucketName)
+      .remove([filePath]);
+
+    if (error) {
+      console.error('Error deleting old image:', error);
+      return { success: false, error: error.message };
+    }
+
+    console.log('✅ Old image deleted successfully');
+    return { success: true };
+  } catch (error) {
+    console.error('Error in deleteStudentImage:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+/**
  * Upload student profile image to Supabase Storage
  * @param {File} file - Image file
  * @param {string} studentId - Student ID for filename
- * @returns {Promise<string>} Public URL of uploaded image
+ * @param {string} oldImageUrl - Old image URL to delete (optional)
+ * @returns {Promise<Object>} Upload result with public URL
  */
-export async function uploadStudentImage(file, studentId) {
+export async function uploadStudentImage(file, studentId, oldImageUrl = null) {
   try {
-    const fileExt = file.name.split(".").pop();
-    const fileName = `${studentId}-${Date.now()}.${fileExt}`;
-    const filePath = `student-profiles/${fileName}`;
+    console.log('Starting image upload process...');
+    console.log('Student ID:', studentId);
+    console.log('Old image URL:', oldImageUrl);
 
+    const bucketName = 'Innoknowvex website content';
+    const folderPath = 'Profile Images';
+
+    // Delete old image if it exists and it's not the default
+    if (oldImageUrl && !oldImageUrl.includes('images.jpg')) {
+      console.log('Deleting old image...');
+      await deleteStudentImage(oldImageUrl);
+    }
+
+    const fileExt = file.name.split('.').pop();
+    const fileName = `student_${studentId}.${fileExt}`;
+    const filePath = `${folderPath}/${fileName}`;
+
+    console.log('Uploading new image to:', filePath);
+
+    // Upload with upsert: true to replace if exists
     const { error: uploadError } = await supabase.storage
-      .from("student-images")
-      .upload(filePath, file);
+      .from(bucketName)
+      .upload(filePath, file, {
+        cacheControl: '3600',
+        upsert: true
+      });
 
-    if (uploadError) throw uploadError;
+    if (uploadError) {
+      console.error('Upload error:', uploadError);
+      throw uploadError;
+    }
 
-    const {
-      data: { publicUrl },
-    } = supabase.storage.from("student-images").getPublicUrl(filePath);
+    // Get public URL
+    const { data: { publicUrl } } = supabase.storage
+      .from(bucketName)
+      .getPublicUrl(filePath);
+
+    console.log('✅ Upload successful! Public URL:', publicUrl);
 
     return { success: true, url: publicUrl };
   } catch (error) {
-    console.error("Error uploading image:", error);
-    return { success: false, error: error.message };
+    console.error('Error uploading image:', error);
+    return { success: false, error: error.message, url: null };
   }
 }
 

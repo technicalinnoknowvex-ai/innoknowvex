@@ -5,13 +5,13 @@ import { ROLES } from "@/constants/roles";
 // Role-based configuration - everything in one place per role
 const ROLE_CONFIG = {
   [ROLES.ADMIN]: {
-    authPages: ["/auth/admin/sign-in", "/auth/admin/sign-up"],
+    authPages: ["/auth/admin/sign-in", "/auth/admin/sign-up", "/auth/admin/forgot-password"],
     protectedPages: ["/admin/*"],
     signInRedirect: "/auth/admin/sign-in",
     homeRedirect: "/",
   },
   [ROLES.STUDENT]: {
-    authPages: ["/auth/student/sign-in", "/auth/student/sign-up"],
+    authPages: ["/auth/student/sign-in", "/auth/student/sign-up", "/auth/student/forgot-password"],
     protectedPages: ["/student/*", "/choose-packs/*"],
     signInRedirect: "/auth/student/sign-in",
     homeRedirect: "/",
@@ -27,6 +27,15 @@ const PUBLIC_PAGES = [
   "/blogs/*",
   "/faq",
   "/pricing",
+];
+
+// Routes that should ALWAYS be skipped by middleware
+const SKIP_MIDDLEWARE = [
+  "/api/auth/callback",  // ← ADD THIS - Critical for email verification
+  "/api/*",              // Skip all API routes (optional but recommended)
+  "/_next/*",            // Next.js internals
+  "/favicon.ico",
+  "/static/*",
 ];
 
 // Helper function to check if a path matches any pattern
@@ -47,6 +56,13 @@ const getRoleConfig = (role) => {
 };
 
 export async function updateSession(request) {
+  const pathname = request.nextUrl.pathname;
+
+  // ✅ CRITICAL: Skip middleware for callback and API routes FIRST
+  if (matchesPattern(pathname, SKIP_MIDDLEWARE)) {
+    return NextResponse.next();
+  }
+
   let supabaseResponse = NextResponse.next({ request });
 
   const supabase = createServerClient(
@@ -74,7 +90,6 @@ export async function updateSession(request) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const pathname = request.nextUrl.pathname;
   const userRole = user?.user_metadata?.role;
   const roleConfig = getRoleConfig(userRole);
 
