@@ -1,12 +1,25 @@
 import { updateSession } from "@/utils/supabase/middleware";
+import { NextResponse } from 'next/server';
 
 export async function middleware(request) {
+  const { pathname } = request.nextUrl;
+
+  console.log('🛡️ [MIDDLEWARE] Request:', pathname);
+
   // Skip middleware for API routes
-  if (request.nextUrl.pathname.startsWith("/api/")) {
-    return;
+  if (pathname.startsWith("/api/")) {
+    console.log('⏭️ [MIDDLEWARE] Skipping API route');
+    return NextResponse.next();
   }
 
-  // update user's auth session
+  // 🔥 CRITICAL: Allow reset password pages without auth checks
+  if (pathname === '/auth/student/reset-password' || pathname === '/auth/admin/reset-password') {
+    console.log('✅ [MIDDLEWARE] Allowing reset password page - bypassing all auth');
+    return NextResponse.next();
+  }
+
+  // Update user's auth session for all other routes
+  console.log('🔄 [MIDDLEWARE] Updating session');
   return await updateSession(request);
 }
 

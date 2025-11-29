@@ -29,29 +29,42 @@ const StudentForgotPassword = () => {
   });
 
   const onSubmit = async (data) => {
+    console.log('🔄 [FORGOT] Form submitted');
+    console.log('📧 [FORGOT] Email:', data.email);
+    
     setErrorMessage("");
     setSuccessMessage("");
 
     try {
-      // Set the redirect URL for password reset
-      const redirectUrl = `${window.location.origin}/auth/student/reset-password`;
+      console.log('🔄 [FORGOT] Requesting password reset...');
+      const result = await requestPasswordReset(data.email);
       
-      // Request password reset email from Supabase
-      const result = await requestPasswordReset(data.email, redirectUrl);
-      
+      console.log('📝 [FORGOT] Result:', {
+        success: result.success,
+        message: result.message,
+        error: result.error
+      });
+
       if (!result.success) {
         throw new Error(result.error);
       }
       
+      console.log('✅ [FORGOT] Reset email sent successfully');
       setSuccessMessage(
         "Password reset link has been sent to your email. Please check your inbox and spam folder."
       );
       
-      // Redirect to sign-in after 5 seconds
+      console.log('⏱️ [FORGOT] Setting redirect timer...');
       setTimeout(() => {
+        console.log('🔄 [FORGOT] Redirecting to sign-in...');
         router.push("/auth/student/sign-in");
       }, 5000);
     } catch (error) {
+      console.error('❌ [FORGOT] Error:', error);
+      console.error('❌ [FORGOT] Error details:', {
+        message: error.message,
+        stack: error.stack
+      });
       setErrorMessage(
         error.message || "Failed to send reset link. Please try again."
       );

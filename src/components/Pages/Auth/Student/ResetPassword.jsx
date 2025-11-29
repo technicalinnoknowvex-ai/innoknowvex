@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
-import styles from "./styles/ResetPassword.module.scss";
-import { updatePassword } from "@/lib/supabase";
+import styles from "../forgot-password/styles/forgotPassword.module.scss";
+import { supabase, updatePassword, setSessionFromTokens } from "@/lib/supabase";
 
 const resetPasswordSchema = z.object({
   password: z
@@ -35,86 +35,192 @@ const StudentResetPassword = () => {
   });
 
   useEffect(() => {
-    // Check if we have a valid recovery token in the URL
-    const checkToken = () => {
-      if (typeof window === 'undefined') return;
+    const handlePasswordReset = async () => {
+      try {
+        console.log('🚀 [RESET PAGE] Component mounted');
+        console.log('🌐 [RESET PAGE] Current URL:', window.location.href);
+        console.log('🔗 [RESET PAGE] Hash:', window.location.hash);
+        console.log('🔗 [RESET PAGE] Search:', window.location.search);
+        console.log('🔗 [RESET PAGE] Pathname:', window.location.pathname);
 
-      const hashParams = new URLSearchParams(window.location.hash.substring(1));
-      const accessToken = hashParams.get('access_token');
-      const type = hashParams.get('type');
+        if (typeof window === 'undefined') {
+          console.log('⚠️ [RESET PAGE] Window is undefined');
+          return;
+        }
 
-      if (type === 'recovery' && accessToken) {
+        // Check for tokens in URL hash
+        const hashParams = new URLSearchParams(window.location.hash.substring(1));
+        const accessToken = hashParams.get('access_token');
+        const refreshToken = hashParams.get('refresh_token');
+        const type = hashParams.get('type');
+        const error = hashParams.get('error');
+        const errorDescription = hashParams.get('error_description');
+
+        console.log('🔍 [RESET PAGE] Hash parameters:', {
+          hasAccessToken: !!accessToken,
+          hasRefreshToken: !!refreshToken,
+          type,
+          error,
+          errorDescription,
+          accessTokenLength: accessToken?.length,
+          refreshTokenLength: refreshToken?.length
+        });
+
+        // Check if there's an error in the URL
+        if (error) {
+          console.error('❌ [RESET PAGE] Error in URL:', error, errorDescription);
+          setErrorMessage(errorDescription || error);
+          setValidToken(false);
+          setCheckingToken(false);
+          return;
+        }
+
+        // Validate token presence and type
+        if (!accessToken || type !== 'recovery') {
+          console.error('❌ [RESET PAGE] Invalid parameters:', {
+            hasAccessToken: !!accessToken,
+            type,
+            expectedType: 'recovery'
+          });
+          setErrorMessage('Invalid or missing reset token. Please request a new reset link.');
+          setValidToken(false);
+          setCheckingToken(false);
+          return;
+        }
+
+        console.log('✅ [RESET PAGE] Valid tokens found, setting session...');
+
+        // Set the session using the tokens
+        const result = await setSessionFromTokens(accessToken, refreshToken || '');
+
+        console.log('📝 [RESET PAGE] Set session result:', {
+          success: result.success,
+          hasSession: !!result.session,
+          hasUser: !!result.user,
+          error: result.error
+        });
+
+        if (!result.success) {
+          console.error('❌ [RESET PAGE] Failed to set session:', result.error);
+          throw new Error(result.error || 'Failed to establish session');
+        }
+
+        console.log('✅ [RESET PAGE] Session established successfully');
+        console.log('👤 [RESET PAGE] User:', result.user?.email);
+        
         setValidToken(true);
-      } else {
-        setErrorMessage('Invalid or expired reset link. Please request a new one.');
+        
+        // Clean the URL hash for security
+        console.log('🧹 [RESET PAGE] Cleaning URL hash...');
+        window.history.replaceState(null, '', window.location.pathname);
+        console.log('✅ [RESET PAGE] URL cleaned');
+
+      } catch (error) {
+        console.error('❌ [RESET PAGE] Fatal error:', error);
+        console.error('❌ [RESET PAGE] Error stack:', error.stack);
+        setErrorMessage('An error occurred while verifying your reset link.');
+        setValidToken(false);
+      } finally {
+        console.log('🏁 [RESET PAGE] Token check complete');
+        setCheckingToken(false);
       }
-      setCheckingToken(false);
     };
 
-    // Small delay to ensure component is mounted
-    const timer = setTimeout(checkToken, 300);
-    return () => clearTimeout(timer);
+    const timer = setTimeout(handlePasswordReset, 300);
+    return () => {
+      console.log('🧹 [RESET PAGE] Cleanup');
+      clearTimeout(timer);
+    };
   }, []);
 
   const onSubmit = async (data) => {
+    console.log('🔄 [FORM] Form submitted');
     setErrorMessage("");
 
     try {
-      // Update password using Supabase
+      console.log('🔄 [FORM] Calling updatePassword...');
       const result = await updatePassword(data.password);
+
+      console.log('📝 [FORM] Update result:', {
+        success: result.success,
+        error: result.error
+      });
 
       if (!result.success) {
         throw new Error(result.error);
       }
 
-      // Show success and redirect
+      console.log('✅ [FORM] Password updated successfully');
       alert('Password updated successfully! Redirecting to sign in...');
       
+      console.log('🔄 [FORM] Signing out...');
+      await supabase.auth.signOut();
+      console.log('✅ [FORM] Signed out');
+      
+      console.log('🔄 [FORM] Redirecting to sign in...');
       setTimeout(() => {
         router.push('/auth/student/sign-in');
       }, 1500);
 
     } catch (error) {
+      console.error('❌ [FORM] Error:', error);
+      console.error('❌ [FORM] Error details:', {
+        message: error.message,
+        stack: error.stack
+      });
       setErrorMessage(
         error.message || "Failed to update password. Please try again."
       );
     }
   };
 
-  // Loading state while checking token
+  // Loading state
   if (checkingToken) {
+    console.log('⏳ [RENDER] Showing loading state');
     return (
-      <div className={styles.resetPasswordPageWrapper}>
-        <div className={styles.loadingCard}>
-          <div className={styles.spinner}></div>
-          <p className={styles.loadingText}>Verifying reset link...</p>
+      <div className={styles.forgotPasswordPageWrapper}>
+        <div className={styles.formWrapper}>
+          <div className={styles.headerCell}>
+            <h2>VERIFYING LINK...</h2>
+            <p className={styles.subtitle}>Please wait while we verify your reset link.</p>
+          </div>
         </div>
       </div>
     );
   }
 
-  // Invalid token state
+  // Invalid token
   if (!validToken) {
+    console.log('❌ [RENDER] Showing invalid token state');
     return (
-      <div className={styles.resetPasswordPageWrapper}>
-        <div className={styles.errorCard}>
-          <div className={styles.errorIcon}>✕</div>
-          <h2 className={styles.errorTitle}>Invalid Reset Link</h2>
-          <p className={styles.errorText}>{errorMessage}</p>
-          <button
-            onClick={() => router.push('/auth/student/forgot-password')}
-            className={styles.requestNewLinkBtn}
-          >
-            Request New Link
-          </button>
+      <div className={styles.forgotPasswordPageWrapper}>
+        <div className={styles.formWrapper}>
+          <div className={styles.errorMessageCell} role="alert">
+            <p>{errorMessage}</p>
+          </div>
+          <div className={styles.headerCell}>
+            <h2>INVALID LINK</h2>
+            <p className={styles.subtitle}>
+              This reset link is invalid or has expired.
+            </p>
+          </div>
+          <div className={styles.buttonCell}>
+            <button
+              onClick={() => router.push('/auth/student/forgot-password')}
+              className={styles.submitButton}
+            >
+              REQUEST NEW LINK
+            </button>
+          </div>
         </div>
       </div>
     );
   }
 
-  // Valid token - show reset password form
+  // Valid token - show form
+  console.log('✅ [RENDER] Showing password reset form');
   return (
-    <div className={styles.resetPasswordPageWrapper}>
+    <div className={styles.forgotPasswordPageWrapper}>
       <form className={styles.formWrapper} onSubmit={handleSubmit(onSubmit)}>
         {errorMessage && (
           <div className={styles.errorMessageCell} role="alert">
@@ -129,7 +235,7 @@ const StudentResetPassword = () => {
           </p>
         </div>
 
-        <fieldset className={`${styles.fieldSet} ${styles.passwordCell}`}>
+        <fieldset className={`${styles.fieldSet} ${styles.emailCell}`}>
           <span>NEW PASSWORD</span>
           <input
             type="password"
@@ -142,7 +248,7 @@ const StudentResetPassword = () => {
           </div>
         </fieldset>
 
-        <fieldset className={`${styles.fieldSet} ${styles.confirmPasswordCell}`}>
+        <fieldset className={`${styles.fieldSet} ${styles.emailCell}`}>
           <span>CONFIRM PASSWORD</span>
           <input
             type="password"
@@ -172,6 +278,7 @@ const StudentResetPassword = () => {
               type="button"
               onClick={() => router.push('/auth/student/sign-in')}
               className={styles.backToSignInLink}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline' }}
             >
               Sign In
             </button>

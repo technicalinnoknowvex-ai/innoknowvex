@@ -31,9 +31,11 @@ const PUBLIC_PAGES = [
 
 // Routes that should ALWAYS be skipped by middleware
 const SKIP_MIDDLEWARE = [
-  "/api/auth/callback",  // ← ADD THIS - Critical for email verification
-  "/api/*",              // Skip all API routes (optional but recommended)
-  "/_next/*",            // Next.js internals
+  "/api/auth/callback",           // Critical for email verification
+  "/auth/student/reset-password", // 🔥 CRITICAL: Allow password reset
+  "/auth/admin/reset-password",   // 🔥 CRITICAL: Allow admin password reset
+  "/api/*",                       // Skip all API routes
+  "/_next/*",                     // Next.js internals
   "/favicon.ico",
   "/static/*",
 ];
@@ -58,8 +60,11 @@ const getRoleConfig = (role) => {
 export async function updateSession(request) {
   const pathname = request.nextUrl.pathname;
 
-  // ✅ CRITICAL: Skip middleware for callback and API routes FIRST
+  console.log('🔍 [UPDATE SESSION] Processing:', pathname);
+
+  // ✅ CRITICAL: Skip middleware for callback, API routes, and reset password FIRST
   if (matchesPattern(pathname, SKIP_MIDDLEWARE)) {
+    console.log('⏭️ [UPDATE SESSION] Skipping - matched skip pattern');
     return NextResponse.next();
   }
 
@@ -93,6 +98,9 @@ export async function updateSession(request) {
   const userRole = user?.user_metadata?.role;
   const roleConfig = getRoleConfig(userRole);
 
+  console.log('👤 [UPDATE SESSION] User:', user?.email || 'Not logged in');
+  console.log('🎭 [UPDATE SESSION] Role:', userRole || 'None');
+
   // Check if path is public
   const isPublicPage = matchesPattern(pathname, PUBLIC_PAGES);
 
@@ -104,14 +112,18 @@ export async function updateSession(request) {
 
   // === NOT LOGGED IN ===
   if (!user) {
+    console.log('🔓 [UPDATE SESSION] No user - checking access...');
+    
     // Allow public pages and auth pages
     if (isPublicPage || isAuthPage) {
+      console.log('✅ [UPDATE SESSION] Allowing public/auth page');
       return supabaseResponse;
     }
 
     // Check which role's protected page they're trying to access
     for (const [role, config] of Object.entries(ROLE_CONFIG)) {
       if (matchesPattern(pathname, config.protectedPages)) {
+        console.log(`🚫 [UPDATE SESSION] Protected ${role} page - redirecting to sign in`);
         const redirectUrl = new URL(config.signInRedirect, request.url);
         redirectUrl.searchParams.set("redirect", pathname);
         return NextResponse.redirect(redirectUrl);
@@ -119,30 +131,36 @@ export async function updateSession(request) {
     }
 
     // Unknown protected route - redirect to home
+    console.log('🏠 [UPDATE SESSION] Unknown route - redirecting to home');
     return NextResponse.redirect(new URL("/", request.url));
   }
 
   // === LOGGED IN ===
+  console.log('🔐 [UPDATE SESSION] User logged in - checking permissions...');
 
   // Redirect away from auth pages
   if (isAuthPage) {
+    console.log('🔄 [UPDATE SESSION] Logged in user on auth page - redirecting home');
     const redirect = roleConfig?.homeRedirect || "/";
     return NextResponse.redirect(new URL(redirect, request.url));
   }
 
   // Allow public pages
   if (isPublicPage) {
+    console.log('✅ [UPDATE SESSION] Allowing public page');
     return supabaseResponse;
   }
 
   // Check if user is accessing their own protected pages
   if (roleConfig && matchesPattern(pathname, roleConfig.protectedPages)) {
+    console.log('✅ [UPDATE SESSION] Accessing own protected pages');
     return supabaseResponse; // Allow access
   }
 
   // Check if user is trying to access another role's protected pages
   for (const [role, config] of Object.entries(ROLE_CONFIG)) {
     if (role !== userRole && matchesPattern(pathname, config.protectedPages)) {
+      console.log(`🚫 [UPDATE SESSION] Wrong role - trying to access ${role} pages`);
       // Redirect to their own role's signin (or could be their home)
       const redirectUrl = new URL(
         roleConfig?.signInRedirect || "/",
@@ -153,5 +171,6 @@ export async function updateSession(request) {
   }
 
   // Allow any other routes not explicitly protected
+  console.log('✅ [UPDATE SESSION] Allowing other route');
   return supabaseResponse;
 }

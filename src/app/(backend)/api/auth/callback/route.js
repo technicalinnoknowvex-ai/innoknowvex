@@ -9,8 +9,6 @@ export async function GET(request) {
   console.log('✅ CHECKPOINT 2.5: Search string:', requestUrl.search)
   console.log('✅ CHECKPOINT 2.6: All search params:', Object.fromEntries(requestUrl.searchParams))
   
-  console.log('✅ CHECKPOINT 2.7: Request headers:', Object.fromEntries(request.headers))
-  
   const code = requestUrl.searchParams.get('code')
   const token_hash = requestUrl.searchParams.get('token_hash')
   const type = requestUrl.searchParams.get('type')
@@ -24,6 +22,14 @@ export async function GET(request) {
     error: error,
     error_description: error_description
   })
+
+  // 🔥 CRITICAL: Don't process password reset (recovery) tokens here!
+  // Let the reset password page handle them
+  if (type === 'recovery') {
+    console.log('🔄 [CALLBACK] Recovery type detected - redirecting to reset page');
+    // Redirect to home, the reset password link will have the token in hash
+    return NextResponse.redirect(`${requestUrl.origin}/`)
+  }
 
   if (error) {
     console.error('❌ Error from Supabase:', error, error_description)
@@ -68,7 +74,7 @@ export async function GET(request) {
         session_exists: !!data.session
       })
       
-      // ✅ NEW: Create user record in database after verification
+      // ✅ Create user record in database after verification
       const user = data.user
       const userRole = user?.user_metadata?.role
       console.log('✅ CHECKPOINT 7.5: User role:', userRole)
@@ -117,7 +123,7 @@ export async function GET(request) {
 
       console.log('✅ CHECKPOINT 11: Verification successful!')
       
-      // ✅ NEW: Create user record in database after verification
+      // ✅ Create user record in database after verification
       const user = data.user
       const userRole = user?.user_metadata?.role
       console.log('✅ CHECKPOINT 11.5: User role:', userRole)
@@ -156,7 +162,7 @@ export async function GET(request) {
   )
 }
 
-// ✅ NEW: Helper function to create user record after email verification
+// ✅ Helper function to create user record after email verification
 async function createUserRecordAfterVerification(supabase, user, role) {
   const ROLE_TABLES = {
     'student': 'student',
