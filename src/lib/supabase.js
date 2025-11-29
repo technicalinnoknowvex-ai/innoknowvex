@@ -8,12 +8,15 @@ console.log('🔧 Supabase Config:', {
   hasKey: !!supabaseKey
 });
 
+// 🔥 FIX: Create TWO clients - one for general use, one for auth
 export const supabase = createClient(supabaseUrl, supabaseKey, {
   auth: {
     autoRefreshToken: true,
     persistSession: true,
-    detectSessionInUrl: false, // CRITICAL: Disabled to prevent auto-signin
-    flowType: 'pkce'
+    detectSessionInUrl: true, 
+    flowType: 'pkce',
+    storage: typeof window !== 'undefined' ? window.localStorage : undefined,
+    storageKey: 'supabase.auth.token'
   }
 })
 
@@ -97,9 +100,13 @@ export const requestPasswordReset = async (email) => {
   try {
     console.log('🔄 [RESET] Starting password reset request');
     console.log('📧 [RESET] Email:', email);
-    console.log('🌐 [RESET] Origin:', window.location.origin);
     
-    const redirectUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/student/reset-password`;
+    // ✅ FIX: Use window.location.origin if available, fallback to env
+    const baseUrl = typeof window !== 'undefined' 
+      ? window.location.origin 
+      : process.env.NEXT_PUBLIC_API_BASE_URL;
+    
+    const redirectUrl = `${baseUrl}/auth/student/reset-password`;
     console.log('🔗 [RESET] Redirect URL:', redirectUrl);
     
     const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
@@ -279,27 +286,46 @@ export const resendConfirmationEmail = async (email, redirectUrl) => {
   }
 }
 
-// Set session from tokens
+// ✅ FIXED: Proper session handling with verification
 export const setSessionFromTokens = async (accessToken, refreshToken) => {
   try {
     console.log('🔄 [SESSION] Setting session from tokens');
-    console.log('🔑 [SESSION] Has access token:', !!accessToken);
+    console.log('🔑 [SESSION] Access token:', accessToken?.substring(0, 20) + '...');
     console.log('🔑 [SESSION] Has refresh token:', !!refreshToken);
     
+    if (!accessToken) {
+      throw new Error('Access token is required');
+    }
+
+    // Clear any existing session first
+    await supabase.auth.signOut();
+    console.log('🧹 [SESSION] Cleared existing session');
+    
+    // Set new session with both tokens
     const { data, error } = await supabase.auth.setSession({
       access_token: accessToken,
-      refresh_token: refreshToken
+      refresh_token: refreshToken || accessToken // Use access token as fallback
     });
 
     console.log('📝 [SESSION] Set session response:', { 
       hasSession: !!data?.session,
       hasUser: !!data?.user,
-      error 
+      userId: data?.user?.id,
+      error: error?.message
     });
 
-    if (error) throw error;
+    if (error) {
+      console.error('❌ [SESSION] Supabase error:', error);
+      throw error;
+    }
+
+    if (!data.session) {
+      throw new Error('Session was not created');
+    }
 
     console.log('✅ [SESSION] Session set successfully');
+    console.log('👤 [SESSION] User ID:', data.user?.id);
+    
     return {
       success: true,
       session: data.session,
@@ -307,9 +333,11 @@ export const setSessionFromTokens = async (accessToken, refreshToken) => {
     }
   } catch (error) {
     console.error('❌ [SESSION] Error:', error);
+    console.error('❌ [SESSION] Error name:', error.name);
+    console.error('❌ [SESSION] Error status:', error.status);
     return {
       success: false,
-      error: error.message
+      error: error.message || 'Failed to set session'
     }
   }
 }

@@ -3,9 +3,9 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useRouter } from "next/navigation";
-import styles from "../forgot-password/styles/forgotPassword.module.scss";
-import { supabase, updatePassword, setSessionFromTokens } from "@/lib/supabase";
+import { useRouter, useSearchParams } from "next/navigation";
+import styles from "./styles/resetPassword.module.scss";
+import { supabase, updatePassword } from "@/lib/supabase";
 
 const resetPasswordSchema = z.object({
   password: z
@@ -19,11 +19,12 @@ const resetPasswordSchema = z.object({
   path: ["confirmPassword"],
 });
 
-const StudentResetPassword = () => {
+export default function StudentResetPassword() {
   const [errorMessage, setErrorMessage] = useState("");
   const [validToken, setValidToken] = useState(false);
   const [checkingToken, setCheckingToken] = useState(true);
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const {
     register,
@@ -35,113 +36,75 @@ const StudentResetPassword = () => {
   });
 
   useEffect(() => {
-    const handlePasswordReset = async () => {
-      try {
-        console.log('🚀 [RESET PAGE] Component mounted');
-        console.log('🌐 [RESET PAGE] Current URL:', window.location.href);
-        console.log('🔗 [RESET PAGE] Hash:', window.location.hash);
-        console.log('🔗 [RESET PAGE] Search:', window.location.search);
-        console.log('🔗 [RESET PAGE] Pathname:', window.location.pathname);
+    let mounted = true;
 
-        if (typeof window === 'undefined') {
-          console.log('⚠️ [RESET PAGE] Window is undefined');
-          return;
-        }
+const verifyRecoveryToken = async () => {
+  try {
+    console.log('✅ CHECKPOINT 1: Checking for recovery session...');
+    
+    // Just check if we have a session (callback already verified it)
+    const { data: { session }, error } = await supabase.auth.getSession();
+    
+    console.log('✅ CHECKPOINT 2: Session check:', {
+      hasSession: !!session,
+      error: error?.message
+    });
 
-        // Check for tokens in URL hash
-        const hashParams = new URLSearchParams(window.location.hash.substring(1));
-        const accessToken = hashParams.get('access_token');
-        const refreshToken = hashParams.get('refresh_token');
-        const type = hashParams.get('type');
-        const error = hashParams.get('error');
-        const errorDescription = hashParams.get('error_description');
-
-        console.log('🔍 [RESET PAGE] Hash parameters:', {
-          hasAccessToken: !!accessToken,
-          hasRefreshToken: !!refreshToken,
-          type,
-          error,
-          errorDescription,
-          accessTokenLength: accessToken?.length,
-          refreshTokenLength: refreshToken?.length
-        });
-
-        // Check if there's an error in the URL
-        if (error) {
-          console.error('❌ [RESET PAGE] Error in URL:', error, errorDescription);
-          setErrorMessage(errorDescription || error);
-          setValidToken(false);
-          setCheckingToken(false);
-          return;
-        }
-
-        // Validate token presence and type
-        if (!accessToken || type !== 'recovery') {
-          console.error('❌ [RESET PAGE] Invalid parameters:', {
-            hasAccessToken: !!accessToken,
-            type,
-            expectedType: 'recovery'
-          });
-          setErrorMessage('Invalid or missing reset token. Please request a new reset link.');
-          setValidToken(false);
-          setCheckingToken(false);
-          return;
-        }
-
-        console.log('✅ [RESET PAGE] Valid tokens found, setting session...');
-
-        // Set the session using the tokens
-        const result = await setSessionFromTokens(accessToken, refreshToken || '');
-
-        console.log('📝 [RESET PAGE] Set session result:', {
-          success: result.success,
-          hasSession: !!result.session,
-          hasUser: !!result.user,
-          error: result.error
-        });
-
-        if (!result.success) {
-          console.error('❌ [RESET PAGE] Failed to set session:', result.error);
-          throw new Error(result.error || 'Failed to establish session');
-        }
-
-        console.log('✅ [RESET PAGE] Session established successfully');
-        console.log('👤 [RESET PAGE] User:', result.user?.email);
-        
-        setValidToken(true);
-        
-        // Clean the URL hash for security
-        console.log('🧹 [RESET PAGE] Cleaning URL hash...');
-        window.history.replaceState(null, '', window.location.pathname);
-        console.log('✅ [RESET PAGE] URL cleaned');
-
-      } catch (error) {
-        console.error('❌ [RESET PAGE] Fatal error:', error);
-        console.error('❌ [RESET PAGE] Error stack:', error.stack);
-        setErrorMessage('An error occurred while verifying your reset link.');
+    if (error || !session) {
+      if (mounted) {
+        setErrorMessage('No active session. Please click the reset link again.');
         setValidToken(false);
-      } finally {
-        console.log('🏁 [RESET PAGE] Token check complete');
         setCheckingToken(false);
       }
-    };
+      return;
+    }
 
-    const timer = setTimeout(handlePasswordReset, 300);
+    if (mounted) {
+      console.log('✅ CHECKPOINT 3: Valid session found!');
+      setValidToken(true);
+      setCheckingToken(false);
+    }
+  } catch (error) {
+    console.error('❌ Error:', error);
+    if (mounted) {
+      setErrorMessage('An error occurred.');
+      setValidToken(false);
+      setCheckingToken(false);
+    }
+  }
+};
+    // Small delay to ensure everything is ready
+    const timer = setTimeout(verifyRecoveryToken, 100);
+
     return () => {
-      console.log('🧹 [RESET PAGE] Cleanup');
+      mounted = false;
       clearTimeout(timer);
     };
-  }, []);
+  }, [searchParams]);
 
   const onSubmit = async (data) => {
-    console.log('🔄 [FORM] Form submitted');
+    console.log('✅ CHECKPOINT 15: Password update form submitted');
     setErrorMessage("");
 
     try {
-      console.log('🔄 [FORM] Calling updatePassword...');
+      // Double-check we still have a valid session
+      console.log('✅ CHECKPOINT 16: Checking current session...');
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      
+      console.log('✅ CHECKPOINT 17: Session check:', {
+        hasSession: !!session,
+        error: sessionError?.message
+      });
+
+      if (sessionError || !session) {
+        console.error('❌ CHECKPOINT 18: No valid session');
+        throw new Error('Session expired. Please click the reset link again.');
+      }
+
+      console.log('✅ CHECKPOINT 19: Updating password...');
       const result = await updatePassword(data.password);
 
-      console.log('📝 [FORM] Update result:', {
+      console.log('✅ CHECKPOINT 20: Update result:', {
         success: result.success,
         error: result.error
       });
@@ -150,24 +113,19 @@ const StudentResetPassword = () => {
         throw new Error(result.error);
       }
 
-      console.log('✅ [FORM] Password updated successfully');
+      console.log('✅ CHECKPOINT 21: Password updated successfully!');
       alert('Password updated successfully! Redirecting to sign in...');
       
-      console.log('🔄 [FORM] Signing out...');
+      console.log('✅ CHECKPOINT 22: Signing out...');
       await supabase.auth.signOut();
-      console.log('✅ [FORM] Signed out');
       
-      console.log('🔄 [FORM] Redirecting to sign in...');
+      console.log('✅ CHECKPOINT 23: Redirecting to sign in...');
       setTimeout(() => {
-        router.push('/auth/student/sign-in');
+        router.push('/auth/student/sign-in?message=' + encodeURIComponent('Password reset successful! Please sign in with your new password.'));
       }, 1500);
 
     } catch (error) {
-      console.error('❌ [FORM] Error:', error);
-      console.error('❌ [FORM] Error details:', {
-        message: error.message,
-        stack: error.stack
-      });
+      console.error('❌ CHECKPOINT 24: Password update failed:', error);
       setErrorMessage(
         error.message || "Failed to update password. Please try again."
       );
@@ -176,7 +134,6 @@ const StudentResetPassword = () => {
 
   // Loading state
   if (checkingToken) {
-    console.log('⏳ [RENDER] Showing loading state');
     return (
       <div className={styles.forgotPasswordPageWrapper}>
         <div className={styles.formWrapper}>
@@ -191,13 +148,14 @@ const StudentResetPassword = () => {
 
   // Invalid token
   if (!validToken) {
-    console.log('❌ [RENDER] Showing invalid token state');
     return (
       <div className={styles.forgotPasswordPageWrapper}>
         <div className={styles.formWrapper}>
-          <div className={styles.errorMessageCell} role="alert">
-            <p>{errorMessage}</p>
-          </div>
+          {errorMessage && (
+            <div className={styles.errorMessageCell} role="alert">
+              <p>{errorMessage}</p>
+            </div>
+          )}
           <div className={styles.headerCell}>
             <h2>INVALID LINK</h2>
             <p className={styles.subtitle}>
@@ -218,7 +176,6 @@ const StudentResetPassword = () => {
   }
 
   // Valid token - show form
-  console.log('✅ [RENDER] Showing password reset form');
   return (
     <div className={styles.forgotPasswordPageWrapper}>
       <form className={styles.formWrapper} onSubmit={handleSubmit(onSubmit)}>
@@ -287,6 +244,4 @@ const StudentResetPassword = () => {
       </form>
     </div>
   );
-};
-
-export default StudentResetPassword;
+}

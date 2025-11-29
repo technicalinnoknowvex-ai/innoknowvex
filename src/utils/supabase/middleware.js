@@ -32,7 +32,8 @@ const PUBLIC_PAGES = [
 // Routes that should ALWAYS be skipped by middleware
 const SKIP_MIDDLEWARE = [
   "/api/auth/callback",           // Critical for email verification
-  "/auth/student/reset-password", // 🔥 CRITICAL: Allow password reset
+  "/auth/student/reset-password",// 🔥 CRITICAL: Allow password reset
+  "/auth/student/forgot-password", 
   "/auth/admin/reset-password",   // 🔥 CRITICAL: Allow admin password reset
   "/api/*",                       // Skip all API routes
   "/_next/*",                     // Next.js internals

@@ -25,11 +25,11 @@ export async function GET(request) {
 
   // 🔥 CRITICAL: Don't process password reset (recovery) tokens here!
   // Let the reset password page handle them
-  if (type === 'recovery') {
-    console.log('🔄 [CALLBACK] Recovery type detected - redirecting to reset page');
-    // Redirect to home, the reset password link will have the token in hash
-    return NextResponse.redirect(`${requestUrl.origin}/`)
-  }
+ // Handle recovery type - redirect to reset password page AFTER verification
+if (type === 'recovery' && code) {
+  console.log('🔄 [CALLBACK] Recovery type detected - will verify and redirect');
+  // Continue to code exchange below
+}
 
   if (error) {
     console.error('❌ Error from Supabase:', error, error_description)
@@ -85,11 +85,14 @@ export async function GET(request) {
       
       let redirectPath = '/auth/student/sign-in?verified=true'
       
-      if (userRole === 'admin') {
-        redirectPath = '/auth/admin/sign-in?verified=true'
-      } else if (userRole === 'student') {
-        redirectPath = '/auth/student/sign-in?verified=true'
-      }
+    if (type === 'recovery') {
+  // For password reset, redirect to reset password page
+  redirectPath = '/auth/student/reset-password?verified=true'
+} else if (userRole === 'admin') {
+  redirectPath = '/auth/admin/sign-in?verified=true'
+} else if (userRole === 'student') {
+  redirectPath = '/auth/student/sign-in?verified=true'
+}
       
       console.log('✅ CHECKPOINT 7.6: Redirecting to:', redirectPath)
       
