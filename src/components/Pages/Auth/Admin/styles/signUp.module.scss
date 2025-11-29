@@ -18,6 +18,8 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-areas:
+    "errorMessageCell errorMessageCell"
+    "successMessageCell successMessageCell"
     "headerCell headerCell"
     "fullnameCell fullnameCell"
     "emailCell emailCell"
@@ -30,6 +32,8 @@
   @include tablet-down {
     width: 95%;
     grid-template-areas:
+      "errorMessageCell errorMessageCell"
+      "successMessageCell successMessageCell"
       "headerCell headerCell"
       "fullnameCell fullnameCell"
       "emailCell emailCell"
@@ -41,6 +45,51 @@
 
   @include mobile-down {
     padding: 1.5rem;
+  }
+}
+
+.errorMessageCell {
+  grid-area: errorMessageCell;
+  border: 1px solid #f04438;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 5px;
+  background-color: #fecdca;
+  padding: 10px 15px;
+  margin-bottom: 0.5rem;
+
+  p {
+    @include font($font-oldschool, $medium, #f04438);
+    font-size: 0.9rem;
+    margin: 0;
+
+    @include mobile-down {
+      font-size: 0.85rem;
+    }
+  }
+}
+
+.successMessageCell {
+  grid-area: successMessageCell;
+  border: 1px solid #28a745;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 5px;
+  background-color: #d4edda;
+  padding: 10px 15px;
+  margin-bottom: 0.5rem;
+
+  p {
+    @include font($font-oldschool, $medium, #155724);
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.4;
+
+    @include mobile-down {
+      font-size: 0.85rem;
+    }
   }
 }
 

@@ -23,14 +23,6 @@ export async function GET(request) {
     error_description: error_description
   })
 
-  // 🔥 CRITICAL: Don't process password reset (recovery) tokens here!
-  // Let the reset password page handle them
- // Handle recovery type - redirect to reset password page AFTER verification
-if (type === 'recovery' && code) {
-  console.log('🔄 [CALLBACK] Recovery type detected - will verify and redirect');
-  // Continue to code exchange below
-}
-
   if (error) {
     console.error('❌ Error from Supabase:', error, error_description)
     return NextResponse.redirect(
@@ -74,27 +66,37 @@ if (type === 'recovery' && code) {
         session_exists: !!data.session
       })
       
-      // ✅ Create user record in database after verification
       const user = data.user
       const userRole = user?.user_metadata?.role
       console.log('✅ CHECKPOINT 7.5: User role:', userRole)
       
-      if (user && userRole) {
+      // Create user record only for non-recovery types (email verification)
+      if (user && userRole && type !== 'recovery') {
         await createUserRecordAfterVerification(supabase, user, userRole)
       }
       
       let redirectPath = '/auth/student/sign-in?verified=true'
       
-    if (type === 'recovery') {
-  // For password reset, redirect to reset password page
-  redirectPath = '/auth/student/reset-password?verified=true'
-} else if (userRole === 'admin') {
-  redirectPath = '/auth/admin/sign-in?verified=true'
-} else if (userRole === 'student') {
-  redirectPath = '/auth/student/sign-in?verified=true'
-}
+      // Handle password reset recovery
+      if (type === 'recovery') {
+        console.log('✅ CHECKPOINT 7.7: Recovery type - redirecting to reset password page')
+        if (userRole === 'admin') {
+          redirectPath = '/auth/admin/reset-password?verified=true'
+        } else if (userRole === 'student') {
+          redirectPath = '/auth/student/reset-password?verified=true'
+        } else {
+          redirectPath = '/auth/student/reset-password?verified=true' // Default fallback
+        }
+      } else {
+        // Handle email verification
+        if (userRole === 'admin') {
+          redirectPath = '/auth/admin/sign-in?verified=true'
+        } else if (userRole === 'student') {
+          redirectPath = '/auth/student/sign-in?verified=true'
+        }
+      }
       
-      console.log('✅ CHECKPOINT 7.6: Redirecting to:', redirectPath)
+      console.log('✅ CHECKPOINT 7.8: Redirecting to:', redirectPath)
       
       return NextResponse.redirect(
         `${requestUrl.origin}${redirectPath}`
@@ -126,24 +128,37 @@ if (type === 'recovery' && code) {
 
       console.log('✅ CHECKPOINT 11: Verification successful!')
       
-      // ✅ Create user record in database after verification
       const user = data.user
       const userRole = user?.user_metadata?.role
       console.log('✅ CHECKPOINT 11.5: User role:', userRole)
       
-      if (user && userRole) {
+      // Create user record only for non-recovery types (email verification)
+      if (user && userRole && type !== 'recovery') {
         await createUserRecordAfterVerification(supabase, user, userRole)
       }
       
       let redirectPath = '/auth/student/sign-in?verified=true'
       
-      if (userRole === 'admin') {
-        redirectPath = '/auth/admin/sign-in?verified=true'
-      } else if (userRole === 'student') {
-        redirectPath = '/auth/student/sign-in?verified=true'
+      // Handle password reset recovery
+      if (type === 'recovery') {
+        console.log('✅ CHECKPOINT 11.7: Recovery type - redirecting to reset password page')
+        if (userRole === 'admin') {
+          redirectPath = '/auth/admin/reset-password?verified=true'
+        } else if (userRole === 'student') {
+          redirectPath = '/auth/student/reset-password?verified=true'
+        } else {
+          redirectPath = '/auth/student/reset-password?verified=true' // Default fallback
+        }
+      } else {
+        // Handle email verification
+        if (userRole === 'admin') {
+          redirectPath = '/auth/admin/sign-in?verified=true'
+        } else if (userRole === 'student') {
+          redirectPath = '/auth/student/sign-in?verified=true'
+        }
       }
       
-      console.log('✅ CHECKPOINT 11.6: Redirecting to:', redirectPath)
+      console.log('✅ CHECKPOINT 11.8: Redirecting to:', redirectPath)
       
       return NextResponse.redirect(
         `${requestUrl.origin}${redirectPath}`
@@ -165,7 +180,7 @@ if (type === 'recovery' && code) {
   )
 }
 
-// ✅ Helper function to create user record after email verification
+// Helper function to create user record after email verification
 async function createUserRecordAfterVerification(supabase, user, role) {
   const ROLE_TABLES = {
     'student': 'student',
@@ -182,7 +197,6 @@ async function createUserRecordAfterVerification(supabase, user, role) {
   try {
     console.log(`✅ CHECKPOINT: Checking if ${role} record exists for user:`, user.id)
     
-    // Check if record already exists
     const { data: existingUser } = await supabase
       .from(tableName)
       .select('id')
@@ -196,7 +210,6 @@ async function createUserRecordAfterVerification(supabase, user, role) {
 
     console.log(`✅ CHECKPOINT: Creating ${role} record...`)
     
-    // Generate user_code
     const userCode = `${role.toUpperCase()}_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`
     
     const insertData = {
@@ -207,7 +220,6 @@ async function createUserRecordAfterVerification(supabase, user, role) {
       created_at: new Date().toISOString(),
     }
 
-    // Add is_approved field for admin (default false)
     if (role === 'admin') {
       insertData.is_approved = false
     }
