@@ -1,4 +1,4 @@
-import AdminResetPassword from "@/components/Pages/Auth/Admin/ResetPassword";
+import AdminResetPassword from "@/components/Pages/PasswordReset/ResetPasswordForm";
 
 const page=()=>{
     return(

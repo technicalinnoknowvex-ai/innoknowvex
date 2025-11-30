@@ -5,8 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import styles from "./styles/forgotPassword.module.scss";
 import { requestPasswordReset } from "@/lib/supabase";
+import styles from "./styles/forgotPassword.module.scss";
 
 const forgotPasswordSchema = z.object({
   email: z.string().min(1, "Email is required").email({
@@ -14,7 +14,10 @@ const forgotPasswordSchema = z.object({
   }),
 });
 
-const AdminForgotPassword = () => {
+const ForgotPasswordForm = ({ 
+  userType = "student", // "admin" or "student"
+  redirectDelay = 5000 
+}) => {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
@@ -28,20 +31,35 @@ const AdminForgotPassword = () => {
     mode: "onBlur",
   });
 
+  // Dynamic paths based on user type
+  const paths = {
+    admin: {
+      resetPath: '/auth/reset-password', // ✅ UNIFIED PATH
+      signInPath: '/auth/admin/sign-in',
+      label: 'ADMIN'
+    },
+    student: {
+      resetPath: '/auth/reset-password', // ✅ UNIFIED PATH
+      signInPath: '/auth/student/sign-in',
+      label: 'STUDENT'
+    }
+  };
+
+  const currentPaths = paths[userType] || paths.student;
+
   const onSubmit = async (data) => {
-    console.log('🔄 [ADMIN FORGOT] Form submitted');
-    console.log('📧 [ADMIN FORGOT] Email:', data.email);
+    console.log(`🔄 [${currentPaths.label} FORGOT] Form submitted`);
+    console.log(`📧 [${currentPaths.label} FORGOT] Email:`, data.email);
     
     setErrorMessage("");
     setSuccessMessage("");
 
     try {
-      console.log('🔄 [ADMIN FORGOT] Requesting password reset...');
+      console.log(`🔄 [${currentPaths.label} FORGOT] Requesting password reset...`);
       
-      // ✅ FIX: Pass the admin reset password path
-      const result = await requestPasswordReset(data.email, '/auth/admin/reset-password');
+      const result = await requestPasswordReset(data.email, currentPaths.resetPath);
       
-      console.log('📝 [ADMIN FORGOT] Result:', {
+      console.log(`📝 [${currentPaths.label} FORGOT] Result:`, {
         success: result.success,
         message: result.message,
         error: result.error
@@ -51,22 +69,18 @@ const AdminForgotPassword = () => {
         throw new Error(result.error);
       }
       
-      console.log('✅ [ADMIN FORGOT] Reset email sent successfully');
+      console.log(`✅ [${currentPaths.label} FORGOT] Reset email sent successfully`);
       setSuccessMessage(
         "Password reset link has been sent to your email. Please check your inbox and spam folder."
       );
       
-      console.log('⏱️ [ADMIN FORGOT] Setting redirect timer...');
+      console.log(`⏱️ [${currentPaths.label} FORGOT] Setting redirect timer...`);
       setTimeout(() => {
-        console.log('🔄 [ADMIN FORGOT] Redirecting to sign-in...');
-        router.push("/auth/admin/sign-in");
-      }, 5000);
+        console.log(`🔄 [${currentPaths.label} FORGOT] Redirecting to sign-in...`);
+        router.push(currentPaths.signInPath);
+      }, redirectDelay);
     } catch (error) {
-      console.error('❌ [ADMIN FORGOT] Error:', error);
-      console.error('❌ [ADMIN FORGOT] Error details:', {
-        message: error.message,
-        stack: error.stack
-      });
+      console.error(`❌ [${currentPaths.label} FORGOT] Error:`, error);
       setErrorMessage(
         error.message || "Failed to send reset link. Please try again."
       );
@@ -89,9 +103,9 @@ const AdminForgotPassword = () => {
         )}
 
         <div className={styles.headerCell}>
-          <h2>ADMIN - RESET PASSWORD</h2>
+          <h2>{currentPaths.label} - RESET PASSWORD</h2>
           <p className={styles.subtitle}>
-            Enter your admin email address and we'll send you a link to reset your password.
+            Enter your {userType} email address and we'll send you a link to reset your password.
           </p>
         </div>
 
@@ -100,7 +114,7 @@ const AdminForgotPassword = () => {
           <input
             type="email"
             {...register("email")}
-            placeholder="Enter your admin email"
+            placeholder={`Enter your ${userType} email`}
             autoComplete="email"
             disabled={isSubmitting || !!successMessage}
           />
@@ -122,7 +136,7 @@ const AdminForgotPassword = () => {
         <div className={styles.linkCell}>
           <p className={styles.backToSignInPrompt}>
             Remember your password?{" "}
-            <Link href="/auth/admin/sign-in" className={styles.backToSignInLink}>
+            <Link href={currentPaths.signInPath} className={styles.backToSignInLink}>
               Sign In
             </Link>
           </p>
@@ -132,4 +146,4 @@ const AdminForgotPassword = () => {
   );
 };
 
-export default AdminForgotPassword;
+export default ForgotPasswordForm;

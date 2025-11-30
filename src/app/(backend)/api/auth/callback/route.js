@@ -63,7 +63,9 @@ export async function GET(request) {
 
       console.log('✅ CHECKPOINT 7: Code exchange successful!', {
         user: data.user?.email,
-        session_exists: !!data.session
+        session_exists: !!data.session,
+        has_access_token: !!data.session?.access_token,
+        has_refresh_token: !!data.session?.refresh_token
       })
       
       const user = data.user
@@ -75,32 +77,59 @@ export async function GET(request) {
         await createUserRecordAfterVerification(supabase, user, userRole)
       }
       
-      let redirectPath = '/auth/student/sign-in?verified=true'
-      
       // Handle password reset recovery
       if (type === 'recovery') {
-        console.log('✅ CHECKPOINT 7.7: Recovery type - redirecting to reset password page')
-        if (userRole === 'admin') {
-          redirectPath = '/auth/admin/reset-password?verified=true'
-        } else if (userRole === 'student') {
-          redirectPath = '/auth/student/reset-password?verified=true'
-        } else {
-          redirectPath = '/auth/student/reset-password?verified=true' // Default fallback
+        console.log('✅ CHECKPOINT 7.7: Recovery type - setting session cookies')
+        console.log('✅ CHECKPOINT 7.71: User role:', userRole, '(redirecting to generic reset page)')
+        
+        // ✅ SIMPLIFIED: Just use one reset password path for everyone
+        const resetPath = '/auth/reset-password'
+        
+        console.log('✅ CHECKPOINT 7.75: Redirecting to:', resetPath)
+        
+        // Create response with redirect
+        const response = NextResponse.redirect(`${requestUrl.origin}${resetPath}`)
+        
+        // ✅ FIX: Set session tokens in cookies for client-side persistence
+        if (data.session) {
+          console.log('✅ CHECKPOINT 7.8: Setting auth cookies')
+          
+          // Set access token cookie
+          response.cookies.set('sb-access-token', data.session.access_token, {
+            path: '/',
+            maxAge: 60 * 60, // 1 hour
+            sameSite: 'lax',
+            secure: process.env.NODE_ENV === 'production',
+            httpOnly: false // Allow client-side JS to read this
+          })
+          
+          // Set refresh token cookie
+          response.cookies.set('sb-refresh-token', data.session.refresh_token, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7, // 7 days
+            sameSite: 'lax',
+            secure: process.env.NODE_ENV === 'production',
+            httpOnly: false // Allow client-side JS to read this
+          })
+          
+          console.log('✅ CHECKPOINT 7.9: Cookies set successfully')
         }
+        
+        return response
       } else {
         // Handle email verification
+        let redirectPath = '/auth/student/sign-in?verified=true'
+        
         if (userRole === 'admin') {
           redirectPath = '/auth/admin/sign-in?verified=true'
         } else if (userRole === 'student') {
           redirectPath = '/auth/student/sign-in?verified=true'
         }
+        
+        console.log('✅ CHECKPOINT 7.8: Redirecting to:', redirectPath)
+        
+        return NextResponse.redirect(`${requestUrl.origin}${redirectPath}`)
       }
-      
-      console.log('✅ CHECKPOINT 7.8: Redirecting to:', redirectPath)
-      
-      return NextResponse.redirect(
-        `${requestUrl.origin}${redirectPath}`
-      )
 
     } catch (error) {
       console.error('❌ CHECKPOINT 8: Callback error:', error)
@@ -126,7 +155,12 @@ export async function GET(request) {
         )
       }
 
-      console.log('✅ CHECKPOINT 11: Verification successful!')
+      console.log('✅ CHECKPOINT 11: Verification successful!', {
+        user: data.user?.email,
+        session_exists: !!data.session,
+        has_access_token: !!data.session?.access_token,
+        has_refresh_token: !!data.session?.refresh_token
+      })
       
       const user = data.user
       const userRole = user?.user_metadata?.role
@@ -137,32 +171,59 @@ export async function GET(request) {
         await createUserRecordAfterVerification(supabase, user, userRole)
       }
       
-      let redirectPath = '/auth/student/sign-in?verified=true'
-      
       // Handle password reset recovery
       if (type === 'recovery') {
-        console.log('✅ CHECKPOINT 11.7: Recovery type - redirecting to reset password page')
-        if (userRole === 'admin') {
-          redirectPath = '/auth/admin/reset-password?verified=true'
-        } else if (userRole === 'student') {
-          redirectPath = '/auth/student/reset-password?verified=true'
-        } else {
-          redirectPath = '/auth/student/reset-password?verified=true' // Default fallback
+        console.log('✅ CHECKPOINT 11.7: Recovery type - setting session cookies')
+        console.log('✅ CHECKPOINT 11.71: User role:', userRole, '(redirecting to generic reset page)')
+        
+        // ✅ SIMPLIFIED: Just use one reset password path for everyone
+        const resetPath = '/auth/reset-password'
+        
+        console.log('✅ CHECKPOINT 11.75: Redirecting to:', resetPath)
+        
+        // Create response with redirect
+        const response = NextResponse.redirect(`${requestUrl.origin}${resetPath}`)
+        
+        // ✅ FIX: Set session tokens in cookies for client-side persistence
+        if (data.session) {
+          console.log('✅ CHECKPOINT 11.8: Setting auth cookies')
+          
+          // Set access token cookie
+          response.cookies.set('sb-access-token', data.session.access_token, {
+            path: '/',
+            maxAge: 60 * 60, // 1 hour
+            sameSite: 'lax',
+            secure: process.env.NODE_ENV === 'production',
+            httpOnly: false // Allow client-side JS to read this
+          })
+          
+          // Set refresh token cookie
+          response.cookies.set('sb-refresh-token', data.session.refresh_token, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7, // 7 days
+            sameSite: 'lax',
+            secure: process.env.NODE_ENV === 'production',
+            httpOnly: false // Allow client-side JS to read this
+          })
+          
+          console.log('✅ CHECKPOINT 11.9: Cookies set successfully')
         }
+        
+        return response
       } else {
         // Handle email verification
+        let redirectPath = '/auth/student/sign-in?verified=true'
+        
         if (userRole === 'admin') {
           redirectPath = '/auth/admin/sign-in?verified=true'
         } else if (userRole === 'student') {
           redirectPath = '/auth/student/sign-in?verified=true'
         }
+        
+        console.log('✅ CHECKPOINT 11.8: Redirecting to:', redirectPath)
+        
+        return NextResponse.redirect(`${requestUrl.origin}${redirectPath}`)
       }
-      
-      console.log('✅ CHECKPOINT 11.8: Redirecting to:', redirectPath)
-      
-      return NextResponse.redirect(
-        `${requestUrl.origin}${redirectPath}`
-      )
 
     } catch (error) {
       console.error('❌ CHECKPOINT 12: Callback error:', error)

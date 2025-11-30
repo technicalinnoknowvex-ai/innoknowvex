@@ -13,7 +13,7 @@ export async function middleware(request) {
   }
 
   // 🔥 CRITICAL: Allow reset password pages without auth checks
-  if (pathname === '/auth/student/reset-password' || pathname === '/auth/admin/reset-password') {
+  if (pathname === '/auth/reset-password' ) {
     console.log('✅ [MIDDLEWARE] Allowing reset password page - bypassing all auth');
     return NextResponse.next();
   }

@@ -3,9 +3,9 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useRouter, useSearchParams } from "next/navigation";
-import styles from "./styles/resetPassword.module.scss";
+import { useRouter } from "next/navigation";
 import { supabase, updatePassword } from "@/lib/supabase";
+import styles from "./styles/resetPassword.module.scss";
 
 const resetPasswordSchema = z.object({
   password: z
@@ -19,12 +19,14 @@ const resetPasswordSchema = z.object({
   path: ["confirmPassword"],
 });
 
-export default function StudentResetPassword() {
+const ResetPasswordForm = ({ 
+  userType = "student", // "admin" or "student"
+  redirectDelay = 1500 
+}) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [validToken, setValidToken] = useState(false);
   const [checkingToken, setCheckingToken] = useState(true);
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   const {
     register,
@@ -35,97 +37,153 @@ export default function StudentResetPassword() {
     mode: "onBlur",
   });
 
+  // Dynamic paths based on user type
+  const paths = {
+    admin: {
+      forgotPath: '/auth/admin/forgot-password',
+      signInPath: '/auth/admin/sign-in',
+      label: 'ADMIN',
+      role: 'admin'
+    },
+    student: {
+      forgotPath: '/auth/student/forgot-password',
+      signInPath: '/auth/student/sign-in',
+      label: 'STUDENT',
+      role: 'student'
+    }
+  };
+
+  const currentPaths = paths[userType] || paths.student;
+
   useEffect(() => {
     let mounted = true;
 
-const verifyRecoveryToken = async () => {
-  try {
-    console.log('✅ CHECKPOINT 1: Checking for recovery session...');
-    
-    // Just check if we have a session (callback already verified it)
-    const { data: { session }, error } = await supabase.auth.getSession();
-    
-    console.log('✅ CHECKPOINT 2: Session check:', {
-      hasSession: !!session,
-      error: error?.message
-    });
+    const verifyRecoveryToken = async () => {
+      try {
+        console.log(`✅ [${currentPaths.label} RESET] Checking for recovery session...`);
+        
+        // ✅ FIX: Try to restore session from cookies first
+        const getCookie = (name) => {
+          if (typeof document === 'undefined') return null;
+          const value = `; ${document.cookie}`;
+          const parts = value.split(`; ${name}=`);
+          if (parts.length === 2) return parts.pop().split(';').shift();
+          return null;
+        };
+        
+        const accessToken = getCookie('sb-access-token');
+        const refreshToken = getCookie('sb-refresh-token');
+        
+        console.log(`✅ [${currentPaths.label} RESET] Cookie check:`, {
+          hasAccessToken: !!accessToken,
+          hasRefreshToken: !!refreshToken,
+          allCookies: document.cookie
+        });
+        
+        // If we have tokens in cookies, set the session
+        if (accessToken && refreshToken) {
+          console.log(`✅ [${currentPaths.label} RESET] Restoring session from cookies...`);
+          console.log(`🔑 [${currentPaths.label} RESET] Access token (first 20 chars):`, accessToken?.substring(0, 20));
+          
+          const { data, error: setError } = await supabase.auth.setSession({
+            access_token: accessToken,
+            refresh_token: refreshToken
+          });
+          
+          if (setError) {
+            console.error(`❌ [${currentPaths.label} RESET] Error setting session:`, setError);
+          } else {
+            console.log(`✅ [${currentPaths.label} RESET] Session restored successfully`, {
+              hasSession: !!data?.session,
+              hasUser: !!data?.user
+            });
+          }
+        } else {
+          console.warn(`⚠️ [${currentPaths.label} RESET] No tokens found in cookies!`);
+          console.log(`📋 [${currentPaths.label} RESET] All available cookies:`, document.cookie);
+        }
+        
+        // Small delay to ensure session is set
+        await new Promise(resolve => setTimeout(resolve, 200));
+        
+        // Now check for session
+        const { data: { session }, error } = await supabase.auth.getSession();
+        
+        console.log(`✅ [${currentPaths.label} RESET] Session check:`, {
+          hasSession: !!session,
+          userRole: session?.user?.user_metadata?.role,
+          userId: session?.user?.id,
+          error: error?.message
+        });
 
-    if (error || !session) {
-      if (mounted) {
-        setErrorMessage('No active session. Please click the reset link again.');
-        setValidToken(false);
-        setCheckingToken(false);
+        if (error || !session) {
+          console.error(`❌ [${currentPaths.label} RESET] No session found after restore attempt`);
+          if (mounted) {
+            setErrorMessage('No active session. Please click the reset link again.');
+            setValidToken(false);
+            setCheckingToken(false);
+          }
+          return;
+        }
+
+        // Verify user role matches expected type
+        const userRole = session?.user?.user_metadata?.role;
+        
+        // ✅ REMOVED ROLE CHECK - Anyone with valid session can reset password
+        console.log(`✅ [${currentPaths.label} RESET] User role:`, userRole, '(role check disabled)');
+
+        if (mounted) {
+          console.log(`✅ [${currentPaths.label} RESET] Valid session found!`);
+          setValidToken(true);
+          setCheckingToken(false);
+        }
+      } catch (error) {
+        console.error(`❌ [${currentPaths.label} RESET] Error:`, error);
+        if (mounted) {
+          setErrorMessage('An error occurred.');
+          setValidToken(false);
+          setCheckingToken(false);
+        }
       }
-      return;
-    }
+    };
 
-    if (mounted) {
-      console.log('✅ CHECKPOINT 3: Valid session found!');
-      setValidToken(true);
-      setCheckingToken(false);
-    }
-  } catch (error) {
-    console.error('❌ Error:', error);
-    if (mounted) {
-      setErrorMessage('An error occurred.');
-      setValidToken(false);
-      setCheckingToken(false);
-    }
-  }
-};
-    // Small delay to ensure everything is ready
     const timer = setTimeout(verifyRecoveryToken, 100);
 
     return () => {
       mounted = false;
       clearTimeout(timer);
     };
-  }, [searchParams]);
+  }, [currentPaths.label, currentPaths.role, userType]);
 
   const onSubmit = async (data) => {
-    console.log('✅ CHECKPOINT 15: Password update form submitted');
+    console.log(`✅ [${currentPaths.label} RESET] Form submitted`);
     setErrorMessage("");
 
     try {
-      // Double-check we still have a valid session
-      console.log('✅ CHECKPOINT 16: Checking current session...');
-      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      const { data: { session } } = await supabase.auth.getSession();
       
-      console.log('✅ CHECKPOINT 17: Session check:', {
-        hasSession: !!session,
-        error: sessionError?.message
-      });
-
-      if (sessionError || !session) {
-        console.error('❌ CHECKPOINT 18: No valid session');
+      if (!session) {
         throw new Error('Session expired. Please click the reset link again.');
       }
 
-      console.log('✅ CHECKPOINT 19: Updating password...');
+      console.log(`✅ [${currentPaths.label} RESET] Updating password...`);
       const result = await updatePassword(data.password);
-
-      console.log('✅ CHECKPOINT 20: Update result:', {
-        success: result.success,
-        error: result.error
-      });
 
       if (!result.success) {
         throw new Error(result.error);
       }
 
-      console.log('✅ CHECKPOINT 21: Password updated successfully!');
+      console.log(`✅ [${currentPaths.label} RESET] Password updated successfully!`);
       alert('Password updated successfully! Redirecting to sign in...');
       
-      console.log('✅ CHECKPOINT 22: Signing out...');
       await supabase.auth.signOut();
       
-      console.log('✅ CHECKPOINT 23: Redirecting to sign in...');
       setTimeout(() => {
-        router.push('/auth/student/sign-in?message=' + encodeURIComponent('Password reset successful! Please sign in with your new password.'));
-      }, 1500);
+        router.push(currentPaths.signInPath + '?message=' + encodeURIComponent('Password reset successful! Please sign in with your new password.'));
+      }, redirectDelay);
 
     } catch (error) {
-      console.error('❌ CHECKPOINT 24: Password update failed:', error);
+      console.error(`❌ [${currentPaths.label} RESET] Error:`, error);
       setErrorMessage(
         error.message || "Failed to update password. Please try again."
       );
@@ -164,7 +222,7 @@ const verifyRecoveryToken = async () => {
           </div>
           <div className={styles.buttonCell}>
             <button
-              onClick={() => router.push('/auth/student/forgot-password')}
+              onClick={() => router.push(currentPaths.forgotPath)}
               className={styles.submitButton}
             >
               REQUEST NEW LINK
@@ -188,7 +246,7 @@ const verifyRecoveryToken = async () => {
         <div className={styles.headerCell}>
           <h2>CREATE NEW PASSWORD</h2>
           <p className={styles.subtitle}>
-            Enter your new password below.
+            Enter your new {userType} password below.
           </p>
         </div>
 
@@ -233,7 +291,7 @@ const verifyRecoveryToken = async () => {
             Remember your password?{" "}
             <button
               type="button"
-              onClick={() => router.push('/auth/student/sign-in')}
+              onClick={() => router.push(currentPaths.signInPath)}
               className={styles.backToSignInLink}
               style={{ background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline' }}
             >
@@ -244,4 +302,6 @@ const verifyRecoveryToken = async () => {
       </form>
     </div>
   );
-}
+};
+
+export default ResetPasswordForm;
