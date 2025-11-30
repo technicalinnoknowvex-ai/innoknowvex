@@ -30,6 +30,8 @@ const PopUpForm = ({
   price: propPrice,
   courseId: propCourseId,
 }) => {
+    console.log("🟢 [POPUP] Render state:", { isOpen, plan, course, price: propPrice });
+
   const formRef = useRef(null);
   const sparkleRef = useRef(null);
 

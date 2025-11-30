@@ -50,17 +50,25 @@ const StudentSignInPage = () => {
     mode: "onBlur",
   });
 
-  const onSubmit = async (data) => {
+
+
+const onSubmit = async (data) => {
   setErrorMessage("");
   setSuccessMessage("");
 
   try {
-    // ✅ FIXED: Sign in directly without pre-validation
     const result = await studentSignIn(data);
 
-    // Successful sign in - redirect to student dashboard
-    const redirectPath = redirect || `/student/${result.userId}/dashboard`;
-    router.push(redirectPath);
+    // Get redirect URL
+    const redirectUrl = searchParams.get("redirect");
+
+    // Redirect back to where they came from OR dashboard
+    if (redirectUrl) {
+      router.push(redirectUrl);
+    } else {
+      router.push(`/student/${result.userId}/dashboard`);
+    }
+    
     router.refresh();
   } catch (error) {
     setErrorMessage(error.message || "Sign in failed. Please try again.");

@@ -4,10 +4,15 @@ import { useSearchParams } from "next/navigation";
 import styles from "./styles/plansSection.module.scss";
 import Image from "next/image";
 import PopUpForm from "../PaymentPopUp/PopUpForm";
+import { useRouter } from "next/navigation";
+
+import useUserSession from "@/hooks/useUserSession";
 
 export default function PlansSection() {
   const searchParams = useSearchParams();
   const courseName = searchParams.get("course") || "web-development";
+  const router = useRouter();
+  const [checkingAuth, setCheckingAuth] = useState(false);
 
   const [pricingData, setPricingData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -55,13 +60,92 @@ export default function PlansSection() {
     }
   }, [courseName]);
 
-  const handleEnrollClick = (plan, price) => {
-    console.log("Enrolling in plan:", plan, "Price:", price);
-    setSelectedPlan(plan);
-    setSelectedPlanPrice(price);
-    setIsFormOpen(true);
-  };
+  // Check for auto-open popup on mount (after login redirect)
+  useEffect(() => {
+    const autoOpen = searchParams.get("autoOpenPopup");
+    const plan = searchParams.get("plan");
+    const price = searchParams.get("price");
 
+    if (autoOpen === "true" && plan && price) {
+      console.log("Auto-opening popup after login:", { plan, price });
+      setSelectedPlan(plan);
+      setSelectedPlanPrice(Number(price));
+      setIsFormOpen(true);
+
+      // Clean URL params
+      const newUrl = window.location.pathname + `?course=${courseName}`;
+      window.history.replaceState({}, "", newUrl);
+    }
+  }, [searchParams, courseName]);
+
+  // // Add this useEffect after your existing useEffects (around line 70)
+  // useEffect(() => {
+  //   // Check auth state on component mount
+  //   const checkAuthState = async () => {
+  //     const {
+  //       data: { session },
+  //     } = await supabase.auth.getSession();
+  //     console.log("Current auth state:", {
+  //       isAuthenticated: !!session,
+  //       userId: session?.user?.id,
+  //     });
+  //   };
+
+  //   checkAuthState();
+
+  //   // Listen for auth changes
+  //   const {
+  //     data: { subscription },
+  //   } = supabase.auth.onAuthStateChange((event, session) => {
+  //     console.log("Auth state changed:", event, {
+  //       isAuthenticated: !!session,
+  //       userId: session?.user?.id,
+  //     });
+  //   });
+
+  //   return () => subscription.unsubscribe();
+  // }, []);
+
+  const { session, isSessionLoading } = useUserSession();
+
+  // Then replace handleEnrollClick with this:
+  const handleEnrollClick = (plan, price) => {
+    console.log("🔵 [ENROLL] Button clicked:", { plan, price });
+
+    // Don't check auth if session is still loading
+    if (isSessionLoading) {
+      console.log("⏳ [ENROLL] Session still loading...");
+      return;
+    }
+
+    setCheckingAuth(true);
+
+    try {
+      console.log("🔍 [ENROLL] Session check:", {
+        hasSession: !!session,
+        userId: session?.user_id,
+      });
+
+      // If user is logged in → open popup
+      if (session) {
+        console.log("✅ [ENROLL] User authenticated, opening popup");
+        setSelectedPlan(plan);
+        setSelectedPlanPrice(price);
+        setIsFormOpen(true);
+      } else {
+        // If NOT logged in → redirect to sign-in
+        console.log("❌ [ENROLL] Not authenticated, redirecting");
+        const currentUrl = window.location.pathname + window.location.search;
+        router.push(
+          `/auth/student/sign-in?redirect=${encodeURIComponent(currentUrl)}`
+        );
+      }
+    } catch (error) {
+      console.error("❌ [ENROLL] Error:", error);
+    } finally {
+      setCheckingAuth(false);
+    }
+  };
   const closeForm = () => {
     setIsFormOpen(false);
     setSelectedPlan(null);
@@ -186,7 +270,6 @@ export default function PlansSection() {
         {/* Self Plan */}
         <div className={styles.pricingCards}>
           <div className={styles.heading}>
-            
             <svg
               width="52"
               height="56"
@@ -214,13 +297,24 @@ export default function PlansSection() {
             Learn at your own pace with all the resources you need to succeed
             independently.
           </p>
+
+          {/* <button
+  onClick={() =>
+    handleEnrollClick("Self", pricingData.self_current_price)
+  }
+  className={styles.enrollButton}
+>
+  Enroll Now
+</button> */}
+
           <button
             onClick={() =>
               handleEnrollClick("Self", pricingData.self_current_price)
             }
             className={styles.enrollButton}
+            disabled={checkingAuth || isSessionLoading}
           >
-            Enroll Now
+            {checkingAuth || isSessionLoading ? "Checking..." : "Enroll Now"}
           </button>
 
           <div className={styles.plancontent}>
@@ -273,7 +367,7 @@ export default function PlansSection() {
                 xmlns="http://www.w3.org/2000/svg"
                 className={styles.featureimg}
               >
-                <g clip-path="url(#clip0_938_1077)">
+                <g clipPath="url(#clip0_938_1077)">
                   <path
                     d="M4.38382 5.85737L1.23615 9.00505C1.11838 9.12282 0.968487 9.1817 0.786479 9.1817C0.60447 9.1817 0.454581 9.12282 0.336811 9.00505C0.219041 8.88728 0.160156 8.73739 0.160156 8.55538C0.160156 8.37337 0.219041 8.22348 0.336811 8.10571L3.48449 4.95804L0.336811 1.81037C0.219041 1.6926 0.160156 1.54271 0.160156 1.3607C0.160156 1.17869 0.219041 1.0288 0.336811 0.91103C0.454581 0.79326 0.60447 0.734375 0.786479 0.734375C0.968487 0.734375 1.11838 0.79326 1.23615 0.91103L4.38382 4.0587L7.5315 0.91103C7.64927 0.79326 7.79916 0.734375 7.98116 0.734375C8.16317 0.734375 8.31306 0.79326 8.43083 0.91103C8.5486 1.0288 8.60749 1.17869 8.60749 1.3607C8.60749 1.54271 8.5486 1.6926 8.43083 1.81037L5.28316 4.95804L8.43083 8.10571C8.5486 8.22348 8.60749 8.37337 8.60749 8.55538C8.60749 8.73739 8.5486 8.88728 8.43083 9.00505C8.31306 9.12282 8.16317 9.1817 7.98116 9.1817C7.79916 9.1817 7.64927 9.12282 7.5315 9.00505L4.38382 5.85737Z"
                     fill="#D92D20"
@@ -296,7 +390,7 @@ export default function PlansSection() {
                 xmlns="http://www.w3.org/2000/svg"
                 className={styles.featureimg}
               >
-                <g clip-path="url(#clip0_938_1077)">
+                <g clipPath="url(#clip0_938_1077)">
                   <path
                     d="M4.38382 5.85737L1.23615 9.00505C1.11838 9.12282 0.968487 9.1817 0.786479 9.1817C0.60447 9.1817 0.454581 9.12282 0.336811 9.00505C0.219041 8.88728 0.160156 8.73739 0.160156 8.55538C0.160156 8.37337 0.219041 8.22348 0.336811 8.10571L3.48449 4.95804L0.336811 1.81037C0.219041 1.6926 0.160156 1.54271 0.160156 1.3607C0.160156 1.17869 0.219041 1.0288 0.336811 0.91103C0.454581 0.79326 0.60447 0.734375 0.786479 0.734375C0.968487 0.734375 1.11838 0.79326 1.23615 0.91103L4.38382 4.0587L7.5315 0.91103C7.64927 0.79326 7.79916 0.734375 7.98116 0.734375C8.16317 0.734375 8.31306 0.79326 8.43083 0.91103C8.5486 1.0288 8.60749 1.17869 8.60749 1.3607C8.60749 1.54271 8.5486 1.6926 8.43083 1.81037L5.28316 4.95804L8.43083 8.10571C8.5486 8.22348 8.60749 8.37337 8.60749 8.55538C8.60749 8.73739 8.5486 8.88728 8.43083 9.00505C8.31306 9.12282 8.16317 9.1817 7.98116 9.1817C7.79916 9.1817 7.64927 9.12282 7.5315 9.00505L4.38382 5.85737Z"
                     fill="#D92D20"
@@ -319,7 +413,7 @@ export default function PlansSection() {
                 xmlns="http://www.w3.org/2000/svg"
                 className={styles.featureimg}
               >
-                <g clip-path="url(#clip0_938_1077)">
+                <g clipPath="url(#clip0_938_1077)">
                   <path
                     d="M4.38382 5.85737L1.23615 9.00505C1.11838 9.12282 0.968487 9.1817 0.786479 9.1817C0.60447 9.1817 0.454581 9.12282 0.336811 9.00505C0.219041 8.88728 0.160156 8.73739 0.160156 8.55538C0.160156 8.37337 0.219041 8.22348 0.336811 8.10571L3.48449 4.95804L0.336811 1.81037C0.219041 1.6926 0.160156 1.54271 0.160156 1.3607C0.160156 1.17869 0.219041 1.0288 0.336811 0.91103C0.454581 0.79326 0.60447 0.734375 0.786479 0.734375C0.968487 0.734375 1.11838 0.79326 1.23615 0.91103L4.38382 4.0587L7.5315 0.91103C7.64927 0.79326 7.79916 0.734375 7.98116 0.734375C8.16317 0.734375 8.31306 0.79326 8.43083 0.91103C8.5486 1.0288 8.60749 1.17869 8.60749 1.3607C8.60749 1.54271 8.5486 1.6926 8.43083 1.81037L5.28316 4.95804L8.43083 8.10571C8.5486 8.22348 8.60749 8.37337 8.60749 8.55538C8.60749 8.73739 8.5486 8.88728 8.43083 9.00505C8.31306 9.12282 8.16317 9.1817 7.98116 9.1817C7.79916 9.1817 7.64927 9.12282 7.5315 9.00505L4.38382 5.85737Z"
                     fill="#D92D20"
@@ -342,7 +436,7 @@ export default function PlansSection() {
                 xmlns="http://www.w3.org/2000/svg"
                 className={styles.featureimg}
               >
-                <g clip-path="url(#clip0_938_1077)">
+                <g clipPath="url(#clip0_938_1077)">
                   <path
                     d="M4.38382 5.85737L1.23615 9.00505C1.11838 9.12282 0.968487 9.1817 0.786479 9.1817C0.60447 9.1817 0.454581 9.12282 0.336811 9.00505C0.219041 8.88728 0.160156 8.73739 0.160156 8.55538C0.160156 8.37337 0.219041 8.22348 0.336811 8.10571L3.48449 4.95804L0.336811 1.81037C0.219041 1.6926 0.160156 1.54271 0.160156 1.3607C0.160156 1.17869 0.219041 1.0288 0.336811 0.91103C0.454581 0.79326 0.60447 0.734375 0.786479 0.734375C0.968487 0.734375 1.11838 0.79326 1.23615 0.91103L4.38382 4.0587L7.5315 0.91103C7.64927 0.79326 7.79916 0.734375 7.98116 0.734375C8.16317 0.734375 8.31306 0.79326 8.43083 0.91103C8.5486 1.0288 8.60749 1.17869 8.60749 1.3607C8.60749 1.54271 8.5486 1.6926 8.43083 1.81037L5.28316 4.95804L8.43083 8.10571C8.5486 8.22348 8.60749 8.37337 8.60749 8.55538C8.60749 8.73739 8.5486 8.88728 8.43083 9.00505C8.31306 9.12282 8.16317 9.1817 7.98116 9.1817C7.79916 9.1817 7.64927 9.12282 7.5315 9.00505L4.38382 5.85737Z"
                     fill="#D92D20"
@@ -365,7 +459,7 @@ export default function PlansSection() {
                 xmlns="http://www.w3.org/2000/svg"
                 className={styles.featureimg}
               >
-                <g clip-path="url(#clip0_938_1077)">
+                <g clipPath="url(#clip0_938_1077)">
                   <path
                     d="M4.38382 5.85737L1.23615 9.00505C1.11838 9.12282 0.968487 9.1817 0.786479 9.1817C0.60447 9.1817 0.454581 9.12282 0.336811 9.00505C0.219041 8.88728 0.160156 8.73739 0.160156 8.55538C0.160156 8.37337 0.219041 8.22348 0.336811 8.10571L3.48449 4.95804L0.336811 1.81037C0.219041 1.6926 0.160156 1.54271 0.160156 1.3607C0.160156 1.17869 0.219041 1.0288 0.336811 0.91103C0.454581 0.79326 0.60447 0.734375 0.786479 0.734375C0.968487 0.734375 1.11838 0.79326 1.23615 0.91103L4.38382 4.0587L7.5315 0.91103C7.64927 0.79326 7.79916 0.734375 7.98116 0.734375C8.16317 0.734375 8.31306 0.79326 8.43083 0.91103C8.5486 1.0288 8.60749 1.17869 8.60749 1.3607C8.60749 1.54271 8.5486 1.6926 8.43083 1.81037L5.28316 4.95804L8.43083 8.10571C8.5486 8.22348 8.60749 8.37337 8.60749 8.55538C8.60749 8.73739 8.5486 8.88728 8.43083 9.00505C8.31306 9.12282 8.16317 9.1817 7.98116 9.1817C7.79916 9.1817 7.64927 9.12282 7.5315 9.00505L4.38382 5.85737Z"
                     fill="#D92D20"
@@ -385,7 +479,7 @@ export default function PlansSection() {
         {/* Mentor Plan */}
         <div className={styles.pricingCards}>
           <div className={styles.heading}>
-             <svg
+            <svg
               width="52"
               height="56"
               viewBox="0 0 52 56"
@@ -411,13 +505,24 @@ export default function PlansSection() {
             Get personalized guidance with mentor support and live sessions for
             accelerated learning.
           </p>
+
+          {/* <button
+  onClick={() =>
+    handleEnrollClick("Mentor", pricingData.self_current_price)
+  }
+  className={styles.enrollButton}
+>
+  Enroll Now
+</button> */}
+
           <button
             onClick={() =>
-              handleEnrollClick("Mentor", pricingData.mentor_current_price)
+              handleEnrollClick("Mentor", pricingData.self_current_price)
             }
             className={styles.enrollButton}
+            disabled={checkingAuth || isSessionLoading}
           >
-            Enroll Now
+            {checkingAuth || isSessionLoading ? "Checking..." : "Enroll Now"}
           </button>
 
           <div className={styles.plancontent}>
@@ -500,7 +605,7 @@ export default function PlansSection() {
                 xmlns="http://www.w3.org/2000/svg"
                 className={styles.featureimg}
               >
-                <g clip-path="url(#clip0_938_1077)">
+                <g clipPath="url(#clip0_938_1077)">
                   <path
                     d="M4.38382 5.85737L1.23615 9.00505C1.11838 9.12282 0.968487 9.1817 0.786479 9.1817C0.60447 9.1817 0.454581 9.12282 0.336811 9.00505C0.219041 8.88728 0.160156 8.73739 0.160156 8.55538C0.160156 8.37337 0.219041 8.22348 0.336811 8.10571L3.48449 4.95804L0.336811 1.81037C0.219041 1.6926 0.160156 1.54271 0.160156 1.3607C0.160156 1.17869 0.219041 1.0288 0.336811 0.91103C0.454581 0.79326 0.60447 0.734375 0.786479 0.734375C0.968487 0.734375 1.11838 0.79326 1.23615 0.91103L4.38382 4.0587L7.5315 0.91103C7.64927 0.79326 7.79916 0.734375 7.98116 0.734375C8.16317 0.734375 8.31306 0.79326 8.43083 0.91103C8.5486 1.0288 8.60749 1.17869 8.60749 1.3607C8.60749 1.54271 8.5486 1.6926 8.43083 1.81037L5.28316 4.95804L8.43083 8.10571C8.5486 8.22348 8.60749 8.37337 8.60749 8.55538C8.60749 8.73739 8.5486 8.88728 8.43083 9.00505C8.31306 9.12282 8.16317 9.1817 7.98116 9.1817C7.79916 9.1817 7.64927 9.12282 7.5315 9.00505L4.38382 5.85737Z"
                     fill="#D92D20"
@@ -523,7 +628,7 @@ export default function PlansSection() {
                 xmlns="http://www.w3.org/2000/svg"
                 className={styles.featureimg}
               >
-                <g clip-path="url(#clip0_938_1077)">
+                <g clipPath="url(#clip0_938_1077)">
                   <path
                     d="M4.38382 5.85737L1.23615 9.00505C1.11838 9.12282 0.968487 9.1817 0.786479 9.1817C0.60447 9.1817 0.454581 9.12282 0.336811 9.00505C0.219041 8.88728 0.160156 8.73739 0.160156 8.55538C0.160156 8.37337 0.219041 8.22348 0.336811 8.10571L3.48449 4.95804L0.336811 1.81037C0.219041 1.6926 0.160156 1.54271 0.160156 1.3607C0.160156 1.17869 0.219041 1.0288 0.336811 0.91103C0.454581 0.79326 0.60447 0.734375 0.786479 0.734375C0.968487 0.734375 1.11838 0.79326 1.23615 0.91103L4.38382 4.0587L7.5315 0.91103C7.64927 0.79326 7.79916 0.734375 7.98116 0.734375C8.16317 0.734375 8.31306 0.79326 8.43083 0.91103C8.5486 1.0288 8.60749 1.17869 8.60749 1.3607C8.60749 1.54271 8.5486 1.6926 8.43083 1.81037L5.28316 4.95804L8.43083 8.10571C8.5486 8.22348 8.60749 8.37337 8.60749 8.55538C8.60749 8.73739 8.5486 8.88728 8.43083 9.00505C8.31306 9.12282 8.16317 9.1817 7.98116 9.1817C7.79916 9.1817 7.64927 9.12282 7.5315 9.00505L4.38382 5.85737Z"
                     fill="#D92D20"
@@ -543,7 +648,7 @@ export default function PlansSection() {
         {/* Professional Plan */}
         <div className={styles.pricingCards}>
           <div className={styles.heading}>
-             <svg
+            <svg
               width="52"
               height="56"
               viewBox="0 0 52 56"
@@ -569,16 +674,24 @@ export default function PlansSection() {
             Complete career transformation with placement support, mock
             interviews, and comprehensive mentorship.
           </p>
+          {/* 
+           <button
+  onClick={() =>
+    handleEnrollClick("Professional", pricingData.self_current_price)
+  }
+  className={styles.enrollButton}
+>
+  Enroll Now
+</button> */}
+
           <button
             onClick={() =>
-              handleEnrollClick(
-                "Professional",
-                pricingData.professional_current_price
-              )
+              handleEnrollClick("Professional", pricingData.self_current_price)
             }
             className={styles.enrollButton}
+            disabled={checkingAuth || isSessionLoading}
           >
-            Enroll Now
+            {checkingAuth || isSessionLoading ? "Checking..." : "Enroll Now"}
           </button>
 
           <div className={styles.plancontent}>
