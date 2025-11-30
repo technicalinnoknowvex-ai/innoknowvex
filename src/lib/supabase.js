@@ -96,17 +96,23 @@ export const signInWithEmail = async (email, password) => {
 }
 
 // Request password reset email
-export const requestPasswordReset = async (email) => {
+// ========== UPDATED AUTH HELPER FUNCTIONS ==========
+
+// Request password reset email with custom redirect URL
+export const requestPasswordReset = async (email, customRedirectPath = null) => {
   try {
     console.log('🔄 [RESET] Starting password reset request');
     console.log('📧 [RESET] Email:', email);
     
-    // ✅ FIX: Use window.location.origin if available, fallback to env
+    // ✅ FIX: Use custom redirect path if provided, otherwise default to student
     const baseUrl = typeof window !== 'undefined' 
       ? window.location.origin 
       : process.env.NEXT_PUBLIC_API_BASE_URL;
     
-    const redirectUrl = `${baseUrl}/auth/student/reset-password`;
+    const redirectUrl = customRedirectPath 
+      ? `${baseUrl}${customRedirectPath}`
+      : `${baseUrl}/auth/student/reset-password`;
+    
     console.log('🔗 [RESET] Redirect URL:', redirectUrl);
     
     const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
@@ -139,7 +145,6 @@ export const requestPasswordReset = async (email) => {
     }
   }
 }
-
 // Update password
 export const updatePassword = async (newPassword) => {
   try {

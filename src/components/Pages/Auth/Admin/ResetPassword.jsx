@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
-import styles from "../../student/forgot-password/styles/forgotPassword.module.scss";
+import styles from "./styles/resetPassword.module.scss";
 import { supabase, updatePassword } from "@/lib/supabase";
 
 const resetPasswordSchema = z.object({

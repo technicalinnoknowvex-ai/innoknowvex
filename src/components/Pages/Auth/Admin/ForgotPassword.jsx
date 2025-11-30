@@ -6,6 +6,7 @@ import { z } from "zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styles from "./styles/forgotPassword.module.scss";
+import { requestPasswordReset } from "@/lib/supabase";
 
 const forgotPasswordSchema = z.object({
   email: z.string().min(1, "Email is required").email({
@@ -28,24 +29,47 @@ const AdminForgotPassword = () => {
   });
 
   const onSubmit = async (data) => {
+    console.log('🔄 [ADMIN FORGOT] Form submitted');
+    console.log('📧 [ADMIN FORGOT] Email:', data.email);
+    
     setErrorMessage("");
     setSuccessMessage("");
 
     try {
-      // TODO: Implement your backend API call here
-      // Example: await sendPasswordResetEmail(data.email, 'admin');
+      console.log('🔄 [ADMIN FORGOT] Requesting password reset...');
       
-      // Simulating API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // ✅ FIX: Pass the admin reset password path
+      const result = await requestPasswordReset(data.email, '/auth/admin/reset-password');
       
-      setSuccessMessage("Password reset link has been sent to your email.");
+      console.log('📝 [ADMIN FORGOT] Result:', {
+        success: result.success,
+        message: result.message,
+        error: result.error
+      });
+
+      if (!result.success) {
+        throw new Error(result.error);
+      }
       
-      // Redirect to sign-in after 3 seconds
+      console.log('✅ [ADMIN FORGOT] Reset email sent successfully');
+      setSuccessMessage(
+        "Password reset link has been sent to your email. Please check your inbox and spam folder."
+      );
+      
+      console.log('⏱️ [ADMIN FORGOT] Setting redirect timer...');
       setTimeout(() => {
+        console.log('🔄 [ADMIN FORGOT] Redirecting to sign-in...');
         router.push("/auth/admin/sign-in");
-      }, 3000);
+      }, 5000);
     } catch (error) {
-      setErrorMessage(error.message || "Failed to send reset link. Please try again.");
+      console.error('❌ [ADMIN FORGOT] Error:', error);
+      console.error('❌ [ADMIN FORGOT] Error details:', {
+        message: error.message,
+        stack: error.stack
+      });
+      setErrorMessage(
+        error.message || "Failed to send reset link. Please try again."
+      );
     }
   };
 
@@ -65,9 +89,9 @@ const AdminForgotPassword = () => {
         )}
 
         <div className={styles.headerCell}>
-          <h2>RESET PASSWORD</h2>
+          <h2>ADMIN - RESET PASSWORD</h2>
           <p className={styles.subtitle}>
-            Enter your email address and we'll send you a link to reset your password.
+            Enter your admin email address and we'll send you a link to reset your password.
           </p>
         </div>
 
@@ -76,8 +100,9 @@ const AdminForgotPassword = () => {
           <input
             type="email"
             {...register("email")}
-            placeholder="Enter your email"
+            placeholder="Enter your admin email"
             autoComplete="email"
+            disabled={isSubmitting || !!successMessage}
           />
           <div className={styles.errorGroup}>
             {errors.email && <p>{errors.email.message}</p>}
@@ -88,7 +113,7 @@ const AdminForgotPassword = () => {
           <button
             type="submit"
             className={styles.submitButton}
-            disabled={isSubmitting}
+            disabled={isSubmitting || !!successMessage}
           >
             {isSubmitting ? "SENDING..." : "SEND RESET LINK"}
           </button>

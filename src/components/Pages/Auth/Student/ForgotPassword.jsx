@@ -1,22 +1,28 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import styles from "./styles/forgotPassword.module.scss";
-import { requestPasswordReset } from "@/lib/supabase";
+import styles from "./styles/resetPassword.module.scss";
+import { supabase, updatePassword } from "@/lib/supabase";
 
-const forgotPasswordSchema = z.object({
-  email: z.string().min(1, "Email is required").email({
-    message: "Please enter a valid email address",
-  }),
+const resetPasswordSchema = z.object({
+  password: z
+    .string()
+    .min(6, "Password must be at least 6 characters long"),
+  confirmPassword: z
+    .string()
+    .min(1, "Please confirm your password"),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords do not match",
+  path: ["confirmPassword"],
 });
 
-const StudentForgotPassword = () => {
-  const [successMessage, setSuccessMessage] = useState("");
+export default function AdminResetPassword() {
   const [errorMessage, setErrorMessage] = useState("");
+  const [validToken, setValidToken] = useState(false);
+  const [checkingToken, setCheckingToken] = useState(true);
   const router = useRouter();
 
   const {
@@ -24,86 +30,176 @@ const StudentForgotPassword = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({
-    resolver: zodResolver(forgotPasswordSchema),
+    resolver: zodResolver(resetPasswordSchema),
     mode: "onBlur",
   });
 
+  useEffect(() => {
+    let mounted = true;
+
+    const verifyRecoveryToken = async () => {
+      try {
+        console.log('✅ [ADMIN RESET] Checking for recovery session...');
+        
+        const { data: { session }, error } = await supabase.auth.getSession();
+        
+        console.log('✅ [ADMIN RESET] Session check:', {
+          hasSession: !!session,
+          userRole: session?.user?.user_metadata?.role,
+          error: error?.message
+        });
+
+        if (error || !session) {
+          if (mounted) {
+            setErrorMessage('No active session. Please click the reset link again.');
+            setValidToken(false);
+            setCheckingToken(false);
+          }
+          return;
+        }
+
+        const userRole = session?.user?.user_metadata?.role;
+        if (userRole !== 'admin') {
+          console.error('❌ [ADMIN RESET] Not an admin user:', userRole);
+          if (mounted) {
+            setErrorMessage('This reset link is for admin accounts only.');
+            setValidToken(false);
+            setCheckingToken(false);
+          }
+          return;
+        }
+
+        if (mounted) {
+          console.log('✅ [ADMIN RESET] Valid admin session found!');
+          setValidToken(true);
+          setCheckingToken(false);
+        }
+      } catch (error) {
+        console.error('❌ [ADMIN RESET] Error:', error);
+        if (mounted) {
+          setErrorMessage('An error occurred.');
+          setValidToken(false);
+          setCheckingToken(false);
+        }
+      }
+    };
+
+    const timer = setTimeout(verifyRecoveryToken, 100);
+
+    return () => {
+      mounted = false;
+      clearTimeout(timer);
+    };
+  }, []);
+
   const onSubmit = async (data) => {
-    console.log('🔄 [FORGOT] Form submitted');
-    console.log('📧 [FORGOT] Email:', data.email);
-    
+    console.log('✅ [ADMIN RESET] Form submitted');
     setErrorMessage("");
-    setSuccessMessage("");
 
     try {
-      console.log('🔄 [FORGOT] Requesting password reset...');
-      const result = await requestPasswordReset(data.email);
+      const { data: { session } } = await supabase.auth.getSession();
       
-      console.log('📝 [FORGOT] Result:', {
-        success: result.success,
-        message: result.message,
-        error: result.error
-      });
+      if (!session) {
+        throw new Error('Session expired. Please click the reset link again.');
+      }
+
+      console.log('✅ [ADMIN RESET] Updating password...');
+      const result = await updatePassword(data.password);
 
       if (!result.success) {
         throw new Error(result.error);
       }
+
+      console.log('✅ [ADMIN RESET] Password updated successfully!');
+      alert('Password updated successfully! Redirecting to sign in...');
       
-      console.log('✅ [FORGOT] Reset email sent successfully');
-      setSuccessMessage(
-        "Password reset link has been sent to your email. Please check your inbox and spam folder."
-      );
+      await supabase.auth.signOut();
       
-      console.log('⏱️ [FORGOT] Setting redirect timer...');
       setTimeout(() => {
-        console.log('🔄 [FORGOT] Redirecting to sign-in...');
-        router.push("/auth/student/sign-in");
-      }, 5000);
+        router.push('/auth/admin/sign-in?message=' + encodeURIComponent('Password reset successful! Please sign in with your new password.'));
+      }, 1500);
+
     } catch (error) {
-      console.error('❌ [FORGOT] Error:', error);
-      console.error('❌ [FORGOT] Error details:', {
-        message: error.message,
-        stack: error.stack
-      });
+      console.error('❌ [ADMIN RESET] Error:', error);
       setErrorMessage(
-        error.message || "Failed to send reset link. Please try again."
+        error.message || "Failed to update password. Please try again."
       );
     }
   };
 
+  // Loading state
+  if (checkingToken) {
+    return (
+      <div className={styles.resetPasswordPageWrapper}>
+        <div className={styles.loadingCard}>
+          <div className={styles.spinner}></div>
+          <p className={styles.loadingText}>Verifying your reset link...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Invalid token
+  if (!validToken) {
+    return (
+      <div className={styles.resetPasswordPageWrapper}>
+        <div className={styles.errorCard}>
+          <div className={styles.errorIcon}>!</div>
+          <h2 className={styles.errorTitle}>INVALID LINK</h2>
+          <p className={styles.errorText}>
+            {errorMessage || "This reset link is invalid or has expired."}
+          </p>
+          <button
+            onClick={() => router.push('/auth/admin/forgot-password')}
+            className={styles.requestNewLinkBtn}
+          >
+            REQUEST NEW LINK
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Valid token - show form
   return (
-    <div className={styles.forgotPasswordPageWrapper}>
+    <div className={styles.resetPasswordPageWrapper}>
       <form className={styles.formWrapper} onSubmit={handleSubmit(onSubmit)}>
         {errorMessage && (
           <div className={styles.errorMessageCell} role="alert">
             <p>{errorMessage}</p>
           </div>
         )}
-        
-        {successMessage && (
-          <div className={styles.successMessageCell} role="alert">
-            <p>{successMessage}</p>
-          </div>
-        )}
 
         <div className={styles.headerCell}>
-          <h2>RESET PASSWORD</h2>
+          <h2>CREATE NEW PASSWORD</h2>
           <p className={styles.subtitle}>
-            Enter your email address and we'll send you a link to reset your password.
+            Enter your new admin password below.
           </p>
         </div>
 
-        <fieldset className={`${styles.fieldSet} ${styles.emailCell}`}>
-          <span>EMAIL ADDRESS</span>
+        <fieldset className={`${styles.fieldSet} ${styles.passwordCell}`}>
+          <span>NEW PASSWORD</span>
           <input
-            type="email"
-            {...register("email")}
-            placeholder="Enter your email"
-            autoComplete="email"
-            disabled={isSubmitting || !!successMessage}
+            type="password"
+            {...register("password")}
+            placeholder="Enter new password (min. 6 characters)"
+            autoComplete="new-password"
           />
           <div className={styles.errorGroup}>
-            {errors.email && <p>{errors.email.message}</p>}
+            {errors.password && <p>{errors.password.message}</p>}
+          </div>
+        </fieldset>
+
+        <fieldset className={`${styles.fieldSet} ${styles.confirmPasswordCell}`}>
+          <span>CONFIRM PASSWORD</span>
+          <input
+            type="password"
+            {...register("confirmPassword")}
+            placeholder="Re-enter your password"
+            autoComplete="new-password"
+          />
+          <div className={styles.errorGroup}>
+            {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
           </div>
         </fieldset>
 
@@ -111,23 +207,25 @@ const StudentForgotPassword = () => {
           <button
             type="submit"
             className={styles.submitButton}
-            disabled={isSubmitting || !!successMessage}
+            disabled={isSubmitting}
           >
-            {isSubmitting ? "SENDING..." : "SEND RESET LINK"}
+            {isSubmitting ? "UPDATING..." : "RESET PASSWORD"}
           </button>
         </div>
 
         <div className={styles.linkCell}>
           <p className={styles.backToSignInPrompt}>
             Remember your password?{" "}
-            <Link href="/auth/student/sign-in" className={styles.backToSignInLink}>
+            <button
+              type="button"
+              onClick={() => router.push('/auth/admin/sign-in')}
+              className={styles.backToSignInLink}
+            >
               Sign In
-            </Link>
+            </button>
           </p>
         </div>
       </form>
     </div>
   );
-};
-
-export default StudentForgotPassword;
+}
