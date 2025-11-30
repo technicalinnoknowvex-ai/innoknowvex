@@ -1,10 +1,20 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import style from "./style/coursesinfo.module.scss";
-import SideNavigation from "../../SideNavigation/SideNavigation";
 import Image from "next/image";
-import { getPrograms, updateProgram, uploadImage, deleteImage, uploadBrochure, deleteBrochure } from "@/app/api/programs/programs";
-import { getPricingByCourse, upsertPricing, calculateSavings } from "@/app/api/programs/programs";
+import {
+  getPrograms,
+  updateProgram,
+  uploadImage,
+  deleteImage,
+  uploadBrochure,
+  deleteBrochure,
+} from "@/app/(backend)/api/programs/programs";
+import {
+  getPricingByCourse,
+  upsertPricing,
+  calculateSavings,
+} from "@/app/(backend)/api/programs/programs";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
 const CoursesInfoPage = () => {
@@ -39,7 +49,7 @@ const CoursesInfoPage = () => {
     mentor_current_price: "",
     professional_actual_price: "",
     professional_current_price: "",
-    currency: "INR"
+    currency: "INR",
   });
 
   const [imageFile, setImageFile] = useState(null);
@@ -79,18 +89,19 @@ const CoursesInfoPage = () => {
     }
   };
 
-  const cardsToShow = containerWidth > 0 && cardWidth > 0
-    ? Math.floor(containerWidth / (cardWidth + gap))
-    : 3;
+  const cardsToShow =
+    containerWidth > 0 && cardWidth > 0
+      ? Math.floor(containerWidth / (cardWidth + gap))
+      : 3;
 
   const maxIndex = Math.max(0, programsData.length - cardsToShow);
 
   const nextSlide = () => {
-    if (currentIndex < maxIndex) setCurrentIndex(prev => prev + 1);
+    if (currentIndex < maxIndex) setCurrentIndex((prev) => prev + 1);
   };
 
   const prevSlide = () => {
-    if (currentIndex > 0) setCurrentIndex(prev => prev - 1);
+    if (currentIndex > 0) setCurrentIndex((prev) => prev - 1);
   };
 
   const handleInputChange = (e) => {
@@ -133,7 +144,7 @@ const CoursesInfoPage = () => {
     if (skillInput.trim()) {
       setFormData((prev) => ({
         ...prev,
-        skills: [...prev.skills, skillInput.trim()]
+        skills: [...prev.skills, skillInput.trim()],
       }));
       setSkillInput("");
     }
@@ -142,7 +153,7 @@ const CoursesInfoPage = () => {
   const handleSkillRemove = (index) => {
     setFormData((prev) => ({
       ...prev,
-      skills: prev.skills.filter((_, i) => i !== index)
+      skills: prev.skills.filter((_, i) => i !== index),
     }));
   };
 
@@ -161,7 +172,7 @@ const CoursesInfoPage = () => {
       mentor_current_price: "",
       professional_actual_price: "",
       professional_current_price: "",
-      currency: "INR"
+      currency: "INR",
     });
     setImageFile(null);
     setImagePreview("");
@@ -186,14 +197,17 @@ const CoursesInfoPage = () => {
 
     // Validate pricing fields
     const priceFields = [
-      'self_actual_price', 'self_current_price',
-      'mentor_actual_price', 'mentor_current_price',
-      'professional_actual_price', 'professional_current_price'
+      "self_actual_price",
+      "self_current_price",
+      "mentor_actual_price",
+      "mentor_current_price",
+      "professional_actual_price",
+      "professional_current_price",
     ];
 
     for (const field of priceFields) {
       if (formData[field] && isNaN(parseFloat(formData[field]))) {
-        alert(`Please enter a valid number for ${field.replace(/_/g, ' ')}`);
+        alert(`Please enter a valid number for ${field.replace(/_/g, " ")}`);
         return false;
       }
     }
@@ -240,7 +254,10 @@ const CoursesInfoPage = () => {
           }
         }
 
-        const uploadResult = await uploadBrochure(brochureFile, editingProgramId);
+        const uploadResult = await uploadBrochure(
+          brochureFile,
+          editingProgramId
+        );
         if (uploadResult.success) {
           brochureUrl = uploadResult.url;
         } else {
@@ -255,7 +272,7 @@ const CoursesInfoPage = () => {
         overview: formData.overview.trim(),
         skills: formData.skills,
         price_search_tag: formData.price_search_tag.trim(),
-        category: formData.category
+        category: formData.category,
       };
 
       const result = await updateProgram(editingProgramId, programData);
@@ -271,7 +288,7 @@ const CoursesInfoPage = () => {
         mentor_current_price: formData.mentor_current_price || 0,
         professional_actual_price: formData.professional_actual_price || 0,
         professional_current_price: formData.professional_current_price || 0,
-        currency: formData.currency
+        currency: formData.currency,
       };
 
       const pricingResult = await upsertPricing(formData.title, pricingData);
@@ -295,10 +312,10 @@ const CoursesInfoPage = () => {
   const handleEdit = async (program) => {
     setEditMode(true);
     setEditingProgramId(program.id);
-    
+
     // Fetch pricing data
     const pricingData = await getPricingByCourse(program.title);
-    
+
     setFormData({
       title: program.title || "",
       image: program.image || "",
@@ -313,17 +330,21 @@ const CoursesInfoPage = () => {
       mentor_current_price: pricingData?.mentor_current_price || "",
       professional_actual_price: pricingData?.professional_actual_price || "",
       professional_current_price: pricingData?.professional_current_price || "",
-      currency: pricingData?.currency || "INR"
+      currency: pricingData?.currency || "INR",
     });
-    
+
     setImagePreview(program.image || "");
     // setBrochureFileName(program.brochure ? "Current brochure" : "");
-    
+
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleCancelEdit = () => {
-    if (window.confirm("Are you sure you want to cancel editing? All unsaved changes will be lost.")) {
+    if (
+      window.confirm(
+        "Are you sure you want to cancel editing? All unsaved changes will be lost."
+      )
+    ) {
       resetForm();
     }
   };
@@ -351,9 +372,8 @@ const CoursesInfoPage = () => {
 
   return (
     <>
-      <div className={style.main}>
-        <SideNavigation />
-        <div className={style.coursesInfoContent}>
+      <div className={style.pageInner}>
+      <div className={style.coursesInfoContent}>
           {!editMode && (
             <div className={style.figures}>
               <p>Total Students: {totalStudents}</p>
@@ -364,7 +384,9 @@ const CoursesInfoPage = () => {
           {editMode && (
             <>
               <div className={style.formHeader}>
-                <h2 className={style.formTitle}>Edit Course: {formData.title}</h2>
+                <h2 className={style.formTitle}>
+                  Edit Course: {formData.title}
+                </h2>
                 <button
                   className={style.cancelEditBtn}
                   onClick={handleCancelEdit}
@@ -390,7 +412,9 @@ const CoursesInfoPage = () => {
                       <option value="programming">Programming</option>
                       <option value="data-science">Data Science</option>
                       <option value="web-development">Web Development</option>
-                      <option value="mobile-development">Mobile Development</option>
+                      <option value="mobile-development">
+                        Mobile Development
+                      </option>
                       <option value="design">Design</option>
                       <option value="business">Business</option>
                     </select>
@@ -438,12 +462,16 @@ const CoursesInfoPage = () => {
                         <Icon icon="lucide:user" />
                         Self-Paced Learning
                         {selfSavings > 0 && (
-                          <span className={style.savingsBadge}>{selfSavings}% OFF</span>
+                          <span className={style.savingsBadge}>
+                            {selfSavings}% OFF
+                          </span>
                         )}
                       </h4>
                       <div className={style.pricingInputs}>
                         <div className={style.inputField}>
-                          <label htmlFor="self_actual_price">Actual Price</label>
+                          <label htmlFor="self_actual_price">
+                            Actual Price
+                          </label>
                           <input
                             type="number"
                             id="self_actual_price"
@@ -455,7 +483,9 @@ const CoursesInfoPage = () => {
                           />
                         </div>
                         <div className={style.inputField}>
-                          <label htmlFor="self_current_price">Current Price</label>
+                          <label htmlFor="self_current_price">
+                            Current Price
+                          </label>
                           <input
                             type="number"
                             id="self_current_price"
@@ -477,12 +507,16 @@ const CoursesInfoPage = () => {
                         <Icon icon="lucide:users" />
                         Mentor-Led Learning
                         {mentorSavings > 0 && (
-                          <span className={style.savingsBadge}>{mentorSavings}% OFF</span>
+                          <span className={style.savingsBadge}>
+                            {mentorSavings}% OFF
+                          </span>
                         )}
                       </h4>
                       <div className={style.pricingInputs}>
                         <div className={style.inputField}>
-                          <label htmlFor="mentor_actual_price">Actual Price</label>
+                          <label htmlFor="mentor_actual_price">
+                            Actual Price
+                          </label>
                           <input
                             type="number"
                             id="mentor_actual_price"
@@ -494,7 +528,9 @@ const CoursesInfoPage = () => {
                           />
                         </div>
                         <div className={style.inputField}>
-                          <label htmlFor="mentor_current_price">Current Price</label>
+                          <label htmlFor="mentor_current_price">
+                            Current Price
+                          </label>
                           <input
                             type="number"
                             id="mentor_current_price"
@@ -516,12 +552,16 @@ const CoursesInfoPage = () => {
                         <Icon icon="lucide:briefcase" />
                         Professional Track
                         {professionalSavings > 0 && (
-                          <span className={style.savingsBadge}>{professionalSavings}% OFF</span>
+                          <span className={style.savingsBadge}>
+                            {professionalSavings}% OFF
+                          </span>
                         )}
                       </h4>
                       <div className={style.pricingInputs}>
                         <div className={style.inputField}>
-                          <label htmlFor="professional_actual_price">Actual Price</label>
+                          <label htmlFor="professional_actual_price">
+                            Actual Price
+                          </label>
                           <input
                             type="number"
                             id="professional_actual_price"
@@ -533,7 +573,9 @@ const CoursesInfoPage = () => {
                           />
                         </div>
                         <div className={style.inputField}>
-                          <label htmlFor="professional_current_price">Current Price</label>
+                          <label htmlFor="professional_current_price">
+                            Current Price
+                          </label>
                           <input
                             type="number"
                             id="professional_current_price"
@@ -602,7 +644,7 @@ const CoursesInfoPage = () => {
                         value={skillInput}
                         onChange={(e) => setSkillInput(e.target.value)}
                         onKeyPress={(e) => {
-                          if (e.key === 'Enter') {
+                          if (e.key === "Enter") {
                             e.preventDefault();
                             handleSkillAdd();
                           }
@@ -650,7 +692,10 @@ const CoursesInfoPage = () => {
                       <button type="submit" disabled={submitting}>
                         {submitting ? (
                           <>
-                            <Icon icon="lucide:loader-2" className={style.buttonSpinner} />
+                            <Icon
+                              icon="lucide:loader-2"
+                              className={style.buttonSpinner}
+                            />
                             Updating...
                           </>
                         ) : (
@@ -669,7 +714,8 @@ const CoursesInfoPage = () => {
 
           <div className={style.allCoursesSection}>
             <h2 className={style.sectionTitle}>
-              All Courses {programsData.length > 0 && `(${programsData.length})`}
+              All Courses{" "}
+              {programsData.length > 0 && `(${programsData.length})`}
             </h2>
 
             {loading ? (
@@ -692,7 +738,10 @@ const CoursesInfoPage = () => {
                       disabled={currentIndex === 0}
                       aria-label="Previous courses"
                     >
-                      <Icon icon="famicons:chevron-back" style={{ width: "24px", height: "24px" }} />
+                      <Icon
+                        icon="famicons:chevron-back"
+                        style={{ width: "24px", height: "24px" }}
+                      />
                     </button>
                     <button
                       className={`${style.navButton} ${style.navButtonRight}`}
@@ -700,23 +749,34 @@ const CoursesInfoPage = () => {
                       disabled={currentIndex >= maxIndex}
                       aria-label="Next courses"
                     >
-                      <Icon icon="famicons:chevron-forward" style={{ width: "24px", height: "24px" }} />
+                      <Icon
+                        icon="famicons:chevron-forward"
+                        style={{ width: "24px", height: "24px" }}
+                      />
                     </button>
                   </>
                 )}
                 <div className={style.cardsContainer}>
                   <div
                     className={style.cardsWrapper}
-                    style={{ transform: `translateX(${translateX}px)`, gap: `${gap}px` }}
+                    style={{
+                      transform: `translateX(${translateX}px)`,
+                      gap: `${gap}px`,
+                    }}
                   >
                     {programsData.map((program) => (
-                      <div 
-                        key={program.id} 
-                        className={`${style.programCard} ${editingProgramId === program.id ? style.editing : ''}`}
+                      <div
+                        key={program.id}
+                        className={`${style.programCard} ${
+                          editingProgramId === program.id ? style.editing : ""
+                        }`}
                       >
                         <div className={style.cardImageWrapper}>
                           <Image
-                            src={program.image || "https://via.placeholder.com/400x250"}
+                            src={
+                              program.image ||
+                              "https://via.placeholder.com/400x250"
+                            }
                             alt={program.title}
                             width={400}
                             height={250}
@@ -725,7 +785,7 @@ const CoursesInfoPage = () => {
                         </div>
                         <div className={style.cardContent}>
                           <h3 className={style.cardTitle}>{program.title}</h3>
-                          <button 
+                          <button
                             className={style.editButton}
                             onClick={() => handleEdit(program)}
                           >

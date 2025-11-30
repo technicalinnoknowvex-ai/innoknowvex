@@ -1,176 +1,9 @@
-import AppLayout from "@/components/Layouts/AppLayout";
 import "./globals.scss";
-import localFont from "next/font/local";
 import { CursorProvider } from "@/context/CursorProvider";
 import Cursor from "@/components/Common/Cursor/Cursor";
 import { ScrollProvider } from "@/context/ScrollContext";
 import { ToastContainer } from "react-toastify";
-
-const sharpGrotesk20 = localFont({
-  src: [
-    // 20 Width Normal
-    {
-      path: "../../public/fonts/sharpGrotesk/SharpGrotesk-Thin20.otf",
-      weight: "100",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/sharpGrotesk/SharpGrotesk-Light20.otf",
-      weight: "300",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/sharpGrotesk/SharpGrotesk-Book20.otf",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/sharpGrotesk/SharpGrotesk-Medium20.otf",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/sharpGrotesk/SharpGrotesk-SemiBold20.otf",
-      weight: "600",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/sharpGrotesk/SharpGrotesk-Bold20.otf",
-      weight: "700",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/sharpGrotesk/SharpGrotesk-Black20.otf",
-      weight: "900",
-      style: "normal",
-    },
-
-    // 20 Width Italic
-    {
-      path: "../../public/fonts/sharpGrotesk/SharpGrotesk-ThinItalic20.otf",
-      weight: "100",
-      style: "italic",
-    },
-    {
-      path: "../../public/fonts/sharpGrotesk/SharpGrotesk-LightItalic20.otf",
-      weight: "300",
-      style: "italic",
-    },
-    {
-      path: "../../public/fonts/sharpGrotesk/SharpGrotesk-BookItalic20.otf",
-      weight: "400",
-      style: "italic",
-    },
-    {
-      path: "../../public/fonts/sharpGrotesk/SharpGrotesk-MediumItalic20.otf",
-      weight: "500",
-      style: "italic",
-    },
-    {
-      path: "../../public/fonts/sharpGrotesk/SharpGrotesk-SemiBoldItalic20.otf",
-      weight: "600",
-      style: "italic",
-    },
-    {
-      path: "../../public/fonts/sharpGrotesk/SharpGrotesk-BoldItalic20.otf",
-      weight: "700",
-      style: "italic",
-    },
-    {
-      path: "../../public/fonts/sharpGrotesk/SharpGrotesk-BlackItalic20.otf",
-      weight: "900",
-      style: "italic",
-    },
-  ],
-  variable: "--font-sharp-20",
-  display: "swap",
-});
-
-const sharpGrotesk25 = localFont({
-  src: [
-    // 25 Width Normal
-    {
-      path: "../../public/fonts/sharpGrotesk/SharpGrotesk-Thin25.otf",
-      weight: "100",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/sharpGrotesk/SharpGrotesk-Light25.otf",
-      weight: "300",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/sharpGrotesk/SharpGrotesk-Book25.otf",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/sharpGrotesk/SharpGrotesk-Medium25.otf",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/sharpGrotesk/SharpGrotesk-SemiBold25.otf",
-      weight: "600",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/sharpGrotesk/SharpGrotesk-Bold25.otf",
-      weight: "700",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/sharpGrotesk/SharpGrotesk-Black25.otf",
-      weight: "900",
-      style: "normal",
-    },
-  ],
-  variable: "--font-sharp-25",
-  display: "swap",
-});
-
-const oldSchoolGrotesk = localFont({
-  src: [
-    // 25 Width Normal
-    {
-      path: "../../public/fonts/oldSchoolGrotesk/OldschoolGrotesk-NormalThin.otf",
-      weight: "100",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/oldSchoolGrotesk/OldschoolGrotesk-NormalLight.otf",
-      weight: "300",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/oldSchoolGrotesk/OldschoolGrotesk-NormalBook.otf",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/oldSchoolGrotesk/OldschoolGrotesk-NormalRegular.otf",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/oldSchoolGrotesk/OldschoolGrotesk-NormalBold.otf",
-      weight: "600",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/oldSchoolGrotesk/OldschoolGrotesk-NormalExtraBold.otf",
-      weight: "700",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/oldSchoolGrotesk/OldschoolGrotesk-NormalBlack.otf",
-      weight: "900",
-      style: "normal",
-    },
-  ],
-  variable: "--font-oldschool",
-  display: "swap",
-});
+import { sharpGrotesk20, sharpGrotesk25, oldSchoolGrotesk } from "@/lib/fonts";
 
 export const metadata = {
   title: "Innoknowvex",
@@ -181,8 +14,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${sharpGrotesk20.variable}
-        ${sharpGrotesk25.variable} ${oldSchoolGrotesk.variable}`}
+        className={`${sharpGrotesk20.variable} ${sharpGrotesk25.variable} ${oldSchoolGrotesk.variable}`}
       >
         <ToastContainer
           position="top-right"
@@ -199,9 +31,7 @@ export default function RootLayout({ children }) {
         <CursorProvider>
           <ScrollProvider>
             <Cursor />
-            <AppLayout>
-              {children}
-            </AppLayout>
+            <div className="app-root-container">{children}</div>
           </ScrollProvider>
         </CursorProvider>
       </body>

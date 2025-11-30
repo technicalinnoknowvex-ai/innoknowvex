@@ -1,58 +1,72 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import SideNavigation from "../../SideNavigation/SideNavigation";
+import { useRouter } from "next/navigation";
 import style from "./style/personalinfo.module.scss";
 import Image from "next/image";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { getAdmin, updateAdmin, uploadAdminImage } from "@/app/api/admin/admin";
+import {
+  getAdmin,
+  updateAdmin,
+  uploadAdminImage,
+} from "@/app/(backend)/api/admin/admin";
+import useUserSession from "@/hooks/useUserSession";
 
 const PersonalInfoPage = () => {
+  const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [adminId, setAdminId] = useState("EMP001");
-  
+  const { session, isSessionLoading } = useUserSession();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     dob: "",
-    companyId: ""
+    userCode: "", // ✅ Changed from companyId to userCode
   });
 
   const [profileImage, setProfileImage] = useState(
-    "https://lwgkwvpeqx5af6xj.public.blob.vercel-storage.com/anime-3083036_1280.jpg"
+    "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/Profile%20Images/images.jpg"
   );
   const [imagePreview, setImagePreview] = useState("");
   const [selectedImageFile, setSelectedImageFile] = useState(null);
 
-  useEffect(() => {
-    fetchAdminData();
-  }, [adminId]);
-
   const fetchAdminData = async () => {
+    if (isSessionLoading) return;
+
+    if (!session?.user_id) {
+      console.error("No session or user_id found");
+      setLoading(false);
+      return;
+    }
+
+    const adminId = session.user_id;
+
     try {
       setLoading(true);
       console.log("Fetching admin data for ID:", adminId);
-      
+
       const result = await getAdmin(adminId);
       console.log("Fetch result:", result);
-      
+
       if (result.success && result.data) {
         const adminData = result.data;
-        
+
         setFormData({
           name: adminData.name || "",
           email: adminData.email || "",
           dob: adminData.dob || "",
-          companyId: adminData.id || ""
+          userCode: adminData.user_code || "", // ✅ Changed from id to user_code
         });
-        
+
         if (adminData.image) {
           setProfileImage(adminData.image);
         }
       } else {
         console.error("Failed to fetch admin data:", result.error);
-        alert(`Failed to load profile data: ${result.error || 'Unknown error'}`);
+        alert(
+          `Failed to load profile data: ${result.error || "Unknown error"}`
+        );
       }
     } catch (error) {
       console.error("Error fetching admin data:", error);
@@ -61,6 +75,10 @@ const PersonalInfoPage = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchAdminData();
+  }, [session, isSessionLoading]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -75,6 +93,13 @@ const PersonalInfoPage = () => {
     if (file) {
       if (file.size > 5 * 1024 * 1024) {
         alert("Image size should be less than 5MB");
+        return;
+      }
+
+      // Validate file type
+      const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+      if (!validTypes.includes(file.type)) {
+        alert("Please upload a valid image file (JPEG, PNG, GIF, or WebP)");
         return;
       }
 
@@ -98,23 +123,35 @@ const PersonalInfoPage = () => {
 
   const handleSave = async (e) => {
     e.preventDefault();
-    
+
     if (!formData.name.trim() || !formData.email.trim()) {
       alert("Please fill in all required fields");
       return;
     }
 
+    if (!session?.user_id) {
+      alert("Session expired. Please log in again.");
+      return;
+    }
+
+    const adminId = session.user_id;
+
     try {
       setSaving(true);
       console.log("Starting save process...");
-      
+
       let imageUrl = profileImage;
-      
+
+      // ✅ Upload new image and delete old one
       if (selectedImageFile) {
         console.log("Uploading new image...");
-        const uploadResult = await uploadAdminImage(selectedImageFile, adminId);
+        const uploadResult = await uploadAdminImage(
+          selectedImageFile,
+          adminId,
+          profileImage // ✅ Pass old image URL to delete it
+        );
         console.log("Upload result:", uploadResult);
-        
+
         if (uploadResult.success && uploadResult.url) {
           imageUrl = uploadResult.url;
         } else {
@@ -122,18 +159,18 @@ const PersonalInfoPage = () => {
           alert("Failed to upload image. Continuing with profile update...");
         }
       }
-      
+
       const updateData = {
         name: formData.name,
         email: formData.email,
         dob: formData.dob || null,
-        image: imageUrl
+        image: imageUrl,
       };
-      
+
       console.log("Updating admin with data:", updateData);
       const result = await updateAdmin(adminId, updateData);
       console.log("Update result:", result);
-      
+
       if (result.success) {
         setProfileImage(imageUrl);
         setImagePreview("");
@@ -142,7 +179,7 @@ const PersonalInfoPage = () => {
         setIsEditing(false);
         await fetchAdminData();
       } else {
-        alert(`Failed to update profile: ${result.error || 'Unknown error'}`);
+        alert(`Failed to update profile: ${result.error || "Unknown error"}`);
       }
     } catch (error) {
       console.error("Error saving profile:", error);
@@ -153,7 +190,11 @@ const PersonalInfoPage = () => {
   };
 
   const handleCancel = () => {
-    if (window.confirm("Are you sure you want to cancel? All unsaved changes will be lost.")) {
+    if (
+      window.confirm(
+        "Are you sure you want to cancel? All unsaved changes will be lost."
+      )
+    ) {
       setIsEditing(false);
       setImagePreview("");
       setSelectedImageFile(null);
@@ -161,10 +202,9 @@ const PersonalInfoPage = () => {
     }
   };
 
-  if (loading) {
+  if (isSessionLoading || loading) {
     return (
-      <div className={style.main}>
-        <SideNavigation />
+      <div className={style.pageInner}>
         <div className={style.personalInfoContainer}>
           <div className={style.loadingContainer}>
             <Icon icon="lucide:loader-2" className={style.spinner} />
@@ -175,9 +215,18 @@ const PersonalInfoPage = () => {
     );
   }
 
+  if (!session?.user_id) {
+    return (
+      <div className={style.pageInner}>
+        <div className={style.personalInfoContainer}>
+          <p>No session found. Please log in.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className={style.main}>
-      <SideNavigation />
+    <div className={style.pageInner}>
       <div className={style.personalInfoContainer}>
         <div className={style.formHeader}>
           <h2 className={style.formTitle}>Personal Information</h2>
@@ -208,7 +257,7 @@ const PersonalInfoPage = () => {
                   <Icon icon="lucide:camera" />
                   <input
                     type="file"
-                    accept="image/*"
+                    accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
                     onChange={handleImageChange}
                     style={{ display: "none" }}
                   />
@@ -276,12 +325,13 @@ const PersonalInfoPage = () => {
               </div>
 
               <div className={style.fieldGroup}>
-                <label htmlFor="companyId">Company ID</label>
+                <label htmlFor="userCode">User Code</label> {/* ✅ Changed label */}
                 <input
                   type="text"
-                  id="companyId"
-                  name="companyId"
-                  value={formData.companyId}
+                  id="userCode" 
+                  
+                  name="userCode"
+                  value={formData.userCode} 
                   disabled={true}
                   readOnly
                 />
@@ -294,7 +344,10 @@ const PersonalInfoPage = () => {
               <button type="submit" className={style.savebtn} disabled={saving}>
                 {saving ? (
                   <>
-                    <Icon icon="lucide:loader-2" className={style.buttonSpinner} />
+                    <Icon
+                      icon="lucide:loader-2"
+                      className={style.buttonSpinner}
+                    />
                     Saving...
                   </>
                 ) : (

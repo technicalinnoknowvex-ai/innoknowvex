@@ -18,10 +18,41 @@
   }
 }
 
+// Custom scrollbar styles for all scrollable containers
+.personalInfoContainer,
+.cardsContainer,
+.courseSelectorDropdown {
+  // Webkit browsers (Chrome, Safari, Edge)
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #FAF7E9;
+    border-radius: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #8d7a00;
+    border-radius: 6px;
+    border: 2px solid #FAF7E9;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #756300;
+  }
+
+  // Firefox
+  scrollbar-width: thin;
+  scrollbar-color: #8d7a00 #FAF7E9;
+}
+
 .personalInfoContainer {
   height: auto;
-  min-height: 75vh;
-  width: 80%;
+  max-height: 85vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
   border: 2px solid #A69600;
   border-radius: 20px;
   padding: 30px 20px;
@@ -34,15 +65,16 @@
   }
 
   @include screen(lg) {
-    max-width: 70%;
+    max-width: 100%;
   }
 
   @include screen(md) {
-    width: 70%;
+    width: 100%;
   }
 
   @include m.tablet-down {
     max-width: 100%;
+    max-height: 80vh;
     padding: 20px;
     margin-right: 0;
   }
@@ -50,6 +82,7 @@
   @include m.mobile-down {
     padding: 15px;
     border-radius: 15px;
+    max-height: 75vh;
   }
 }
 
@@ -418,6 +451,27 @@
   animation: spin 1s linear infinite;
 }
 
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  gap: 16px;
+
+  p {
+    @include m.font($font-sharp-20, $medium, #262C35);
+    font-size: 16px;
+  }
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  color: #A69600;
+  animation: spin 1s linear infinite;
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -425,4 +479,69 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+// Additional scrollable containers (for consistency)
+.cardsContainer {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0;
+  overflow-x: auto; // Enable horizontal scrolling for carousel
+
+  // Custom scrollbar for horizontal scrolling in carousel
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #FAF7E9;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #8d7a00;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #756300;
+  }
+
+  // Firefox
+  scrollbar-width: thin;
+  scrollbar-color: #8d7a00 #FAF7E9;
+}
+
+.courseSelector {
+  position: relative;
+  width: 100%;
+}
+
+.courseSelectorDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-top: none;
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+  @include m.tablet-down {
+    max-height: 300px;
+  }
+
+  @include m.mobile-down {
+    max-height: 250px;
+  }
+}
+
+/* Page wrapper used by components to fill remaining width */
+.pageInner {
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
 }
