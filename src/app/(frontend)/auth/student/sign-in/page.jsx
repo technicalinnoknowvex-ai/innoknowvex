@@ -1,8 +1,10 @@
 import StudentSignInPage from "@/components/Pages/Auth/Student/StudentSignInPage";
-import React from "react";
+import React , {Suspense} from "react";
 
 const page = () => {
-  return <StudentSignInPage />;
+  return <Suspense fallback={<div>Loading...</div>}>
+        <StudentSignInPage />
+      </Suspense>
 };
 
 export default page;
