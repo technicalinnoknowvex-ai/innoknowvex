@@ -60,7 +60,7 @@ const ResetPasswordForm = ({
 
     const verifyRecoveryToken = async () => {
       try {
-        console.log(`✅ [${currentPaths.label} RESET] Checking for recovery session...`);
+        // console.log(`✅ [${currentPaths.label} RESET] Checking for recovery session...`);
         
         // ✅ FIX: Try to restore session from cookies first
         const getCookie = (name) => {
@@ -74,16 +74,16 @@ const ResetPasswordForm = ({
         const accessToken = getCookie('sb-access-token');
         const refreshToken = getCookie('sb-refresh-token');
         
-        console.log(`✅ [${currentPaths.label} RESET] Cookie check:`, {
-          hasAccessToken: !!accessToken,
-          hasRefreshToken: !!refreshToken,
-          allCookies: document.cookie
-        });
+        // console.log(`✅ [${currentPaths.label} RESET] Cookie check:`, {
+        //   hasAccessToken: !!accessToken,
+        //   hasRefreshToken: !!refreshToken,
+        //   allCookies: document.cookie
+        // });
         
         // If we have tokens in cookies, set the session
         if (accessToken && refreshToken) {
-          console.log(`✅ [${currentPaths.label} RESET] Restoring session from cookies...`);
-          console.log(`🔑 [${currentPaths.label} RESET] Access token (first 20 chars):`, accessToken?.substring(0, 20));
+          // console.log(`✅ [${currentPaths.label} RESET] Restoring session from cookies...`);
+          // console.log(`🔑 [${currentPaths.label} RESET] Access token (first 20 chars):`, accessToken?.substring(0, 20));
           
           const { data, error: setError } = await supabase.auth.setSession({
             access_token: accessToken,
@@ -93,14 +93,14 @@ const ResetPasswordForm = ({
           if (setError) {
             console.error(`❌ [${currentPaths.label} RESET] Error setting session:`, setError);
           } else {
-            console.log(`✅ [${currentPaths.label} RESET] Session restored successfully`, {
-              hasSession: !!data?.session,
-              hasUser: !!data?.user
-            });
+            // console.log(`✅ [${currentPaths.label} RESET] Session restored successfully`, {
+            //   hasSession: !!data?.session,
+            //   hasUser: !!data?.user
+            // });
           }
         } else {
-          console.warn(`⚠️ [${currentPaths.label} RESET] No tokens found in cookies!`);
-          console.log(`📋 [${currentPaths.label} RESET] All available cookies:`, document.cookie);
+          // console.warn(`⚠️ [${currentPaths.label} RESET] No tokens found in cookies!`);
+          // console.log(`📋 [${currentPaths.label} RESET] All available cookies:`, document.cookie);
         }
         
         // Small delay to ensure session is set
@@ -109,12 +109,12 @@ const ResetPasswordForm = ({
         // Now check for session
         const { data: { session }, error } = await supabase.auth.getSession();
         
-        console.log(`✅ [${currentPaths.label} RESET] Session check:`, {
-          hasSession: !!session,
-          userRole: session?.user?.user_metadata?.role,
-          userId: session?.user?.id,
-          error: error?.message
-        });
+        // console.log(`✅ [${currentPaths.label} RESET] Session check:`, {
+        //   hasSession: !!session,
+        //   userRole: session?.user?.user_metadata?.role,
+        //   userId: session?.user?.id,
+        //   error: error?.message
+        // });
 
         if (error || !session) {
           console.error(`❌ [${currentPaths.label} RESET] No session found after restore attempt`);
@@ -130,7 +130,7 @@ const ResetPasswordForm = ({
         const userRole = session?.user?.user_metadata?.role;
         
         // ✅ REMOVED ROLE CHECK - Anyone with valid session can reset password
-        console.log(`✅ [${currentPaths.label} RESET] User role:`, userRole, '(role check disabled)');
+        // console.log(`✅ [${currentPaths.label} RESET] User role:`, userRole, '(role check disabled)');
 
         if (mounted) {
           console.log(`✅ [${currentPaths.label} RESET] Valid session found!`);
@@ -156,7 +156,7 @@ const ResetPasswordForm = ({
   }, [currentPaths.label, currentPaths.role, userType]);
 
   const onSubmit = async (data) => {
-    console.log(`✅ [${currentPaths.label} RESET] Form submitted`);
+    // console.log(`✅ [${currentPaths.label} RESET] Form submitted`);
     setErrorMessage("");
 
     try {
@@ -166,14 +166,14 @@ const ResetPasswordForm = ({
         throw new Error('Session expired. Please click the reset link again.');
       }
 
-      console.log(`✅ [${currentPaths.label} RESET] Updating password...`);
+      // console.log(`✅ [${currentPaths.label} RESET] Updating password...`);
       const result = await updatePassword(data.password);
 
       if (!result.success) {
         throw new Error(result.error);
       }
 
-      console.log(`✅ [${currentPaths.label} RESET] Password updated successfully!`);
+      // console.log(`✅ [${currentPaths.label} RESET] Password updated successfully!`);
       alert('Password updated successfully! Redirecting to sign in...');
       
       await supabase.auth.signOut();

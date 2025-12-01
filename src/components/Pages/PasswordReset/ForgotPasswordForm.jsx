@@ -48,33 +48,33 @@ const ForgotPasswordForm = ({
   const currentPaths = paths[userType] || paths.student;
 
   const onSubmit = async (data) => {
-    console.log(`🔄 [${currentPaths.label} FORGOT] Form submitted`);
-    console.log(`📧 [${currentPaths.label} FORGOT] Email:`, data.email);
+    // console.log(`🔄 [${currentPaths.label} FORGOT] Form submitted`);
+    // console.log(`📧 [${currentPaths.label} FORGOT] Email:`, data.email);
     
     setErrorMessage("");
     setSuccessMessage("");
 
     try {
-      console.log(`🔄 [${currentPaths.label} FORGOT] Requesting password reset...`);
+      // console.log(`🔄 [${currentPaths.label} FORGOT] Requesting password reset...`);
       
       const result = await requestPasswordReset(data.email, currentPaths.resetPath);
       
-      console.log(`📝 [${currentPaths.label} FORGOT] Result:`, {
-        success: result.success,
-        message: result.message,
-        error: result.error
-      });
+      // console.log(`📝 [${currentPaths.label} FORGOT] Result:`, {
+      //   success: result.success,
+      //   message: result.message,
+      //   error: result.error
+      // });
 
       if (!result.success) {
         throw new Error(result.error);
       }
       
-      console.log(`✅ [${currentPaths.label} FORGOT] Reset email sent successfully`);
+      // console.log(`✅ [${currentPaths.label} FORGOT] Reset email sent successfully`);
       setSuccessMessage(
         "Password reset link has been sent to your email. Please check your inbox and spam folder."
       );
       
-      console.log(`⏱️ [${currentPaths.label} FORGOT] Setting redirect timer...`);
+      // console.log(`⏱️ [${currentPaths.label} FORGOT] Setting redirect timer...`);
       setTimeout(() => {
         console.log(`🔄 [${currentPaths.label} FORGOT] Redirecting to sign-in...`);
         router.push(currentPaths.signInPath);

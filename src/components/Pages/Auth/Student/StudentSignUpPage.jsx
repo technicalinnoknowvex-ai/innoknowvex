@@ -52,10 +52,10 @@ const StudentSignUpPage = () => {
       // Set redirect URL for email verification - point to your callback route
       const redirectUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL || window.location.origin}/api/auth/callback`;
       
-      console.log('🔵 SIGNUP CHECKPOINT 1: Starting signup process');
-      console.log('🔵 SIGNUP CHECKPOINT 2: Redirect URL being sent:', redirectUrl);
-      console.log('🔵 SIGNUP CHECKPOINT 3: Environment variable:', process.env.NEXT_PUBLIC_API_BASE_URL);
-      console.log('🔵 SIGNUP CHECKPOINT 4: Window origin:', window.location.origin);
+      // console.log('🔵 SIGNUP CHECKPOINT 1: Starting signup process');
+      // console.log('🔵 SIGNUP CHECKPOINT 2: Redirect URL being sent:', redirectUrl);
+      // console.log('🔵 SIGNUP CHECKPOINT 3: Environment variable:', process.env.NEXT_PUBLIC_API_BASE_URL);
+      // console.log('🔵 SIGNUP CHECKPOINT 4: Window origin:', window.location.origin);
 
       // Sign up with Supabase
       const result = await signUpWithEmail(
@@ -69,7 +69,7 @@ const StudentSignUpPage = () => {
         }
       );
 
-      console.log('🔵 SIGNUP CHECKPOINT 5: Signup result:', result);
+      // console.log('🔵 SIGNUP CHECKPOINT 5: Signup result:', result);
 
       if (!result.success) {
         throw new Error(result.error);
@@ -77,7 +77,7 @@ const StudentSignUpPage = () => {
 
       // Check if email confirmation is required
       if (result.emailConfirmationRequired) {
-        console.log('🔵 SIGNUP CHECKPOINT 6: Email confirmation required');
+        // console.log('🔵 SIGNUP CHECKPOINT 6: Email confirmation required');
         
         setSuccessMessage(
           `Registration successful! We've sent a verification email to ${data.email}. Please check your inbox and click the verification link to activate your account.`
@@ -91,7 +91,7 @@ const StudentSignUpPage = () => {
           router.push('/auth/student/sign-in');
         }, 5000);
       } else {
-        console.log('🔵 SIGNUP CHECKPOINT 7: No email confirmation needed');
+        // console.log('🔵 SIGNUP CHECKPOINT 7: No email confirmation needed');
         
         // If no email confirmation needed (shouldn't happen with our setup)
         setSuccessMessage("Registration successful! Redirecting...");

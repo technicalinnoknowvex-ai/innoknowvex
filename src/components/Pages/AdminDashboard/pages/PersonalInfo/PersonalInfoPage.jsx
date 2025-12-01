@@ -44,10 +44,10 @@ const PersonalInfoPage = () => {
 
     try {
       setLoading(true);
-      console.log("Fetching admin data for ID:", adminId);
+      // console.log("Fetching admin data for ID:", adminId);
 
       const result = await getAdmin(adminId);
-      console.log("Fetch result:", result);
+      // console.log("Fetch result:", result);
 
       if (result.success && result.data) {
         const adminData = result.data;
@@ -138,19 +138,19 @@ const PersonalInfoPage = () => {
 
     try {
       setSaving(true);
-      console.log("Starting save process...");
+      // console.log("Starting save process...");
 
       let imageUrl = profileImage;
 
       // ✅ Upload new image and delete old one
       if (selectedImageFile) {
-        console.log("Uploading new image...");
+        // console.log("Uploading new image...");
         const uploadResult = await uploadAdminImage(
           selectedImageFile,
           adminId,
           profileImage // ✅ Pass old image URL to delete it
         );
-        console.log("Upload result:", uploadResult);
+        // console.log("Upload result:", uploadResult);
 
         if (uploadResult.success && uploadResult.url) {
           imageUrl = uploadResult.url;
@@ -167,9 +167,9 @@ const PersonalInfoPage = () => {
         image: imageUrl,
       };
 
-      console.log("Updating admin with data:", updateData);
+      // console.log("Updating admin with data:", updateData);
       const result = await updateAdmin(adminId, updateData);
-      console.log("Update result:", result);
+      // console.log("Update result:", result);
 
       if (result.success) {
         setProfileImage(imageUrl);
