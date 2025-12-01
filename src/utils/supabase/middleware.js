@@ -6,7 +6,7 @@ import { ROLES } from "@/constants/roles";
 const ROLE_CONFIG = {
   [ROLES.ADMIN]: {
     authPages: ["/auth/admin/sign-in", "/auth/admin/sign-up", "/auth/admin/forgot-password"],
-    protectedPages: ["/admin/*", "/choose-packs/*"],
+    protectedPages: ["/admin/*"],
     signInRedirect: "/auth/admin/sign-in",
     homeRedirect: "/",
   },
