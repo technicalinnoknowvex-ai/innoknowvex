@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./styles/navbar.module.scss";
@@ -10,6 +9,9 @@ import Hamburger from "@/components/Common/Icons/Hamburger";
 import Sparkle from "@/components/Common/Icons/Sparkle";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
+import useUserSession from "@/hooks/useUserSession";
+import { Icon } from "@iconify/react";
+import { signOut } from "@/actions/authActions";
 
 gsap.registerPlugin(useGSAP);
 
@@ -162,6 +164,11 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [activeCategory, setActiveCategory] = useState(null);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [isSigningOut, setIsSigningOut] = useState(false);
+
+  const profileMenuRef = useRef(null);
+  const profileBadgeRef = useRef(null);
   const menuRef = useRef(null);
   const containerRef = useRef(null);
   const sparkleRefs = useRef([]);
@@ -172,6 +179,73 @@ const Navbar = () => {
   const scrollPosition = useRef(0);
   const router = useRouter();
   const pathname = usePathname();
+
+  const { session, isSessionLoading } = useUserSession();
+  
+  // Debug session data
+  useEffect(() => {
+    if (session && !isSessionLoading) {
+      console.log('🔍 NAVBAR SESSION DATA:', session);
+      console.log('🔍 Session keys:', Object.keys(session));
+      console.log('🔍 User ID:', session.user_id);
+      console.log('🔍 Role:', session.role);
+      console.log('🔍 Full session object:', JSON.stringify(session, null, 2));
+    }
+  }, [session, isSessionLoading]);
+
+  // Enhanced user role detection
+  const getUserRole = () => {
+    if (!session) return null;
+    
+    // Check multiple possible role fields
+    const role = session.role || session.user_role || session.userType || session.type;
+    console.log('🔍 Detected role:', role);
+    return role;
+  };
+
+  const getUserId = () => {
+    if (!session) return null;
+    
+    // Check multiple possible ID fields
+    const userId = session.user_id || session.id || session.userId || session.admin_id;
+    console.log('🔍 Detected user ID:', userId);
+    return userId;
+  };
+
+  const isAdmin = getUserRole() === 'admin';
+  const userId = getUserId();
+
+  console.log('🔍 Final values - isAdmin:', isAdmin, 'userId:', userId);
+
+  const handleSignInClick = () => {
+    router.push("/auth/student/sign-in");
+  };
+
+  const getUserInitials = (fullname) => {
+    if (!fullname) return "U";
+    const names = fullname.trim().split(" ");
+    if (names.length === 1) return names[0].charAt(0).toUpperCase();
+    return (
+      names[0].charAt(0) + names[names.length - 1].charAt(0)
+    ).toUpperCase();
+  };
+
+  const getProfileLink = () => {
+    if (!userId) {
+      console.warn('❌ No user ID found in session');
+      return isAdmin ? '/admin/dashboard' : '/student/profile';
+    }
+
+    if (isAdmin) {
+      const adminLink = `/admin/${userId}/dashboard`;
+      console.log('🔗 Admin profile link:', adminLink);
+      return adminLink;
+    } else {
+      const studentLink = `/student/${userId}/dashboard`;
+      console.log('🔗 Student profile link:', studentLink);
+      return studentLink;
+    }
+  };
 
   const handleDropdownToggle = (label) => {
     setActiveDropdown(activeDropdown === label ? null : label);
@@ -197,6 +271,49 @@ const Navbar = () => {
     document.body.style.top = "";
     document.body.style.width = "";
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        profileMenuRef.current &&
+        !profileMenuRef.current.contains(event.target) &&
+        profileBadgeRef.current &&
+        !profileBadgeRef.current.contains(event.target)
+      ) {
+        setShowProfileMenu(false);
+      }
+    };
+
+    if (showProfileMenu) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showProfileMenu]);
+
+  useEffect(() => {
+    if (profileMenuRef.current) {
+      if (showProfileMenu) {
+        gsap.to(profileMenuRef.current, {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.3,
+          ease: "power2.out",
+          pointerEvents: "auto",
+        });
+      } else {
+        gsap.to(profileMenuRef.current, {
+          autoAlpha: 0,
+          y: -10,
+          duration: 0.2,
+          ease: "power2.in",
+          pointerEvents: "none",
+        });
+      }
+    }
+  }, [showProfileMenu]);
 
   useEffect(() => {
     if (isOpen) {
@@ -555,6 +672,23 @@ const Navbar = () => {
     }
   };
 
+  const handleSignOut = async () => {
+    setIsSigningOut(true);
+    setShowProfileMenu(false);
+
+    try {
+      const { success } = await signOut();
+      if (success) {
+        // router.refresh();
+        window.location.href = "/";
+      }
+    } catch (error) {
+      console.error("Sign out failed:", error);
+    } finally {
+      setIsSigningOut(false);
+    }
+  };
+
   return (
     <div ref={containerRef}>
       <nav className={styles.navbar}>
@@ -763,6 +897,91 @@ const Navbar = () => {
                 ) : null}
               </React.Fragment>
             ))}
+            {/* SIGN IN BUTTON - Only show when user is NOT logged in */}
+{!isSessionLoading && !session && (
+  <div className={styles.signInWrapper}>
+    <button
+      className={styles.signInButton}
+      onClick={handleSignInClick}
+    >
+      <span>Sign In</span>
+      <Icon icon="lucide:log-in" width="16" height="16" />
+    </button>
+  </div>
+)}
+
+            {/* User Profile Badge */}
+            {!isSessionLoading && session && (
+              <div className={styles.profileBadgeWrapper}>
+                <div
+                  ref={profileBadgeRef}
+                  className={styles.profileBadge}
+                  onClick={() => setShowProfileMenu(!showProfileMenu)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      setShowProfileMenu(!showProfileMenu);
+                    }
+                  }}
+                >
+                  <span className={styles.profileInitials}>
+                    {getUserInitials(session.fullname)}
+                  </span>
+                </div>
+
+                {/* Profile Dropdown Menu */}
+                <div
+                  ref={profileMenuRef}
+                  className={styles.profileMenu}
+                  style={{ opacity: 0, visibility: "hidden" }}
+                >
+                  <div className={styles.profileMenuHeader}>
+                    <div className={styles.profileMenuInitials}>
+                      <span>{getUserInitials(session.fullname)}</span>
+                    </div>
+                    <div className={styles.profileMenuInfo}>
+                      <p className={styles.profileMenuName}>
+                        {session.fullname}
+                      </p>
+                      <p className={styles.profileMenuEmail}>{session.email}</p>
+                      <p className={styles.profileMenuRole}>
+                        {isAdmin ? 'Admin' : 'Student'}
+                      </p>
+                    </div>
+                  </div>
+                  <div className={styles.profileMenuDivider}></div>
+                  <Link
+                    href={getProfileLink()}
+                    className={styles.profileMenuItem}
+                    onClick={() => setShowProfileMenu(false)}
+                  >
+                    <Icon icon="lucide:user" width="18" height="18" />
+                    {isAdmin ? 'Admin Dashboard' : 'Profile'}
+                  </Link>
+                  <button
+                    className={styles.profileMenuItem}
+                    onClick={handleSignOut}
+                    disabled={isSigningOut}
+                  >
+                    {isSigningOut ? (
+                      <div className={styles.loadingSpinner}>
+                        <Icon
+                          icon="lucide:loader-2"
+                          width="18"
+                          height="18"
+                          className={styles.spinning}
+                        />
+                      </div>
+                    ) : (
+                      <Icon icon="lucide:log-out" width="18" height="18" />
+                    )}
+                    {isSigningOut ? "Signing out..." : "Logout"}
+                  </button>
+                </div>
+              </div>
+            )}
+
             <button className={styles.toggleButton}>
               <Hamburger isOpen={isOpen} setIsOpen={setIsOpen} />
             </button>
@@ -846,8 +1065,21 @@ const Navbar = () => {
                   </ul>
                 )}
               </li>
+              
             );
           })}
+          {/* Mobile Profile Link */}
+          {!isSessionLoading && session && (
+            <li className={styles.navItem}>
+              <Link
+                href={getProfileLink()}
+                className={styles.navLink}
+                onClick={() => setIsOpen(false)}
+              >
+                {isAdmin ? 'Admin Dashboard' : 'Profile'}
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
     </div>

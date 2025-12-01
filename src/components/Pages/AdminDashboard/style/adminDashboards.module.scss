@@ -1,6 +1,29 @@
 @use "../../../../styles/fonts" as *;
 @use "../../../../styles/mixins" as *;
 
+/* New layout classes used by dashboard layout */
+.dashboardContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 6rem 2rem 2rem 2rem; /* increased top padding per request */
+  box-sizing: border-box;
+}
+
+.sidebarWrapper {
+  flex: 0 0 300px;
+  max-width: 300px;
+  /* sidebar sits in normal flow (no sticky centering) */
+}
+
+.contentWrapper {
+  flex: 1 1 auto;
+  min-width: 0; // allow children to shrink properly
+}
+
+
+
 .heading {
   margin-top: 8rem;
   display: flex;

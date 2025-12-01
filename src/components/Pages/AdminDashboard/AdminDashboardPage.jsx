@@ -80,30 +80,7 @@ const AdminDashboardPage = () => {
 
   return (
     <>
-      {/* <div className={style.heading}>
-        <h1 className={style.head1}>Admin Dashboard</h1>
-      </div> */}
-
-      {/* <div className={style.main}>
-        <div className={style.left}>
-          <div className={style.sidebar}>
-            {sidebarArray.map((tab) => (
-              <button
-                key={tab.key}
-                className={`${style.sidebtn} ${
-                  activeTab === tab.key ? style.active : ""
-                }`}
-                onClick={() => setActiveTab(tab.key)}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-        </div>
-        <div className={style.right}>{TabContent[activeTab]}</div>
-      </div> */}
-
-      <PersonalInfoPage/>
+     <PersonalInfoPage/>
     </>
   );
 };
