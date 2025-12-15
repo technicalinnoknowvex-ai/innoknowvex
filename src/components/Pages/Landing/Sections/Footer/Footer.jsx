@@ -240,19 +240,23 @@ const Footer = () => {
               src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/extras/razorpay.jpg"
               width={100}
               height={100}
-              alt=" Razerpay" />
+              alt=" Razerpay" 
+              priority
+              />
             <Image
             className={styles.footerimg}
               src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/extras/cashfree.png"
               width={100}
               height={100}
-              alt="Cashless Payment" />
+              alt="Cashless Payment" 
+              priority/>
             <Image
             className={styles.footerimg}
               src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/extras/upi.png"
               width={100}
               height={100}
-              alt="Cashless Payment" />
+              alt="Cashless Payment"
+              priority />
 
 
           </div>
