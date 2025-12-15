@@ -14,6 +14,8 @@ import { useNavColor } from "@/context/NavColorContext";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useScroll } from "@/context/ScrollContext";
 import { usePopupForm } from "@/context/PopupFormContext";
+import Image from "next/image";
+
 gsap.registerPlugin(ScrollTrigger);
 
 const Footer = () => {
@@ -231,8 +233,32 @@ const Footer = () => {
           <div className={styles.companyEmblem}>
             <InnoknowvexFooterEmblem />
           </div>
+          <div className={styles.secure}>
+            <p>100% Safe and Secure payments with</p>
+            <Image
+              className={styles.footerimg}
+              src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/extras/razorpay.jpg"
+              width={100}
+              height={100}
+              alt=" Razerpay" />
+            <Image
+            className={styles.footerimg}
+              src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/extras/cashfree.png"
+              width={100}
+              height={100}
+              alt="Cashless Payment" />
+            <Image
+            className={styles.footerimg}
+              src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/extras/upi.png"
+              width={100}
+              height={100}
+              alt="Cashless Payment" />
+
+
+          </div>
           <div className={styles.copywrite}>
             <p>All rights reserved 2025 © 2025 Lift Media Online S.L.</p>
+
           </div>
         </div>
       </div>

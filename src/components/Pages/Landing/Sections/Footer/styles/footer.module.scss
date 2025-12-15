@@ -509,6 +509,38 @@
       }
     }
 
+    .secure{
+      width: 100%;
+      // height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      // border :1px solid  black
+      gap: 2px;
+
+      .footerimg{
+        height: 24;
+        width: 60;
+
+      }
+      
+
+      p {
+        font-size: 0.9rem;
+        @include font($font-oldschool, $book, white);
+        text-align: center;
+
+        @media (max-width: 1024px) {
+          font-size: 0.85rem;
+        }
+
+        @media (max-width: 480px) {
+          font-size: 0.8rem;
+        }
+      }
+
+    }
+
     .copywrite {
       width: 100%;
       height: 30px;
