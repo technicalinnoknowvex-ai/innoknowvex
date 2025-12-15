@@ -11,6 +11,7 @@ import TestimonialSection from "../Landing/Sections/Testimonials/Testimonials";
 
 import styles from "./styles/programDetails.module.scss";
 import SmoothScroller from "@/components/Layouts/SmoothScroller";
+import OurPartners from "../Landing/Sections/OurPartners/OurPartners";
 
 export default function ProgramDetailsPage({ program }) {
   if (!program) {
@@ -33,6 +34,7 @@ export default function ProgramDetailsPage({ program }) {
         <CardsSection />
         <CertificationSection program={program} />
         <PlansSection />
+        <OurPartners/>
         <TestimonialSection />
         <Footer />
       </div>
