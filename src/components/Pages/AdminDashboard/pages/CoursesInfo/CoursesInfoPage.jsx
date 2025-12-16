@@ -466,7 +466,7 @@ const CoursesInfoPage = () => {
                       onChange={handleInputChange}
                       required
                     >
-                      <option value="">Select Category</option>
+                      {/* <option value="">Select Category</option>
                       <option value="programming">Programming</option>
                       <option value="data-science">Data Science</option>
                       <option value="web-development">Web Development</option>
@@ -474,7 +474,18 @@ const CoursesInfoPage = () => {
                         Mobile Development
                       </option>
                       <option value="design">Design</option>
-                      <option value="business">Business</option>
+                      <option value="business">Business</option> */}
+
+                      <option value="">Select Category</option>
+                      <option value="Technology & Programming">Technology & Programming</option>
+                      <option value="AI & Data Science">AI & Data Science</option>
+                      <option value="Cloud & Security">Cloud & Security</option>
+                      <option value="Hardware & Engineering">
+                        Hardware & Engineering
+                      </option>
+                      <option value="Design & Creative">Design & Creative </option>
+                      <option value="business">Healthcare & Science</option>
+                      <option value="business">Advance Programs</option>
                     </select>
                   </div>
 
