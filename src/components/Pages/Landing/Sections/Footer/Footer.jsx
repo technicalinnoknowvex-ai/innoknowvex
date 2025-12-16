@@ -238,20 +238,20 @@ const Footer = () => {
             <Image
               className={styles.footerimg}
               src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/extras/razorpay.jpg"
-              width={100}
-              height={100}
+              width={60}
+              height={24}
               alt=" Razerpay" />
             <Image
             className={styles.footerimg}
               src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/extras/cashfree.png"
-              width={100}
-              height={100}
+              width={60}
+              height={24}
               alt="Cashless Payment" />
             <Image
             className={styles.footerimg}
               src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/extras/upi.png"
-              width={100}
-              height={100}
+              width={60}
+              height={24}
               alt="Cashless Payment" />
 
           </div>
