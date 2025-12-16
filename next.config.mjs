@@ -18,6 +18,7 @@ const nextConfig = {
     ],
    
       formats: ['image/webp', 'image/avif'],
+      unoptimized:false,
   },
 
   experimental: {

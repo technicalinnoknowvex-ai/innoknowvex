@@ -254,7 +254,6 @@ const Footer = () => {
               height={100}
               alt="Cashless Payment" />
 
-
           </div>
           <div className={styles.copywrite}>
             <p>All rights reserved 2025 © 2025 Lift Media Online S.L.</p>
