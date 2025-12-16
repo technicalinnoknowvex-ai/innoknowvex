@@ -256,7 +256,7 @@ const Footer = () => {
 
           </div>
           <div className={styles.copywrite}>
-            <p>All rights reserved 2025 © 2025 Lift Media Online S.L.</p>
+            <p>All rights reserved 2025 © 2025 Innoknowvex Edutech Pvt Ltd.</p>
 
           </div>
         </div>
