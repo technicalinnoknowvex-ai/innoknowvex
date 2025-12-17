@@ -12,7 +12,9 @@ const ROLE_CONFIG = {
   },
   [ROLES.STUDENT]: {
     authPages: ["/auth/student/sign-in", "/auth/student/sign-up", "/auth/student/forgot-password"],
-    protectedPages: ["/student/*", "/choose-packs/*"],
+    protectedPages: ["/student/*", 
+      // "/choose-packs/*"
+    ,"/cart"],
     signInRedirect: "/auth/student/sign-in",
     homeRedirect: "/",
   },
@@ -27,6 +29,9 @@ const PUBLIC_PAGES = [
   "/blogs/*",
   "/faq",
   "/pricing",
+  "/choose-packs/*",
+  "/tech-starter-pack/*"
+
 ];
 
 // Routes that should ALWAYS be skipped by middleware
@@ -100,8 +105,8 @@ export async function updateSession(request) {
   const userRole = user?.user_metadata?.role;
   const roleConfig = getRoleConfig(userRole);
 
-  console.log('👤 [UPDATE SESSION] User:', user?.email || 'Not logged in');
-  console.log('🎭 [UPDATE SESSION] Role:', userRole || 'None');
+  // console.log('👤 [UPDATE SESSION] User:', user?.email || 'Not logged in');
+  // console.log('🎭 [UPDATE SESSION] Role:', userRole || 'None');
 
   // Check if path is public
   const isPublicPage = matchesPattern(pathname, PUBLIC_PAGES);
