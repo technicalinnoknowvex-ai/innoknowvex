@@ -3,7 +3,7 @@ import style from "./style/golden.module.scss"
 
 const GoldenPack = () => {
   return (
-    <div className={style.heading}>Comming Soon</div>
+    <div className={style.heading}>Cooming Soon</div>
   )
 }
 

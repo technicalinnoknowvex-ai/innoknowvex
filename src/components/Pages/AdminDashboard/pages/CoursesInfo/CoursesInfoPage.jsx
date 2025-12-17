@@ -479,13 +479,12 @@ const CoursesInfoPage = () => {
                       <option value="">Select Category</option>
                       <option value="Technology & Programming">Technology & Programming</option>
                       <option value="AI & Data Science">AI & Data Science</option>
+                      <option value="Business & Management">Business & Management</option>
                       <option value="Cloud & Security">Cloud & Security</option>
-                      <option value="Hardware & Engineering">
-                        Hardware & Engineering
-                      </option>
+                      <option value="Hardware & Engineering"> Hardware & Engineering</option>
                       <option value="Design & Creative">Design & Creative </option>
-                      <option value="business">Healthcare & Science</option>
-                      <option value="business">Advance Programs</option>
+                      <option value="Healthcare & Science">Healthcare & Science</option>
+                      <option value="Advance Programs">Advance Programs</option>
                     </select>
                   </div>
 
