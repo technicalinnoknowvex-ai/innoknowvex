@@ -27,7 +27,6 @@ const TechStarter = () => {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [programsPrice, setProgramsPrice] = useState({});
-  const [priceLoadingStates, setPriceLoadingStates] = useState({});
   const [loading, setLoading] = useState(true);
   const [programs, setPrograms] = useState([]);
 
@@ -46,10 +45,12 @@ const TechStarter = () => {
     const fetchPrograms = async () => {
       try {
         const fetchedPrograms = await getPrograms();
+        
         const techPrograms = fetchedPrograms.filter(
           (p) =>
-            p.category === "technology-programming" || p.category === "ai-data"
+            p.category === "Technology & Programming" || p.category === "AI & Data Science"
         );
+        
         setPrograms(techPrograms);
       } catch (error) {
         console.error("Error loading programs:", error);
@@ -58,46 +59,52 @@ const TechStarter = () => {
           autoClose: 3000,
           theme: "colored",
         });
+        setLoading(false);
       }
     };
 
     fetchPrograms();
   }, []);
 
-  const fetchProgramPrice = async (tag) => {
-    try {
-      setPriceLoadingStates((prev) => ({ ...prev, [tag]: true }));
-
-      const response = await fetch(`/api/pricingPowerPack/${tag}`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      setProgramsPrice((prev) => ({ ...prev, [tag]: data }));
-    } catch (err) {
-      console.error(`Error fetching program price for ${tag}:`, err);
-    } finally {
-      setPriceLoadingStates((prev) => ({ ...prev, [tag]: false }));
-    }
-  };
-
   useEffect(() => {
     if (programs.length === 0) return;
 
-    setLoading(true);
+    const fetchAllPrices = async () => {
+      setLoading(true);
+      
+      const pricePromises = programs.map(async (course) => {
+        try {
+          const response = await fetch(`/api/pricingPowerPack/${course.price_search_tag}`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          });
 
-    const fetchPromises = programs.map((course) =>
-      fetchProgramPrice(course.price_search_tag)
-    );
+          if (!response.ok) {
+            return { tag: course.price_search_tag, data: null };
+          }
 
-    Promise.allSettled(fetchPromises).finally(() => {
+          const data = await response.json();
+          return { tag: course.price_search_tag, data };
+        } catch (err) {
+          console.error(`Error fetching program price for ${course.price_search_tag}:`, err);
+          return { tag: course.price_search_tag, data: null };
+        }
+      });
+
+      const results = await Promise.all(pricePromises);
+      
+      const pricesMap = {};
+      results.forEach(({ tag, data }) => {
+        if (data) {
+          pricesMap[tag] = data;
+        }
+      });
+      
+      setProgramsPrice(pricesMap);
       setLoading(false);
-    });
+    };
+
+    fetchAllPrices();
   }, [programs]);
 
   const getSelectedCoursesCount = () => {
@@ -353,17 +360,6 @@ const TechStarter = () => {
         <div className={style.plansGrid}>
           {programs.map((program) => {
             const coursePrice = programsPrice[program.price_search_tag];
-            const isPriceLoading =
-              priceLoadingStates[program.price_search_tag];
-
-            if (isPriceLoading) {
-              return (
-                <div key={program.id} className={style.loadingCard}>
-                  <div className={style.loadingSpinner}></div>
-                  <p>Loading {program.title}...</p>
-                </div>
-              );
-            }
 
             if (!coursePrice) return null;
 
