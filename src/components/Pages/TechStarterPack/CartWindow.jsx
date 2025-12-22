@@ -66,7 +66,7 @@ const CartPage = () => {
                     setRazorpayKeyId(config.razorpayKeyId);
                 }
             } catch (error) {
-                console.error('Failed to fetch Razorpay config:', error);
+                // console.error('Failed to fetch Razorpay config:', error);
             }
         };
         
@@ -135,7 +135,7 @@ const CartPage = () => {
                 ? "tech-starter-pack"
                 : storedItems[0]?.program_id || "tech-starter-pack";
 
-        console.log("Coupon Data received in makePayment:", getCouponDataForPopup());
+        // console.log("Coupon Data received in makePayment:", getCouponDataForPopup());
         
         const couponData = getCouponDataForPopup();
         const originalAmount = couponData?.originalPrice || price;
