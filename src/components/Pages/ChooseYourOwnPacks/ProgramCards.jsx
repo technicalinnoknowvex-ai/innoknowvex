@@ -52,7 +52,8 @@ const ProgramCards = ({
     return isCourseSelected(courseId) || getSelectedCoursesCount() < MAX_COURSES;
   };
 
-  const handleAddToCart = (program, plan, price) => {
+  // ✅ SECURE: No longer accepts price parameter
+  const handleAddToCart = (program, plan) => {
     if (!canSelectCourse(program.id)) {
       toast.error(`Maximum ${MAX_COURSES} courses allowed!`, {
         position: "top-right",
@@ -62,12 +63,16 @@ const ProgramCards = ({
       return;
     }
 
+    // ✅ SECURE: Store only IDs and metadata, NO PRICES
     const cartItem = {
       id: program.id,
+      courseId: program.id,  // For backend price lookup
+      program_id: program.id, // Alternative field name (backend compatibility)
       course: program.title,
       plan: plan,
-      price: price,
+      priceSearchTag: program.price_search_tag,  // ✅ Backend uses this to fetch real price
       image: program.image,
+      // ❌ NO PRICE STORED - Backend will calculate from database
     };
 
     let existingCart = JSON.parse(sessionStorage.getItem("cartItems")) || [];
@@ -83,7 +88,7 @@ const ProgramCards = ({
 
     setIsCartOpen(true);
 
-    toast.success(`${plan} plan added to cart!`, {
+    toast.success(`${plan} plan added to pack!`, {
       position: "top-right",
       autoClose: 1000,
       theme: "colored",
@@ -171,7 +176,7 @@ const ProgramCards = ({
           ) : (
             <button
               className={style.addToCartBtn}
-              onClick={() => handleAddToCart(program, planName, currentPrice)}
+              onClick={() => handleAddToCart(program, planName)} 
               disabled={isDisabled || !canSelect}
             >
               <span>
@@ -261,7 +266,12 @@ const ProgramCards = ({
       )}
 
       {isCartOpen && (
-        <CartWindow cartItems={cartItems} onRemove={handleRemoveFromCart} onClose={() => setIsCartOpen(false)} />
+        <CartWindow 
+          cartItems={cartItems} 
+          programsPrice={programsPrice} 
+          onRemove={handleRemoveFromCart} 
+          onClose={() => setIsCartOpen(false)} 
+        />
       )}
 
       {!isCartOpen && cartItems.length > 0 && (

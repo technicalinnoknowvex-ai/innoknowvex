@@ -1,17 +1,4 @@
-// @font-face {
-//   font-family: sharp-grotesk;
-//   src: url('/fonts/sharpGrotesk/SharpGrotesk-Medium25.otf');
-// }
-
-// @font-face {
-//   font-family: old-school-grotesk;
-//   src: url('/fonts/oldSchoolGrotesk/OldschoolGroteskVar.ttf');
-// }
-
 @use "../../../../styles/index" as *;
-// @include font($font-sharp-25, $medium);
-
-
 
 $mobile: 393px;
 $tablet: 830px;
@@ -114,6 +101,45 @@ $desktop: 1440px;
       }
     }
 
+    // ✅ NEW: Price alert boxes
+    .priceErrorAlert {
+      padding: 12px;
+      background: #fee;
+      border: 1px solid #fcc;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      color: #c00;
+
+      strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      p {
+        margin: 8px 0 0 0;
+        font-size: 0.9em;
+      }
+    }
+
+    .priceLoadingAlert {
+      padding: 12px;
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      color: #856404;
+
+      strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      p {
+        margin: 8px 0 0 0;
+        font-size: 0.9em;
+      }
+    }
+
     .courseInfo {
       background: #f6efdb;
       border-radius: 10px;
@@ -134,6 +160,35 @@ $desktop: 1440px;
         margin-bottom: 1rem;
         padding-bottom: 1rem;
         border-bottom: 1px dashed #d4c89a;
+
+        // ✅ NEW: Discount text styling
+        .discountTitle {
+          color: #22c55e;
+          font-weight: 600;
+          margin-bottom: 8px;
+        }
+
+        .couponTitle {
+          color: #ff6b00;
+          font-weight: 600;
+          margin-bottom: 8px;
+        }
+
+        .originalPriceStrike {
+          text-decoration: line-through;
+          color: #6b7280;
+          font-size: 0.9em;
+        }
+
+        .savingsText {
+          color: #22c55e;
+          font-size: 0.9em;
+        }
+
+        .couponText {
+          color: #ff6b00;
+          font-size: 0.9em;
+        }
       }
 
       .courseDetails {
@@ -241,7 +296,8 @@ $desktop: 1440px;
           background: #8a7307;
         }
 
-        &:disabled {
+        &:disabled,
+        &.disabled {
           cursor: not-allowed;
           opacity: 0.6;
         }
@@ -264,6 +320,31 @@ $desktop: 1440px;
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+// ✅ NEW: Price loading container (main page)
+.priceLoadingContainer {
+  padding: 40px;
+  text-align: center;
+  background: #f9f9f9;
+  border-radius: 12px;
+  margin: 20px auto;
+  max-width: 600px;
+
+  .loadingSpinner {
+    margin: 0 auto 20px;
+  }
+
+  h3 {
+    color: #333;
+    margin-bottom: 10px;
+    font-family: $font-oldschool;
+  }
+
+  p {
+    color: #666;
+    font-family: $font-sharp-20;
   }
 }
 
@@ -468,6 +549,11 @@ $desktop: 1440px;
     @include mobile {
       font-size: 1.2rem;
     }
+
+    // ✅ NEW: Loading price state
+    &.priceLoading {
+      color: #f00;
+    }
   }
 
   .originalPrice {
@@ -646,6 +732,17 @@ $desktop: 1440px;
   @include mobile {
     padding: 0.75rem;
   }
+
+  // ✅ NEW: Tech pack status variants
+  &.techPackActive {
+    border-color: #4CAF50;
+    background: rgba(76, 175, 80, 0.1);
+  }
+
+  &.techPackIncomplete {
+    border-color: #FF9800;
+    background: rgba(255, 152, 0, 0.1);
+  }
 }
 
 .couponInfo {
@@ -786,14 +883,20 @@ $desktop: 1440px;
   margin-top: 1rem;
   box-shadow: 0 4px 15px rgba(163, 137, 7, 0.3);
 
-  &:hover {
+  &:hover:not(:disabled):not(.disabled) {
     background: linear-gradient(135deg, #9F8310 0%, #8A7309 100%);
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(163, 137, 7, 0.4);
   }
 
-  &:active {
+  &:active:not(:disabled):not(.disabled) {
     transform: translateY(-1px);
+  }
+
+  &:disabled,
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
   }
 
   @include mobile {
@@ -811,4 +914,32 @@ $desktop: 1440px;
   .orderSummary {
     position: static;
   }
+}
+
+/* ADD SCROLL TO ENTIRE PAGE */
+body, html {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  height: auto !important;
+  min-height: 100vh !important;
+}
+
+.shoppingCartContainer {
+  overflow: visible !important;
+  min-height: 100vh !important;
+}
+
+.cartContent {
+  min-height: 500px !important;
+}
+
+/* Remove any scroll restrictions */
+.cartItems,
+.cartItemsList,
+.orderSummary,
+.formPage,
+.formWrapper {
+  max-height: none !important;
+  overflow: visible !important;
+  overflow-y: visible !important;
 }
