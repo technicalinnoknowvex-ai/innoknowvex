@@ -917,29 +917,29 @@ $desktop: 1440px;
 }
 
 /* ADD SCROLL TO ENTIRE PAGE */
-body, html {
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-  height: auto !important;
-  min-height: 100vh !important;
-}
+// body, html {
+//   overflow-y: auto !important;
+//   overflow-x: hidden !important;
+//   height: auto !important;
+//   min-height: 100vh !important;
+// }
 
-.shoppingCartContainer {
-  overflow: visible !important;
-  min-height: 100vh !important;
-}
+// .shoppingCartContainer {
+//   overflow: visible !important;
+//   min-height: 100vh !important;
+// }
 
-.cartContent {
-  min-height: 500px !important;
-}
+// .cartContent {
+//   min-height: 500px !important;
+// }
 
-/* Remove any scroll restrictions */
-.cartItems,
-.cartItemsList,
-.orderSummary,
-.formPage,
-.formWrapper {
-  max-height: none !important;
-  overflow: visible !important;
-  overflow-y: visible !important;
-}
+// /* Remove any scroll restrictions */
+// .cartItems,
+// .cartItemsList,
+// .orderSummary,
+// .formPage,
+// .formWrapper {
+//   max-height: none !important;
+//   overflow: visible !important;
+//   overflow-y: visible !important;
+// }
