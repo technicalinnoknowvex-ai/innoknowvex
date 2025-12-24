@@ -66,9 +66,9 @@ const Annoucements = () => {
       {/* Header Section */}
       <div className={styles.textContainer}>
         <h1>{landingPageData.offlineProgramSection.heading}</h1>
-        <p className={styles.subheading}>
+        {/* <p className={styles.subheading}>
           {landingPageData.offlineProgramSection.subHeading}
-        </p>
+        </p> */}
       </div>
 
       {/* Carousel Container */}
