@@ -1,0 +1,140 @@
+@use "../../../../../../styles/mixins" as m;
+@use "../../../../../../styles/index" as *;
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin-top: 20;
+
+  // Reduced margin for larger screens (desktop)
+  // margin-top: 10px;
+
+  // Responsive adjustments for smaller devices
+  @media (min-width: 1200px) and (max-width: 1440px) {
+    margin-top: 70px;
+  }
+  
+  @media (min-width: 770px) and (max-width: 1200px) {
+    margin-top: 60px;
+  }
+  
+  @media (max-width: 769px) {
+    margin-top: 50px;
+  }
+
+  h1 {
+    font-family: var(--font-sharp-25), Sharp Grotesk;
+    font-size: 36px;
+    font-weight: 500;
+    text-align: center;
+    color: #262c35;
+    margin-bottom: 20px;
+  }
+}
+
+.starImg {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  
+  .starOrange {
+    height: 60px;
+    width: 60px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+  }
+  
+  p {
+    font-family: var(--font-sharp-25), Oldschool Grotesk;
+    font-size: 36px;
+    font-weight: 500;
+    text-align: center;
+    color: #ff6432;
+    top: 50px;
+  }
+}
+
+.images {
+  z-index: 1;
+  padding: 30px;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  
+  img {
+    height: 450px;
+    width: 700px;
+  }
+
+  @media (min-width: 1200px) and (max-width: 1440px) {
+    padding: 10px;
+    gap: 10px;
+    
+    img {
+      height: 350px;
+      width: 550px;
+    }
+  }
+
+  @media (min-width: 930px) and (max-width: 1200px) {
+    padding: 10px;
+    gap: 10px;
+
+    img {
+      height: 250px;
+      width: 450px;
+    }
+  }
+
+  @media (min-width: 770px) and (max-width: 930px) {
+    padding: 10px;
+    padding-bottom: 0;
+    gap: 10px;
+    flex-direction: column;
+    
+    img {
+      height: 250px;
+      width: 450px;
+    }
+  }
+  
+  @media (min-width: 480px) and (max-width: 770px) {
+    padding: 10px;
+    gap: 10px;
+    flex-direction: column;
+
+    img {
+      height: 250px;
+      width: 450px;
+    }
+  }
+  
+  @media (min-width: 360px) and (max-width: 480px) {
+    .layout {
+      justify-content: center;
+      align-items: center;
+    }
+    
+    padding: 10px;
+    margin: 20px;
+    gap: 10px;
+    flex-direction: column;
+
+    img {
+      height: 150px;
+      width: 350px;
+    }
+  }
+}
+
+
+.ellipse {
+  z-index: 0;
+  position: absolute;
+  height: 900px;
+  width: 900px;
+}
