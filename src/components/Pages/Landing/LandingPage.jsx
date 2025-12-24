@@ -3,6 +3,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import landingStyles from "./styles/landing.module.scss";
 import SmoothScroller from "@/components/Layouts/SmoothScroller";
+import Annoucements from "./Annoucements/Annoucements";
 
 const Hero = dynamic(() => import("./Sections/Hero/Hero"));
 const AboutUs = dynamic(() => import("./Sections/AboutUs/AboutUs"));
@@ -21,6 +22,7 @@ const LandingPage = () => {
     <SmoothScroller>
       <div className={landingStyles.landing}>
         <Hero />
+        <Annoucements/>
         <AboutUs />
         <Programs />
         <WhyChooseUs />

@@ -1,0 +1,186 @@
+@use "../../../../../styles/index" as *;
+
+.layout {
+  width: 100%;
+  min-height: calc(100vh + 60px);
+  // border: 2px solid red; // Remove in production
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  gap: 40px;
+}
+
+.textContainer {
+  text-align: center;
+  // border: 2px solid black; // Remove in production
+  
+  h1 {
+    @include font($font-sharp-25, $medium);
+    font-size: clamp(2rem, 5vw, 4rem); // Responsive font size
+    margin: 0;
+  }
+}
+
+// Main carousel wrapper
+.carouselWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  // border: 2px solid blue; // Remove in production
+}
+
+// Carousel viewport - hides overflow
+.carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden; // This hides slides that are off-screen
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+// The track that holds all slides
+.carouselTrack {
+  display: flex;
+  transition: transform 0.5s ease-in-out; // Smooth sliding animation
+  // The transform is applied inline via JavaScript
+}
+
+// Individual slide
+.carouselSlide {
+  min-width: 100%; // Each slide takes full width
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+
+// Image container with aspect ratio
+.imageContainer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9; // 16:9 aspect ratio (adjust as needed)
+  background: #f0f0f0;
+  
+  img {
+    object-fit: cover;
+  }
+}
+
+// Optional content overlay
+.slideContent {
+  padding: 20px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.95);
+  
+  h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.5rem;
+  }
+  
+  p {
+    margin: 0;
+    color: #666;
+  }
+}
+
+// Navigation buttons
+.carouselButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  font-size: 2rem;
+  padding: 15px 20px;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  &:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+}
+
+.prevButton {
+  left: 20px;
+}
+
+.nextButton {
+  right: 20px;
+}
+
+// Dot indicators
+.carouselDots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px 0;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: scale(1.2);
+  }
+}
+
+.activeDot {
+  background: #fff;
+  transform: scale(1.3);
+}
+
+// Slide counter
+.slideCounter {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  z-index: 10;
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .carouselButton {
+    font-size: 1.5rem;
+    padding: 10px 15px;
+  }
+  
+  .prevButton {
+    left: 10px;
+  }
+  
+  .nextButton {
+    right: 10px;
+  }
+  
+  .imageContainer {
+    aspect-ratio: 4 / 3; // Taller on mobile
+  }
+}
