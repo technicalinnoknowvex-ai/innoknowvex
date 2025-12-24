@@ -1,0 +1,290 @@
+@use "../../../../../../styles/" as *;
+
+.whyLearnSection {
+  position: relative;
+  overflow: hidden;
+  margin-top: 50px;
+  
+  // Basic padding for all devices, preventing content from touching edges
+  padding: 0 16px;
+
+  // No specific media query for this. The styles below will handle responsiveness.
+}
+
+.ellipse1 {
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  left: -200px;
+  z-index: 0;
+
+  // Responsive adjustments for the ellipse
+  @media (max-width: 1600px) {
+    width: 700px;
+    height: 700px;
+    left: -300px;
+  }
+
+  @media (max-width: 1200px) {
+    width: 600px;
+    height: 600px;
+    left: -250px;
+  }
+  
+  // This is the key fix for the tablet and mobile viewports.
+  // The negative left value is reduced to keep the ellipse from being cut off.
+  @media (max-width: 768px) {
+    width: 450px;
+    height: 450px;
+    left: -150px; // Adjusted for better visibility on smaller screens
+  }
+  
+  // Further adjustment for smaller mobile screens
+  @media (max-width: 480px) {
+    width: 350px;
+    height: 350px;
+    left: -120px;
+  }
+}
+
+.LearnForm {
+  position: relative;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  z-index: 1;
+
+  // Responsive adjustments for padding
+  @media (max-width: 1600px) {
+    padding-top: 90px;
+    padding-bottom: 90px;
+  }
+
+  @media (max-width: 1200px) {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+  
+  @media (max-width: 768px) {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  
+  @media (max-width: 480px) {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  
+  > img {
+    height: 6vh;
+    width: 6vh;
+    margin-left: 50px;
+
+    @media (max-width: 1600px) {
+      height: 5vh;
+      width: 5vh;
+      margin-left: 30px;
+    }
+
+    @media (max-width: 1200px) {
+      height: 4.5vh;
+      width: 4.5vh;
+      margin-left: 25px;
+    }
+    
+    @media (max-width: 768px) {
+      height: 3.5vh;
+      width: 3.5vh;
+      margin-left: 15px;
+    }
+  }
+  
+  h1 {
+    padding-left: 50px;
+    font-family: $font-sharp-25;
+    font-weight: 500;
+    font-size: 50px;
+    width: 700px;
+    color: #262c35;
+    margin-bottom: 20px;
+
+    @media (max-width: 1600px) {
+      font-size: 48px;
+      width: 650px;
+    }
+    
+    @media (max-width: 1200px) {
+      padding-left: 30px;
+      font-size: 40px;
+      width: 500px;
+      margin-bottom: 15px;
+    }
+    
+    @media (max-width: 768px) {
+      padding-left: 20px;
+      font-size: 36px;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 28px;
+    }
+  }
+
+  > p {
+    padding-left: 50px;
+    font-family: $font-oldschool;
+    font-size: 25px;
+    color: #ff6432;
+    width: 600px;
+    font-weight: 450;
+    padding-bottom: 80px;
+
+    @media (max-width: 1600px) {
+      font-size: 24px;
+      width: 550px;
+      padding-bottom: 70px;
+    }
+    
+    @media (max-width: 1200px) {
+      padding-left: 30px;
+      font-size: 20px;
+      width: 450px;
+      padding-bottom: 50px;
+    }
+    
+    @media (max-width: 768px) {
+      padding-left: 20px;
+      font-size: 20px;
+      width: 100%;
+      text-align: center;
+      padding-bottom: 30px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 16px;
+    }
+  }
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 60px;
+  padding: 0 20px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+
+  @media (max-width: 1600px) {
+    gap: 50px;
+  }
+  
+  @media (max-width: 1200px) {
+    gap: 35px;
+    padding: 0 15px;
+  }
+
+  // Tablet and mobile layout
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    padding: 0 10px;
+  }
+}
+
+.featureCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+  padding: 20px;
+  width: 100%;
+  
+  @media (max-width: 1200px) {
+    gap: 20px;
+    padding: 15px;
+  }
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    text-align: center;
+    padding: 15px;
+    gap: 20px;
+  }
+}
+
+.featureNumber {
+  background: #ff6432;
+  color: white;
+  width: 70px;
+  height: 80px;
+  border-radius: 10px 35px 10px 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: $font-sharp-25;
+  flex-shrink: 0;
+  
+  @media (max-width: 1200px) {
+    width: 58px;
+    height: 68px;
+    font-size: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    width: 50px;
+    height: 60px;
+    font-size: 18px;
+    align-self: center;
+  }
+  
+  @media (max-width: 480px) {
+    width: 45px;
+    height: 55px;
+    font-size: 16px;
+  }
+}
+
+.featureContent {
+  flex: 1;
+
+  h3 {
+    font-family: $font-sharp-25;
+    font-size: 24px;
+    font-weight: 500;
+    color: #9c7f16;
+    margin-bottom: 15px;
+    line-height: 1.3;
+
+    @media (max-width: 1200px) {
+      font-size: 19px;
+      margin-bottom: 10px;
+    }
+    
+    @media (max-width: 768px) {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+  }
+
+  p {
+    font-family: $font-oldschool;
+    font-size: 1.2rem;
+    color: #666;
+    line-height: 1.6;
+    padding-left: 0;
+
+    @media (max-width: 1200px) {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  }
+}

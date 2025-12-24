@@ -110,6 +110,63 @@ const programsCategory = [
       },
     ],
   },
+  {
+    category: "Offline Courses",
+    items: [
+      {
+        label: "Web Development",
+        href: "/programs/offline-web-development",
+      },
+      {
+        label: "Offline Data Science",
+        href: "/programs/offline-data-science",
+      },
+      {
+        label: "Offline UI/UX Design",
+        href: "/programs/offline-ui-ux-design",
+      },
+      {
+        label: "Offline Cyber Security",
+        href: "/programs/offline-cyber-security",
+      },
+      {
+        label: "Offline Human Resources",
+        href: "/programs/offline-human-resources",
+      },
+      {
+        label: "Offline Fashion Designing",
+        href: "/programs/offline-fashion-designing",
+      },
+      {
+        label: "Offline Stock Trading",
+        href: "/programs/offline-stock-trading",
+      },
+      {
+        label: "Offline Digital Marketing",
+        href: "/programs/offline-digital-marketing",
+      },
+      {
+        label: "Offline artificial Intelligence",
+        href: "/programs/offline-artificial-intelligence",
+      },
+      {
+        label: "Offline Cloud Computing",
+        href: "/programs/offline-cloud-computing  ",
+      },
+      {
+        label: "Offline Machine Learning",
+        href: "/programs/offline-machine-learning",
+      },
+      // {
+      //   label: "Offline artificial Intelligence",
+      //   href: "/programs/offline-artificial-intelligence",
+      // },
+      //  {
+      //   label: "Offline artificial Intelligence",
+      //   href: "/programs/offline-artificial-intelligence",
+      // },
+    ],
+  },
 ];
 
 const powerPacksCategory = [

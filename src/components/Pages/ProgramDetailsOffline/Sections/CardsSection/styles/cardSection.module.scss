@@ -1,0 +1,313 @@
+
+@use "../../../../../../styles/fonts" as *;
+
+.ellipse {
+  position: absolute;
+  z-index: 0;
+  height: 800px;
+  width: 800px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: block;
+}
+
+.cardsContainer {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0; /* Removed padding from parent container */
+  min-height: 100vh;
+  display: flex;
+  margin-top: 50px;
+  box-sizing: border-box;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: flex-start;
+
+  @media (max-width: 1440px) {
+    max-width: 1400px;
+    padding: 0;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 1200px) {
+    max-width: 1400px;
+    padding: 0;
+    margin-top: 30px;
+    gap: 1rem;
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    padding: 0 2rem;
+    margin-top: 20px;
+    gap: 3rem;
+    align-items: center;
+    min-height: auto;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0 1.5rem;
+    margin-top: 10px;
+  }
+
+  @media (max-width: 600px) {
+    padding: 0 1rem;
+    margin-top: 5px;
+    gap: 1.5rem;
+  }
+}
+
+.leftSection {
+  flex-grow: 1;
+  flex-shrink: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-top: 4rem;
+  padding-left: 2rem; /* Added padding to this specific section */
+  min-width: 250px;
+  max-width: 500px;
+
+  @media (max-width: 1440px) {
+    padding-left: 1.5rem;
+  }
+
+  @media (max-width: 1024px) {
+    flex-grow: unset;
+    flex-shrink: unset;
+    width: 100%;
+    padding: 1rem 0 0 0;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-width: auto;
+  }
+}
+
+.careerBoostContent {
+  text-align: left;
+  max-width: 500px;
+
+  @media (max-width: 1024px) {
+    text-align: center;
+    max-width: 600px;
+  }
+
+  .careerBoostTitle {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    width: 100%;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    font-family: $font-sharp-25;
+    font-weight: 450;
+    line-height: 1.1;
+    white-space: nowrap;
+    word-wrap: normal;
+    
+    @media (max-width: 1024px) {
+      text-align: center;
+      white-space: normal;
+    }
+
+    @media (max-width: 600px) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .careerBoostDescription {
+    font-size: clamp(0.9rem, 1.2vw, 1.2rem);
+    color: #5a6c7d;
+    line-height: 1.6;
+    font-family: $font-sharp-20;
+    word-wrap: break-word;
+
+    @media (max-width: 1024px) {
+      padding: 0 1rem;
+    }
+
+    @media (max-width: 600px) {
+      padding: 0;
+    }
+  }
+}
+
+.cardsSection {
+  position: relative;
+  flex-grow: 2;
+  flex-shrink: 1;
+  padding: 2rem; /* Added padding to push cards inward */
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end;
+
+  @media (max-width: 1024px) {
+    flex-grow: unset;
+    flex-shrink: unset;
+    width: 100%;
+    padding: 0 0 2rem 0;
+    justify-content: center;
+  }
+}
+
+.cardsGrid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: clamp(600px, 60vw, 800px);
+  z-index: 1;
+
+  @media (max-width: 1200px) {
+    max-width: clamp(500px, 55vw, 700px);
+    gap: 1.2rem;
+  }
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    max-width: 600px;
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 400px;
+  }
+
+  @media (max-width: 480px) {
+    gap: 1.2rem;
+    max-width: 100%;
+  }
+
+  @media (max-width: 320px) {
+    gap: 1rem;
+  }
+}
+
+.card {
+  border-radius: 30px 30px 30px 70px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  border: 0.5px solid #9c7f16;
+  width: 100%;
+  background: #f8f1de;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  @media (max-width: 1200px) {
+    padding: 1.2rem;
+    min-height: 180px;
+  }
+
+  @media (max-width: 1024px) {
+    padding: 1.5rem;
+    min-height: 170px;
+  }
+
+  @media (max-width: 768px) {
+    min-height: 160px;
+    padding: 1.2rem;
+    border-radius: 25px 25px 25px 70px;
+  }
+
+  @media (max-width: 600px) {
+    min-height: 150px;
+    padding: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.2rem;
+    min-height: 140px;
+    border-radius: 20px 20px 20px 60px;
+  }
+
+  @media (max-width: 320px) {
+    padding: 1rem;
+    min-height: 130px;
+    border-radius: 18px 18px 18px 50px;
+  }
+}
+
+.softSkillsCard {
+  h3,
+  p {
+    color: #9c7f16 !important;
+    font-family: $font-sharp-20;
+  }
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  line-height: 1.2;
+
+  @media (max-width: 768px) {
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  @media (max-width: 480px) {
+    gap: 0.6rem;
+    margin-bottom: 0.6rem;
+  }
+
+  @media (max-width: 320px) {
+    gap: 0.5rem;
+  }
+}
+
+.starImage {
+  width: clamp(20px, 4vw, 30px) !important;
+  height: clamp(20px, 4vw, 30px) !important;
+  max-width: 30px;
+  max-height: 30px;
+  object-fit: contain;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.card h3 {
+  font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+  margin: 0;
+  color: #9c7f16;
+  font-family: $font-sharp-25;
+  font-weight: 500;
+  text-transform: uppercase;
+  line-height: 1.2;
+  flex: 1;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.card p {
+  font-size: clamp(0.8rem, 1vw, 0.95rem);
+  line-height: 1.5;
+  color: #9c7f16;
+  font-family: $font-oldschool;
+  margin: 0;
+  width: 100%;
+  margin-top: auto;
+  padding-top: 0.5rem;
+  word-wrap: break-word;
+}
