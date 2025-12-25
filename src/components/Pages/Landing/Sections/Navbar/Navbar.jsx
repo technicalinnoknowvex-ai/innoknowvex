@@ -111,7 +111,7 @@ const programsCategory = [
     ],
   },
   {
-    category: "Offline Courses",
+    category: "Offline Programs",
     items: [
       {
         label: "Web Development",
