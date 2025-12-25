@@ -213,7 +213,7 @@ const navLinks = [
     href: "",
     categories: powerPacksCategory,
   },
-  { label: "Cart", type: "section", href: "cart", sectionId: "cart" },
+  { label: "Cart", type: "section", href: "/cart", sectionId: "cart" },
 ];
 
 const Navbar = () => {
