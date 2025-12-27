@@ -78,37 +78,9 @@ export default function PlansSection() {
     }
   }, [searchParams, courseName]);
 
-  // // Add this useEffect after your existing useEffects (around line 70)
-  // useEffect(() => {
-  //   // Check auth state on component mount
-  //   const checkAuthState = async () => {
-  //     const {
-  //       data: { session },
-  //     } = await supabase.auth.getSession();
-  //     console.log("Current auth state:", {
-  //       isAuthenticated: !!session,
-  //       userId: session?.user?.id,
-  //     });
-  //   };
-
-  //   checkAuthState();
-
-  //   // Listen for auth changes
-  //   const {
-  //     data: { subscription },
-  //   } = supabase.auth.onAuthStateChange((event, session) => {
-  //     console.log("Auth state changed:", event, {
-  //       isAuthenticated: !!session,
-  //       userId: session?.user?.id,
-  //     });
-  //   });
-
-  //   return () => subscription.unsubscribe();
-  // }, []);
-
   const { session, isSessionLoading } = useUserSession();
 
-  // Then replace handleEnrollClick with this:
+  // Fixed handleEnrollClick with correct price passing
   const handleEnrollClick = (plan, price) => {
     console.log("🔵 [ENROLL] Button clicked:", { plan, price });
 
@@ -130,7 +102,7 @@ export default function PlansSection() {
       if (session) {
         console.log("✅ [ENROLL] User authenticated, opening popup");
         setSelectedPlan(plan);
-        setSelectedPlanPrice(price);
+        setSelectedPlanPrice(price); // Pass the actual price
         setIsFormOpen(true);
       } else {
         // If NOT logged in → redirect to sign-in
@@ -146,6 +118,7 @@ export default function PlansSection() {
       setCheckingAuth(false);
     }
   };
+
   const closeForm = () => {
     setIsFormOpen(false);
     setSelectedPlan(null);
@@ -200,6 +173,7 @@ export default function PlansSection() {
         plan={selectedPlan}
         course={formatCourseName(courseName)}
         price={selectedPlanPrice}
+        courseId={pricingData.course_name || courseName}
       />
 
       <div className={styles.Plans}>
@@ -221,7 +195,6 @@ export default function PlansSection() {
           <h1>Plans to fit your Learning needs</h1>
         </div>
         <p>CHOOSE THAT FITS YOU</p>
-        {/* <p className={styles.courseTitle}>Course: {formatCourseName(courseName)}</p> */}
       </div>
 
       <div className={styles.pricingCardLayout}>
@@ -297,15 +270,6 @@ export default function PlansSection() {
             Learn at your own pace with all the resources you need to succeed
             independently.
           </p>
-
-          {/* <button
-  onClick={() =>
-    handleEnrollClick("Self", pricingData.self_current_price)
-  }
-  className={styles.enrollButton}
->
-  Enroll Now
-</button> */}
 
           <button
             onClick={() =>
@@ -506,18 +470,9 @@ export default function PlansSection() {
             accelerated learning.
           </p>
 
-          {/* <button
-  onClick={() =>
-    handleEnrollClick("Mentor", pricingData.self_current_price)
-  }
-  className={styles.enrollButton}
->
-  Enroll Now
-</button> */}
-
           <button
             onClick={() =>
-              handleEnrollClick("Mentor", pricingData.self_current_price)
+              handleEnrollClick("Mentor", pricingData.mentor_current_price)
             }
             className={styles.enrollButton}
             disabled={checkingAuth || isSessionLoading}
@@ -674,19 +629,13 @@ export default function PlansSection() {
             Complete career transformation with placement support, mock
             interviews, and comprehensive mentorship.
           </p>
-          {/* 
-           <button
-  onClick={() =>
-    handleEnrollClick("Professional", pricingData.self_current_price)
-  }
-  className={styles.enrollButton}
->
-  Enroll Now
-</button> */}
 
           <button
             onClick={() =>
-              handleEnrollClick("Professional", pricingData.self_current_price)
+              handleEnrollClick(
+                "Professional",
+                pricingData.professional_current_price
+              )
             }
             className={styles.enrollButton}
             disabled={checkingAuth || isSessionLoading}

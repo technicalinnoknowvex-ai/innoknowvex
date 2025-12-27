@@ -30,7 +30,7 @@ const PopUpForm = ({
   price: propPrice,
   courseId: propCourseId,
 }) => {
-    console.log("🟢 [POPUP] Render state:", { isOpen, plan, course, price: propPrice });
+    // console.log("🟢 [POPUP] Render state:", { isOpen, plan, course, price: propPrice });
 
   const formRef = useRef(null);
   const sparkleRef = useRef(null);
@@ -87,10 +87,10 @@ const PopUpForm = ({
         setProgramsLoading(true);
         const allPrograms = await getPrograms();
         setPrograms(allPrograms);
-        console.log(
-          "Fetched programs with pricing from database:",
-          allPrograms
-        );
+        // console.log(
+        //   "Fetched programs with pricing from database:",
+        //   allPrograms
+        // );
       } catch (error) {
         console.error("Error fetching programs:", error);
       } finally {
@@ -108,21 +108,21 @@ const PopUpForm = ({
     }
 
     const extractCourseId = async () => {
-      console.log("Starting enhanced course ID extraction...");
-      console.log(
-        "Available programs:",
-        programs.map((p) => p.id)
-      );
+      // console.log("Starting enhanced course ID extraction...");
+      // console.log(
+      //   "Available programs:",
+      //   programs.map((p) => p.id)
+      // );
 
       // Method 1: Use prop if provided and valid
       if (propCourseId && propCourseId.trim() && propCourseId !== "programs") {
-        console.log("Using courseId from props:", propCourseId);
+        // console.log("Using courseId from props:", propCourseId);
         const program = programs.find((p) => p.id === propCourseId);
         if (program) {
           setCourseId(propCourseId);
           setProgramDetails(program);
           setActualCourseName(program.title);
-          console.log("Found program in database:", program);
+          // console.log("Found program in database:", program);
           return;
         }
       }
@@ -130,7 +130,7 @@ const PopUpForm = ({
       // Method 2: Extract from current URL
       if (typeof window !== "undefined") {
         const currentUrl = window.location.href;
-        console.log("Current URL:", currentUrl);
+        // console.log("Current URL:", currentUrl);
 
         const url = new URL(currentUrl);
         const urlParams = url.searchParams;
@@ -161,17 +161,17 @@ const PopUpForm = ({
         }
 
         const pathname = url.pathname;
-        console.log("Pathname:", pathname);
+        // console.log("Pathname:", pathname);
 
         const pathParts = pathname
           .split("/")
           .filter((part) => part && part.trim());
-        console.log("Path parts:", pathParts);
+        // console.log("Path parts:", pathParts);
 
         for (const part of pathParts) {
           const program = programs.find((p) => p.id === part);
           if (program) {
-            console.log("Found exact program match in path:", part);
+            // console.log("Found exact program match in path:", part);
             setCourseId(part);
             setProgramDetails(program);
             setActualCourseName(program.title);
@@ -186,10 +186,10 @@ const PopUpForm = ({
             if (value && value.trim()) {
               const program = programs.find((p) => p.id === value.trim());
               if (program) {
-                console.log(
-                  `Found valid courseId in hash param '${param}':`,
-                  value
-                );
+                // console.log(
+                //   `Found valid courseId in hash param '${param}':`,
+                //   value
+                // );
                 setCourseId(value.trim());
                 setProgramDetails(program);
                 setActualCourseName(program.title);
@@ -202,7 +202,7 @@ const PopUpForm = ({
 
       // Method 3: Map course name to program ID
       if (course && typeof course === "string") {
-        console.log("Mapping course name to program ID:", course);
+        // console.log("Mapping course name to program ID:", course);
 
         const courseLower = course.toLowerCase().trim();
 
@@ -211,7 +211,7 @@ const PopUpForm = ({
         );
 
         if (directMatch) {
-          console.log("Found direct title match:", directMatch.id);
+          // console.log("Found direct title match:", directMatch.id);
           setCourseId(directMatch.id);
           setProgramDetails(directMatch);
           setActualCourseName(directMatch.title);
@@ -227,7 +227,7 @@ const PopUpForm = ({
         });
 
         if (partialMatch) {
-          console.log("Found partial title match:", partialMatch.id);
+          // console.log("Found partial title match:", partialMatch.id);
           setCourseId(partialMatch.id);
           setProgramDetails(partialMatch);
           setActualCourseName(partialMatch.title);
@@ -238,10 +238,10 @@ const PopUpForm = ({
       // Fallback
       if (programs.length > 0) {
         const fallbackProgram = programs[0];
-        console.log(
-          "Using first available program as fallback:",
-          fallbackProgram.id
-        );
+        // console.log(
+        //   "Using first available program as fallback:",
+        //   fallbackProgram.id
+        // );
         setCourseId(fallbackProgram.id);
         setProgramDetails(fallbackProgram);
         setActualCourseName(fallbackProgram.title);
@@ -249,7 +249,7 @@ const PopUpForm = ({
       }
 
       const finalFallback = `course-${Date.now()}`;
-      console.log("Using final timestamp fallback courseId:", finalFallback);
+      // console.log("Using final timestamp fallback courseId:", finalFallback);
       setCourseId(finalFallback);
       setActualCourseName(course || "Course");
     };
@@ -266,12 +266,12 @@ const PopUpForm = ({
         setPricingLoading(true);
         setPricingError(null);
 
-        console.log(
-          "Fetching program with pricing for courseId:",
-          courseId,
-          "Plan:",
-          plan
-        );
+        // console.log(
+        //   "Fetching program with pricing for courseId:",
+        //   courseId,
+        //   "Plan:",
+        //   plan
+        // );
 
         // Get program with combined pricing data
         const programData = await getProgramById(courseId);
@@ -280,7 +280,7 @@ const PopUpForm = ({
           throw new Error("Program not found");
         }
 
-        console.log("Fetched program data:", programData);
+        // console.log("Fetched program data:", programData);
 
         setProgramDetails(programData);
         setActualCourseName(programData.title);
@@ -309,7 +309,7 @@ const PopUpForm = ({
         if (actualPrice === 0 && propPrice) {
           actualPrice = propPrice;
           discountedPrice = propPrice;
-          console.log("Using prop price as fallback:", propPrice);
+          // console.log("Using prop price as fallback:", propPrice);
         }
 
         setOriginalPrice(actualPrice);
@@ -325,13 +325,13 @@ const PopUpForm = ({
           currency: programData.pricing?.currency || "INR",
         });
 
-        console.log("Prices set:", {
-          plan,
-          originalPrice: actualPrice,
-          currentPrice: discountedPrice,
-          finalPrice: discountedPrice,
-          programTitle: programData.title,
-        });
+        // console.log("Prices set:", {
+        //   plan,
+        //   originalPrice: actualPrice,
+        //   currentPrice: discountedPrice,
+        //   finalPrice: discountedPrice,
+        //   programTitle: programData.title,
+        // });
       } catch (error) {
         console.error("Error fetching program with pricing:", error);
         setPricingError(error.message);
@@ -341,7 +341,7 @@ const PopUpForm = ({
           setOriginalPrice(propPrice);
           setCurrentPrice(propPrice);
           setFinalPrice(propPrice);
-          console.log("Using prop price due to error:", propPrice);
+          // console.log("Using prop price due to error:", propPrice);
         }
       } finally {
         setPricingLoading(false);
@@ -375,11 +375,11 @@ const PopUpForm = ({
     originalPrice
   ) => {
     try {
-      console.log("Validating coupon from sheet:", {
-        couponCode,
-        courseId,
-        originalPrice,
-      });
+      // console.log("Validating coupon from sheet:", {
+      //   couponCode,
+      //   courseId,
+      //   originalPrice,
+      // });
 
       const response = await fetch("/api/validate-coupon", {
         method: "POST",
@@ -401,7 +401,7 @@ const PopUpForm = ({
       }
 
       const result = await response.json();
-      console.log("Coupon validation result:", result);
+      // console.log("Coupon validation result:", result);
 
       return result;
     } catch (error) {
@@ -453,12 +453,12 @@ const PopUpForm = ({
             setFinalPrice(finalAmount);
             setCouponError("");
 
-            console.log("Coupon applied successfully:", {
-              originalPrice: currentPrice,
-              discountPercentage: savingsPercentage,
-              discountAmount: discountAmount,
-              finalPrice: finalAmount,
-            });
+            // console.log("Coupon applied successfully:", {
+            //   originalPrice: currentPrice,
+            //   discountPercentage: savingsPercentage,
+            //   discountAmount: discountAmount,
+            //   finalPrice: finalAmount,
+            // });
           } else {
             setCouponDiscount(0);
             setCouponDiscountPercentage(0);
@@ -579,15 +579,15 @@ const PopUpForm = ({
       return;
     }
 
-    console.log("Initiating payment with courseId:", courseId);
-    console.log("Payment details:", {
-      originalPrice: originalPrice,
-      currentPrice: currentPrice,
-      finalPrice: finalPrice,
-      couponDiscount: couponDiscount,
-      couponCode: appliedCoupon?.code,
-      discountPercentage: couponDiscountPercentage,
-    });
+    // console.log("Initiating payment with courseId:", courseId);
+    // console.log("Payment details:", {
+    //   originalPrice: originalPrice,
+    //   currentPrice: currentPrice,
+    //   finalPrice: finalPrice,
+    //   couponDiscount: couponDiscount,
+    //   couponCode: appliedCoupon?.code,
+    //   discountPercentage: couponDiscountPercentage,
+    // });
 
     setIsProcessing(true);
 
@@ -776,18 +776,18 @@ We will resolve this issue promptly.`);
       return;
     }
 
-    console.log("Submitting form with courseId:", courseId);
-    console.log("Final submission data:", {
-      ...data,
-      courseId,
-      originalPrice,
-      currentPrice,
-      finalPrice,
-      couponApplied: !!appliedCoupon,
-      couponCode: appliedCoupon?.code,
-      discountAmount: couponDiscount,
-      discountPercentage: couponDiscountPercentage,
-    });
+    // console.log("Submitting form with courseId:", courseId);
+    // console.log("Final submission data:", {
+    //   ...data,
+    //   courseId,
+    //   originalPrice,
+    //   currentPrice,
+    //   finalPrice,
+    //   couponApplied: !!appliedCoupon,
+    //   couponCode: appliedCoupon?.code,
+    //   discountAmount: couponDiscount,
+    //   discountPercentage: couponDiscountPercentage,
+    // });
 
     await initiatePayment(data);
   };
