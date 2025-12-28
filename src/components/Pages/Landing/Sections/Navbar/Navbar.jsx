@@ -114,7 +114,7 @@ const programsCategory = [
     category: "Offline Programs",
     items: [
       {
-        label: "Web Development",
+        label: " Offline Web Development",
         href: "/programs/offline-web-development",
       },
       {

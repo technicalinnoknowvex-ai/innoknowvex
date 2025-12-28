@@ -8,31 +8,34 @@ import Image from 'next/image'
 const CartPage = () => {
     const star = useRef()
     const [storedItems, setStoredItems] = useState([]);
-    const [originalTotal, setOriginalTotal] = useState(0)
-    const [total, setTotal] = useState(0)
+    
+    // Display-only pricing (fetched from backend during order creation)
+    const [displayPrices, setDisplayPrices] = useState({
+        originalTotal: 0,
+        packageDiscount: 0,
+        couponDiscount: 0,
+        finalAmount: 0
+    });
+    
     const [coupon, setCoupon] = useState("")
     const [appliedCoupon, setAppliedCoupon] = useState(null)
-    const [discount, setDiscount] = useState(0)
-    const [discountPercentage, setDiscountPercentage] = useState(0)
     const [couponDetails, setCouponDetails] = useState(null)
     const [isFormOpen, setIsFormOpen] = useState(false);
-
+    
     // Tech Starter Pack states
     const [isTechStarterPack, setIsTechStarterPack] = useState(false);
     const [techPackageInfo, setTechPackageInfo] = useState(null);
-    const [techPackBasePrice, setTechPackBasePrice] = useState(25000);
-    const [techPackDiscountedPrice, setTechPackDiscountedPrice] = useState(25000);
-
+    
     // Form fields
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [phone, setPhone] = useState("")
     const [isProcessing, setIsProcessing] = useState(false)
     const [razorpayKeyId, setRazorpayKeyId] = useState(null)
-
-    // CRITICAL: Price validation and fetching state
+    
+    // Loading states
     const [pricesLoading, setPricesLoading] = useState(false);
-    const [priceValidationError, setPriceValidationError] = useState(null);
+    const [orderCreationLoading, setOrderCreationLoading] = useState(false);
 
     const isValidEmail = (email) => {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
@@ -42,148 +45,20 @@ const CartPage = () => {
         return /^[0-9]{10}$/.test(phone)
     }
 
-    // ✅ NEW: Fetch price for items without prices (Choose Your Own Pack)
-    const fetchPriceForItem = async (priceSearchTag, plan) => {
-        try {
-            const response = await fetch(`/api/pricingPowerPack/${priceSearchTag}`, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' }
-            });
-
-            if (!response.ok) {
-                throw new Error(`Failed to fetch price for ${priceSearchTag}`);
-            }
-
-            const priceData = await response.json();
-
-            // Map plan to correct price field
-            switch (plan.toLowerCase()) {
-                case 'self':
-                    return priceData.self_current_price || 0;
-                case 'mentor':
-                    return priceData.mentor_current_price || 0;
-                case 'professional':
-                    return priceData.professional_current_price || 0;
-                default:
-                    return priceData.mentor_current_price || 0; // Default to mentor
-            }
-        } catch (error) {
-            console.error(`❌ Error fetching price for ${priceSearchTag}:`, error);
-            return null;
-        }
-    };
-
-    // ✅ NEW: Fetch prices for all items that don't have prices
-    const fetchMissingPrices = async (items) => {
-        console.log("🔍 Checking for items without prices...");
-        
-        const itemsNeedingPrices = items.filter(item => !item.price || item.price <= 0);
-        
-        if (itemsNeedingPrices.length === 0) {
-            console.log("✅ All items have prices");
-            return items;
-        }
-
-        console.log(`📥 Fetching prices for ${itemsNeedingPrices.length} items...`);
-        setPricesLoading(true);
-
-        const updatedItems = await Promise.all(
-            items.map(async (item) => {
-                // If item already has valid price, return as-is
-                if (item.price && item.price > 0) {
-                    return item;
-                }
-
-                // If item has priceSearchTag, fetch price
-                if (item.priceSearchTag && item.plan) {
-                    console.log(`📡 Fetching price for ${item.course} (${item.plan})...`);
-                    const fetchedPrice = await fetchPriceForItem(item.priceSearchTag, item.plan);
-                    
-                    if (fetchedPrice && fetchedPrice > 0) {
-                        console.log(`✅ Fetched price for ${item.course}: ₹${fetchedPrice}`);
-                        return {
-                            ...item,
-                            price: fetchedPrice,
-                            actualPrice: fetchedPrice,
-                            priceFetched: true // Flag to know it was fetched
-                        };
-                    } else {
-                        console.error(`❌ Failed to fetch valid price for ${item.course}`);
-                        return {
-                            ...item,
-                            price: 0,
-                            priceError: true
-                        };
-                    }
-                }
-
-                // Item has no price and no way to fetch it
-                console.error(`❌ Item ${item.course} has no price and no priceSearchTag`);
-                return {
-                    ...item,
-                    price: 0,
-                    priceError: true
-                };
-            })
-        );
-
-        setPricesLoading(false);
-
-        // Update sessionStorage with fetched prices
-        sessionStorage.setItem("cartItems", JSON.stringify(updatedItems));
-
-        return updatedItems;
-    };
-
-    // CRITICAL FIX: Validate ALL prices are real (no fallbacks, no zeros, no undefined)
-    const validatePrices = () => {
-        if (storedItems.length === 0) return { valid: true, issues: [] };
-
-        const issues = [];
-        
-        storedItems.forEach((item, index) => {
-            const price = item.actualPrice || item.price || 0;
-            const courseName = item.course || item.name || `Course ${index + 1}`;
-
-            // Check for invalid prices (0, undefined, null)
-            if (!price || price <= 0) {
-                issues.push(`${courseName}: Missing or invalid price (${price})`);
-            }
-
-            // Check for suspicious fallback prices (10,000, 5,000, etc.)
-            if (price === 10000 || price === 5000) {
-                console.warn(`⚠️ Suspicious price detected for ${courseName}: ₹${price} (possible fallback)`);
-            }
-        });
-
-        return {
-            valid: issues.length === 0,
-            issues: issues
-        };
-    };
-
-    const hasInvalidPrice = (() => {
-        const validation = validatePrices();
-        if (!validation.valid) {
-            console.error("❌ Price validation failed:", validation.issues);
-        }
-        return !validation.valid;
-    })();
-
     const isFormValid = () => {
         return (
             name.trim().length > 0 &&
             isValidEmail(email) &&
             isValidPhone(phone) &&
-            !hasInvalidPrice &&
-            !pricesLoading
+            !pricesLoading &&
+            storedItems.length > 0
         )
     }
 
     const generateOrderId = () => {
         const timestamp = Date.now()
         const random = Math.random().toString(36).substring(2, 9)
-        return `techpack_${timestamp}_${random}`
+        return `propack_${timestamp}_${random}`
     }
 
     useEffect(() => {
@@ -216,6 +91,7 @@ const CartPage = () => {
         return storedItems.length > 1 || (storedItems.length === 1 && storedItems[0].isCustomPack);
     }
 
+    // Get course details WITHOUT prices
     const getAllCourseDetails = () => {
         if (storedItems.length === 1 && storedItems[0].isCustomPack) {
             return storedItems[0].courses || [];
@@ -224,7 +100,6 @@ const CartPage = () => {
                 courseId: item.program_id || item.courseId || item.id,
                 courseName: item.course || item.name,
                 plan: item.plan,
-                price: item.price,
                 priceSearchTag: item.priceSearchTag || item.price_search_tag
             }));
         } else {
@@ -232,30 +107,20 @@ const CartPage = () => {
                 courseId: storedItems[0].program_id || storedItems[0].courseId || storedItems[0].id,
                 courseName: storedItems[0].course || storedItems[0].name,
                 plan: storedItems[0].plan,
-                price: storedItems[0].price,
                 priceSearchTag: storedItems[0].priceSearchTag || storedItems[0].price_search_tag
             }] : [];
         }
     }
 
+    // ✅ SECURE: Payment with backend price calculation
     const makePayment = async (name, email, phone) => {
         if (!isFormValid()) {
-            if (hasInvalidPrice) {
-                alert("Some course prices are still loading or invalid. Please wait or refresh the page.");
-            } else {
-                alert("Please fill all fields correctly");
-            }
+            alert("Please fill all fields correctly");
             return;
         }
 
-        const priceValidation = validatePrices();
-        if (!priceValidation.valid) {
-            console.error("❌ Cannot proceed with payment - invalid prices:", priceValidation.issues);
-            alert(`Cannot process payment: ${priceValidation.issues.join(', ')}`);
-            return;
-        }
-
-        setIsProcessing(true)
+        setIsProcessing(true);
+        setOrderCreationLoading(true);
 
         const allCourses = getAllCourseDetails();
         const isCustomPackPurchase = isCustomPack();
@@ -266,10 +131,12 @@ const CartPage = () => {
                 ? "custom-pack"
                 : "single-course";
 
+        // ✅ SECURE: Send ONLY course identifiers, NO PRICES
         const selectedCourses = allCourses.map(course => ({
             courseId: course.courseId,
             courseName: course.courseName,
-            plan: course.plan
+            plan: course.plan,
+            priceSearchTag: course.priceSearchTag
         }));
 
         const displayCourseName = isCustomPackPurchase
@@ -287,30 +154,29 @@ const CartPage = () => {
                 ? "tech-starter-pack"
                 : storedItems[0]?.program_id || "selected-course";
 
-        const couponData = getCouponDataForPopup();
-        const couponCode = couponData?.couponCode || null;
-
         const orderId = generateOrderId();
 
         try {
+            // ✅ SECURE: Use new pro-packs endpoint
             const orderCreationData = {
                 id: orderId,
                 studentData: { name, email, phone },
                 selectedCourses: selectedCourses,
                 cartType: cartType,
-                couponCode: couponCode,
+                couponCode: appliedCoupon || null,
                 course: displayCourseName,
                 plan: displayPlan,
                 courseId: displayCourseId
             };
 
-            console.log("✅ Creating order with validated course data:", {
+            console.log("✅ Creating pro-pack order (NO PRICES from frontend):", {
+                endpoint: '/api/pro-packs/order-creation',
                 cartType,
                 coursesCount: selectedCourses.length,
-                couponCode
+                couponCode: appliedCoupon || 'None'
             });
 
-            const response = await fetch("/api/pro-packs/ordercreation", {
+            const response = await fetch("/api/pro-packs/order-creation", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(orderCreationData),
@@ -323,29 +189,40 @@ const CartPage = () => {
             }
 
             const data = await response.json()
-            if (!data) {
+            if (!data || !data.success) {
                 throw new Error("Invalid order response")
             }
 
-            console.log("✅ Order created with backend-calculated price:", {
+            console.log("✅ Order created with BACKEND-calculated prices:", {
                 orderId: data.id,
                 amount: data.amount,
                 metadata: data.metadata
             });
 
-            // Use ONLY backend-calculated price (NEVER fallback to frontend)
-            const backendCalculatedPrice = data.metadata.finalAmount;
-            const backendOriginalTotal = data.metadata.originalTotal;
-            const backendPackageDiscount = data.metadata.packageDiscount;
-            const backendCouponDiscount = data.metadata.couponDiscount;
+            // ✅ SECURE: Use ONLY backend-calculated prices
+            const backendPrices = data.metadata;
+            const backendFinalAmount = backendPrices.finalAmount;
+            const backendOriginalTotal = backendPrices.originalTotal;
+            const backendPackageDiscount = backendPrices.packageDiscount || 0;
+            const backendCouponDiscount = backendPrices.couponDiscount || 0;
+
+            // Update display prices
+            setDisplayPrices({
+                originalTotal: backendOriginalTotal,
+                packageDiscount: backendPackageDiscount,
+                couponDiscount: backendCouponDiscount,
+                finalAmount: backendFinalAmount
+            });
+
+            setOrderCreationLoading(false);
 
             const paymentObject = new window.Razorpay({
                 key: razorpayKeyId || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
                 amount: data.amount,
                 currency: data.currency || 'INR',
                 name: "Innoknowvex",
-                description: couponCode
-                    ? `${displayCourseName} - ${displayPlan} (${couponCode} applied)`
+                description: appliedCoupon
+                    ? `${displayCourseName} - ${displayPlan} (${appliedCoupon} applied)`
                     : `${displayCourseName} - ${displayPlan} Plan`,
                 order_id: data.id,
                 handler: async function (response) {
@@ -356,21 +233,17 @@ const CartPage = () => {
                             razorpay_order_id: response.razorpay_order_id,
                             razorpay_payment_id: response.razorpay_payment_id,
                             razorpay_signature: response.razorpay_signature,
-                            studentData: {
-                                name: name,
-                                email: email,
-                                phone: phone
-                            },
+                            studentData: { name, email, phone },
                             course: displayCourseName,
                             plan: displayPlan,
-                            amount: backendCalculatedPrice,
+                            amount: backendFinalAmount,
                             originalAmount: backendOriginalTotal,
                             discountAmount: backendPackageDiscount + backendCouponDiscount,
                             discountPercentage: backendOriginalTotal > 0
                                 ? Math.round(((backendPackageDiscount + backendCouponDiscount) / backendOriginalTotal) * 100)
                                 : 0,
-                            couponCode: couponCode,
-                            couponDetails: couponData,
+                            couponCode: appliedCoupon || null,
+                            couponDetails: couponDetails,
                             courseId: displayCourseId,
                             courses: allCourses,
                             isCustomPack: isCustomPackPurchase,
@@ -378,7 +251,8 @@ const CartPage = () => {
                             backendMetadata: data.metadata
                         };
 
-                        const verifyResponse = await fetch("/api/pro-packs/verifypayment", {
+                        // ✅ Use new pro-packs verify endpoint
+                        const verifyResponse = await fetch("/api/pro-packs/verify-payment", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify(verificationData),
@@ -391,9 +265,11 @@ const CartPage = () => {
                         }
 
                         if (verifyData.success) {
-                            const discountInfo = couponCode
-                                ? `\n\nDiscount Applied:\n• Coupon Code: ${couponCode}\n• Original Amount: ₹${backendOriginalTotal.toLocaleString('en-IN')}\n• Discount: ₹${(backendPackageDiscount + backendCouponDiscount).toLocaleString('en-IN')}\n• Final Amount: ₹${backendCalculatedPrice.toLocaleString('en-IN')}`
-                                : '';
+                            const discountInfo = appliedCoupon
+                                ? `\n\nDiscount Applied:\n• Coupon Code: ${appliedCoupon}\n• Original Amount: ₹${backendOriginalTotal.toLocaleString('en-IN')}\n• Total Discount: ₹${(backendPackageDiscount + backendCouponDiscount).toLocaleString('en-IN')}\n• Final Amount: ₹${backendFinalAmount.toLocaleString('en-IN')}`
+                                : backendPackageDiscount > 0
+                                    ? `\n\nPackage Discount:\n• Original Amount: ₹${backendOriginalTotal.toLocaleString('en-IN')}\n• Package Discount: ₹${backendPackageDiscount.toLocaleString('en-IN')}\n• Final Amount: ₹${backendFinalAmount.toLocaleString('en-IN')}`
+                                    : '';
 
                             const courseDetails = isCustomPackPurchase || isTechStarterPack
                                 ? `\n\nCourses Enrolled (${allCourses.length}):\n${allCourses.map((course) => `• ${course.courseName} - ${course.plan}`).join('\n')}`
@@ -409,7 +285,7 @@ Transaction Details:
 • Payment ID: ${verifyData.paymentId}
 • Order ID: ${verifyData.orderId}
 • Total Courses: ${isCustomPackPurchase || isTechStarterPack ? allCourses.length : 1}
-• Amount Paid: ₹${backendCalculatedPrice.toLocaleString('en-IN')}
+• Amount Paid: ₹${backendFinalAmount.toLocaleString('en-IN')}
 
 Thank you for choosing Innoknowvex!`;
 
@@ -438,9 +314,7 @@ Thank you for choosing Innoknowvex!`;
                 notes: {
                     cart_type: cartType,
                     total_courses: allCourses.length.toString(),
-                    coupon_code: couponCode || 'none',
-                    is_custom_pack: isCustomPackPurchase ? 'true' : 'false',
-                    is_tech_starter_pack: isTechStarterPack ? 'true' : 'false'
+                    coupon_code: appliedCoupon || 'none'
                 },
                 theme: {
                     color: "#A38907"
@@ -449,6 +323,7 @@ Thank you for choosing Innoknowvex!`;
                     ondismiss: function () {
                         console.log("Payment popup closed by user")
                         setIsProcessing(false);
+                        setOrderCreationLoading(false);
                     },
                 }
             })
@@ -464,6 +339,7 @@ Thank you for choosing Innoknowvex!`;
             console.error("❌ Payment error:", error)
             alert("Payment process failed. Please try again. Error: " + error.message)
             setIsProcessing(false);
+            setOrderCreationLoading(false);
         }
     }
 
@@ -509,8 +385,7 @@ Thank you for choosing Innoknowvex!`;
                 const updatedPackageInfo = {
                     ...techPackageInfo,
                     items: updatedItems,
-                    coursesCount: updatedItems.length,
-                    originalPrice: updatedItems.reduce((sum, item) => sum + (item.actualPrice || item.price || 0), 0)
+                    coursesCount: updatedItems.length
                 };
                 sessionStorage.setItem('techStarterPackageInfo', JSON.stringify(updatedPackageInfo));
                 setTechPackageInfo(updatedPackageInfo);
@@ -524,45 +399,21 @@ Thank you for choosing Innoknowvex!`;
         if (appliedCoupon) {
             setAppliedCoupon(null);
             setCouponDetails(null);
-            setDiscount(0);
-            setDiscountPercentage(0);
-            if (isTechStarterPack) {
-                setTechPackDiscountedPrice(techPackBasePrice);
-            }
         }
 
         toast.success('Deleted !', {
             position: "top-right",
             autoClose: 500,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
             theme: "colored",
             onClose: () => window.location.reload(),
         });
     }
 
     const handleEnrollClick = () => {
-        if (total == 0) {
+        if (storedItems.length === 0) {
             toast.warning('Add something to checkout', {
                 position: "top-right",
                 autoClose: 1000,
-                hideProgressBar: false,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-            });
-            return;
-        }
-
-        if (hasInvalidPrice) {
-            toast.error('Some course prices are invalid. Please refresh the page or contact support.', {
-                position: "top-right",
-                autoClose: 3000,
                 theme: "colored",
             });
             return;
@@ -575,6 +426,7 @@ Thank you for choosing Innoknowvex!`;
         setIsFormOpen(false);
     };
 
+    // ✅ SECURE: Validate coupon on backend with real prices
     const applyCoupon = async () => {
         if (appliedCoupon) {
             toast.warning("You already have a coupon applied. Remove it first to apply a new one.", {
@@ -595,108 +447,118 @@ Thank you for choosing Innoknowvex!`;
         }
 
         try {
-            const actualCartTotal = storedItems.reduce((sum, item) => {
-                const price = item.actualPrice || item.price || 0;
-                if (price <= 0) {
-                    console.error(`❌ Invalid price for ${item.course || item.name}: ${price}`);
-                }
-                return sum + price;
-            }, 0);
+            setPricesLoading(true);
 
-            console.log("💰 Applying coupon - Cart total:", actualCartTotal);
+            const allCourses = getAllCourseDetails();
+            const isCustomPackPurchase = isCustomPack();
 
-            const priceForValidation = isTechStarterPack
-                ? (actualCartTotal < techPackBasePrice ? actualCartTotal : techPackBasePrice)
-                : actualCartTotal;
+            const cartType = isTechStarterPack
+                ? "tech-starter-pack"
+                : isCustomPackPurchase
+                    ? "custom-pack"
+                    : "single-course";
 
-            const courseIdForValidation = isTechStarterPack ? "tech-starter-pack" : "pro-packs";
+            const selectedCourses = allCourses.map(course => ({
+                courseId: course.courseId,
+                courseName: course.courseName,
+                plan: course.plan,
+                priceSearchTag: course.priceSearchTag
+            }));
 
-            const response = await fetch("/api/pro-packs/coupon_validation", {
+            const courseId = isCustomPackPurchase
+                ? "custom-pack"
+                : isTechStarterPack
+                    ? "tech-starter-pack"
+                    : storedItems[0]?.program_id || "selected-course";
+
+            console.log("🎫 Validating coupon on backend:", {
+                couponCode: coupon.trim().toUpperCase(),
+                cartType,
+                coursesCount: selectedCourses.length
+            });
+
+            // ✅ Call secure backend validation
+            const response = await fetch("/api/pro-packs/coupon-validation", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    couponCode: coupon.trim(),
-                    price: priceForValidation,
-                    courseId: courseIdForValidation,
+                    couponCode: coupon.trim().toUpperCase(),
+                    selectedCourses: selectedCourses,
+                    cartType: cartType,
+                    courseId: courseId
                 }),
             });
 
             if (!response.ok) {
-                const errorData = await response.json().catch(() => ({}));
-                const message = errorData.message || "Failed to apply coupon";
-                toast.error(message, { position: "top-right", autoClose: 3000, theme: "colored" });
+                const errorData = await response.json();
+                toast.error(errorData.message || "Invalid coupon code", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    theme: "colored",
+                });
+                setPricesLoading(false);
                 return;
             }
 
             const data = await response.json();
 
             if (data.success) {
-                const discountAmount = priceForValidation - data.finalPrice;
-                const discountPercent = ((discountAmount / priceForValidation) * 100).toFixed(2);
-
-                if (isTechStarterPack) {
-                    setTechPackDiscountedPrice(data.finalPrice);
-                    setTotal(data.finalPrice);
-                } else {
-                    setTotal(data.finalPrice);
-                }
-
-                setDiscount(discountAmount);
-                setDiscountPercentage(parseFloat(discountPercent));
-                setAppliedCoupon(coupon.trim());
-
-                setCouponDetails({
-                    discount_type: data.discount_type || 'percentage',
-                    discount_value: data.discount_value || discountPercent,
-                    coupon_name: coupon.trim(),
-                    valid_from: data.valid_from || null,
-                    valid_until: data.valid_until || null,
-                    min_purchase: data.min_purchase || null,
-                    max_discount: data.max_discount || null,
-                    ...data
+                // Update display prices with backend-calculated values
+                setDisplayPrices({
+                    originalTotal: data.originalTotal,
+                    packageDiscount: data.packageDiscount || 0,
+                    couponDiscount: data.couponDiscount,
+                    finalAmount: data.finalPrice
                 });
 
+                setAppliedCoupon(coupon.trim().toUpperCase());
+                setCouponDetails({
+                    code: coupon.trim().toUpperCase(),
+                    discountType: data.discountType,
+                    discountValue: data.discount_value,
+                    description: data.coupon.description
+                });
                 setCoupon("");
-                toast.success(`Coupon applied! You saved ₹${discountAmount.toLocaleString('en-IN')}`, {
+
+                const savingsAmount = data.couponDiscount;
+                
+                toast.success(`Coupon applied! You saved ₹${savingsAmount.toLocaleString('en-IN')} (${data.discountPercentage}% off)`, {
                     position: "top-right",
                     autoClose: 3000,
                     theme: "colored",
                 });
             } else {
-                const message = data.message || "Invalid coupon";
-                setCoupon("")
-                toast.error(message, { position: "top-right", autoClose: 3000, theme: "colored" });
+                toast.error(data.message || "Invalid coupon code", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    theme: "colored",
+                });
             }
-        } catch (err) {
-            console.error("❌ Error applying coupon:", err);
-            toast.error("Something went wrong. Please try again later.", {
+
+            setPricesLoading(false);
+
+        } catch (error) {
+            console.error("❌ Error validating coupon:", error);
+            toast.error("Failed to validate coupon. Please try again.", {
                 position: "top-right",
                 autoClose: 3000,
                 theme: "colored",
             });
+            setPricesLoading(false);
         }
     };
 
     const removeCoupon = () => {
-        const actualCartTotal = storedItems.reduce((sum, item) => {
-            const price = item.actualPrice || item.price || 0;
-            return sum + price;
-        }, 0);
-
-        console.log("💰 Removing coupon - Restoring to cart total:", actualCartTotal);
-
-        if (isTechStarterPack) {
-            const priceToSet = actualCartTotal < techPackBasePrice ? actualCartTotal : techPackBasePrice;
-            setTechPackDiscountedPrice(priceToSet);
-            setTotal(priceToSet);
-        } else {
-            setTotal(actualCartTotal);
-        }
-
-        setDiscount(0);
-        setDiscountPercentage(0);
         setAppliedCoupon(null);
         setCouponDetails(null);
+        
+        // Reset display prices
+        setDisplayPrices({
+            originalTotal: 0,
+            packageDiscount: 0,
+            couponDiscount: 0,
+            finalAmount: 0
+        });
 
         toast.info('Coupon removed successfully!', {
             position: "top-right",
@@ -705,76 +567,24 @@ Thank you for choosing Innoknowvex!`;
         });
     };
 
-    // ✅ NEW: Load cart and fetch missing prices
+    // Load cart from sessionStorage
     useEffect(() => {
-        const loadCartAndFetchPrices = async () => {
-            const cart = sessionStorage.getItem("cartItems");
-            const techPackCart = sessionStorage.getItem("techStarterCart");
-            const techPackInfo = sessionStorage.getItem("techStarterPackageInfo");
+        const cart = sessionStorage.getItem("cartItems");
+        const techPackInfo = sessionStorage.getItem("techStarterPackageInfo");
 
-            console.log("🔄 Loading cart from sessionStorage...");
+        if (techPackInfo) {
+            const packageData = JSON.parse(techPackInfo);
+            setIsTechStarterPack(true);
+            setTechPackageInfo(packageData);
 
-            let initialItems = [];
-
-            if (techPackInfo) {
-                const packageData = JSON.parse(techPackInfo);
-                setIsTechStarterPack(true);
-                setTechPackageInfo(packageData);
-                setTechPackBasePrice(packageData.fixedPrice || 25000);
-                setTechPackDiscountedPrice(packageData.fixedPrice || 25000);
-
-                if (packageData.items && packageData.items.length > 0) {
-                    initialItems = packageData.items;
-                } else if (techPackCart) {
-                    const techCartItems = JSON.parse(techPackCart);
-                    if (techCartItems.length > 0) {
-                        initialItems = techCartItems;
-                        const updatedPackageInfo = {
-                            ...packageData,
-                            items: techCartItems,
-                            coursesCount: techCartItems.length,
-                            originalPrice: techCartItems.reduce((sum, item) => sum + (item.actualPrice || item.price || 0), 0)
-                        };
-                        sessionStorage.setItem('techStarterPackageInfo', JSON.stringify(updatedPackageInfo));
-                        setTechPackageInfo(updatedPackageInfo);
-                    }
-                }
-            } else if (techPackCart) {
-                const techCartItems = JSON.parse(techPackCart);
-                if (techCartItems.length > 0) {
-                    setIsTechStarterPack(true);
-                    initialItems = techCartItems;
-
-                    const packageInfo = {
-                        items: techCartItems,
-                        fixedPrice: 25000,
-                        originalPrice: techCartItems.reduce((sum, item) => sum + (item.actualPrice || item.price || 0), 0),
-                        coursesCount: techCartItems.length,
-                        isTechStarterPack: true,
-                        packId: 'tech-starter-pack',
-                        packName: 'Tech Starter Pack'
-                    };
-                    sessionStorage.setItem('techStarterPackageInfo', JSON.stringify(packageInfo));
-                    setTechPackageInfo(packageInfo);
-                    setTechPackBasePrice(25000);
-                    setTechPackDiscountedPrice(25000);
-                }
-            } else if (cart) {
-                initialItems = JSON.parse(cart);
-                setIsTechStarterPack(false);
-                setTechPackageInfo(null);
-                console.log("✅ Loaded regular cart items");
+            if (packageData.items) {
+                setStoredItems(packageData.items);
             }
-
-            // ✅ NEW: Fetch missing prices for items without them
-            if (initialItems.length > 0) {
-                const itemsWithPrices = await fetchMissingPrices(initialItems);
-                setStoredItems(itemsWithPrices);
-                console.log("✅ Cart loaded with prices:", itemsWithPrices);
-            }
-        };
-
-        loadCartAndFetchPrices();
+        } else if (cart) {
+            setStoredItems(JSON.parse(cart));
+            setIsTechStarterPack(false);
+            setTechPackageInfo(null);
+        }
 
         gsap.timeline()
             .fromTo(
@@ -791,57 +601,6 @@ Thank you for choosing Innoknowvex!`;
                 { rotate: "+=720", duration: 1, ease: "power2.inOut", delay: 0.1 }
             );
     }, [])
-
-    // CRITICAL FIX: Calculate totals using ONLY real prices (NO fallbacks)
-    useEffect(() => {
-        console.log("💰 Recalculating totals...");
-
-        if (isTechStarterPack && techPackageInfo) {
-            const realOriginalPrice = storedItems.reduce((acc, item) => {
-                const price = item.actualPrice || item.price || 0;
-                if (price <= 0) {
-                    console.warn(`⚠️ Invalid price for ${item.course || item.name}: ${price}`);
-                }
-                return acc + price;
-            }, 0);
-
-            console.log(`💰 Tech Starter Pack - Real original price: ₹${realOriginalPrice}`);
-
-            const isPackageComplete = storedItems.length === 4;
-            const shouldApplyPackageDiscount = isPackageComplete && realOriginalPrice >= techPackBasePrice;
-
-            if (shouldApplyPackageDiscount) {
-                const packPrice = appliedCoupon ? techPackDiscountedPrice : techPackBasePrice;
-                setOriginalTotal(realOriginalPrice);
-                setTotal(packPrice);
-                console.log(`✅ Applied package discount: ₹${realOriginalPrice} → ₹${packPrice}`);
-            } else {
-                setOriginalTotal(realOriginalPrice);
-                if (appliedCoupon) {
-                    setTotal(techPackDiscountedPrice);
-                } else {
-                    setTotal(realOriginalPrice);
-                }
-                console.log(`✅ Using cart total: ₹${realOriginalPrice}`);
-            }
-        } else {
-            const realAmount = storedItems.reduce((acc, item) => {
-                const price = item.actualPrice || item.price || 0;
-                if (price <= 0) {
-                    console.warn(`⚠️ Invalid price for ${item.course || item.name}: ${price}`);
-                }
-                return acc + price;
-            }, 0);
-
-            console.log(`💰 Regular cart - Real amount: ₹${realAmount}`);
-
-            setOriginalTotal(realAmount);
-
-            if (!appliedCoupon) {
-                setTotal(realAmount);
-            }
-        }
-    }, [storedItems, appliedCoupon, isTechStarterPack, techPackageInfo, techPackDiscountedPrice, techPackBasePrice]);
 
     const renderItemName = (item) => {
         if (item.isPack) {
@@ -880,33 +639,6 @@ Thank you for choosing Innoknowvex!`;
         }
     };
 
-    const getCouponDataForPopup = () => {
-        if (!appliedCoupon) return null;
-
-        const actualCartTotal = storedItems.reduce((sum, item) => {
-            const price = item.actualPrice || item.price || 0;
-            return sum + price;
-        }, 0);
-
-        const basePrice = isTechStarterPack
-            ? (actualCartTotal < techPackBasePrice ? actualCartTotal : techPackBasePrice)
-            : actualCartTotal;
-
-        return {
-            couponCode: appliedCoupon,
-            originalPrice: basePrice,
-            discountAmount: discount,
-            discountPercentage: discountPercentage,
-            discount_type: couponDetails?.discount_type || 'percentage',
-            discount_value: couponDetails?.discount_value || discountPercentage,
-            coupon_name: appliedCoupon,
-            valid_from: couponDetails?.valid_from || null,
-            valid_until: couponDetails?.valid_until || null,
-            min_purchase: couponDetails?.min_purchase || null,
-            max_discount: couponDetails?.max_discount || null
-        };
-    };
-
     const renderCourseList = () => {
         const allCourses = getAllCourseDetails();
         if (allCourses.length <= 1) return null;
@@ -925,39 +657,18 @@ Thank you for choosing Innoknowvex!`;
         );
     };
 
-    const couponData = getCouponDataForPopup();
-
-    const isPackageComplete = isTechStarterPack && techPackageInfo && storedItems.length === 4;
-    const shouldShowPackageDiscount = isPackageComplete && originalTotal >= techPackBasePrice;
-
-    const techPackSavings = shouldShowPackageDiscount
-        ? originalTotal - (appliedCoupon ? techPackDiscountedPrice : techPackBasePrice)
-        : 0;
-
-    const techPackDiscountPercent = shouldShowPackageDiscount && originalTotal > 0
-        ? Math.round((techPackSavings / originalTotal) * 100)
-        : 0;
-
-    const techPackCouponSavings = isTechStarterPack && appliedCoupon
-        ? (shouldShowPackageDiscount ? techPackBasePrice : originalTotal) - techPackDiscountedPrice
-        : 0;
-
-    const techPackCouponPercent = isTechStarterPack && appliedCoupon
-        ? Math.round((techPackCouponSavings / (shouldShowPackageDiscount ? techPackBasePrice : originalTotal)) * 100)
-        : 0;
-
     const getCheckoutButtonText = () => {
-        if (hasInvalidPrice) return "Loading prices...";
-        if (pricesLoading) return "Fetching prices...";
+        if (orderCreationLoading) return "Creating Order...";
         if (isProcessing) return "Processing Payment...";
         if (!razorpayKeyId) return "Loading Payment Gateway...";
-        return `Pay ₹${total?.toLocaleString('en-IN')}`;
+        return "Go to Checkout";
     };
 
-    const isCheckoutDisabled = !isFormValid() || isProcessing || !razorpayKeyId || hasInvalidPrice || pricesLoading;
+    const isCheckoutDisabled = isProcessing || !razorpayKeyId || orderCreationLoading || storedItems.length === 0;
 
     return (
         <>
+            {/* Payment Form Modal */}
             {isFormOpen && (
                 <div className={style.formPage}>
                     <div className={style.overlay} onClick={isProcessing ? undefined : closeForm}></div>
@@ -970,85 +681,28 @@ Thank you for choosing Innoknowvex!`;
                             </button>
                         </div>
 
-                        {hasInvalidPrice && (
-                            <div className={style.priceErrorAlert}>
-                                <strong>⚠️ Price Validation Error</strong>
-                                <p>
-                                    Some course prices are invalid or still loading. Please refresh the page or contact support.
-                                </p>
-                            </div>
-                        )}
-
-                        {pricesLoading && (
+                        {orderCreationLoading && (
                             <div className={style.priceLoadingAlert}>
-                                <strong>⏳ Fetching Prices...</strong>
+                                <strong>⏳ Calculating Prices...</strong>
                                 <p>
-                                    Please wait while we fetch the latest prices for your selected courses.
+                                    Please wait while we fetch the latest prices and calculate your total.
                                 </p>
                             </div>
                         )}
 
                         <div className={style.courseInfo}>
-                            {shouldShowPackageDiscount && (
-                                <>
-                                    <div className={style.discountInfo}>
-                                        <p className={style.discountTitle}>
-                                            🎉 Tech Starter Pack - Special Price!
-                                        </p>
-                                        <p className={style.originalPriceStrike}>
-                                            Individual Value: ₹{originalTotal?.toLocaleString('en-IN')}
-                                        </p>
-                                        <p className={style.savingsText}>
-                                            Package Savings: ₹{techPackSavings?.toLocaleString('en-IN')} ({techPackDiscountPercent}% OFF)
-                                        </p>
-                                    </div>
-
-                                    {appliedCoupon && (
-                                        <div className={style.discountInfo}>
-                                            <p className={style.couponTitle}>
-                                                🏷️ {appliedCoupon} Applied - Additional {techPackCouponPercent}% OFF!
-                                            </p>
-                                            <p className={style.originalPriceStrike}>
-                                                Pack Price: ₹{techPackBasePrice?.toLocaleString('en-IN')}
-                                            </p>
-                                            <p className={style.couponText}>
-                                                Coupon Discount: -₹{techPackCouponSavings?.toLocaleString('en-IN')}
-                                            </p>
-                                        </div>
-                                    )}
-                                </>
+                            {displayPrices.finalAmount > 0 && (
+                                <p>
+                                    <strong>Estimated Total:</strong> ₹{displayPrices.finalAmount.toLocaleString('en-IN')}
+                                </p>
                             )}
-
-                            {!shouldShowPackageDiscount && isTechStarterPack && appliedCoupon && (
-                                <div className={style.discountInfo}>
-                                    <p className={style.couponTitle}>
-                                        🏷️ {appliedCoupon} Applied - {techPackCouponPercent}% OFF!
-                                    </p>
-                                    <p className={style.originalPriceStrike}>
-                                        Original: ₹{originalTotal?.toLocaleString('en-IN')}
-                                    </p>
-                                    <p className={style.couponText}>
-                                        Discount: -₹{techPackCouponSavings?.toLocaleString('en-IN')}
-                                    </p>
-                                </div>
+                            
+                            {appliedCoupon && (
+                                <p style={{ color: '#22c55e', fontSize: '0.9em' }}>
+                                    🏷️ Coupon {appliedCoupon} will be applied
+                                </p>
                             )}
-
-                            {couponData && couponData.couponCode && !isTechStarterPack && (
-                                <div className={style.discountInfo}>
-                                    <p className={style.discountTitle}>
-                                        🎉 {couponData.couponCode} Applied - {couponData.discountPercentage}% OFF!
-                                    </p>
-                                    <p className={style.originalPriceStrike}>
-                                        Original: ₹{couponData.originalPrice?.toLocaleString('en-IN')}
-                                    </p>
-                                    <p className={style.savingsText}>
-                                        Discount: -₹{couponData.discountAmount?.toLocaleString('en-IN')}
-                                    </p>
-                                </div>
-                            )}
-                            <p>
-                                <strong>Total Amount:</strong> ₹{total?.toLocaleString('en-IN')}
-                            </p>
+                            
                             {storedItems.length > 0 && (
                                 <div className={style.courseDetails}>
                                     <p><strong>Course:</strong> {isTechStarterPack ? `Tech Starter Pack (${storedItems.length} courses)` : isCustomPack() ? `Custom Pack (${getAllCourseDetails().length} courses)` : storedItems[0]?.isPack ? storedItems[0].name : storedItems[0]?.course}</p>
@@ -1056,6 +710,10 @@ Thank you for choosing Innoknowvex!`;
                                     {(isTechStarterPack || isCustomPack()) && renderCourseList()}
                                 </div>
                             )}
+                            
+                            <p style={{ fontSize: '0.85em', color: '#6b7280', marginTop: '12px' }}>
+                                🔒 Final price will be calculated securely on our server
+                            </p>
                         </div>
 
                         <div className={style.inputGroup}>
@@ -1107,8 +765,8 @@ Thank you for choosing Innoknowvex!`;
                         <div className={style.buttonGroup}>
                             <button
                                 onClick={() => makePayment(name, email, phone)}
-                                className={`${style.checkoutBtn} ${isCheckoutDisabled ? style.disabled : ''}`}
-                                disabled={isCheckoutDisabled}
+                                className={`${style.checkoutBtn} ${!isFormValid() || isCheckoutDisabled ? style.disabled : ''}`}
+                                disabled={!isFormValid() || isCheckoutDisabled}
                             >
                                 {getCheckoutButtonText()}
                             </button>
@@ -1125,82 +783,56 @@ Thank you for choosing Innoknowvex!`;
                 <h1 className={style.heading}>Your Personalised <span>Cart</span></h1>
             </div>
 
-            {pricesLoading && (
-                <div className={style.priceLoadingContainer}>
-                    <div className={style.loadingSpinner}></div>
-                    <h3>Fetching Latest Prices...</h3>
-                    <p>Please wait while we load the current prices for your selected courses.</p>
-                </div>
-            )}
-
             <div className={style.shoppingCartContainer}>
                 <div className={style.cartContent}>
                     <div className={style.cartItems}>
                         <div className={style.cartItemsList}>
                             {storedItems.length > 0 ? (
                                 <>
-                                    {storedItems.map((item, index) => {
-                                        const itemPrice = item.actualPrice || item.price || 0;
-                                        const isPriceInvalid = itemPrice <= 0;
+                                    {storedItems.map((item, index) => (
+                                        <div key={item.id || index} className={style.item} data-item="n2o">
+                                            <div>
+                                                <Image
+                                                    className={style.itemImage}
+                                                    src={item.image}
+                                                    height={100}
+                                                    width={100}
+                                                    alt={item.isPack ? item.name : item.course}
+                                                />
+                                            </div>
 
-                                        return (
-                                            <div key={item.id || index} className={style.item} data-item="n2o">
-                                                <div>
-                                                    <Image
-                                                        className={style.itemImage}
-                                                        src={item.image}
-                                                        height={100}
-                                                        width={100}
-                                                        alt={item.isPack ? item.name : item.course}
-                                                    />
-                                                </div>
+                                            <div className={style.itemDetails}>
+                                                {renderItemName(item)}
+                                                {renderItemInfo(item)}
+                                            </div>
 
-                                                <div className={style.itemDetails}>
-                                                    {renderItemName(item)}
-                                                    {renderItemInfo(item)}
-                                                </div>
-
-                                                <div className={style.itemControls}>
-                                                    {isPriceInvalid ? (
-                                                        <div className={`${style.itemPrice} ${style.priceLoading}`}>
-                                                            Loading...
-                                                        </div>
-                                                    ) : (
-                                                        <>
-                                                            <div className={style.itemPrice}>
-                                                                ₹{itemPrice.toLocaleString('en-IN')}
-                                                            </div>
-                                                            {item.originalPrice && item.originalPrice > itemPrice && (
-                                                                <div className={style.originalPrice}>
-                                                                    ₹{(item.originalPrice || 0).toLocaleString('en-IN')}
-                                                                </div>
-                                                            )}
-                                                        </>
-                                                    )}
-                                                </div>
-
-                                                <div>
-                                                    <svg
-                                                        className={style.deleteItem}
-                                                        onClick={() => handleDelete(item)}
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        width="24"
-                                                        height="24"
-                                                        viewBox="0 0 24 24"
-                                                    >
-                                                        <path
-                                                            fill="none"
-                                                            stroke="currentColor"
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                            strokeWidth="2"
-                                                            d="M10 11v6m4-6v6m5-11v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-                                                        />
-                                                    </svg>
+                                            <div className={style.itemControls}>
+                                                <div className={style.itemPrice}>
+                                                    Price at checkout
                                                 </div>
                                             </div>
-                                        );
-                                    })}
+
+                                            <div>
+                                                <svg
+                                                    className={style.deleteItem}
+                                                    onClick={() => handleDelete(item)}
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <path
+                                                        fill="none"
+                                                        stroke="currentColor"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        strokeWidth="2"
+                                                        d="M10 11v6m4-6v6m5-11v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                                                    />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </>
                             ) : (
                                 <div className={style.emptyCart}>Nothing in cart yet</div>
@@ -1213,51 +845,72 @@ Thank you for choosing Innoknowvex!`;
                         <div className={style.line1}></div>
 
                         <div className={style.summaryLine}>
-                            <span>Subtotal</span>
-                            <span className={style.amount}>₹{originalTotal.toLocaleString('en-IN')}</span>
+                            <span>Items ({storedItems.length})</span>
+                            <span className={style.amount}>
+                                {displayPrices.originalTotal > 0 
+                                    ? `₹${displayPrices.originalTotal.toLocaleString('en-IN')}`
+                                    : 'At checkout'}
+                            </span>
                         </div>
 
-                        {shouldShowPackageDiscount && (
-                            <>
-                                <div className={`${style.summaryLine} ${style.discountLine}`}>
-                                    <span>Tech Starter Pack Discount ({techPackDiscountPercent}%)</span>
-                                    <span className={style.discountAmount}>-₹{techPackSavings.toLocaleString('en-IN')}</span>
-                                </div>
-
-                                <div className={style.summaryLine}>
-                                    <span>Pack Base Price</span>
-                                    <span className={style.amount}>₹{techPackBasePrice.toLocaleString('en-IN')}</span>
-                                </div>
-                            </>
+                        {displayPrices.packageDiscount > 0 && (
+                            <div className={`${style.summaryLine} ${style.discountLine}`}>
+                                <span>
+                                    {isTechStarterPack ? 'Tech Starter Pack Discount' : 'Package Discount'}
+                                </span>
+                                <span className={style.discountAmount}>
+                                    -₹{displayPrices.packageDiscount.toLocaleString('en-IN')}
+                                </span>
+                            </div>
                         )}
 
-                        {appliedCoupon && (
+                        {!displayPrices.packageDiscount && isTechStarterPack && techPackageInfo && storedItems.length === 4 && (
                             <div className={`${style.summaryLine} ${style.discountLine}`}>
-                                <span>Coupon Discount ({discountPercentage}%)</span>
-                                <span className={style.discountAmount}>-₹{discount.toLocaleString('en-IN')}</span>
+                                <span>Tech Starter Pack Discount</span>
+                                <span className={style.discountAmount}>Applied at checkout</span>
+                            </div>
+                        )}
+
+                        {displayPrices.couponDiscount > 0 && (
+                            <div className={`${style.summaryLine} ${style.discountLine}`}>
+                                <span>Coupon Discount ({appliedCoupon})</span>
+                                <span className={style.discountAmount}>
+                                    -₹{displayPrices.couponDiscount.toLocaleString('en-IN')}
+                                </span>
+                            </div>
+                        )}
+
+                        {appliedCoupon && !displayPrices.couponDiscount && (
+                            <div className={`${style.summaryLine} ${style.discountLine}`}>
+                                <span>Coupon Discount ({appliedCoupon})</span>
+                                <span className={style.discountAmount}>Applied at checkout</span>
                             </div>
                         )}
 
                         <div className={`${style.summaryLine} ${style.summaryLineTotal}`}>
                             <span>Total</span>
-                            <span className={style.amount} id="total">₹{total.toLocaleString('en-IN')}</span>
+                            <span className={style.amount}>
+                                {displayPrices.finalAmount > 0
+                                    ? `₹${displayPrices.finalAmount.toLocaleString('en-IN')}`
+                                    : 'Calculated at checkout'}
+                            </span>
                         </div>
 
                         <div className={style.line2}></div>
 
                         {isTechStarterPack && techPackageInfo && (
-                            <div className={`${style.appliedCouponBox} ${shouldShowPackageDiscount ? style.techPackActive : style.techPackIncomplete}`}>
+                            <div className={`${style.appliedCouponBox} ${storedItems.length === 4 ? style.techPackActive : style.techPackIncomplete}`}>
                                 <div className={style.couponInfo}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                         <path d="M12 2L2 7l10 5l10-5l-10-5zM2 17l10 5l10-5M2 12l10 5l10-5" />
                                     </svg>
                                     <div>
                                         <div className={style.couponLabel}>
-                                            {shouldShowPackageDiscount ? 'Tech Starter Pack - Active' : `Tech Starter Pack - ${storedItems.length}/4 Courses`}
+                                            {storedItems.length === 4 ? 'Tech Starter Pack - Active' : `Tech Starter Pack - ${storedItems.length}/4 Courses`}
                                         </div>
                                         <div className={style.couponCode}>
-                                            {shouldShowPackageDiscount
-                                                ? `${storedItems.length} Courses • Pack Price: ₹${techPackBasePrice.toLocaleString('en-IN')}`
+                                            {storedItems.length === 4
+                                                ? `${storedItems.length} Courses • ₹25,000 Fixed Price`
                                                 : `Add ${4 - storedItems.length} more course(s) for pack discount`
                                             }
                                         </div>
@@ -1275,7 +928,7 @@ Thank you for choosing Innoknowvex!`;
                                     </svg>
                                     <div>
                                         <div className={style.couponLabel}>Applied Coupon</div>
-                                        <div className={style.couponCode}>{appliedCoupon} - {discountPercentage}% OFF</div>
+                                        <div className={style.couponCode}>{appliedCoupon}</div>
                                     </div>
                                 </div>
                                 <button
@@ -1302,21 +955,32 @@ Thank you for choosing Innoknowvex!`;
                                         value={coupon}
                                         onChange={(e) => setCoupon(e.target.value.toUpperCase())}
                                         onKeyPress={(e) => e.key === 'Enter' && applyCoupon()}
+                                        disabled={pricesLoading}
                                     />
                                 </div>
                                 <div>
-                                    <button onClick={applyCoupon} className={style.couponBtn}>Apply</button>
+                                    <button 
+                                        onClick={applyCoupon} 
+                                        className={style.couponBtn}
+                                        disabled={pricesLoading}
+                                    >
+                                        {pricesLoading ? 'Validating...' : 'Apply'}
+                                    </button>
                                 </div>
                             </div>
                         )}
 
-                        <button 
-                            className={`${style.checkoutBtn} ${(hasInvalidPrice || pricesLoading) ? style.disabled : ''}`}
+                        <button
+                            className={`${style.checkoutBtn} ${isCheckoutDisabled ? style.disabled : ''}`}
                             onClick={() => handleEnrollClick()}
-                            disabled={hasInvalidPrice || pricesLoading}
+                            disabled={isCheckoutDisabled}
                         >
-                            {hasInvalidPrice ? 'Loading prices...' : pricesLoading ? 'Fetching prices...' : 'Go to Checkout'}
+                            {getCheckoutButtonText()}
                         </button>
+                        
+                        <p style={{ fontSize: '0.75em', color: '#6b7280', marginTop: '8px', textAlign: 'center' }}>
+                            🔒 Final price calculated securely at checkout
+                        </p>
                     </div>
                 </div>
             </div>

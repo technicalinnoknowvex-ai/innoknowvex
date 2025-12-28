@@ -1,3 +1,5 @@
+
+
 "use client";
 import React, { useState, useEffect } from "react";
 import style from "./style/packs.module.scss";
@@ -52,7 +54,7 @@ const ProgramCards = ({
     return isCourseSelected(courseId) || getSelectedCoursesCount() < MAX_COURSES;
   };
 
-  // ✅ SECURE: No longer accepts price parameter
+  // ✅ SECURE: Store only identifiers, NO PRICES
   const handleAddToCart = (program, plan) => {
     if (!canSelectCourse(program.id)) {
       toast.error(`Maximum ${MAX_COURSES} courses allowed!`, {
@@ -63,16 +65,20 @@ const ProgramCards = ({
       return;
     }
 
-    // ✅ SECURE: Store only IDs and metadata, NO PRICES
+    // ✅ SECURE: Only store course identifiers and metadata
+    // Backend will fetch real prices from database
     const cartItem = {
       id: program.id,
-      courseId: program.id,  // For backend price lookup
-      program_id: program.id, // Alternative field name (backend compatibility)
+      courseId: program.id,
+      program_id: program.id,
+      courseName: program.title, // ✅ For display only
       course: program.title,
       plan: plan,
-      priceSearchTag: program.price_search_tag,  // ✅ Backend uses this to fetch real price
+      priceSearchTag: program.price_search_tag, // ✅ CRITICAL: Backend uses this to fetch real price
+      price_search_tag: program.price_search_tag, // Alternative field name
       image: program.image,
-      // ❌ NO PRICE STORED - Backend will calculate from database
+      // ❌ NO PRICES STORED
+      // Backend will calculate from pricing table using priceSearchTag
     };
 
     let existingCart = JSON.parse(sessionStorage.getItem("cartItems")) || [];
@@ -176,7 +182,7 @@ const ProgramCards = ({
           ) : (
             <button
               className={style.addToCartBtn}
-              onClick={() => handleAddToCart(program, planName)} 
+              onClick={() => handleAddToCart(program, planName)} // ✅ No price parameter
               disabled={isDisabled || !canSelect}
             >
               <span>
