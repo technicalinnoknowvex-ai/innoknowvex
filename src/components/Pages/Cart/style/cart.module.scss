@@ -22,9 +22,17 @@
 //   }
 // }
 
-// // ✅ NEW: Smooth scrolling for the entire page
-// html {
+// // ✅ CRITICAL: Remove any height/overflow restrictions on body/html
+// :global(body) {
+//   overflow-y: auto !important;
+//   height: auto !important;
+//   min-height: 100vh;
+// }
+
+// :global(html) {
 //   scroll-behavior: smooth;
+//   overflow-y: auto !important;
+//   height: auto !important;
 // }
 
 // // Payment Form Modal Styles
@@ -35,10 +43,11 @@
 //   justify-content: center;
 //   align-items: center;
 //   z-index: 9999;
-//   overflow-y: auto; // ✅ Enable scrolling in modal
+//   overflow-y: auto;
+//   padding: 2rem 0; // ✅ Add padding for better scrolling
 
 //   .overlay {
-//     position: fixed; // ✅ Changed from absolute to fixed
+//     position: fixed;
 //     inset: 0;
 //     background: rgba(0, 0, 0, 0.55);
 //     backdrop-filter: blur(6px);
@@ -50,8 +59,8 @@
 //     z-index: 2;
 //     width: 95%;
 //     max-width: 500px;
-//     max-height: 90vh; // ✅ NEW: Limit height
-//     overflow-y: auto; // ✅ NEW: Enable scrolling
+//     max-height: 90vh;
+//     overflow-y: auto;
 //     background: #fdfae9;
 //     border-radius: 18px;
 //     padding: 2rem;
@@ -59,9 +68,8 @@
 //     animation: fadeIn 0.25s ease-out;
 //     font-family: $font-oldschool;
 //     font-weight: 400;
-//     margin: 2rem auto; // ✅ NEW: Add margin for better spacing
+//     margin: auto; // ✅ Center vertically
 
-//     // ✅ NEW: Custom scrollbar
 //     &::-webkit-scrollbar {
 //       width: 8px;
 //     }
@@ -83,7 +91,7 @@
 //     @media (max-width: 480px) {
 //       padding: 1.5rem;
 //       margin: 1rem;
-//       max-height: 95vh; // ✅ More height on mobile
+//       max-height: 95vh;
 //     }
 
 //     .formHeaderContainer {
@@ -91,7 +99,7 @@
 //       justify-content: space-between;
 //       align-items: flex-start;
 //       margin-bottom: 1.5rem;
-//       position: sticky; // ✅ NEW: Sticky header
+//       position: sticky;
 //       top: 0;
 //       background: #fdfae9;
 //       z-index: 10;
@@ -309,7 +317,7 @@
 //       margin-top: 1.5rem;
 //       display: flex;
 //       justify-content: flex-end;
-//       position: sticky; // ✅ NEW: Sticky button
+//       position: sticky;
 //       bottom: 0;
 //       background: #fdfae9;
 //       padding-top: 1rem;
@@ -348,7 +356,6 @@
 //   }
 // }
 
-// /* Fade-in animation */
 // @keyframes fadeIn {
 //   from {
 //     opacity: 0;
@@ -384,13 +391,13 @@
 //   }
 // }
 
-// // Cart Page Styles
+// // Cart Page Styles - ✅ REMOVED ALL HEIGHT RESTRICTIONS
 // .head {
 //   text-align: center;
 //   padding: 2rem 1rem;
 //   background: linear-gradient(135deg, #FFFEF8 0%, #FFF9E1 100%);
 //   position: relative;
-//   overflow: hidden;
+//   overflow: visible; // ✅ Changed from hidden
 
 //   @include mobile {
 //     padding: 1.5rem 1rem;
@@ -429,7 +436,7 @@
 //   max-width: 1200px;
 //   margin: 0 auto;
 //   padding: 2rem;
-//   min-height: 60vh; // ✅ NEW: Ensure minimum height for scrolling
+//   // ✅ REMOVED min-height restriction
 
 //   @include mobile {
 //     padding: 1rem;
@@ -461,36 +468,16 @@
 //   background: white;
 //   border-radius: 1rem;
 //   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-//   overflow: hidden;
+//   overflow: visible; // ✅ Changed from hidden
 // }
 
 // .cartItemsList {
 //   padding: 1.5rem;
-//   max-height: 600px; // ✅ NEW: Limit height for scrolling
-//   overflow-y: auto; // ✅ NEW: Enable scrolling
-
-//   // ✅ NEW: Custom scrollbar
-//   &::-webkit-scrollbar {
-//     width: 8px;
-//   }
-
-//   &::-webkit-scrollbar-track {
-//     background: #f9f9f9;
-//     border-radius: 10px;
-//   }
-
-//   &::-webkit-scrollbar-thumb {
-//     background: #E5D899;
-//     border-radius: 10px;
-    
-//     &:hover {
-//       background: #A38907;
-//     }
-//   }
+//   // ✅ REMOVED max-height - let it flow naturally
+//   // ✅ REMOVED overflow-y
 
 //   @include mobile {
 //     padding: 1rem;
-//     max-height: 500px; // ✅ Shorter on mobile
 //   }
 // }
 
@@ -689,32 +676,16 @@
 //   padding: 2rem;
 //   position: sticky;
 //   top: 2rem;
-//   max-height: calc(100vh - 4rem); // ✅ NEW: Limit height
-//   overflow-y: auto; // ✅ NEW: Enable scrolling
-
-//   // ✅ NEW: Custom scrollbar
-//   &::-webkit-scrollbar {
-//     width: 6px;
-//   }
-
-//   &::-webkit-scrollbar-track {
-//     background: #f9f9f9;
-//     border-radius: 10px;
-//   }
-
-//   &::-webkit-scrollbar-thumb {
-//     background: #E5D899;
-//     border-radius: 10px;
-    
-//     &:hover {
-//       background: #A38907;
-//     }
-//   }
+//   align-self: start; // ✅ NEW: Ensures sticky works properly
+//   // ✅ REMOVED max-height and overflow-y
 
 //   @include mobile {
-//     position: static;
+//     position: static; // Not sticky on mobile
 //     padding: 1.5rem;
-//     max-height: none; // ✅ No height limit on mobile
+//   }
+
+//   @include tablet {
+//     position: static; // Not sticky on tablet
 //   }
 // }
 
@@ -984,7 +955,6 @@
 //   }
 // }
 
-// // Responsive adjustments
 // @media (max-width: 768px) {
 //   .cartContent {
 //     grid-template-columns: 1fr;
@@ -994,7 +964,6 @@
 //     position: static;
 //   }
 // }
-
 
 
 
@@ -1025,19 +994,6 @@ $desktop: 1440px;
   }
 }
 
-// ✅ CRITICAL: Remove any height/overflow restrictions on body/html
-:global(body) {
-  overflow-y: auto !important;
-  height: auto !important;
-  min-height: 100vh;
-}
-
-:global(html) {
-  scroll-behavior: smooth;
-  overflow-y: auto !important;
-  height: auto !important;
-}
-
 // Payment Form Modal Styles
 .formPage {
   position: fixed;
@@ -1047,7 +1003,7 @@ $desktop: 1440px;
   align-items: center;
   z-index: 9999;
   overflow-y: auto;
-  padding: 2rem 0; // ✅ Add padding for better scrolling
+  padding: 2rem 0;
 
   .overlay {
     position: fixed;
@@ -1071,7 +1027,7 @@ $desktop: 1440px;
     animation: fadeIn 0.25s ease-out;
     font-family: $font-oldschool;
     font-weight: 400;
-    margin: auto; // ✅ Center vertically
+    margin: auto;
 
     &::-webkit-scrollbar {
       width: 8px;
@@ -1394,13 +1350,13 @@ $desktop: 1440px;
   }
 }
 
-// Cart Page Styles - ✅ REMOVED ALL HEIGHT RESTRICTIONS
+// Cart Page Styles
 .head {
   text-align: center;
   padding: 2rem 1rem;
   background: linear-gradient(135deg, #FFFEF8 0%, #FFF9E1 100%);
   position: relative;
-  overflow: visible; // ✅ Changed from hidden
+  overflow: visible;
 
   @include mobile {
     padding: 1.5rem 1rem;
@@ -1439,7 +1395,6 @@ $desktop: 1440px;
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
-  // ✅ REMOVED min-height restriction
 
   @include mobile {
     padding: 1rem;
@@ -1471,13 +1426,11 @@ $desktop: 1440px;
   background: white;
   border-radius: 1rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  overflow: visible; // ✅ Changed from hidden
+  overflow: visible;
 }
 
 .cartItemsList {
   padding: 1.5rem;
-  // ✅ REMOVED max-height - let it flow naturally
-  // ✅ REMOVED overflow-y
 
   @include mobile {
     padding: 1rem;
@@ -1679,16 +1632,15 @@ $desktop: 1440px;
   padding: 2rem;
   position: sticky;
   top: 2rem;
-  align-self: start; // ✅ NEW: Ensures sticky works properly
-  // ✅ REMOVED max-height and overflow-y
+  align-self: start;
 
   @include mobile {
-    position: static; // Not sticky on mobile
+    position: static;
     padding: 1.5rem;
   }
 
   @include tablet {
-    position: static; // Not sticky on tablet
+    position: static;
   }
 }
 
