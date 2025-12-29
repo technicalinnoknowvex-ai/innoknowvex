@@ -21,6 +21,12 @@
     font-size: clamp(2rem, 5vw, 4rem); // Responsive font size
     margin: 0;
   }
+
+      h2 {
+    @include font($font-sharp-20, $medium);
+    font-size: clamp(2rem, 5vw, 4rem); // Responsive font size
+    margin: 0;
+  }
 }
 
 // Main carousel wrapper
@@ -29,6 +35,8 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+
+
   // border: 2px solid blue; // Remove in production
 }
 
