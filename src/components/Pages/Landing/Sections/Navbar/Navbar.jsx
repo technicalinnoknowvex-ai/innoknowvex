@@ -73,6 +73,7 @@ const programsCategory = [
       { label: "Stock Trading", href: "/programs/stock-trading" },
       { label: "Human Resources", href: "/programs/human-resources" },
       { label: "Corporate Law", href: "/programs/corporate-law" },
+      { label: "Supply Chain Management", href: "/programs/supply-chain-management" },
     ],
   },
   {
