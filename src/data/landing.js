@@ -200,6 +200,7 @@ export const landingPageData = {
   footerSection: {
     heading: "Contact Us.",
     subheading: "GET IN TOUCH",
+    phone: "+91 9876543210",
     email: "support@innoknowvex.in",
     address:
       "Hustlehub SB01, WJ8G+XWP, 1st Cross Road, Santhosapuram, 1st Block Koramangala, HSR Layout 5th Sector, Bengaluru, Karnataka 560034",

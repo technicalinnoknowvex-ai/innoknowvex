@@ -24,7 +24,7 @@ const Footer = () => {
   const { resetCursor, transformCursor } = useCursor();
   const { updateNavColor } = useNavColor();
 
-  const { heading, subheading, email, address, socialLinks, footerLinks } =
+  const { heading, subheading, phone, email, address, socialLinks, footerLinks } =
     landingPageData.footerSection;
 
   const scrollToTop = () => {
@@ -87,11 +87,21 @@ const Footer = () => {
             <h2 className={styles.headingContainer__primaryHeading}>
               {heading}
             </h2>
+            
             <h3 className={styles.headingContainer__secondaryHeading}>
               {subheading}
             </h3>
           </div>
           <div className={styles.emailContainer}>
+            <div className={styles.emailRow}>
+              <Icon
+                icon="eva:phone-fill"
+                style={{ width: "20px", height: "20px", color: "#fff6c3" }}
+              />
+              <p>
+                {phone}
+              </p>
+            </div>
             <div className={styles.emailRow}>
               <Icon
                 icon="eva:email-fill"
