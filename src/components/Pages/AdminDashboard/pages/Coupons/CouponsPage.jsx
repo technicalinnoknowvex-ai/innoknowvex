@@ -6,7 +6,7 @@ import {
   createCoupon,
   updateCoupon,
   deleteCoupon,
-} from "@/app/(backend)/api/validate-coupon/route";
+} from "@/app/(backend)/api/validate-coupon/createCoupon/route";
 import { getPrograms } from "@/app/(backend)/api/programs/programs";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
