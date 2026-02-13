@@ -1,71 +1,127 @@
+
 // @use "../../../../../styles/fonts" as *;
 // @use "../../../../../styles/mixins" as *;
 
 // .main {
-//   height: 83vh;
-//   width: 38vh;
+//   height: auto;
+//   min-height: 75vh;
+//   width: 300px;
 //   margin-left: 20px;
-//   border: 1px solid #a58f00;
-//   border-radius: 20px;
+
+//   @include large-tablet-down {
+//     width: 100%;
+//     margin-left: 0;
+//     margin-bottom: 30px;
+//     min-height: auto;
+//   }
+
+//   @include tablet-down {
+//     width: 100%;
+//     margin-left: 0;
+//     margin-bottom: 25px;
+//   }
+
+//   @include mobile-down {
+//     width: 100%;
+//     margin-left: 0;
+//     margin-bottom: 20px;
+//   }
 // }
 
-// .sidebar{
-//  border: 1px solid #a58f00;
-//   border-radius: 30px;
+// .sidebar {
+//   border: 1px solid #a58f00;
+//   border-radius: 20px;
 //   display: flex;
 //   flex-direction: column;
-//   margin-top: 20%;
-//   gap: 55px;
+//   gap: 8px;
 //   padding: 20px;
+//   background-color: #f8f3de;
 
 //   @include large-tablet-down {
 //     display: grid;
-//     grid-template-columns: 2fr 2fr;
+//     grid-template-columns: repeat(2, 1fr);
+//     gap: 12px;
+//     padding: 20px;
 //   }
 
 //   @include tablet-down {
 //     display: grid;
-//     grid-template-columns: 1fr 1fr;
+//     grid-template-columns: repeat(2, 1fr);
 //     gap: 10px;
-//     justify-content: center;
+//     padding: 16px;
 //   }
 
 //   @include mobile-down {
 //     display: grid;
-//     grid-template-columns: 1fr 1fr;
+//     grid-template-columns: 1fr;
 //     gap: 10px;
-//     justify-content: center;
+//     padding: 15px;
 //   }
 // }
 
 // .sidebtn {
-//   background-color: #f8f3de;
+//   background-color: transparent;
 //   border: none;
-//   padding: 10px 40px;
-//   font-size: 1.4rem;
-//   width: 90%;
-//   margin: auto;
+//   padding: 16px 20px;
+//   font-size: 1.2rem;
+//   width: 100%;
 //   border-radius: 8px;
 //   font-family: $font-sharp-20;
 //   color: #a58f00;
 //   text-align: left;
+//   cursor: pointer;
+//   transition: all 0.3s ease;
+//   font-weight: 500;
 
-//   @include mobile-down {
-//     width: 10rem;
+//   &:hover {
+//     background-color: rgba(231, 222, 152, 0.3);
+//   }
+
+//   @include large-tablet-down {
+//     font-size: 1.1rem;
+//     padding: 14px 18px;
+//     text-align: center;
 //   }
 
 //   @include tablet-down {
-//     width: 10rem;
+//     font-size: 1rem;
+//     padding: 12px 16px;
+//     text-align: center;
+//   }
+
+//   @include mobile-down {
+//     font-size: 1.1rem;
+//     padding: 14px 18px;
+//     text-align: center;
 //   }
 // }
 
 // .active {
 //   background-color: #e7de98;
-//   border-radius: 0 10px 10px 0;
+//   border-radius: 8px;
 //   border-left: 4px solid #a58f00;
-//   height: 7vh;
-// }
+//   font-weight: 600;
+//   box-shadow: 0 2px 8px rgba(165, 143, 0, 0.15);
 
+//   &:hover {
+//     background-color: #e7de98;
+//   }
+
+//   @include large-tablet-down {
+//     border-left: none;
+//     border-bottom: 4px solid #a58f00;
+//   }
+
+//   @include tablet-down {
+//     border-left: none;
+//     border-bottom: 4px solid #a58f00;
+//   }
+
+//   @include mobile-down {
+//     border-left: 4px solid #a58f00;
+//     border-bottom: none;
+//   }
+// }
 
 
 @use "../../../../../styles/fonts" as *;
@@ -73,121 +129,223 @@
 
 .main {
   height: auto;
-  min-height: 75vh;
-  width: 300px;
-  margin-left: 20px;
+  width: 100%;
+  max-width: 280px;
+  position: sticky;
+  top: 8rem;
 
   @include large-tablet-down {
-    width: 100%;
-    margin-left: 0;
-    margin-bottom: 30px;
-    min-height: auto;
+    max-width: 100%;
+    margin-bottom: 32px;
+    position: static;
   }
 
   @include tablet-down {
-    width: 100%;
-    margin-left: 0;
-    margin-bottom: 25px;
+    max-width: 100%;
+    margin-bottom: 28px;
+    position: static;
   }
 
   @include mobile-down {
-    width: 100%;
-    margin-left: 0;
-    margin-bottom: 20px;
+    max-width: 100%;
+    margin-bottom: 24px;
+    position: static;
   }
 }
 
 .sidebar {
-  border: 1px solid #a58f00;
-  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 20px;
-  background-color: #f8f3de;
+  gap: 4px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  overflow-y: auto;
+  max-height: calc(100vh - 10rem);
+
+  /* Custom Scrollbar for sidebar */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f5f5f5;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #a69600;
+  }
+
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db #f5f5f5;
 
   @include large-tablet-down {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    padding: 20px;
+    gap: 10px;
+    padding: 16px;
+    max-height: none;
+    overflow-y: visible;
   }
 
   @include tablet-down {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
-    padding: 16px;
+    padding: 14px;
   }
 
   @include mobile-down {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 10px;
-    padding: 15px;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 10px;
   }
 }
 
 .sidebtn {
   background-color: transparent;
   border: none;
-  padding: 16px 20px;
-  font-size: 1.2rem;
+  padding: 14px 18px;
+  font-size: 0.9rem;
   width: 100%;
   border-radius: 8px;
   font-family: $font-sharp-20;
-  color: #a58f00;
+  color: #262c35;
   text-align: left;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   font-weight: 500;
+  letter-spacing: 0;
+  position: relative;
 
   &:hover {
-    background-color: rgba(231, 222, 152, 0.3);
+    background-color: #faf7e9;
+    color: #a69600;
   }
 
   @include large-tablet-down {
-    font-size: 1.1rem;
-    padding: 14px 18px;
-    text-align: center;
-  }
-
-  @include tablet-down {
-    font-size: 1rem;
+    font-size: 0.875rem;
     padding: 12px 16px;
     text-align: center;
   }
 
-  @include mobile-down {
-    font-size: 1.1rem;
-    padding: 14px 18px;
+  @include tablet-down {
+    font-size: 0.85rem;
+    padding: 12px 14px;
     text-align: center;
+  }
+
+  @include mobile-down {
+    font-size: 0.9rem;
+    padding: 13px 16px;
+    text-align: left;
   }
 }
 
 .active {
-  background-color: #e7de98;
+  background-color: #a69600;
+  color: white;
   border-radius: 8px;
-  border-left: 4px solid #a58f00;
   font-weight: 600;
-  box-shadow: 0 2px 8px rgba(165, 143, 0, 0.15);
+  box-shadow: 0 2px 8px rgba(166, 150, 0, 0.2);
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 60%;
+    background: white;
+    border-radius: 0 4px 4px 0;
+  }
 
   &:hover {
-    background-color: #e7de98;
+    background-color: #8d7a00;
   }
 
   @include large-tablet-down {
-    border-left: none;
-    border-bottom: 4px solid #a58f00;
+    &::before {
+      display: none;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 3px;
+      background: white;
+      border-radius: 4px 4px 0 0;
+    }
   }
 
   @include tablet-down {
-    border-left: none;
-    border-bottom: 4px solid #a58f00;
+    &::before {
+      display: none;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 3px;
+      background: white;
+      border-radius: 4px 4px 0 0;
+    }
   }
 
   @include mobile-down {
-    border-left: 4px solid #a58f00;
-    border-bottom: none;
+    &::before {
+      display: block;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 60%;
+      background: white;
+      border-radius: 0 4px 4px 0;
+    }
+
+    &::after {
+      display: none;
+    }
   }
+}
+
+/* Optional: Add smooth scrolling behavior */
+.sidebar {
+  scroll-behavior: smooth;
+}
+
+/* Optional: Add focus styles for accessibility */
+.sidebtn:focus {
+  outline: 2px solid #a69600;
+  outline-offset: 2px;
+}
+
+.sidebtn:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.sidebtn:focus-visible {
+  outline: 2px solid #a69600;
+  outline-offset: 2px;
 }

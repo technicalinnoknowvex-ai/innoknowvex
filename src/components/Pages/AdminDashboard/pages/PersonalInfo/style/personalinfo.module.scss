@@ -1,3 +1,554 @@
+// @use "../../../../../../styles/mixins" as m;
+// @use "../../../../../../styles/index" as *;
+
+// .main {
+//   margin-top: 8rem;
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-between;
+//   align-items: flex-start;
+//   gap: 20px;
+//   padding: 0 20px;
+//   margin-bottom: 4rem;
+//   padding-bottom: 200px;
+
+//   @include m.tablet-down {
+//     flex-direction: column;
+//     align-items: center;
+//   }
+// }
+
+// // Custom scrollbar styles for all scrollable containers
+// .personalInfoContainer,
+// .cardsContainer,
+// .courseSelectorDropdown {
+//   // Webkit browsers (Chrome, Safari, Edge)
+//   &::-webkit-scrollbar {
+//     width: 12px;
+//   }
+
+//   &::-webkit-scrollbar-track {
+//     background: #FAF7E9;
+//     border-radius: 6px;
+//   }
+
+//   &::-webkit-scrollbar-thumb {
+//     background: #8d7a00;
+//     border-radius: 6px;
+//     border: 2px solid #FAF7E9;
+//   }
+
+//   &::-webkit-scrollbar-thumb:hover {
+//     background: #756300;
+//   }
+
+//   // Firefox
+//   scrollbar-width: thin;
+//   scrollbar-color: #8d7a00 #FAF7E9;
+// }
+
+// .personalInfoContainer {
+//   height: auto;
+//   max-height: 85vh;
+//   overflow-y: auto;
+//   overflow-x: hidden;
+//   width: 100%;
+//   border: 2px solid #A69600;
+//   border-radius: 20px;
+//   padding: 30px 20px;
+//   box-sizing: border-box;
+//   background-color: #faf7e9;
+
+//   @include screen(xl) {
+//     max-width: 100%;
+//     padding: 10px;
+//   }
+
+//   @include screen(lg) {
+//     max-width: 100%;
+//   }
+
+//   @include screen(md) {
+//     width: 100%;
+//   }
+
+//   @include m.tablet-down {
+//     max-width: 100%;
+//     max-height: 80vh;
+//     padding: 20px;
+//     margin-right: 0;
+//   }
+
+//   @include m.mobile-down {
+//     padding: 15px;
+//     border-radius: 15px;
+//     max-height: 75vh;
+//   }
+// }
+
+// .formHeader {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   margin-bottom: 30px;
+
+//   @include m.mobile-down {
+//     flex-direction: column;
+//     gap: 12px;
+//     align-items: flex-start;
+//   }
+// }
+
+// .formTitle {
+//   font-size: 24px;
+//   font-weight: 600;
+//   color: #262C35;
+//   margin: 0;
+//   @include m.font($font-sharp-20, $medium, #262C35);
+
+//   @include m.mobile-down {
+//     font-size: 20px;
+//   }
+// }
+
+// .cancelEditBtn {
+//   display: flex;
+//   align-items: center;
+//   gap: 6px;
+//   padding: 8px 16px;
+//   background-color: #f3f4f6;
+//   color: #374151;
+//   border: 1px solid #d1d5db;
+//   border-radius: 8px;
+//   font-size: 14px;
+//   cursor: pointer;
+//   transition: all 0.3s ease;
+//   @include m.font($font-sharp-20, $medium, #374151);
+
+//   svg {
+//     width: 16px;
+//     height: 16px;
+//   }
+
+//   &:hover {
+//     background-color: #e5e7eb;
+//     border-color: #9ca3af;
+//   }
+
+//   @include m.mobile-down {
+//     width: 100%;
+//     justify-content: center;
+//   }
+// }
+
+// .profileHeader {
+//   width: 100%;
+//   height: auto;
+//   min-height: 200px;
+//   background-color: #f8f3de;
+//   border-radius: 20px;
+//   border: 1px solid rgba(171, 155, 13, 0.4);
+//   display: flex;
+//   flex-direction: row;
+//   align-items: center;
+//   padding: 20px;
+//   gap: 30px;
+//   box-sizing: border-box;
+//   margin-bottom: 40px;
+
+//   @include m.tablet-down {
+//     flex-direction: column;
+//     align-items: center;
+//     text-align: center;
+//     padding: 30px 20px;
+//     gap: 20px;
+//   }
+
+//   @include m.mobile-down {
+//     border-radius: 15px;
+//     padding: 20px 15px;
+//   }
+// }
+
+// .profileImageWrapper {
+//   border: 2px solid #A69600;
+//   width: 175px;
+//   height: 175px;
+//   flex-shrink: 0;
+//   border-radius: 15px;
+//   background-color: #f8f8f5;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   position: relative;
+//   overflow: hidden;
+
+//   @include m.mobile-down {
+//     width: 150px;
+//     height: 150px;
+//   }
+// }
+
+// .profileImage {
+//   border-radius: 15px;
+//   object-fit: cover;
+// }
+
+// .imageUploadOverlay {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+//   background: rgba(0, 0, 0, 0.6);
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   cursor: pointer;
+//   opacity: 0;
+//   transition: opacity 0.3s ease;
+
+//   svg {
+//     width: 32px;
+//     height: 32px;
+//     color: white;
+//   }
+
+//   &:hover {
+//     opacity: 1;
+//   }
+// }
+
+// .userDetails {
+//   flex: 1;
+//   display: flex;
+//   flex-direction: column;
+//   gap: 8px;
+
+//   @include m.tablet-down {
+//     align-items: center;
+//   }
+// }
+
+// .userName {
+//   @include m.font($font-oldschool, $book, #A69600);
+//   font-size: 2.5rem;
+//   font-weight: 500;
+//   margin: 0;
+//   line-height: 1.2;
+
+//   @include m.tablet-down {
+//     font-size: 2rem;
+//   }
+
+//   @include m.mobile-down {
+//     font-size: 1.8rem;
+//   }
+// }
+
+// .line {
+//   background-color: #A69600;
+//   height: 1px;
+//   width: 100%;
+//   margin: 4px 0;
+
+//   @include m.tablet-down {
+//     width: 60%;
+//   }
+// }
+
+// .userRole {
+//   @include m.font($font-oldschool, $book, #262C35);
+//   font-size: 1rem;
+//   font-weight: 400;
+//   margin: 0;
+
+//   @include m.mobile-down {
+//     font-size: 0.9rem;
+//   }
+// }
+
+// .editProfileButton {
+//   @include m.font($font-sharp-20, $medium, #7e7208);
+//   font-size: 1rem;
+//   padding: 8px 20px;
+//   border-radius: 8px;
+//   border: 1px solid #A69600;
+//   background: #EDE8C7;
+//   margin-top: 10px;
+//   font-weight: 500;
+//   cursor: pointer;
+//   transition: all 0.3s ease;
+//   display: inline-flex;
+//   align-items: center;
+//   gap: 6px;
+//   align-self: flex-start;
+
+//   svg {
+//     width: 16px;
+//     height: 16px;
+//   }
+
+//   &:hover {
+//     background-color: #e0d8b5;
+//     transform: translateY(-2px);
+//     box-shadow: 0 4px 12px rgba(166, 150, 0, 0.2);
+//   }
+
+//   @include m.tablet-down {
+//     align-self: center;
+//   }
+
+//   @include m.mobile-down {
+//     font-size: 0.9rem;
+//     padding: 6px 16px;
+//   }
+// }
+
+// .userInfoFields {
+//   margin-top: 40px;
+//   display: flex;
+//   flex-direction: column;
+//   gap: 50px;
+
+//   @include m.tablet-down {
+//     gap: 40px;
+//   }
+
+//   @include m.mobile-down {
+//     margin-top: 30px;
+//     gap: 30px;
+//   }
+// }
+
+// .upperFields,
+// .lowerFields {
+//   display: grid;
+//   grid-template-columns: repeat(2, 1fr);
+//   gap: 50px;
+
+//   @include m.tablet-down {
+//     grid-template-columns: 1fr;
+//     gap: 30px;
+//   }
+
+//   @include m.mobile-down {
+//     gap: 25px;
+//   }
+// }
+
+// .fieldGroup {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 0;
+//   transition: background-color 0.3s ease;
+
+//   label {
+//     background-color: #F7F2E2;
+//     text-transform: uppercase;
+//     letter-spacing: 0.5px;
+//     padding: 8px 0 8px 22px;
+//     @include m.font($font-oldschool, $book, #A69600);
+//     font-size: 14px;
+//     margin: 0;
+
+//     @include m.mobile-down {
+//       font-size: 13px;
+//       padding: 6px 0 6px 16px;
+//     }
+//   }
+
+//   input {
+//     width: 100%;
+//     padding: 16px 20px;
+//     font-size: 18px;
+//     @include m.font($font-sharp-20, $medium, #262C35);
+//     color: #262C35;
+//     outline: none;
+//     transition: all 0.2s ease;
+//     background-color: #EDE4D3;
+//     border: none;
+//     border-bottom: 2px solid #A38907;
+//     line-height: 1.4;
+//     display: block;
+//     box-sizing: border-box;
+
+//     &:disabled {
+//       opacity: 0.7;
+//       cursor: not-allowed;
+//       background-color: #f5f0e0;
+//     }
+
+//     &:focus:not(:disabled) {
+//       outline: none;
+//       background-color: #e8dfc5;
+//     }
+
+//     &::placeholder {
+//       opacity: 0.6;
+//     }
+
+//     @include m.mobile-down {
+//       font-size: 16px;
+//       padding: 14px 16px;
+//     }
+//   }
+// }
+
+// .saveButtonContainer {
+//   margin-top: 50px;
+//   display: flex;
+//   justify-content: center;
+
+//   @include m.mobile-down {
+//     margin-top: 40px;
+//   }
+// }
+
+// .savebtn {
+//   @include m.font($font-sharp-20, $medium, white);
+//   font-size: 16px;
+//   padding: 14px 40px;
+//   border-radius: 0;
+//   background-color: #A69600;
+//   border: none;
+//   color: white;
+//   cursor: pointer;
+//   transition: all 0.3s ease;
+//   display: inline-flex;
+//   align-items: center;
+//   gap: 8px;
+//   justify-content: center;
+//   min-width: 180px;
+//   text-transform: uppercase;
+//   letter-spacing: 0.5px;
+//   font-weight: 500;
+
+//   svg {
+//     width: 18px;
+//     height: 18px;
+//   }
+
+//   &:hover:not(:disabled) {
+//     background-color: #8d7a00;
+//     transform: translateY(-2px);
+//     box-shadow: 0 4px 12px rgba(166, 150, 0, 0.3);
+//   }
+
+//   &:disabled {
+//     opacity: 0.6;
+//     cursor: not-allowed;
+//   }
+
+//   @include m.mobile-down {
+//     width: 100%;
+//     padding: 12px 30px;
+//     font-size: 15px;
+//   }
+// }
+
+// .buttonSpinner {
+//   animation: spin 1s linear infinite;
+// }
+
+// .loadingContainer {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   min-height: 50vh;
+//   gap: 16px;
+
+//   p {
+//     @include m.font($font-sharp-20, $medium, #262C35);
+//     font-size: 16px;
+//   }
+// }
+
+// .spinner {
+//   width: 40px;
+//   height: 40px;
+//   color: #A69600;
+//   animation: spin 1s linear infinite;
+// }
+
+// @keyframes spin {
+//   from {
+//     transform: rotate(0deg);
+//   }
+//   to {
+//     transform: rotate(360deg);
+//   }
+// }
+
+// // Additional scrollable containers (for consistency)
+// .cardsContainer {
+//   width: 100%;
+//   overflow: hidden;
+//   border-radius: 0;
+//   overflow-x: auto; // Enable horizontal scrolling for carousel
+
+//   // Custom scrollbar for horizontal scrolling in carousel
+//   &::-webkit-scrollbar {
+//     height: 8px;
+//   }
+
+//   &::-webkit-scrollbar-track {
+//     background: #FAF7E9;
+//     border-radius: 4px;
+//   }
+
+//   &::-webkit-scrollbar-thumb {
+//     background: #8d7a00;
+//     border-radius: 4px;
+//   }
+
+//   &::-webkit-scrollbar-thumb:hover {
+//     background: #756300;
+//   }
+
+//   // Firefox
+//   scrollbar-width: thin;
+//   scrollbar-color: #8d7a00 #FAF7E9;
+// }
+
+// .courseSelector {
+//   position: relative;
+//   width: 100%;
+// }
+
+// .courseSelectorDropdown {
+//   position: absolute;
+//   top: 100%;
+//   left: 0;
+//   right: 0;
+//   background: white;
+//   border: 1px solid #ddd;
+//   border-top: none;
+//   max-height: 400px;
+//   overflow-y: auto;
+//   z-index: 1000;
+//   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+//   @include m.tablet-down {
+//     max-height: 300px;
+//   }
+
+//   @include m.mobile-down {
+//     max-height: 250px;
+//   }
+// }
+
+// /* Page wrapper used by components to fill remaining width */
+// .pageInner {
+//   width: 100%;
+//   box-sizing: border-box;
+//   display: block;
+// }
+
+
+
+
 @use "../../../../../../styles/mixins" as m;
 @use "../../../../../../styles/index" as *;
 
@@ -7,123 +558,124 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 20px;
-  padding: 0 20px;
+  gap: 32px;
+  padding: 0 40px;
   margin-bottom: 4rem;
-  padding-bottom: 200px;
+  min-height: calc(100vh - 8rem);
 
   @include m.tablet-down {
     flex-direction: column;
     align-items: center;
+    padding: 0 20px;
+    gap: 24px;
+  }
+
+  @include m.mobile-down {
+    padding: 0 15px;
+    margin-top: 6rem;
   }
 }
 
-// Custom scrollbar styles for all scrollable containers
-.personalInfoContainer,
-.cardsContainer,
-.courseSelectorDropdown {
-  // Webkit browsers (Chrome, Safari, Edge)
-  &::-webkit-scrollbar {
-    width: 12px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: #FAF7E9;
-    border-radius: 6px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: #8d7a00;
-    border-radius: 6px;
-    border: 2px solid #FAF7E9;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: #756300;
-  }
-
-  // Firefox
-  scrollbar-width: thin;
-  scrollbar-color: #8d7a00 #FAF7E9;
+.pageInner {
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
 }
 
 .personalInfoContainer {
   height: auto;
-  max-height: 85vh;
-  overflow-y: auto;
-  overflow-x: hidden;
   width: 100%;
-  border: 2px solid #A69600;
-  border-radius: 20px;
-  padding: 30px 20px;
+  background: #ffffff;
+  border-radius: 0;
+  padding: 0;
   box-sizing: border-box;
-  background-color: #faf7e9;
-
-  @include screen(xl) {
-    max-width: 100%;
-    padding: 10px;
-  }
-
-  @include screen(lg) {
-    max-width: 100%;
-  }
-
-  @include screen(md) {
-    width: 100%;
-  }
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
 
   @include m.tablet-down {
     max-width: 100%;
-    max-height: 80vh;
-    padding: 20px;
-    margin-right: 0;
   }
 
   @include m.mobile-down {
-    padding: 15px;
-    border-radius: 15px;
-    max-height: 75vh;
+    border-radius: 0;
   }
 }
 
 .formHeader {
+  background: #ffffff;
+  padding: 40px 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  border-bottom: 1px solid #e5e5e5;
+
+  @include m.tablet-down {
+    padding: 32px 40px;
+  }
 
   @include m.mobile-down {
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
     align-items: flex-start;
+    padding: 24px 20px;
   }
 }
 
 .formTitle {
-  font-size: 24px;
+  @include m.font($font-oldschool, $medium, #262c35);
+  font-size: 28px;
   font-weight: 600;
-  color: #262C35;
+  letter-spacing: -0.5px;
   margin: 0;
-  @include m.font($font-sharp-20, $medium, #262C35);
+  position: relative;
+  padding-left: 20px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 32px;
+    background: #a69600;
+    border-radius: 2px;
+  }
+
+  @include m.tablet-down {
+    font-size: 24px;
+
+    &::before {
+      height: 28px;
+    }
+  }
 
   @include m.mobile-down {
     font-size: 20px;
+    padding-left: 16px;
+
+    &::before {
+      height: 24px;
+      width: 3px;
+    }
   }
 }
 
 .cancelEditBtn {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  background-color: #f3f4f6;
-  color: #374151;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
+  gap: 8px;
+  padding: 10px 20px;
+  background-color: #f5f5f5;
+  color: #262c35;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
   font-size: 14px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  @include m.font($font-sharp-20, $medium, #374151);
+  transition: all 0.2s ease;
+  @include m.font($font-sharp-20, $medium, #262c35);
+  letter-spacing: 0;
+  font-weight: 500;
 
   svg {
     width: 16px;
@@ -131,67 +683,132 @@
   }
 
   &:hover {
-    background-color: #e5e7eb;
-    border-color: #9ca3af;
+    background-color: #262c35;
+    color: white;
+    border-color: #262c35;
   }
 
   @include m.mobile-down {
     width: 100%;
     justify-content: center;
+    padding: 10px 20px;
+  }
+}
+
+.formWrapper {
+  width: 100%;
+  padding: 48px 60px;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f5f5f5;
+    border-radius: 5px;
+    margin: 8px 0;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #a69600;
+    border-radius: 5px;
+    border: 2px solid #f5f5f5;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #8d7a00;
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: #a69600 #f5f5f5;
+
+  @include m.tablet-down {
+    padding: 40px 32px;
+    max-height: calc(100vh - 180px);
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+  }
+
+  @include m.mobile-down {
+    padding: 32px 20px;
+    max-height: calc(100vh - 160px);
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border: 1px solid #f5f5f5;
+    }
   }
 }
 
 .profileHeader {
   width: 100%;
-  height: auto;
-  min-height: 200px;
-  background-color: #f8f3de;
-  border-radius: 20px;
-  border: 1px solid rgba(171, 155, 13, 0.4);
+  background: linear-gradient(135deg, #faf7e9 0%, #f8f5e8 100%);
+  border-radius: 16px;
+  border: none;
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 20px;
-  gap: 30px;
+  padding: 48px;
+  gap: 48px;
   box-sizing: border-box;
-  margin-bottom: 40px;
+  margin-bottom: 48px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
 
   @include m.tablet-down {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 30px 20px;
-    gap: 20px;
+    padding: 40px 32px;
+    gap: 32px;
   }
 
   @include m.mobile-down {
-    border-radius: 15px;
-    padding: 20px 15px;
+    border-radius: 12px;
+    padding: 32px 24px;
+    margin-bottom: 32px;
   }
 }
 
 .profileImageWrapper {
-  border: 2px solid #A69600;
-  width: 175px;
-  height: 175px;
+  border: 4px solid #ffffff;
+  width: 140px;
+  height: 140px;
   flex-shrink: 0;
-  border-radius: 15px;
-  background-color: #f8f8f5;
+  border-radius: 50%;
+  background: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 16px rgba(166, 150, 0, 0.15);
+
+  @include m.tablet-down {
+    width: 120px;
+    height: 120px;
+  }
 
   @include m.mobile-down {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
+    border-width: 3px;
   }
 }
 
 .profileImage {
-  border-radius: 15px;
+  border-radius: 50%;
   object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 .imageUploadOverlay {
@@ -200,17 +817,18 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.3s ease;
+  border-radius: 50%;
 
   svg {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     color: white;
   }
 
@@ -231,58 +849,62 @@
 }
 
 .userName {
-  @include m.font($font-oldschool, $book, #A69600);
-  font-size: 2.5rem;
-  font-weight: 500;
+  @include m.font($font-oldschool, $book, #262c35);
+  font-size: 2.25rem;
+  font-weight: 600;
   margin: 0;
   line-height: 1.2;
+  letter-spacing: -0.5px;
 
   @include m.tablet-down {
     font-size: 2rem;
   }
 
   @include m.mobile-down {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 }
 
 .line {
-  background-color: #A69600;
+  background: #e5e5e5;
   height: 1px;
   width: 100%;
-  margin: 4px 0;
+  margin: 8px 0;
 
   @include m.tablet-down {
-    width: 60%;
+    width: 80%;
   }
 }
 
 .userRole {
-  @include m.font($font-oldschool, $book, #262C35);
-  font-size: 1rem;
+  @include m.font($font-sharp-20, $book, #737373);
+  font-size: 0.875rem;
   font-weight: 400;
   margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
 
   @include m.mobile-down {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 }
 
 .editProfileButton {
-  @include m.font($font-sharp-20, $medium, #7e7208);
-  font-size: 1rem;
-  padding: 8px 20px;
-  border-radius: 8px;
-  border: 1px solid #A69600;
-  background: #EDE8C7;
-  margin-top: 10px;
+  @include m.font($font-sharp-20, $medium, white);
+  font-size: 0.875rem;
+  padding: 12px 28px;
+  border-radius: 6px;
+  border: none;
+  background: #a69600;
+  margin-top: 16px;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   align-self: flex-start;
+  letter-spacing: 0;
 
   svg {
     width: 16px;
@@ -290,9 +912,13 @@
   }
 
   &:hover {
-    background-color: #e0d8b5;
-    transform: translateY(-2px);
+    background: #8d7a00;
+    transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(166, 150, 0, 0.2);
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 
   @include m.tablet-down {
@@ -300,8 +926,8 @@
   }
 
   @include m.mobile-down {
-    font-size: 0.9rem;
-    padding: 6px 16px;
+    font-size: 0.8rem;
+    padding: 10px 24px;
   }
 }
 
@@ -309,15 +935,15 @@
   margin-top: 40px;
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 48px;
 
   @include m.tablet-down {
-    gap: 40px;
+    gap: 36px;
   }
 
   @include m.mobile-down {
-    margin-top: 30px;
-    gap: 30px;
+    margin-top: 32px;
+    gap: 28px;
   }
 }
 
@@ -325,80 +951,84 @@
 .lowerFields {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 50px;
+  gap: 32px;
 
   @include m.tablet-down {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 24px;
   }
 
   @include m.mobile-down {
-    gap: 25px;
+    gap: 20px;
   }
 }
 
 .fieldGroup {
   display: flex;
   flex-direction: column;
-  gap: 0;
-  transition: background-color 0.3s ease;
+  gap: 8px;
+  transition: all 0.2s ease;
 
   label {
-    background-color: #F7F2E2;
+    background: transparent;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 8px 0 8px 22px;
-    @include m.font($font-oldschool, $book, #A69600);
-    font-size: 14px;
+    letter-spacing: 1px;
+    padding: 0;
+    @include m.font($font-sharp-20, $medium, #737373);
+    font-size: 0.75rem;
     margin: 0;
+    font-weight: 500;
 
     @include m.mobile-down {
-      font-size: 13px;
-      padding: 6px 0 6px 16px;
+      font-size: 0.7rem;
     }
   }
 
   input {
     width: 100%;
-    padding: 16px 20px;
-    font-size: 18px;
-    @include m.font($font-sharp-20, $medium, #262C35);
-    color: #262C35;
+    padding: 14px 16px;
+    font-size: 15px;
+    @include m.font($font-sharp-20, $medium, #262c35);
+    color: #262c35;
     outline: none;
     transition: all 0.2s ease;
-    background-color: #EDE4D3;
-    border: none;
-    border-bottom: 2px solid #A38907;
-    line-height: 1.4;
+    background-color: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    line-height: 1.5;
     display: block;
     box-sizing: border-box;
 
     &:disabled {
-      opacity: 0.7;
+      opacity: 0.6;
       cursor: not-allowed;
-      background-color: #f5f0e0;
+      background-color: #f5f5f5;
+      color: #737373;
     }
 
     &:focus:not(:disabled) {
-      outline: none;
-      background-color: #e8dfc5;
+      border-color: #a69600;
+      background-color: #fefdfb;
+      box-shadow: 0 0 0 3px rgba(166, 150, 0, 0.1);
     }
 
     &::placeholder {
-      opacity: 0.6;
+      opacity: 0.4;
+      @include m.font($font-sharp-20, $book, #262c35);
     }
 
     @include m.mobile-down {
-      font-size: 16px;
-      padding: 14px 16px;
+      font-size: 14px;
+      padding: 12px 14px;
     }
   }
 }
 
 .saveButtonContainer {
-  margin-top: 50px;
+  margin-top: 48px;
   display: flex;
   justify-content: center;
+  padding-bottom: 16px;
 
   @include m.mobile-down {
     margin-top: 40px;
@@ -407,21 +1037,19 @@
 
 .savebtn {
   @include m.font($font-sharp-20, $medium, white);
-  font-size: 16px;
-  padding: 14px 40px;
-  border-radius: 0;
-  background-color: #A69600;
+  font-size: 0.875rem;
+  padding: 14px 48px;
+  border-radius: 6px;
+  background: #a69600;
   border: none;
   color: white;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   justify-content: center;
-  min-width: 180px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  min-width: 200px;
   font-weight: 500;
 
   svg {
@@ -430,20 +1058,24 @@
   }
 
   &:hover:not(:disabled) {
-    background-color: #8d7a00;
+    background: #8d7a00;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(166, 150, 0, 0.3);
+    box-shadow: 0 6px 20px rgba(166, 150, 0, 0.3);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(-1px);
   }
 
   &:disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: not-allowed;
   }
 
   @include m.mobile-down {
     width: 100%;
-    padding: 12px 30px;
-    font-size: 15px;
+    padding: 12px 40px;
+    font-size: 0.8rem;
   }
 }
 
@@ -456,19 +1088,20 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 50vh;
-  gap: 16px;
+  min-height: 500px;
+  gap: 24px;
+  padding: 40px;
 
   p {
-    @include m.font($font-sharp-20, $medium, #262C35);
+    @include m.font($font-sharp-20, $medium, #262c35);
     font-size: 16px;
   }
 }
 
 .spinner {
-  width: 40px;
-  height: 40px;
-  color: #A69600;
+  width: 56px;
+  height: 56px;
+  color: #a69600;
   animation: spin 1s linear infinite;
 }
 
@@ -481,35 +1114,40 @@
   }
 }
 
-// Additional scrollable containers (for consistency)
 .cardsContainer {
   width: 100%;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   border-radius: 0;
-  overflow-x: auto; // Enable horizontal scrolling for carousel
+  padding: 4px 0;
 
-  // Custom scrollbar for horizontal scrolling in carousel
   &::-webkit-scrollbar {
-    height: 8px;
+    height: 10px;
   }
 
   &::-webkit-scrollbar-track {
-    background: #FAF7E9;
-    border-radius: 4px;
+    background: #f5f5f5;
+    border-radius: 5px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #8d7a00;
-    border-radius: 4px;
+    background: #a69600;
+    border-radius: 5px;
+    border: 2px solid #f5f5f5;
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background: #756300;
+    background: #8d7a00;
   }
 
-  // Firefox
   scrollbar-width: thin;
-  scrollbar-color: #8d7a00 #FAF7E9;
+  scrollbar-color: #a69600 #f5f5f5;
+
+  @include m.mobile-down {
+    &::-webkit-scrollbar {
+      height: 8px;
+    }
+  }
 }
 
 .courseSelector {
@@ -523,12 +1161,35 @@
   left: 0;
   right: 0;
   background: white;
-  border: 1px solid #ddd;
+  border: 1px solid #e5e5e5;
   border-top: none;
+  border-radius: 0 0 8px 8px;
   max-height: 400px;
   overflow-y: auto;
   z-index: 1000;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f5f5f5;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #a69600;
+    border-radius: 4px;
+    border: 2px solid #f5f5f5;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #8d7a00;
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: #a69600 #f5f5f5;
 
   @include m.tablet-down {
     max-height: 300px;
@@ -536,12 +1197,9 @@
 
   @include m.mobile-down {
     max-height: 250px;
-  }
-}
 
-/* Page wrapper used by components to fill remaining width */
-.pageInner {
-  width: 100%;
-  box-sizing: border-box;
-  display: block;
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+  }
 }
