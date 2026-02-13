@@ -71,7 +71,7 @@ export async function adminSignIn({ email, password }) {
       if (authError.message.includes("Invalid login credentials")) {
         throw new Error("Invalid email or password.");
       }
-      throw new Error(authError.message || "Sign in failed");
+      throw new Error("Sign in failed: " + authError.message);
     }
 
     if (!user) {
