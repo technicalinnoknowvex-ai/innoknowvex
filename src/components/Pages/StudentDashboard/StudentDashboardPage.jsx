@@ -516,7 +516,7 @@ const StudentDashboardPage = ({ studentDetails }) => {
             )}
           </div>
 
-          <div className={style.sectionContainer}>
+          {/* <div className={style.sectionContainer}>
             <h3 className={style.sectionTitle}>COURSES ENROLLED</h3>
             <div className={style.tagsContainer}>
               {formData.coursesEnrolled.map((course, index) => (
@@ -562,7 +562,7 @@ const StudentDashboardPage = ({ studentDetails }) => {
                 </button>
               </div>
             )}
-          </div>
+          </div> */}
 
           {isEditing && (
             <div className={style.saveButtonContainer}>
