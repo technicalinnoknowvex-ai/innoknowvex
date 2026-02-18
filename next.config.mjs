@@ -29,10 +29,10 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
 
-  exports : {
-  allowedDevOrigins: ['local-origin.dev', '*.local-origin.dev'],
-}
-  ,
+//   exports : {
+//   allowedDevOrigins: ['local-origin.dev', '*.local-origin.dev'],
+// }
+//   ,
   // Add these optimizations:
   poweredByHeader: false,
   compress: true,
