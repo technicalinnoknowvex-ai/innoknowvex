@@ -243,11 +243,11 @@ const Navbar = () => {
   // Debug session data
   useEffect(() => {
     if (session && !isSessionLoading) {
-      console.log('🔍 NAVBAR SESSION DATA:', session);
-      console.log('🔍 Session keys:', Object.keys(session));
-      console.log('🔍 User ID:', session.user_id);
-      console.log('🔍 Role:', session.role);
-      console.log('🔍 Full session object:', JSON.stringify(session, null, 2));
+      // console.log('🔍 NAVBAR SESSION DATA:', session);
+      // console.log('🔍 Session keys:', Object.keys(session));
+      // console.log('🔍 User ID:', session.user_id);
+      // console.log('🔍 Role:', session.role);
+      // console.log('🔍 Full session object:', JSON.stringify(session, null, 2));
     }
   }, [session, isSessionLoading]);
 
@@ -257,7 +257,7 @@ const Navbar = () => {
     
     // Check multiple possible role fields
     const role = session.role || session.user_role || session.userType || session.type;
-    console.log('🔍 Detected role:', role);
+    // console.log('🔍 Detected role:', role);
     return role;
   };
 
@@ -266,14 +266,14 @@ const Navbar = () => {
     
     // Check multiple possible ID fields
     const userId = session.user_id || session.id || session.userId || session.admin_id;
-    console.log('🔍 Detected user ID:', userId);
+    // console.log('🔍 Detected user ID:', userId);
     return userId;
   };
 
   const isAdmin = getUserRole() === 'admin';
   const userId = getUserId();
 
-  console.log('🔍 Final values - isAdmin:', isAdmin, 'userId:', userId);
+  // console.log('🔍 Final values - isAdmin:', isAdmin, 'userId:', userId);
 
   const handleSignInClick = () => {
     router.push("/auth/student/sign-in");
@@ -290,17 +290,17 @@ const Navbar = () => {
 
   const getProfileLink = () => {
     if (!userId) {
-      console.warn('❌ No user ID found in session');
+      // console.warn('❌ No user ID found in session');
       return isAdmin ? '/admin/dashboard' : '/student/profile';
     }
 
     if (isAdmin) {
       const adminLink = `/admin/${userId}/dashboard`;
-      console.log('🔗 Admin profile link:', adminLink);
+      // console.log('🔗 Admin profile link:', adminLink);
       return adminLink;
     } else {
       const studentLink = `/student/${userId}/dashboard`;
-      console.log('🔗 Student profile link:', studentLink);
+      // console.log('🔗 Student profile link:', studentLink);
       return studentLink;
     }
   };
@@ -741,7 +741,7 @@ const Navbar = () => {
         window.location.href = "/";
       }
     } catch (error) {
-      console.error("Sign out failed:", error);
+      // console.error("Sign out failed:", error);
     } finally {
       setIsSigningOut(false);
     }

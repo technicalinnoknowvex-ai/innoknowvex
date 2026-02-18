@@ -12,7 +12,7 @@ const supabase = createClient(
  * @returns {Promise<Object>} Admin data
  */
 export async function getAdmin(adminId) {
-  console.log("🚀 ~ adminId:", adminId);
+  // // console.log("🚀 ~ adminId:", adminId);
   try {
     const { data, error } = await supabase
       .from('admin')
@@ -24,7 +24,7 @@ export async function getAdmin(adminId) {
 
     return { success: true, data: data && data.length > 0 ? data[0] : null };
   } catch (error) {
-    console.error('Error fetching admin:', error);
+    // // console.error('Error fetching admin:', error);
     return { success: false, error: error.message, data: null };
   }
 }
@@ -44,7 +44,7 @@ export async function getAllAdmins() {
     
     return { success: true, data };
   } catch (error) {
-    console.error('Error fetching admins:', error);
+    // console.error('Error fetching admins:', error);
     return { success: false, error: error.message, data: [] };
   }
 }
@@ -76,7 +76,7 @@ export async function createAdmin(adminData) {
     
     return { success: true, data: data && data.length > 0 ? data[0] : null };
   } catch (error) {
-    console.error('Error creating admin:', error);
+    // console.error('Error creating admin:', error);
     return { success: false, error: error.message, data: null };
   }
 }
@@ -107,7 +107,7 @@ export async function updateAdmin(adminId, updates) {
     
     return { success: true, data: data && data.length > 0 ? data[0] : null };
   } catch (error) {
-    console.error('Error updating admin:', error);
+    // console.error('Error updating admin:', error);
     return { success: false, error: error.message, data: null };
   }
 }
@@ -128,7 +128,7 @@ export async function deleteAdmin(adminId) {
     
     return { success: true, message: 'Admin deleted successfully' };
   } catch (error) {
-    console.error('Error deleting admin:', error);
+    // console.error('Error deleting admin:', error);
     return { success: false, error: error.message };
   }
 }
@@ -144,7 +144,7 @@ export async function deleteAdminImage(imageUrl) {
 
     // Don't delete the default placeholder image
     if (imageUrl.includes('images.jpg')) {
-      console.log('Skipping deletion of default image');
+      // console.log('Skipping deletion of default image');
       return { success: true };
     }
 
@@ -156,29 +156,29 @@ export async function deleteAdminImage(imageUrl) {
     // Try to extract filename from URL
     const urlParts = imageUrl.split(`${folderPath}/`);
     if (urlParts.length < 2) {
-      console.log('Invalid image URL format, skipping deletion');
+      // console.log('Invalid image URL format, skipping deletion');
       return { success: true };
     }
 
     const fileName = decodeURIComponent(urlParts[1]);
     const filePath = `${folderPath}/${fileName}`;
     
-    console.log('Deleting image at path:', filePath);
+    // console.log('Deleting image at path:', filePath);
 
     const { error } = await supabase.storage
       .from(bucketName)
       .remove([filePath]);
 
     if (error) {
-      console.error('Error deleting old image:', error);
+      // console.error('Error deleting old image:', error);
       // Don't throw error, just log it - we don't want to block the upload
       return { success: false, error: error.message };
     }
 
-    console.log('✅ Old image deleted successfully');
+    // console.log('✅ Old image deleted successfully');
     return { success: true };
   } catch (error) {
-    console.error('Error in deleteAdminImage:', error);
+    // console.error('Error in deleteAdminImage:', error);
     return { success: false, error: error.message };
   }
 }
@@ -192,16 +192,16 @@ export async function deleteAdminImage(imageUrl) {
  */
 export async function uploadAdminImage(file, adminId, oldImageUrl = null) {
   try {
-    console.log('Starting image upload process...');
-    console.log('Admin ID:', adminId);
-    console.log('Old image URL:', oldImageUrl);
+    // console.log('Starting image upload process...');
+    // console.log('Admin ID:', adminId);
+    // console.log('Old image URL:', oldImageUrl);
 
     const bucketName = 'Innoknowvex website content';
     const folderPath = 'Profile Images';
 
     // Delete old image if it exists and it's not the default
     if (oldImageUrl && !oldImageUrl.includes('images.jpg')) {
-      console.log('Deleting old image...');
+      // console.log('Deleting old image...');
       await deleteAdminImage(oldImageUrl);
     }
 
@@ -209,7 +209,7 @@ export async function uploadAdminImage(file, adminId, oldImageUrl = null) {
     const fileName = `admin_${adminId}.${fileExt}`; // Use adminId as filename for easy replacement
     const filePath = `${folderPath}/${fileName}`;
 
-    console.log('Uploading new image to:', filePath);
+    // console.log('Uploading new image to:', filePath);
 
     // Upload with upsert: true to replace if exists
     const { error: uploadError } = await supabase.storage
@@ -220,7 +220,7 @@ export async function uploadAdminImage(file, adminId, oldImageUrl = null) {
       });
 
     if (uploadError) {
-      console.error('Upload error:', uploadError);
+      // console.error('Upload error:', uploadError);
       throw uploadError;
     }
 
@@ -229,11 +229,11 @@ export async function uploadAdminImage(file, adminId, oldImageUrl = null) {
       .from(bucketName)
       .getPublicUrl(filePath);
 
-    console.log('✅ Upload successful! Public URL:', publicUrl);
+    // console.log('✅ Upload successful! Public URL:', publicUrl);
 
     return { success: true, url: publicUrl };
   } catch (error) {
-    console.error('Error uploading image:', error);
+    // console.error('Error uploading image:', error);
     return { success: false, error: error.message, url: null };
   }
 }
