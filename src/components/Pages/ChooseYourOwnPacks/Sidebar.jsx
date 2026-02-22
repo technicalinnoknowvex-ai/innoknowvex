@@ -5,14 +5,14 @@ import style from "./style/packs.module.scss";
 
 const categories = [
   { id: "all", name: "All Programs" },
-  { id: "technology-programming", name: "Technology & Programming" },
-  { id: "ai-data", name: "AI & Data Science" },
-  { id: "cloud-security", name: "Cloud & Security" },
-  { id: "hardware-engineering", name: "Hardware & Engineering" },
-  { id: "business-management", name: "Business & Management" },
-  { id: "design-creative", name: "Design & Creative" },
-  { id: "healthcare-sciences", name: "Healthcare & Sciences" },
-  { id: "advanced", name: "Advanced Programs" },
+  { id: "Technology & Programming", name: "Technology & Programming" },
+  { id: "AI & Data Science", name: "AI & Data Science" },
+  { id: "Cloud & Security", name: "Cloud & Security" },
+  { id: "Hardware & Engineering", name: "Hardware & Engineering" },
+  { id: "Business & Management", name: "Business & Management" },
+  { id: "Design & Creative", name: "Design & Creative" },
+  { id: "Healthcare & Science", name: "Healthcare & Science" },
+  { id: "Advance Programs", name: "Advanced Programs" },
 ];
 
 const Sidebar = ({ selectedCategory, setSelectedCategory }) => {

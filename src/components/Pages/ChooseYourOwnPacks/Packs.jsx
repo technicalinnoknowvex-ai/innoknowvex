@@ -18,13 +18,19 @@ const Packs = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedCount, setSelectedCount] = useState(0);
 
-  const fetchProgramPrice = async (tag) => {
+  const fetchProgramsPricesBatch = async (tags) => {
     try {
-      setPriceLoadingStates((prev) => ({ ...prev, [tag]: true }));
+      // Mark all as loading
+      const loadingStates = {};
+      tags.forEach(tag => {
+        loadingStates[tag] = true;
+      });
+      setPriceLoadingStates(loadingStates);
 
-      const response = await fetch(`/api/pricingPowerPack/${tag}`, {
-        method: "GET",
+      const response = await fetch(`/api/pricingPowerPack/batch`, {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ courses: tags }),
       });
 
       if (!response.ok) {
@@ -34,12 +40,16 @@ const Packs = () => {
         );
       }
 
-      const data = await response.json();
-      setProgramsPrice((prev) => ({ ...prev, [tag]: data }));
+      const { data } = await response.json();
+      setProgramsPrice((prev) => ({ ...prev, ...data }));
     } catch (err) {
-      console.error(`Error fetching program price for ${tag}:`, err);
+      console.error(`Error fetching batch pricing:`, err);
     } finally {
-      setPriceLoadingStates((prev) => ({ ...prev, [tag]: false }));
+      const loadingStates = {};
+      tags.forEach(tag => {
+        loadingStates[tag] = false;
+      });
+      setPriceLoadingStates((prev) => ({ ...prev, ...loadingStates }));
     }
   };
 
@@ -66,11 +76,8 @@ const Packs = () => {
 
     setLoading(true);
 
-    const fetchPromises = programs.map((course) =>
-      fetchProgramPrice(course.price_search_tag)
-    );
-
-    Promise.allSettled(fetchPromises).finally(() => {
+    const tags = programs.map((course) => course.price_search_tag);
+    fetchProgramsPricesBatch(tags).finally(() => {
       setLoading(false);
     });
   }, [programs]);
