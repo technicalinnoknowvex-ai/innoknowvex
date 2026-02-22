@@ -56,15 +56,17 @@
   max-height: calc(100vh - 8rem);
   overflow-y: auto;
   overflow-x: hidden;
-  border: 2px solid #A69600;
+  border: 1px solid rgba(166, 150, 0, 0.15);
   border-radius: 20px;
-  padding: 30px 20px;
+  padding: 2.5rem;
   box-sizing: border-box;
-  background-color: #FAF7E9;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 25px 70px rgba(166, 150, 0, 0.12);
+  animation: slideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 
   @include screen(xl) {
     max-width: 100%;
-    padding: 10px;
+    padding: 2rem;
   }
 
   @include screen(lg) {
@@ -73,19 +75,20 @@
 
   @include screen(md) {
     width: 100%;
-    border: 2px solid #A69600;
+    border: 1px solid rgba(166, 150, 0, 0.15);
   }
 
   @include tablet-down {
     max-width: 100%;
-    padding: 20px;
+    padding: 1.5rem;
     margin-right: 0;
     max-height: calc(100vh - 6rem);
+    border-radius: 16px;
   }
 
   @include mobile-down {
-    padding: 15px;
-    border-radius: 15px;
+    padding: 1rem;
+    border-radius: 16px;
     max-height: calc(100vh - 4rem);
   }
 }
@@ -163,16 +166,17 @@
 .inputField {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 0.6rem;
   
   label {
-    background-color: #EDE4D3;
+    background-color: transparent;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding-left: 22px;
-    padding-top: 5px;
-    @include m.font($font-oldschool ,$book, $text-secondary);
-    font-size: 14px;
+    letter-spacing: 0.6px;
+    padding-left: 0;
+    padding-top: 0;
+    @include m.font($font-oldschool, $semibold, #8d7a00);
+    font-size: 0.85rem;
+    font-weight: 600;
   }
 
   input[type="text"],
@@ -180,55 +184,53 @@
   input[type="file"],
   textarea {
     width: 100%;
-    padding: 16px 20px;
-    border: none;
-    border-radius: 0;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    background-color: #EDE4D3;
-    border-bottom: #A38907 2px solid;
-    @include m.font($font-oldschool, $book, #262C35);
+    padding: 0.95rem 1.2rem;
+    border: 2px solid #e8dfc5;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: #fff;
+    background: linear-gradient(135deg, #fff 0%, #f9f7f3 100%);
+    @include m.font($font-oldschool, $medium, #262c35);
     box-shadow: none;
+
+    &:hover:not(:disabled) {
+      border-color: #d4c5a8;
+      box-shadow: 0 4px 12px rgba(166, 150, 0, 0.08);
+    }
 
     &:focus {
       outline: none;
-      box-shadow: none;
+      background-color: #fef9f0;
+      border-color: #a69600;
+      box-shadow: 0 0 0 4px rgba(166, 150, 0, 0.12), 0 8px 24px rgba(166, 150, 0, 0.1);
+      background: linear-gradient(135deg, #fef9f0 0%, #fff 100%);
     }
 
     &::placeholder {
-      opacity: 0.7;
+      color: #b8a78a;
+      opacity: 0.8;
     }
-  }
 
-  input[type="file"] {
-    padding: 14px 16px;
-    cursor: pointer;
-    font-size: 14px;
-
-    &::file-selector-button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 0;
-      background-color: #A69600;
-      color: white;
-      cursor: pointer;
-      margin-right: 16px;
-      transition: all 0.3s ease;
-      @include m.font($font-sharp-20, $medium, white);
-      font-weight: 500;
-
-      &:hover {
-        background-color: #8d7a00;
-      }
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      background: #f5f3f0;
+      border-color: #e8dfc5;
     }
   }
 
   textarea {
     resize: vertical;
-    min-height: 140px;
-    @include m.font($font-oldschool, $book, #262C35);
+    min-height: 120px;
+    @include m.font($font-oldschool, $medium, #262c35);
     line-height: 1.6;
+    font-family: inherit;
   }
+}
+
+.fileInputWrapper {
+  padding: 14px 16px;
 }
 
 .imagePreviewContainer {
