@@ -24,7 +24,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: $app-background-base;
-  cursor: none;
+  // cursor: none;
   @include hide-scrollbar;
 
   // iOS Safari: Use -webkit-fill-available as additional fallback

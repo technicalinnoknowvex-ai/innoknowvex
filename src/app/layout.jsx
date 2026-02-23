@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
         />
         <CursorProvider>
           <ScrollProvider>
-            <Cursor />
+            {/* <Cursor /> */}
             <div className="app-root-container">{children}</div>
           </ScrollProvider>
         </CursorProvider>
