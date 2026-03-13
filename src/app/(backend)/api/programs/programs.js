@@ -47,18 +47,32 @@ export const getProgramById = async (programId) => {
       return null;
     }
 
-    const { data, error } = await supabase
-      .from("programs")
-      .select("*")
-      .eq("id", normalizedId)
-      .maybeSingle();
+    // const { data, error } = await supabase
+    //   .from("programs")
+    //   .select("*")
+    //   .eq("id", normalizedId)
+    //   .maybeSingle();
 
-    if (error) {
-      console.error("Error fetching program:", error);
+    // if (error) {
+    //   console.error("Error fetching program:", error);
+    //   return null;
+    // }
+
+    const { data: allPrograms, error: allError } = await supabase
+      .from("programs")
+      .select("*");
+
+    if (allError) {
+      console.error("Error fetching programs:", allError);
       return null;
     }
 
-    if (!data) {
+
+    const matchedProgram = allPrograms?.find(
+      prog => prog.id?.trim().toLowerCase() === normalizedId
+    );
+
+    if (!matchedProgram) {
       console.warn(`No program found with ID: ${normalizedId}`);
       
       const { data: similarPrograms } = await supabase
@@ -68,14 +82,14 @@ export const getProgramById = async (programId) => {
         .limit(3);
       
       if (similarPrograms && similarPrograms.length > 0) {
-        console.log("Did you mean one of these?", similarPrograms.map(p => p.id));
+        console.log("Did you mean one of these?", similarPrograms.map(p => p.id?.trim?.() || p.id));
       }
       
       return null;
     }
 
-    console.log("Fetched program:", data.title);
-    return data;
+    console.log("Fetched program:", matchedProgram.title);
+    return matchedProgram;
   } catch (error) {
     console.error("Unexpected error fetching program:", error);
     return null;
