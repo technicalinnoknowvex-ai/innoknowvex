@@ -8,9 +8,10 @@ import { useRouter } from "next/navigation";
 
 import useUserSession from "@/hooks/useUserSession";
 
-export default function PlansSection() {
+export default function PlansSection({ courseName: propCourseName }) {
   const searchParams = useSearchParams();
-  const courseName = searchParams.get("course") || "web-development";
+  const courseName = propCourseName || searchParams.get("course") || "web-development";
+  const isOffline=courseName.toLowerCase().includes("offline");
   const router = useRouter();
   const [checkingAuth, setCheckingAuth] = useState(false);
 
@@ -192,9 +193,9 @@ export default function PlansSection() {
             />
           </svg>
 
-          <h1>Plans to fit your Learning needs</h1>
+          <h1>{isOffline ? "The perfect plan for your learning journey" : "Plans to fit your Learning needs"}</h1>
         </div>
-        <p>CHOOSE THAT FITS YOU</p>
+        <p>{isOffline ? "" : "CHOOSE THAT FITS YOU"}</p>
       </div>
 
       <div className={styles.pricingCardLayout}>
@@ -240,8 +241,11 @@ export default function PlansSection() {
           </defs>
         </svg>
 
+        
+
         {/* Self Plan */}
-        <div className={styles.pricingCards}>
+        {!isOffline &&(
+          <div className={styles.pricingCards}>
           <div className={styles.heading}>
             <svg
               width="52"
@@ -439,6 +443,7 @@ export default function PlansSection() {
             </div>
           </div>
         </div>
+        )}
 
         {/* Mentor Plan */}
         <div className={styles.pricingCards}>
@@ -541,66 +546,104 @@ export default function PlansSection() {
               />
               Live Session
             </div>
-            <div className={styles.features}>
-              <Image
-                src="/images/greentick.svg"
-                alt="tick"
-                width={20}
-                height={20}
-                className={styles.featureimg}
-              />
-              Mentor Guidance
-            </div>
-            <div className={styles.features}>
-              <svg
-                width="9"
-                height="10"
-                viewBox="0 0 9 10"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className={styles.featureimg}
-              >
-                <g clipPath="url(#clip0_938_1077)">
-                  <path
-                    d="M4.38382 5.85737L1.23615 9.00505C1.11838 9.12282 0.968487 9.1817 0.786479 9.1817C0.60447 9.1817 0.454581 9.12282 0.336811 9.00505C0.219041 8.88728 0.160156 8.73739 0.160156 8.55538C0.160156 8.37337 0.219041 8.22348 0.336811 8.10571L3.48449 4.95804L0.336811 1.81037C0.219041 1.6926 0.160156 1.54271 0.160156 1.3607C0.160156 1.17869 0.219041 1.0288 0.336811 0.91103C0.454581 0.79326 0.60447 0.734375 0.786479 0.734375C0.968487 0.734375 1.11838 0.79326 1.23615 0.91103L4.38382 4.0587L7.5315 0.91103C7.64927 0.79326 7.79916 0.734375 7.98116 0.734375C8.16317 0.734375 8.31306 0.79326 8.43083 0.91103C8.5486 1.0288 8.60749 1.17869 8.60749 1.3607C8.60749 1.54271 8.5486 1.6926 8.43083 1.81037L5.28316 4.95804L8.43083 8.10571C8.5486 8.22348 8.60749 8.37337 8.60749 8.55538C8.60749 8.73739 8.5486 8.88728 8.43083 9.00505C8.31306 9.12282 8.16317 9.1817 7.98116 9.1817C7.79916 9.1817 7.64927 9.12282 7.5315 9.00505L4.38382 5.85737Z"
-                    fill="#D92D20"
+            {isOffline ? (
+              <>
+                <div className={styles.features}>
+                  <Image
+                    src="/images/greentick.svg"
+                    alt="tick"
+                    width={20}
+                    height={20}
+                    className={styles.featureimg}
                   />
-                </g>
-                <defs>
-                  <clipPath id="clip0_938_1077">
-                    <rect width="9" height="10" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
-              Placement
-            </div>
-            <div className={styles.features}>
-              <svg
-                width="9"
-                height="10"
-                viewBox="0 0 9 10"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className={styles.featureimg}
-              >
-                <g clipPath="url(#clip0_938_1077)">
-                  <path
-                    d="M4.38382 5.85737L1.23615 9.00505C1.11838 9.12282 0.968487 9.1817 0.786479 9.1817C0.60447 9.1817 0.454581 9.12282 0.336811 9.00505C0.219041 8.88728 0.160156 8.73739 0.160156 8.55538C0.160156 8.37337 0.219041 8.22348 0.336811 8.10571L3.48449 4.95804L0.336811 1.81037C0.219041 1.6926 0.160156 1.54271 0.160156 1.3607C0.160156 1.17869 0.219041 1.0288 0.336811 0.91103C0.454581 0.79326 0.60447 0.734375 0.786479 0.734375C0.968487 0.734375 1.11838 0.79326 1.23615 0.91103L4.38382 4.0587L7.5315 0.91103C7.64927 0.79326 7.79916 0.734375 7.98116 0.734375C8.16317 0.734375 8.31306 0.79326 8.43083 0.91103C8.5486 1.0288 8.60749 1.17869 8.60749 1.3607C8.60749 1.54271 8.5486 1.6926 8.43083 1.81037L5.28316 4.95804L8.43083 8.10571C8.5486 8.22348 8.60749 8.37337 8.60749 8.55538C8.60749 8.73739 8.5486 8.88728 8.43083 9.00505C8.31306 9.12282 8.16317 9.1817 7.98116 9.1817C7.79916 9.1817 7.64927 9.12282 7.5315 9.00505L4.38382 5.85737Z"
-                    fill="#D92D20"
+                  Mentor Guidance
+                </div>
+                <div className={styles.features}>
+                  <Image
+                    src="/images/greentick.svg"
+                    alt="tick"
+                    width={20}
+                    height={20}
+                    className={styles.featureimg}
                   />
-                </g>
-                <defs>
-                  <clipPath id="clip0_938_1077">
-                    <rect width="9" height="10" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
-              Mock Interview
-            </div>
+                  Placement
+                </div>
+                <div className={styles.features}>
+                  <Image
+                    src="/images/greentick.svg"
+                    alt="tick"
+                    width={20}
+                    height={20}
+                    className={styles.featureimg}
+                  />
+                  Mock Interview
+                </div>
+              </>
+            ) : (
+              <>
+                <div className={styles.features}>
+                  <Image
+                    src="/images/greentick.svg"
+                    alt="tick"
+                    width={20}
+                    height={20}
+                    className={styles.featureimg}
+                  />
+                  Mentor Guidance
+                </div>
+                <div className={styles.features}>
+                  <svg
+                    width="9"
+                    height="10"
+                    viewBox="0 0 9 10"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className={styles.featureimg}
+                  >
+                    <g clipPath="url(#clip0_938_1077)">
+                      <path
+                        d="M4.38382 5.85737L1.23615 9.00505C1.11838 9.12282 0.968487 9.1817 0.786479 9.1817C0.60447 9.1817 0.454581 9.12282 0.336811 9.00505C0.219041 8.88728 0.160156 8.73739 0.160156 8.55538C0.160156 8.37337 0.219041 8.22348 0.336811 8.10571L3.48449 4.95804L0.336811 1.81037C0.219041 1.6926 0.160156 1.54271 0.160156 1.3607C0.160156 1.17869 0.219041 1.0288 0.336811 0.91103C0.454581 0.79326 0.60447 0.734375 0.786479 0.734375C0.968487 0.734375 1.11838 0.79326 1.23615 0.91103L4.38382 4.0587L7.5315 0.91103C7.64927 0.79326 7.79916 0.734375 7.98116 0.734375C8.16317 0.734375 8.31306 0.79326 8.43083 0.91103C8.5486 1.0288 8.60749 1.17869 8.60749 1.3607C8.60749 1.54271 8.5486 1.6926 8.43083 1.81037L5.28316 4.95804L8.43083 8.10571C8.5486 8.22348 8.60749 8.37337 8.60749 8.55538C8.60749 8.73739 8.5486 8.88728 8.43083 9.00505C8.31306 9.12282 8.16317 9.1817 7.98116 9.1817C7.79916 9.1817 7.64927 9.12282 7.5315 9.00505L4.38382 5.85737Z"
+                        fill="#D92D20"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_938_1077">
+                        <rect width="9" height="10" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                  Placement
+                </div>
+                <div className={styles.features}>
+                  <svg
+                    width="9"
+                    height="10"
+                    viewBox="0 0 9 10"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className={styles.featureimg}
+                  >
+                    <g clipPath="url(#clip0_938_1077)">
+                      <path
+                        d="M4.38382 5.85737L1.23615 9.00505C1.11838 9.12282 0.968487 9.1817 0.786479 9.1817C0.60447 9.1817 0.454581 9.12282 0.336811 9.00505C0.219041 8.88728 0.160156 8.73739 0.160156 8.55538C0.160156 8.37337 0.219041 8.22348 0.336811 8.10571L3.48449 4.95804L0.336811 1.81037C0.219041 1.6926 0.160156 1.54271 0.160156 1.3607C0.160156 1.17869 0.219041 1.0288 0.336811 0.91103C0.454581 0.79326 0.60447 0.734375 0.786479 0.734375C0.968487 0.734375 1.11838 0.79326 1.23615 0.91103L4.38382 4.0587L7.5315 0.91103C7.64927 0.79326 7.79916 0.734375 7.98116 0.734375C8.16317 0.734375 8.31306 0.79326 8.43083 0.91103C8.5486 1.0288 8.60749 1.17869 8.60749 1.3607C8.60749 1.54271 8.5486 1.6926 8.43083 1.81037L5.28316 4.95804L8.43083 8.10571C8.5486 8.22348 8.60749 8.37337 8.60749 8.55538C8.60749 8.73739 8.5486 8.88728 8.43083 9.00505C8.31306 9.12282 8.16317 9.1817 7.98116 9.1817C7.79916 9.1817 7.64927 9.12282 7.5315 9.00505L4.38382 5.85737Z"
+                        fill="#D92D20"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_938_1077">
+                        <rect width="9" height="10" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                  Mock Interview
+                </div>
+              </>
+            )}
           </div>
         </div>
 
         {/* Professional Plan */}
+        {!isOffline && (
         <div className={styles.pricingCards}>
           <div className={styles.heading}>
             <svg
@@ -736,6 +779,7 @@ export default function PlansSection() {
             </div>
           </div>
         </div>
+        )}
       </div>
     </div>
   );
