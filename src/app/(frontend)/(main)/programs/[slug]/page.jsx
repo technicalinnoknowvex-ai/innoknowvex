@@ -14,7 +14,7 @@ const page = async ({ params }) => {
     notFound();
   }
 
-  return <ProgramDetailsPage program={program} />;
+  return <ProgramDetailsPage program={program} courseName={slug} />;
 };
 
 export default page;
