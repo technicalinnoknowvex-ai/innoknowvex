@@ -13,7 +13,7 @@ import styles from "./styles/programDetails.module.scss";
 import SmoothScroller from "@/components/Layouts/SmoothScroller";
 import OurPartners from "../Landing/Sections/OurPartners/OurPartners";
 
-export default function ProgramDetailsPage({ program }) {
+export default function ProgramDetailsPage({ program,courseName }) {
   if (!program) {
     return (
       <div className={styles.courseContainer}>
@@ -33,7 +33,7 @@ export default function ProgramDetailsPage({ program }) {
         <WhyLearnSection />
         <CardsSection />
         <CertificationSection program={program} />
-        <PlansSection />
+        <PlansSection courseName={courseName} />
         <OurPartners/>
         <TestimonialSection />
         <Footer />
