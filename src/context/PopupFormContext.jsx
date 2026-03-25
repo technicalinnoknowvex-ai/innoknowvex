@@ -4,7 +4,7 @@ import { createContext, useContext, useState } from "react";
 const PopupFormContext = createContext();
 
 export const PopupFormProvider = ({ children }) => {
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(true);
 
   const openForm = () => setIsFormOpen(true);
   const closeForm = () => setIsFormOpen(false);
