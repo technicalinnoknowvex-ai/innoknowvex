@@ -31,17 +31,17 @@ export const landingPageData = {
     images:[
       "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/offine/AI.png",
       "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/offine/AIML.png",
-      "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/offine/CLOUD%20COMPUTING.png",
-      "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/offine/CYBER%20SECURITY.png",
+      //"https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/offine/CLOUD%20COMPUTING.png",
+      //"https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/offine/CYBER%20SECURITY.png",
       "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/offine/DATA%20SCIENCE.png",
-      "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/offine/digital%20marketing%20offline%20.png",
-      "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/offine/FASHION%20TECHNOLOGY.png",
+      //"https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/offine/digital%20marketing%20offline%20.png",
+      //"https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/offine/FASHION%20TECHNOLOGY.png",
       "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/offine/FULLSTACK%20WEB%20DEVELOPMENT.png",
-      "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/offine/HUMAN%20RESOURC.png",
-      "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/offine/Market%20&Stoc%20&%20mutual%20funds.png",
-      "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/offine/POWER%20BI%20OFFLINE%20.png",
-      "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/offine/Sales%20and%20Marketing%20%20POSTER%20.png",
-      "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/offine/UIUX.png",
+      //"https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/offine/HUMAN%20RESOURC.png",
+      //"https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/offine/Market%20&Stoc%20&%20mutual%20funds.png",
+      //"https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/offine/POWER%20BI%20OFFLINE%20.png",
+      //"https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/offine/Sales%20and%20Marketing%20%20POSTER%20.png",
+      //"https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/offine/UIUX.png",
 
     ]
 
