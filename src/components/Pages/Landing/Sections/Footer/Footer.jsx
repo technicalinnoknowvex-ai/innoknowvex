@@ -44,14 +44,7 @@ const Footer = () => {
         onLeave: () => updateNavColor("#262c35"),
         onLeaveBack: () => updateNavColor("#262c35"),
       });
-      ScrollTrigger.create({
-        trigger: footerRef.current,
-        start: "top 60px",
-        once: true,
-        onEnter: () => openForm(),
-      });
-    },
-
+      
     { scope: footerRef }
   );
 
