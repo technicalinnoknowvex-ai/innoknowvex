@@ -31,7 +31,7 @@ const Footer = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  useGSAP(
+    useGSAP(
     () => {
       ScrollTrigger.create({
         trigger: footerRef.current,
@@ -44,10 +44,11 @@ const Footer = () => {
         onLeave: () => updateNavColor("#262c35"),
         onLeaveBack: () => updateNavColor("#262c35"),
       });
-      
+    },
+
     { scope: footerRef }
   );
-
+  
   return (
     <footer
       ref={footerRef}
