@@ -16,7 +16,7 @@ export const landingPageData = {
   aboutSection: {
     heading: "About Us.",
     subheading: "Get to Know Us Better",
-    para: `Innoknowvex is a cutting-edge EdTech platform designed to seamlessly connect students with internships, professional training, career development, and expert mentorship. Our mission is to bridge the gap between academic education and industry requirements by providing students with access to industry-relevant programs hands-on training, and specialized mentorship. Through a structured, expert-driven approach, we empower aspiring professionals with the practical skills and industry insights necessary to excel in their chosen fields.`,
+    para: `At Innoknowvex, we don't just prepare students for careers, we help them build their future. We bridge the gap between education and real-world success by offering hands-on internships, industry-focused training, and expert mentorship. Our approach is simple: learn by doing. Through practical programs and guidance from experienced professionals, we empower students to develop the skills, confidence, and insights they need to stand out in today's competitive world. Your journey from classroom to career starts here.`,
     images: [
       "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Landing/about_us_cell_10%20(1).jpg",
       "https://res.cloudinary.com/dquwagna6/image/upload/v1762236074/about_us_cell_30_1_hha7az.jpg",

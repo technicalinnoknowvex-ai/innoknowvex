@@ -200,16 +200,7 @@ const AboutDetailsPage = () => {
 
             <h1 ref={headRef2}>Our mission</h1>
             <h4 ref={headSmallRef2}>GUIDED BY PURPOSE</h4>
-            <p ref={pRef2}>
-              At Innoknowvex, we empower individuals to drive progress through
-              technology and future-ready skills. With expert-led assessments,
-              learning paths, and courses, our platform helps professionals
-              benchmark their expertise and meet industry demands. We are
-              committed to bridging the talent gap, connecting individuals with
-              companies, and transforming industries through critical tech
-              education. Our goal is to build a brand synonymous with success —
-              for our platform, our clients, and the workforce of tomorrow.
-            </p>
+            <p ref={pRef2}>At Innoknowvex, we empower individuals to drive progress through technology and future-ready skills. With expert-led assessments, learning paths, and courses, our platform helps professionals benchmark their expertise and meet industry demands. We are committed to bridging the talent gap, connecting individuals with companies, and transforming industries through critical tech education. Our goal is to build a brand synonymous with success — for our platform, our clients, and the workforce of tomorrow.</p>
           </div>
         </div>
       </div>

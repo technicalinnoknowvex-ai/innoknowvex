@@ -15,6 +15,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useScroll } from "@/context/ScrollContext";
 import { usePopupForm } from "@/context/PopupFormContext";
 import Image from "next/image";
+import { useRouter, usePathname } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,6 +24,8 @@ const Footer = () => {
   const footerRef = useRef(null);
   const { resetCursor, transformCursor } = useCursor();
   const { updateNavColor } = useNavColor();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const { heading, subheading, phone, email, address, socialLinks, footerLinks } =
     landingPageData.footerSection;
@@ -31,7 +34,63 @@ const Footer = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-    useGSAP(
+  const handleFooterNavigation = (link) => {
+    // Handle section links with hash (e.g., #blogs, #testimonials, #programs)
+    if (link.href.startsWith("#")) {
+      if (pathname !== "/") {
+        // Not on home page, navigate to home first
+        router.push("/");
+
+        const checkHomePageLoad = () => {
+          if (window.location.pathname==="/") {
+            setTimeout(() => {
+              const sectionId = link.href.substring(1);
+              const element = document.getElementById(sectionId);
+
+              if (element) {
+                const navbarHeight = 70;
+                const elementPosition =
+                  element.getBoundingClientRect().top + window.pageYOffset;
+                const offsetPosition = elementPosition - navbarHeight - 20;
+
+                window.scrollTo({
+                  top: offsetPosition,
+                  behavior: "smooth",
+                });
+              }
+            }, 300);
+          } else {
+            setTimeout(checkHomePageLoad, 100);
+          }
+        };
+
+        setTimeout(checkHomePageLoad, 100);
+      } else {
+        // Already on home page, scroll directly to section
+        setTimeout(() => {
+          const sectionId = link.href.substring(1);
+          const element = document.getElementById(sectionId);
+
+          if (element) {
+            const navbarHeight = 70;
+            const elementPosition =
+              element.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = elementPosition - navbarHeight - 20;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth",
+            });
+          }
+        }, 100);
+      }
+    } else {
+      // Regular page link, scroll to top first
+      scrollToTop();
+    }
+  };
+
+  useGSAP(
     () => {
       ScrollTrigger.create({
         trigger: footerRef.current,
@@ -48,7 +107,7 @@ const Footer = () => {
 
     { scope: footerRef }
   );
-  
+
   return (
     <footer
       ref={footerRef}
@@ -222,7 +281,12 @@ const Footer = () => {
                 <Link
                   key={lIndex}
                   href={link.href}
-                  onClick={scrollToTop}
+                  onClick={(e) => {
+                    if (link.href.startsWith("#")) {
+                      e.preventDefault();
+                      handleFooterNavigation(link);
+                    }
+                  }}
                   className={`${styles.itemContainer} ${styles["itemContainer--link"]}`}
                 >
                   <div className={styles.animatedUnderline}></div>
