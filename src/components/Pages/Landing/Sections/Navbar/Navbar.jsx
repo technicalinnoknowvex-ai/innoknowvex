@@ -60,7 +60,7 @@ const programsCategory = [
       { label: "Internet of Things (IoT)", href: "/programs/iot" },
       { label: "Hybrid Electric Vehicles (HEV)", href: "/programs/hev" },
       { label: "AutoCAD", href: "/programs/autocad" },
-      { label: "Automobile Design", href: "/programs/automobile-design" },
+      // { label: "Automobile Design", href: "/programs/automobile-design" },
     ],
   },
   {

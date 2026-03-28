@@ -327,6 +327,39 @@
       }
     }
 
+    .landmark {
+      width: 70%;
+      font-size: 0.9rem;
+      @include font($font-oldschool, $book, white);
+      line-height: 1.5;
+      margin-top: 8px;
+
+      strong {
+        font-weight: bold;
+      }
+
+      @media (max-width: 1440px) {
+        width: 80%;
+      }
+
+      @media (max-width: 1024px) {
+        width: 100%;
+        text-align: right;
+        font-size: 0.85rem;
+      }
+
+      @media (max-width: 768px) {
+        width: 90%;
+        text-align: center;
+        font-size: 0.85rem;
+      }
+
+      @media (max-width: 480px) {
+        width: 100%;
+        font-size: 0.8rem;
+      }
+    }
+
     .socialLinksContainer {
       display: flex;
       align-items: center;

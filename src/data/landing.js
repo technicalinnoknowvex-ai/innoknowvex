@@ -101,7 +101,7 @@ export const landingPageData = {
   whyChooseUsSection: {
     heading: "Why choose Us",
     subheading: "What makes our courses stand out.",
-    para: `We’re more than just a platform — we’re a learning ecosystem designed to help you thrive. From live classes and hands-on projects to personalized support and a vibrant community, every feature we offer is built to make your learning journey engaging, effective, and future-ready.`,
+    para: ` We’re not just a platform, we’re your learning partner, here to support your growth every step of the way. From interactive live classes and real-world projects to personalized guidance, everything is designed to help you learn with confidence. Add a welcoming, inspiring community, and your journey becomes not just effective, but truly meaningful and future-ready`,
     reasons: [
       {
         title: "Live",
@@ -173,7 +173,7 @@ export const landingPageData = {
   faqSection: {
     heading: "Frequently asked questions",
     subheading: "WHAT YOU SHOULD KNOW",
-    para: `Got questions? You're not alone. We've gathered the most common (and most important) ones right here to help you get clarity, feel confident, and make the right choice. Whether you're curious, cautious, or just doing your homework — the answers you need are just below.`,
+    para: ` Got questions? You’re in the right place. We’ve brought together the most common (and most important) ones to give you clarity and confidence before you decide. Whether you’re exploring, comparing, or just doing your homework, everything you need to know is right here`,
     faqs: [
       {
         question: "Who will be my mentor?",
@@ -203,7 +203,9 @@ export const landingPageData = {
     phone: "+91 9611209508",
     email: "support@innoknowvex.in",
     address:
-      "Hustlehub SB01, WJ8G+XWP, 1st Cross Road, Santhosapuram, 1st Block Koramangala, HSR Layout 5th Sector, Bengaluru, Karnataka 560034",
+    //   `Aratt Girija Towers,Survey 157/1, 2nd Floor, Manipal County Club Road, Opposite Lake View County Apartment, Singasandra, Bengaluru, Karnataka - 560068`,
+    // landmark: "Landmark: Above Star market",
+    "Hustlehub SB01, WJ8G+XWP, 1st Cross Road, Santhosapuram, 1st Block Koramangala, HSR Layout 5th Sector, Bengaluru, Karnataka 560034",
     socialLinks: [
       {
         label: "facebook",

@@ -82,11 +82,11 @@
       @include font($font-sharp-25, $medium, $text-brand);
       text-transform: uppercase;
       z-index: 2;
-      font-size: 1rem;
+      font-size: 0.9rem;
       @include screen(sm) {
         font-size: clamp(
-          1rem,
-          0.6666666666666667rem + 0.8333333333333334vw,
+          0.9rem,
+          0.6rem + 0.8333333333333334vw,
           2rem
         ) !important;
       }
@@ -172,7 +172,7 @@
       display: grid;
       grid-template-columns: 100%;
       grid-template-rows: auto minmax(0, 1fr);
-      row-gap: 1rem;
+      row-gap: 0.7rem;
       padding: 12%;
       border-radius: 2rem 2rem 2rem 3.5rem;
 

@@ -16,6 +16,7 @@ const FormSchema = z.object({
   email: z.string().email("Invalid email"),
   phone: z.string().regex(/^\d{10}$/, "Phone must be 10 digits"),
   program: z.string().min(1, "Program is required"),
+  language: z.string().min(1, "Preferred language is required"),
 });
 
 const PopUpForm = () => {
@@ -34,6 +35,7 @@ const PopUpForm = () => {
       email: "",
       phone: "",
       program: "",
+      language: "",
     },
   });
 
@@ -201,6 +203,23 @@ const PopUpForm = () => {
           <div className={styles.errorDiv}>
             {errors.program && (
               <p className={styles.error}>{errors.program.message}</p>
+            )}
+          </div>
+        </fieldset>
+
+        <fieldset
+          className={`${styles.inputGroup} ${styles["inputGroup--language"]}`}
+        >
+          <label className={styles.formLabel}>Preferred Language</label>
+          <input 
+            className={styles.formInput} 
+            type="text"
+            placeholder="eg: English or Hindi"
+            {...register("language")} 
+          />
+          <div className={styles.errorDiv}>
+            {errors.language && (
+              <p className={styles.error}>{errors.language.message}</p>
             )}
           </div>
         </fieldset>

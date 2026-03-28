@@ -27,7 +27,7 @@ const Footer = () => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const { heading, subheading, phone, email, address, socialLinks, footerLinks } =
+  const { heading, subheading, phone, email, address, landmark, socialLinks, footerLinks } =
     landingPageData.footerSection;
 
   const scrollToTop = () => {
@@ -230,6 +230,7 @@ const Footer = () => {
         <div className={styles.sectionInnerWrapper__addressSocialCell}>
           <label className={styles.addressLabel}>ADDRESS</label>
           <p className={styles.address}>{address}</p>
+          <p className={styles.landmark}><strong>{landmark}</strong></p>
           <div className={styles.socialLinksContainer}>
             {socialLinks.map((social, sIndex) => (
               <Link
