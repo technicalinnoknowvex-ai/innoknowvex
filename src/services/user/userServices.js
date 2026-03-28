@@ -17,6 +17,7 @@ export async function sendEnquiry(enquiryDetails) {
           email: enquiryDetails.email,
           phone: enquiryDetails.phone,
           program: enquiryDetails.program,
+          language: enquiryDetails.language,
           timestamp: enquiryDetails.timestamp
         }
       ])
