@@ -7,6 +7,8 @@ import { landingPageData } from "@/data/landing"
 const Annoucements = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+  const [showPopup, setShowPopup] = useState(false)
+  const [scrollY, setScrollY] = useState(0)
 
   // Extract the images array from offlineProgramSection
   const images = landingPageData.offlineProgramSection.images
@@ -46,6 +48,20 @@ const Annoucements = () => {
     setIsAutoPlaying(true)
   }
 
+  const closePopup = () => {
+    setShowPopup(false)
+  }
+
+
+  useEffect(() => {
+    const popupTimer = setTimeout(() => {
+      setScrollY(window.scrollY)
+      setShowPopup(true)
+    }, 25000) 
+
+    return () => clearTimeout(popupTimer)
+  }, [])
+
   // Safety check
   if (!images || images.length === 0) {
     return (
@@ -62,87 +78,103 @@ const Annoucements = () => {
   }
 
   return (
-    <div className={styles.layout}>
-      {/* Header Section */}
-      <div className={styles.textContainer}>
-        <h1>{landingPageData.offlineProgramSection.heading}</h1>
-        <h2 className={styles.subheading}>
-          {landingPageData.offlineProgramSection.subHeading}
-        </h2>
-      </div>
-
-      {/* Carousel Container */}
-      <div 
-        className={styles.carouselWrapper}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        {/* Previous Button */}
-        <button 
-          className={`${styles.carouselButton} ${styles.prevButton}`}
-          onClick={prevSlide}
-          aria-label="Previous slide"
-        >
-          &#10094;
-        </button>
-
-        {/* Carousel Content */}
-        <div className={styles.carousel}>
+    <>
+      {showPopup && (
+        <div className={styles.popupOverlay} onClick={closePopup}>
           <div 
-            className={styles.carouselTrack}
+            className={styles.popupModal} 
+            onClick={(e) => e.stopPropagation()}
             style={{
-              transform: `translateX(-${currentIndex * 100}%)`
+              top: `${scrollY + window.innerHeight / 2}px`
             }}
           >
-            {/* Map through all images and create slides */}
-            {images.map((imageUrl, index) => (
-              <div 
-                key={index} 
-                className={styles.carouselSlide}
+          
+            <button 
+              className={styles.closeButton}
+              onClick={closePopup}
+              aria-label="Close announcements"
+            >
+              CANCEL
+            </button>
+
+  
+            <h2 className={styles.annoucementHeading}>Announcements</h2>
+            <p className={styles.annoucementSubtitle}>Now offline courses are available</p>
+
+            <div 
+              className={styles.popupCarouselWrapper}
+              onMouseEnter={() => setIsAutoPlaying(false)}
+              onMouseLeave={() => setIsAutoPlaying(true)}
+            >
+              {/* Previous Button */}
+              <button 
+                className={`${styles.carouselButton} ${styles.prevButton}`}
+                onClick={prevSlide}
+                aria-label="Previous slide"
               >
-                <div className={styles.imageContainer}>
-                  <Image
-                    src={imageUrl}
-                    alt={`Offline Program ${index + 1}`}
-                    fill
-                    style={{ objectFit: 'contain' }} // Use 'contain' for posters
-                    priority={index === 0}
-                  />
+                &#10094;
+              </button>
+
+              {/* Carousel Content */}
+              <div className={styles.carousel}>
+                <div 
+                  className={styles.carouselTrack}
+                  style={{
+                    transform: `translateX(-${currentIndex * 100}%)`
+                  }}
+                >
+                  {/* Map through all images and create slides */}
+                  {images.map((imageUrl, index) => (
+                    <div 
+                      key={index}
+                      className={styles.carouselSlide}
+                    >
+                      <div className={styles.imageContainer}>
+                        <Image
+                          src={imageUrl}
+                          alt={`Announcement ${index + 1}`}
+                          fill
+                          style={{ objectFit: 'contain' }}
+                          priority={index === 0}
+                        />
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-            ))}
+
+              {/* Next Button */}
+              <button 
+                className={`${styles.carouselButton} ${styles.nextButton}`}
+                onClick={nextSlide}
+                aria-label="Next slide"
+              >
+                &#10095;
+              </button>
+
+         
+              <div className={styles.carouselDots}>
+                {images.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`${styles.dot} ${
+                      index === currentIndex ? styles.activeDot : ''
+                    }`}
+                    onClick={() => goToSlide(index)}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
+
+              {/* Slide Counter */}
+              <div className={styles.slideCounter}>
+                {currentIndex + 1} / {totalSlides}
+              </div>
+            </div>
           </div>
         </div>
-
-        {/* Next Button */}
-        <button 
-          className={`${styles.carouselButton} ${styles.nextButton}`}
-          onClick={nextSlide}
-          aria-label="Next slide"
-        >
-          &#10095;
-        </button>
-
-        {/* Dot Indicators */}
-        <div className={styles.carouselDots}>
-          {images.map((_, index) => (
-            <button
-              key={index}
-              className={`${styles.dot} ${
-                index === currentIndex ? styles.activeDot : ''
-              }`}
-              onClick={() => goToSlide(index)}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
-
-        {/* Slide Counter */}
-        <div className={styles.slideCounter}>
-          {currentIndex + 1} / {totalSlides}
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   )
 }
 

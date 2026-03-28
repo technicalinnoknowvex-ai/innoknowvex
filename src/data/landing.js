@@ -200,7 +200,7 @@ export const landingPageData = {
   footerSection: {
     heading: "Contact Us.",
     subheading: "GET IN TOUCH",
-    phone: "+91 9611209508",
+    phone: "+91 9535788085",
     email: "support@innoknowvex.in",
     address:
     //   `Aratt Girija Towers,Survey 157/1, 2nd Floor, Manipal County Club Road, Opposite Lake View County Apartment, Singasandra, Bengaluru, Karnataka - 560068`,
