@@ -1,19 +1,24 @@
 @use "../../../../../../styles/index" as *;
 
 .sectionWrapper {
-  margin-top: 100px;
+  margin-top: 80px;
   width: 100%;
   height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  //   border: 1px solid #715c119e;
-  padding: 70px 0px 0px 0px;
+  background-color: $app-background-base;
+  padding: 80px 0px 80px 0px;
   overflow: hidden;
 
   @include tablet-down {
     height: auto;
-    padding: 70px 0% 0px 0%;
+    padding: 80px 0% 80px 0%;
+  }
+
+  @include mobile-down {
+    padding: 60px 0% 60px 0%;
+    margin-top: 50px;
   }
 
   &__innerContainer {
@@ -36,10 +41,24 @@
 .mainHeaderSection {
   width: 100%;
   height: auto;
-  //   border: 1px solid red;
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  padding: 0 100px;
+
+  @media (max-width: 1050px) {
+    padding: 0 60px;
+  }
+
+  @include tablet-down {
+    padding: 0 8%;
+    margin-bottom: 30px;
+  }
+
+  @include mobile-down {
+    padding: 0 5%;
+    margin-bottom: 25px;
+  }
 
   .sectionHeadingWrapper {
     position: relative;
@@ -56,7 +75,8 @@
       @include font($font-sharp-25, $medium);
       font-size: 2rem;
       z-index: 2;
-      margin-bottom: 5px;
+      margin-bottom: 15px;
+      text-align: center;
       @include screen(sm) {
         font-size: clamp(
           2rem,
@@ -67,8 +87,8 @@
 
       .sparkleDiv {
         top: 0px;
-        left: 0px;
-        transform: translate(-80%, -80%);
+        left: 50%;
+        transform: translate(-50%, -80%);
         position: absolute;
         width: 40px;
         aspect-ratio: 1/1;
@@ -96,6 +116,7 @@
       text-transform: uppercase;
       z-index: 2;
       font-size: 1rem;
+      text-align: center;
       @include screen(sm) {
         font-size: clamp(
           1rem,
@@ -109,46 +130,87 @@
 
 .marqueeSection {
   width: 100%;
-  height: 220px;
+  height: 280px;
   display: flex;
   align-items: center;
-  // border: 1px solid red;
-  margin: 20px 0px;
+  margin: 25px 0px;
+  overflow: hidden;
+
+  @include tablet-down {
+    height: 200px;
+  }
 
   @include mobile-down {
-    height: 170px;
+    height: 240px;
+    margin: 20px 0;
   }
 }
 
 .testimonialCard {
   height: 100%;
-  aspect-ratio: 16/9;
-  background: linear-gradient(180deg, #fff7e1 0%, #f8f1de 100%);
-  border: 1px solid #715c1121;
-  border-radius: 20px 20px 20px 60px;
-  padding: 30px 30px 30px 50px;
-  margin: 0px 20px;
+  aspect-ratio: 1.15 / 1;
+  background: white;
+  border: 1px solid rgba(113, 92, 17, 0.12);
+  border-radius: 20px 20px 20px 50px;
+  padding: 28px 24px;
+  margin: 0px 12px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 16px rgba(113, 92, 17, 0.06);
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: rgba(113, 92, 17, 0.2);
+    box-shadow: 0 8px 24px rgba(113, 92, 17, 0.1);
+    transform: translateY(-4px);
+  }
+
+  @include tablet-down {
+    border-radius: 16px 16px 16px 45px;
+    padding: 22px 20px;
+    margin: 0px 10px;
+    aspect-ratio: 1.1 / 1;
+  }
 
   @include mobile-down {
-    border-radius: 20px 20px 20px 50px;
-    padding: 20px 20px 20px 40px;
+    border-radius: 14px 14px 14px 40px;
+    padding: 18px 16px;
+    margin: 0px 8px;
+    aspect-ratio: 0.95 / 1;
   }
 
   &__contentContainer {
     position: relative;
     flex: 1;
-    padding-left: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: 18px;
+
+    .iconDiv {
+      position: absolute;
+      top: -8px;
+      left: 0;
+      height: 24px;
+      aspect-ratio: 3/2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.5;
+    }
+
     p {
       @include font($font-oldschool, $book);
-      line-height: 2;
-      font-size: 0.8rem;
+      line-height: 1.5;
+      font-size: 0.85rem;
+      color: rgba(38, 44, 53, 0.85);
       display: -webkit-box;
       -webkit-line-clamp: 4;
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
+      margin-top: 12px;
 
       @include mobile-down {
         line-height: 1.5;
@@ -156,70 +218,65 @@
         -webkit-line-clamp: 4;
       }
     }
-
-    .iconDiv {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 20px;
-      aspect-ratio: 3/2;
-      transform: translate(-110%, -10%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      @include mobile-down {
-        height: 15px;
-      }
-    }
   }
 
   &__userInfoGrid {
     width: 100%;
-    height: 50px;
-    // border: 1px solid red;
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    grid-template-rows: 50% 50%;
-    column-gap: 10px;
-    grid-template-areas:
-      "avatarCell nameCell"
-      "avatarCell professionCell";
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+    align-items: center;
+    border-top: 1px solid rgba(113, 92, 17, 0.08);
+    padding-top: 14px;
 
     @include mobile-down {
-      height: 35px;
+      gap: 10px;
     }
 
     .avatarCell {
       position: relative;
-      grid-area: avatarCell;
-      height: 100%;
-      aspect-ratio: 1/1;
-      // border: 1px solid red;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       overflow: hidden;
-    }
-    .nameCell {
-      grid-area: nameCell;
-      width: 100%;
-      height: 100%;
-      //   border: 1px solid red;
-      display: flex;
-      align-items: flex-end;
-      p {
-        @include font($font-oldschool, $medium, #715c11);
-        font-size: 0.9rem;
+      flex-shrink: 0;
+      border: 2px solid rgba(255, 100, 50, 0.15);
+
+      @include mobile-down {
+        width: 36px;
+        height: 36px;
       }
     }
-    .professionCell {
-      grid-area: professionCell;
-      width: 100%;
-      height: 100%;
+
+    .nameCell {
       display: flex;
-      align-items: flex-end;
-      //   border: 1px solid red;
+      align-items: center;
       p {
-        @include font($font-oldschool, $medium);
-        font-size: 0.8rem;
+        @include font($font-sharp-25, $medium);
+        font-size: 0.95rem;
+        color: $text-primary;
+        font-weight: 600;
+        line-height: 1.2;
+
+        @include mobile-down {
+          font-size: 0.85rem;
+        }
+      }
+    }
+
+    .professionCell {
+      grid-column: 2;
+      display: flex;
+      align-items: center;
+      p {
+        @include font($font-oldschool, $book);
+        font-size: 0.75rem;
+        color: rgba(38, 44, 53, 0.6);
+        line-height: 1.2;
+
+        @include mobile-down {
+          font-size: 0.7rem;
+        }
       }
     }
   }

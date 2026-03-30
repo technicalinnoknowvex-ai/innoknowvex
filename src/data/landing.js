@@ -47,8 +47,8 @@ export const landingPageData = {
 
   },
   programsSection: {
-    heading: "Programs",
-    subheading: "Discover What we offer",
+    heading: "What",
+    subheading: "Programs We're Offering",
     para: `Get equipped with real-world skills, hands-on experience, and career-focused programs tailored to meet industry demands. Our expert-led courses are designed to help you build practical knowledge, boost your confidence, and launch a successful career in today’s fast-paced, tech-driven world.`,
     programs: [
       {
@@ -58,7 +58,9 @@ export const landingPageData = {
           "Dive into the world of Artificial Intelligence with a hands-on learning experience focused on machine learning, deep learning, and neural networks. Through interactive lessons, real-world projects, and expert guidance, you’ll move beyond theory into practical application. Whether you're starting out or upskilling, this course equips you for real-world challenges and success in an AI-driven future.",
         slug: "artificial-intelligence",
         image:
-          "https://res.cloudinary.com/dquwagna6/image/upload/v1762238482/AI_kuc5zb.jpg",
+          "https://res.cloudinary.com/dquwagna6/image/upload/v1774874557/AI_wd3nha.jpg",        
+        salary: "₹10-18 LPA",        
+        careerRoles: ["AI Engineer", "ML Engineer", "AI Researcher", "Data Scientist", "AI Consultant"],
       },
       {
         title: "Data",
@@ -67,7 +69,9 @@ export const landingPageData = {
           "Explore the field of Data Science through a structured program covering statistics, data visualization, and predictive modeling. With guided projects, step-by-step lessons, and mentorship, you’ll build the ability to transform raw data into actionable insights. This course ensures you develop industry-ready skills to solve real problems in analytics and data-driven decision-making.",
         slug: "data-science",
         image:
-          "https://res.cloudinary.com/dquwagna6/image/upload/v1762238495/Data_Science_xlm8uw.jpg",
+          "https://res.cloudinary.com/dquwagna6/image/upload/v1774874989/WhatsApp_Image_2026-03-30_at_18.18.20_hm2rd2.jpg",        
+        salary: "₹9-15 LPA",        
+        careerRoles: ["Data Scientist", "Data Analyst", "Business Analyst", "Analytics Engineer", "Data Engineer"],
       },
       {
         title: "Cyber",
@@ -76,7 +80,9 @@ export const landingPageData = {
           "Master the fundamentals of Cyber Security with a practical curriculum emphasizing threat detection, ethical hacking, and network defense. Learn through labs, simulations, and expert-led instruction that mirror real-world security challenges. Gain the confidence and skills required to protect digital environments and build a successful career in one of today’s most critical domains.",
         slug: "cyber-security",
         image:
-          "https://res.cloudinary.com/dquwagna6/image/upload/v1762238494/Cyber_Security_cxz925.jpg",
+          "https://res.cloudinary.com/dquwagna6/image/upload/v1762238494/Cyber_Security_cxz925.jpg",        
+        salary: "₹8-14 LPA",        
+        careerRoles: ["Security Engineer", "Ethical Hacker", "SOC Analyst", "Security Consultant", "Network Security Engineer"],
       },
       {
         title: "Cloud",
@@ -85,7 +91,9 @@ export const landingPageData = {
           "Step into Cloud Computing with comprehensive training on infrastructure, virtualization, and service deployment across leading platforms. Through hands-on labs, guided exercises, and applied projects, you’ll understand the backbone of modern digital solutions. Whether aiming for certifications or career growth, this program equips you to architect, deploy, and manage scalable cloud systems.",
         slug: "cloud-computing",
         image:
-          "https://res.cloudinary.com/dquwagna6/image/upload/v1762238485/Cloud_Computing_oahxvt.jpg",
+          "https://res.cloudinary.com/dquwagna6/image/upload/v1762238485/Cloud_Computing_oahxvt.jpg",       
+        salary: "₹9-16 LPA",        
+        careerRoles: ["Cloud Architect", "Cloud Engineer", "DevOps Engineer", "Cloud Solutions Architect", "Infrastructure Engineer"],
       },
       {
         title: "Machine",
@@ -94,7 +102,9 @@ export const landingPageData = {
           "Gain mastery in Machine Learning through a project-based curriculum emphasizing supervised, unsupervised, and reinforcement learning techniques. With real-world case studies, coding exercises, and expert mentorship, you’ll develop the ability to build intelligent models and deploy them in practice. This program prepares you to innovate and excel in AI-powered applications across industries.",
         slug: "machine-learning",
         image:
-          "https://res.cloudinary.com/dquwagna6/image/upload/v1762238490/Machine_Learning_uhbcvr.jpg",
+          "https://res.cloudinary.com/dquwagna6/image/upload/v1762238490/Machine_Learning_uhbcvr.jpg",        
+        salary: "₹10-17 LPA",        
+        careerRoles: ["ML Engineer", "Data Scientist", "AI Engineer", "ML Researcher", "Computer Vision Engineer"],
       },
     ],
   },
