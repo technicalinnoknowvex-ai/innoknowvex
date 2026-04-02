@@ -195,19 +195,19 @@ const navLinks = [
     href: "",
     categories: programsCategory,
   },
-  { label: "Blogs", type: "section", href: "#blogs", sectionId: "blogs" },
-  {
-    label: "Testimonials",
-    type: "section",
-    href: "#testimonials",
-    sectionId: "testimonials",
-  },
-  {
-    label: "Contact Us",
-    type: "section",
-    href: "#footer",
-    sectionId: "footer",
-  },
+  // { label: "Blogs", type: "section", href: "#blogs", sectionId: "blogs" },
+  // {
+  //   label: "Testimonials",
+  //   type: "section",
+  //   href: "#testimonials",
+  //   sectionId: "testimonials",
+  // },
+  // {
+  //   label: "Contact Us",
+  //   type: "section",
+  //   href: "#footer",
+  //   sectionId: "footer",
+  // },
   {
     label: "Power Packs",
     type: "dropdown",

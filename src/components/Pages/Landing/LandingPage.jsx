@@ -5,7 +5,7 @@ import landingStyles from "./styles/landing.module.scss";
 import SmoothScroller from "@/components/Layouts/SmoothScroller";
 import Annoucements from "./Sections/Annoucements/Annoucements";
 
-const Hero = dynamic(() => import("./Sections/Hero/Hero"));
+const ModernHero = dynamic(() => import("./Sections/ModernHero/ModernHero"));
 const AboutUs = dynamic(() => import("./Sections/AboutUs/AboutUs"));
 const Programs = dynamic(() => import("./Sections/Programs/Programs"));
 const WhyChooseUs = dynamic(() => import("./Sections/WhyChooseUs/WhyChooseUs"));
@@ -21,7 +21,7 @@ const LandingPage = () => {
   return (
     <SmoothScroller>
       <div className={landingStyles.landing}>
-        <Hero />
+        <ModernHero />
         <Annoucements/>
         <AboutUs />
         <Programs />

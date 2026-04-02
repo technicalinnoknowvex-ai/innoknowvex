@@ -1,0 +1,122 @@
+@use "@/styles/index" as *;
+
+.inlineServicesContainer {
+  width: 100%;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 107, 53, 0.08);
+
+  @media (max-width: 768px) {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+  }
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+}
+
+.serviceCard {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 107, 53, 0.08);
+  border-radius: 10px;
+  padding: 1.2rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: slideUp 0.5s ease-out forwards;
+  opacity: 0;
+
+  &:hover,
+  &.hovered {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(255, 107, 53, 0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(255, 107, 53, 0.1);
+
+    .iconSmall {
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.15) 0%, rgba(255, 107, 53, 0.08) 100%);
+      color: #ff6b35;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem 0.8rem;
+  }
+}
+
+.iconSmall {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.08) 0%, rgba(255, 107, 53, 0.04) 100%);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff6b35;
+  margin-bottom: 0.8rem;
+  transition: all 0.3s ease;
+
+  svg {
+    stroke-width: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 0.6rem;
+  }
+}
+
+.serviceTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 0.4rem 0;
+  font-family: 'Sharp Grotesk', sans-serif;
+  letter-spacing: -0.2px;
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+  }
+}
+
+.serviceDesc {
+  font-size: 0.85rem;
+  color: #404040;
+  line-height: 1.4;
+  margin: 0;
+  font-family: 'Sharp Grotesk', sans-serif;
+
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+    line-height: 1.3;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

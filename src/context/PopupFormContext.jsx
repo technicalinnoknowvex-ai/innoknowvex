@@ -4,15 +4,27 @@ import { createContext, useContext, useState } from "react";
 const PopupFormContext = createContext();
 
 export const PopupFormProvider = ({ children }) => {
-  const [isFormOpen, setIsFormOpen] = useState(true);
+  const [activeForm, setActiveForm] = useState("enquiry"); // null, 'enquiry', or 'schedule'
 
-  const openForm = () => setIsFormOpen(true);
-  const closeForm = () => setIsFormOpen(false);
-  const toggleForm = () => setIsFormOpen((prev) => !prev);
+  const openEnquiryForm = () => setActiveForm("enquiry");
+  const openScheduleForm = () => setActiveForm("schedule");
+  const closeForm = () => setActiveForm(null);
+  const toggleForm = () => setActiveForm((prev) => (prev ? null : "enquiry"));
 
   return (
     <PopupFormContext.Provider
-      value={{ isFormOpen, openForm, closeForm, toggleForm }}
+      value={{
+        activeForm,
+        isEnquiryFormOpen: activeForm === "enquiry",
+        isScheduleFormOpen: activeForm === "schedule",
+        openEnquiryForm,
+        openScheduleForm,
+        closeForm,
+        toggleForm,
+        // Keep legacy props for backwards compatibility
+        isFormOpen: activeForm === "enquiry",
+        openForm: openEnquiryForm,
+      }}
     >
       {children}
     </PopupFormContext.Provider>

@@ -21,7 +21,7 @@ const FormSchema = z.object({
 
 const PopUpForm = () => {
   const formRef = useRef(null);
-  const { isFormOpen, closeForm } = usePopupForm();
+  const { isEnquiryFormOpen, closeForm } = usePopupForm();
 
   const {
     register,
@@ -77,7 +77,7 @@ const PopUpForm = () => {
   }, [isSubmitting]);
 
   useGSAP(() => {
-    if (isFormOpen && formRef.current) {
+    if (isEnquiryFormOpen && formRef.current) {
       gsap.fromTo(
         formRef.current,
         {
@@ -94,7 +94,7 @@ const PopUpForm = () => {
         }
       );
     }
-  }, [isFormOpen]);
+  }, [isEnquiryFormOpen]);
 
   const onSubmit = async (data) => {
     const payload = { ...data, timestamp: new Date().toISOString() };
@@ -109,7 +109,7 @@ const PopUpForm = () => {
     }
   };
 
-  if (!isFormOpen) {
+  if (!isEnquiryFormOpen) {
     return null;
   }
   

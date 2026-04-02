@@ -85,7 +85,7 @@ const Annoucements = () => {
             className={styles.popupModal} 
             onClick={(e) => e.stopPropagation()}
             style={{
-              top: `${scrollY + window.innerHeight / 2}px`
+              top: `${scrollY + window.innerHeight/2}px`
             }}
           >
           

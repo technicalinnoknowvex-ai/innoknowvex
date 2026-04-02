@@ -1,0 +1,177 @@
+@use "@/styles/index" as *;
+
+.statsOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.statCard {
+  position: absolute;
+  background: transparent;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  pointer-events: auto;
+
+  &:hover {
+    transform: translateY(-5px);
+
+    .iconWrapper {
+      transform: scale(1.15);
+      background: rgba(255, 107, 53, 0.15);
+    }
+  }
+
+  &.withLink {
+    cursor: pointer;
+
+    &:hover .linkIcon {
+      opacity: 1;
+      transform: translate(8px, -8px);
+    }
+  }
+
+  &.topLeft {
+    top: 5%;
+    left: 5%;
+  }
+
+  &.topRight {
+    top: 5%;
+    right: 5%;
+  }
+
+  &.bottomLeft {
+    bottom: 5%;
+    left: 5%;
+  }
+
+  &.bottomRight {
+    bottom: 5%;
+    right: 5%;
+  }
+
+  @media (max-width: 1024px) {
+    &.topLeft {
+      top: 8%;
+      left: 8%;
+    }
+
+    &.topRight {
+      top: 8%;
+      right: 8%;
+    }
+
+    &.bottomLeft {
+      bottom: 8%;
+      left: 8%;
+    }
+
+    &.bottomRight {
+      bottom: 8%;
+      right: 8%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    &.topLeft {
+      top: 10%;
+      left: 5%;
+    }
+
+    &.topRight {
+      top: 10%;
+      right: 5%;
+    }
+
+    &.bottomLeft {
+      bottom: 10%;
+      left: 5%;
+    }
+
+    &.bottomRight {
+      bottom: 10%;
+      right: 5%;
+    }
+  }
+}
+
+.iconWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background: rgba(255, 107, 53, 0.08);
+  border-radius: 14px;
+  margin: 0 auto 0.8rem;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 107, 53, 0.15);
+
+  @media (max-width: 768px) {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 0.7rem;
+  }
+
+  @media (max-width: 480px) {
+    width: 46px;
+    height: 46px;
+    margin-bottom: 0.6rem;
+  }
+}
+
+.linkIcon {
+  position: absolute;
+  bottom: -6px;
+  right: -6px;
+  background: #ff6b35;
+  color: white;
+  border-radius: 50%;
+  padding: 2px;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.statNumber {
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: #ff6b35;
+  margin-bottom: 0.3rem;
+  font-family: 'Sharp Grotesk', sans-serif;
+  letter-spacing: -0.5px;
+
+  @media (max-width: 768px) {
+    font-size: 1.6rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.3rem;
+  }
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  color: #404040;
+  font-weight: 600;
+  line-height: 1.3;
+  font-family: 'Sharp Grotesk', sans-serif;
+
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.7rem;
+  }
+}
+

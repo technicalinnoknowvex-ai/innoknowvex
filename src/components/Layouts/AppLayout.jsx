@@ -4,6 +4,8 @@ import SmoothScroller from "./SmoothScroller";
 import Navbar from "../Pages/Landing/Sections/Navbar/Navbar";
 import { NavColorProvider } from "@/context/NavColorContext";
 import PopUpForm from "../PopUpForm/PopUpForm";
+import ScheduleModal from "../PopUpForm/ScheduleModal";
+import FloatingButton from "../Common/FloatingButton";
 import { PopupFormProvider } from "@/context/PopupFormContext";
 
 const AppLayout = ({ children }) => {
@@ -13,6 +15,8 @@ const AppLayout = ({ children }) => {
         <PopupFormProvider>
           <Navbar />
           <PopUpForm />
+          <ScheduleModal />
+          <FloatingButton />
           <SmoothScroller>{children}</SmoothScroller>
         </PopupFormProvider>
       </NavColorProvider>
