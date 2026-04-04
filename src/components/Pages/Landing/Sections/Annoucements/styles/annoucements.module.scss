@@ -1,0 +1,399 @@
+@use "../../../../../../styles/index" as *;
+
+// Popup Overlay styles
+.popupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: block;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+  pointer-events: auto;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+// Popup Modal styles
+.popupModal {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, #f8f1de 0%, #faf6ed 100%);
+  border-radius: 24px;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  width: 90vw;
+  max-width: 1000px;
+  height: 85vh;
+  max-height: 700px;
+  overflow: hidden;
+  animation: popupSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  z-index: 1001;
+}
+
+@keyframes popupSlideIn {
+  from {
+    transform: translate(-50%, -200%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+
+
+.annoucementSection {
+  display: none;
+}
+
+
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+  border: none;
+  color: white;
+  padding: 10px 24px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+
+  &:hover {
+    background: linear-gradient(135deg, #ff5252, #ee4f63);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+// Announcement Heading
+.annoucementHeading {
+  margin: 10px 0 8px 0;
+  font-size: clamp(1.75rem, 1.35rem + 1.25vw, 2.5rem);
+  line-height: 1.08;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ff6432, #262c35);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+
+// Announcement Subtitle
+.annoucementSubtitle {
+  @include landing-section-secondary-heading;
+  margin: 0 0 12px 0;
+  text-align: center;
+  color: $text-primary;
+}
+
+.layout {
+  width: 100%;
+  min-height: calc(100vh + 60px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  gap: 40px;
+}
+
+.textContainer {
+  text-align: center;
+
+  h1 {
+    @include font($font-sharp-25, $medium);
+    font-size: clamp(2rem, 5vw, 4rem);
+    margin: 0;
+  }
+
+  h2 {
+    @include font($font-sharp-20, $medium);
+    font-size: clamp(2rem, 5vw, 4rem);
+    margin: 0;
+  }
+}
+
+// Main carousel wrapper (used in popup)
+.popupCarouselWrapper {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  margin: 0;
+  padding: 0 40px 15px 40px;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+// Carousel viewport - hides overflow
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+  background: #f8f1de;
+}
+
+// The track that holds all slides
+.carouselTrack {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  // transform is driven by GSAP for smoother easing
+  transition: none;
+  will-change: transform;
+}
+
+// Individual slide
+.carouselSlide {
+  min-width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: linear-gradient(135deg, #f8f1de 0%, #faf6ed 100%);
+}
+
+// Image container with aspect ratio
+.imageContainer {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  background: linear-gradient(135deg, #f8f1de 0%, #faf6ed 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    object-fit: contain;
+  }
+}
+
+// Optional content overlay
+.slideContent {
+  padding: 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #f8f1de 0%, #faf6ed 100%);
+
+  h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.5rem;
+  }
+
+  p {
+    margin: 0;
+    color: #666;
+  }
+}
+
+// Navigation buttons
+.carouselButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(135deg, #ff6432, #ff8a5f);
+  border: none;
+  font-size: 2rem;
+  padding: 15px 20px;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  color: white;
+  box-shadow: 0 4px 15px rgba(255, 100, 50, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: linear-gradient(135deg, #ff7a4d, #ff9f73);
+    box-shadow: 0 6px 25px rgba(255, 100, 50, 0.4);
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+}
+
+.prevButton {
+  left: 20px;
+}
+
+.nextButton {
+  right: 20px;
+}
+
+// Dot indicators
+.carouselDots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px 0;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #ff6432;
+  background: rgba(255, 100, 50, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+
+  &:hover {
+    background: rgba(255, 100, 50, 0.6);
+    transform: scale(1.2);
+  }
+}
+
+.activeDot {
+  background: #ff6432;
+  transform: scale(1.4);
+}
+
+// Slide counter
+.slideCounter {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #ff6432, #ff8a5f);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  z-index: 10;
+  box-shadow: 0 4px 15px rgba(255, 100, 50, 0.3);
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .popupModal {
+    max-width: 95vw;
+    max-height: 80vh;
+    border-radius: 12px;
+    height: 80vh;
+  }
+
+  .carouselButton {
+    font-size: 1.3rem;
+    padding: 12px 16px;
+  }
+
+  .prevButton {
+    left: 8px;
+  }
+
+  .nextButton {
+    right: 8px;
+  }
+
+  .imageContainer {
+    min-height: 250px;
+  }
+
+  .closeButton {
+    padding: 10px 20px;
+    font-size: 11px;
+    top: 10px;
+    right: 10px;
+  }
+
+  .annoucementHeading {
+    font-size: 1.6rem;
+    margin: 5px 0 5px 0;
+  }
+
+  .annoucementSubtitle {
+    font-size: 0.95rem;
+    margin: 0 0 8px 0;
+  }
+
+  .popupCarouselWrapper {
+    padding: 0 20px 15px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .popupModal {
+    max-width: 100vw;
+    max-height: 75vh;
+    height: 75vh;
+    border-radius: 8px;
+    width: 95vw;
+  }
+
+  .annoucementHeading {
+    font-size: 1.4rem;
+    margin: 3px 0 3px 0;
+  }
+
+  .annoucementSubtitle {
+    font-size: 0.85rem;
+    margin: 0 0 5px 0;
+  }
+
+  .imageContainer {
+    min-height: 200px;
+  }
+
+  .carouselButton {
+    font-size: 1rem;
+    padding: 10px 12px;
+  }
+
+  .closeButton {
+    padding: 8px 16px;
+    font-size: 10px;
+    top: 8px;
+    right: 8px;
+  }
+
+  .popupCarouselWrapper {
+    padding: 0 15px 10px 15px;
+  }
+}

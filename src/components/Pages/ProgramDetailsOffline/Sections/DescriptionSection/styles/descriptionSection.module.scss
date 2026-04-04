@@ -1,0 +1,558 @@
+
+@use "../../../../../../styles/fonts" as *;
+
+.descriptionContainer {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden; // Prevent horizontal overflow
+
+  // Enhanced width constraints for 1024x550
+  @media (max-width: 1446px) and (min-width: 770px) {
+    max-width: 100vw; // Use full viewport width
+    padding: 0; // Remove padding to maximize space
+    margin: 0; // Remove auto margins
+  }
+
+  // Specific fix for 1024x550 range
+  @media (max-width: 1024px) and (min-width: 770px) {
+    max-width: 100vw;
+    margin: 0;
+    overflow-x: hidden;
+  }
+
+  // Image Section - Fully responsive
+  .imageWrapper {
+    width: 100%;
+    padding: 0 4.375%; // 70px at 1600px
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+
+    // Large Desktop
+    @media (max-width: 1600px) and (min-width: 1447px) {
+      padding: 0 4%;
+    }
+
+    // Medium Desktop - Fixed for your range
+    @media (max-width: 1446px) and (min-width: 1200px) {
+      padding: 0 2%;
+    }
+
+    // Small Desktop - Fixed for your range
+    @media (max-width: 1199px) and (min-width: 1025px) {
+      padding: 0 2%;
+    }
+
+    // Tablet Landscape - Enhanced for 1024x550
+    @media (max-width: 1024px) and (min-width: 770px) {
+      padding: 0 15px; // Fixed padding for consistent spacing
+      width: 100%;
+    }
+
+    // Below your range
+    @media (max-width: 769px) and (min-width: 601px) {
+      margin-top: 100px;
+      padding: 0 3%;
+    }
+
+    // Small Tablet
+    @media (max-width: 600px) and (min-width: 481px) {
+      margin-top: 100px;
+      padding: 0 2.5%;
+    }
+
+    // Mobile
+    @media (max-width: 480px) and (min-width: 376px) {
+      margin-top: 100px;
+      padding: 0 15px;
+    }
+
+    // Small Mobile
+    @media (max-width: 375px) {
+      margin-top: 80px;
+      padding: 0 12px;
+    }
+  }
+
+  .courseImage {
+    width: 100%;
+    max-width: 1400px;
+    height: auto;
+    border-radius: 30px 60px 30px 60px;
+    object-fit: cover;
+    transition: all 0.3s ease;
+    display: block;
+
+    // Large Desktop
+    @media (max-width: 1600px) and (min-width: 1447px) {
+      max-height: 480px;
+    }
+
+    // Medium Desktop - Fixed for your range
+    @media (max-width: 1446px) and (min-width: 1200px) {
+      max-width: 900px;
+      max-height: 350px;
+      border-radius: 20px 40px 20px 40px;
+    }
+
+    // Small Desktop - Fixed for your range
+    @media (max-width: 1199px) and (min-width: 1025px) {
+      max-width: 800px;
+      max-height: 320px;
+      border-radius: 18px 36px 18px 36px;
+    }
+
+    // Tablet Landscape - Optimized for 1024x550
+    @media (max-width: 1024px) and (min-width: 770px) {
+      max-width: calc(100vw - 30px); // Ensure it fits with padding
+      max-height: 200px; // Reduced height for 550px screens
+      border-radius: 12px 24px 12px 24px; // Smaller radius
+    }
+
+    // Below your range
+    @media (max-width: 769px) and (min-width: 601px) {
+      max-height: 320px;
+      border-radius: 20px 40px 20px 40px;
+    }
+
+    // Small Tablet
+    @media (max-width: 600px) and (min-width: 481px) {
+      max-height: 280px;
+      border-radius: 18px 36px 18px 36px;
+    }
+
+    // Mobile
+    @media (max-width: 480px) and (min-width: 376px) {
+      max-height: 240px;
+      border-radius: 15px 30px 15px 30px;
+    }
+
+    // Small Mobile
+    @media (max-width: 375px) {
+      max-height: 220px;
+      border-radius: 12px 24px 12px 24px;
+    }
+  }
+
+  // Heading
+  h2 {
+    padding-left: 4.375%; // 70px at 1600px
+    padding-right: 4.375%;
+    padding-top: 50px;
+    padding-bottom: 30px;
+    font-family: $font-sharp-25;
+    font-weight: 430;
+    color: #262c35;
+    font-size: 2rem;
+    line-height: 1.2;
+    margin: 0;
+
+    // Large Desktop
+    @media (max-width: 1600px) and (min-width: 1447px) {
+      padding-left: 4%;
+      padding-right: 4%;
+      font-size: 1.95rem;
+    }
+
+    // Medium Desktop - Fixed for your range
+    @media (max-width: 1446px) and (min-width: 1200px) {
+      padding-left: 2%;
+      padding-right: 2%;
+      padding-top: 35px;
+      padding-bottom: 20px;
+      font-size: 1.65rem;
+    }
+
+    // Small Desktop - Fixed for your range
+    @media (max-width: 1199px) and (min-width: 1025px) {
+      padding-left: 2%;
+      padding-right: 2%;
+      padding-top: 32px;
+      padding-bottom: 18px;
+      font-size: 1.55rem;
+    }
+
+    // Tablet Landscape - Optimized for 1024x550
+    @media (max-width: 1024px) and (min-width: 770px) {
+      padding-left: 15px; // Fixed padding
+      padding-right: 15px;
+      padding-top: 20px; // Reduced for shorter screens
+      padding-bottom: 12px; // Reduced spacing
+      font-size: 1.25rem; // Smaller font for compact layout
+      line-height: 1.15;
+    }
+
+    // Below your range
+    @media (max-width: 769px) and (min-width: 601px) {
+      padding-left: 3%;
+      padding-right: 3%;
+      padding-top: 35px;
+      padding-bottom: 22px;
+      font-size: 1.7rem;
+    }
+
+    // Small Tablet
+    @media (max-width: 600px) and (min-width: 481px) {
+      padding-left: 2.5%;
+      padding-right: 2.5%;
+      padding-top: 32px;
+      padding-bottom: 20px;
+      font-size: 1.6rem;
+    }
+
+    // Mobile
+    @media (max-width: 480px) and (min-width: 376px) {
+      padding-left: 15px;
+      padding-right: 15px;
+      padding-top: 30px;
+      padding-bottom: 18px;
+      font-size: 1.5rem;
+    }
+
+    // Small Mobile
+    @media (max-width: 375px) {
+      padding-left: 12px;
+      padding-right: 12px;
+      padding-top: 25px;
+      padding-bottom: 16px;
+      font-size: 1.4rem;
+    }
+  }
+
+  // Paragraph
+  p {
+    padding-left: 4.375%;
+    padding-right: 4.375%;
+    font-family: $font-oldschool;
+    font-size: 1.2rem;
+    color: #262c35;
+    line-height: 1.7;
+    margin: 0;
+
+    // Large Desktop
+    @media (max-width: 1600px) and (min-width: 1447px) {
+      padding-left: 4%;
+      padding-right: 4%;
+      font-size: 0.98rem;
+    }
+
+    // Medium Desktop - Fixed for your range
+    @media (max-width: 1446px) and (min-width: 1200px) {
+      padding-left: 2%;
+      padding-right: 2%;
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    // Small Desktop - Fixed for your range
+    @media (max-width: 1199px) and (min-width: 1025px) {
+      padding-left: 2%;
+      padding-right: 2%;
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    // Tablet Landscape - Optimized for 1024x550
+    @media (max-width: 1024px) and (min-width: 770px) {
+      padding-left: 15px; // Fixed padding
+      padding-right: 15px;
+      font-size: 0.8rem; // Smaller text for compact layout
+      line-height: 1.4; // Tighter line height
+      max-height: 120px; // Limit height to prevent overflow
+      overflow-y: auto; // Allow scrolling if needed
+    }
+
+    // Below your range
+    @media (max-width: 769px) and (min-width: 601px) {
+      padding-left: 3%;
+      padding-right: 3%;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    // Small Tablet
+    @media (max-width: 600px) and (min-width: 481px) {
+      padding-left: 2.5%;
+      padding-right: 2.5%;
+      font-size: 0.88rem;
+      line-height: 1.65;
+    }
+
+    // Mobile
+    @media (max-width: 480px) and (min-width: 376px) {
+      padding-left: 15px;
+      padding-right: 15px;
+      font-size: 0.86rem;
+      line-height: 1.6;
+    }
+
+    // Small Mobile
+    @media (max-width: 375px) {
+      padding-left: 12px;
+      padding-right: 12px;
+      font-size: 0.84rem;
+      line-height: 1.55;
+    }
+  }
+
+  // Buttons Section
+  .buttons {
+    padding-top: 30px;
+    padding-left: 4.375%;
+    padding-right: 4.375%;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+    font-family: $font-oldschool;
+
+    // Large Desktop
+    @media (max-width: 1600px) and (min-width: 1447px) {
+      padding-left: 4%;
+      padding-right: 4%;
+      padding-top: 28px;
+    }
+
+    // Medium Desktop - Fixed for your range
+    @media (max-width: 1446px) and (min-width: 1200px) {
+      padding-left: 2%;
+      padding-right: 2%;
+      padding-top: 20px;
+      gap: 14px;
+    }
+
+    // Small Desktop - Fixed for your range
+    @media (max-width: 1199px) and (min-width: 1025px) {
+      padding-left: 2%;
+      padding-right: 2%;
+      padding-top: 18px;
+      gap: 12px;
+    }
+
+    // Tablet Landscape - Optimized for 1024x550
+    @media (max-width: 1024px) and (min-width: 770px) {
+      padding-left: 15px; // Fixed padding
+      padding-right: 15px;
+      padding-top: 12px; // Reduced spacing
+      gap: 10px;
+      justify-content: flex-start;
+      flex-wrap: nowrap; // Prevent wrapping to save vertical space
+    }
+
+    // Below your range
+    @media (max-width: 769px) and (min-width: 601px) {
+      padding-left: 3%;
+      padding-right: 3%;
+      padding-top: 20px;
+      gap: 15px;
+      justify-content: flex-start;
+    }
+
+    // Small Tablet
+    @media (max-width: 600px) and (min-width: 481px) {
+      padding-left: 2.5%;
+      padding-right: 2.5%;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+    }
+
+    // Mobile
+    @media (max-width: 480px) and (min-width: 376px) {
+      padding-left: 15px;
+      padding-right: 15px;
+      padding-top: 18px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+    }
+
+    // Small Mobile
+    @media (max-width: 375px) {
+      padding-left: 12px;
+      padding-right: 12px;
+      padding-top: 16px;
+      gap: 10px;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    // Button Base Styles
+    button {
+      transition: all 0.3s ease;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 500;
+      border: none;
+      outline: none;
+      text-align: center;
+      min-width: 150px;
+      white-space: nowrap;
+
+      // Medium Desktop - Fixed for your range
+      @media (max-width: 1446px) and (min-width: 1200px) {
+        min-width: 130px;
+      }
+
+      // Small Desktop - Fixed for your range
+      @media (max-width: 1199px) and (min-width: 1025px) {
+        min-width: 125px;
+      }
+
+      // Tablet Landscape - Optimized for 1024x550
+      @media (max-width: 1024px) and (min-width: 770px) {
+        min-width: 100px; // Smaller buttons to fit side by side
+        flex: 1; // Allow buttons to grow equally
+        max-width: 200px; // Prevent buttons from getting too wide
+      }
+
+      // Below your range
+      @media (max-width: 769px) and (min-width: 601px) {
+        min-width: 130px;
+      }
+
+      // Small tablet and mobile - full width
+      @media (max-width: 600px) {
+        min-width: 100%;
+        width: 100%;
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(255, 100, 50, 0.3);
+      }
+
+      &:active {
+        transform: translateY(1px);
+      }
+    }
+
+    .startnow {
+      padding: 12px 20px;
+      border-radius: 5px 20px 5px 20px;
+      background-color: #ff6432;
+      color: white;
+      border: 1px solid #ff6432;
+      font-size: 1rem;
+
+      &:hover {
+        background-color: #e55b2b;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(255, 100, 50, 0.3);
+      }
+
+      // Medium Desktop - Fixed for your range
+      @media (max-width: 1446px) and (min-width: 1200px) {
+        padding: 9px 16px;
+        font-size: 0.9rem;
+      }
+
+      // Small Desktop - Fixed for your range
+      @media (max-width: 1199px) and (min-width: 1025px) {
+        padding: 9px 15px;
+        font-size: 0.88rem;
+      }
+
+      // Tablet Landscape - Optimized for 1024x550
+      @media (max-width: 1024px) and (min-width: 770px) {
+        padding: 6px 12px; // Smaller padding for compact layout
+        font-size: 0.8rem; // Smaller font
+        border-radius: 3px 12px 3px 12px; // Smaller radius
+      }
+
+      // Below your range
+      @media (max-width: 769px) and (min-width: 601px) {
+        padding: 10px 16px;
+        font-size: 0.92rem;
+        border-radius: 4px 16px 4px 16px;
+      }
+
+      // Small Tablet
+      @media (max-width: 600px) and (min-width: 481px) {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+      }
+
+      // Mobile
+      @media (max-width: 480px) and (min-width: 376px) {
+        padding: 11px 18px;
+        font-size: 0.88rem;
+        border-radius: 3px 15px 3px 15px;
+      }
+
+      // Small Mobile
+      @media (max-width: 375px) {
+        padding: 10px 16px;
+        font-size: 0.86rem;
+        border-radius: 3px 12px 3px 12px;
+      }
+    }
+
+    .Brochure {
+      padding: 12px 20px;
+      border-radius: 5px 20px 5px 20px;
+      background-color: transparent;
+      color: #ff6432;
+      border: 1px solid #ff6432;
+      font-size: 1rem;
+
+      &:hover {
+        background-color: rgba(255, 100, 50, 0.1);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(255, 100, 50, 0.2);
+      }
+
+      // Medium Desktop - Fixed for your range
+      @media (max-width: 1446px) and (min-width: 1200px) {
+        padding: 9px 16px;
+        font-size: 0.9rem;
+      }
+
+      // Small Desktop - Fixed for your range
+      @media (max-width: 1199px) and (min-width: 1025px) {
+        padding: 9px 15px;
+        font-size: 0.88rem;
+      }
+
+      // Tablet Landscape - Optimized for 1024x550
+      @media (max-width: 1024px) and (min-width: 770px) {
+        padding: 6px 12px; // Smaller padding for compact layout
+        font-size: 0.8rem; // Smaller font
+        border-radius: 3px 12px 3px 12px; // Smaller radius
+      }
+
+      // Below your range
+      @media (max-width: 769px) and (min-width: 601px) {
+        padding: 10px 16px;
+        font-size: 0.92rem;
+        border-radius: 4px 16px 4px 16px;
+      }
+
+      // Small Tablet
+      @media (max-width: 600px) and (min-width: 481px) {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+      }
+
+      // Mobile
+      @media (max-width: 480px) and (min-width: 376px) {
+        padding: 11px 18px;
+        font-size: 0.88rem;
+        border-radius: 3px 15px 3px 15px;
+      }
+
+      // Small Mobile
+      @media (max-width: 375px) {
+        padding: 10px 16px;
+        font-size: 0.86rem;
+        border-radius: 3px 12px 3px 12px;
+      }
+    }
+  }
+
+  // Section wrapper
+  section {
+    width: 100%;
+  }
+}

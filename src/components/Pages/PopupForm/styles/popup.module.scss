@@ -1,0 +1,423 @@
+
+
+.overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  z-index: 999999 !important; // Maximum z-index
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease-out;
+  padding: 20px;
+  box-sizing: border-box;
+  
+  // Force centering and positioning
+  position: fixed !important;
+  inset: 0 !important;
+  margin: 0 !important;
+  
+  // Ensure it's always on top and visible
+  pointer-events: auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  
+  // Prevent any scrolling on the overlay itself
+  overflow: hidden !important;
+  
+  // Ensure proper stacking context
+  isolation: isolate;
+  contain: layout style paint;
+}
+
+.popup {
+  background-color: #FFF7E1;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 500px;
+  height: auto;
+  max-height: 85vh;
+  position: relative !important;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(156, 127, 22, 0.3);
+  animation: slideIn 0.4s ease-out;
+  
+  // Force visibility and positioning
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 1000000 !important;
+  
+  // Remove all scrollbars from popup
+  overflow: visible !important;
+  
+  // Ensure popup content doesn't overflow
+  box-sizing: border-box;
+  
+  // Center the popup perfectly
+  margin: auto !important;
+  flex-shrink: 0;
+  
+  // Ensure it appears above everything
+  transform-origin: center center;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+    width: 95%;
+    max-height: 80vh;
+    margin: auto !important;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.25rem;
+    border-radius: 12px;
+    max-height: 75vh;
+    width: 98%;
+    margin: auto !important;
+  }
+}
+
+// Remove close button styles since we removed the button
+// .closeButton styles removed
+
+.header {
+  margin-bottom: 2rem;
+  text-align: center;
+
+  h2 {
+    color: #9C7F16;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+    margin-top: 0;
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1.3rem;
+    }
+  }
+
+  p {
+    color: #666;
+    font-size: 1rem;
+    margin: 0;
+    line-height: 1.5;
+
+    @media (max-width: 480px) {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  
+  // Ensure form doesn't create overflow
+  overflow: visible;
+
+  @media (max-width: 480px) {
+    gap: 1rem;
+  }
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  label {
+    font-weight: 600;
+    color: #9C7F16;
+    font-size: 0.95rem;
+    letter-spacing: 0.025em;
+
+    @media (max-width: 480px) {
+      font-size: 0.9rem;
+    }
+  }
+
+  input {
+    padding: 0.875rem 1rem;
+    border: 2px solid #9C7F16;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #FEFDF8;
+    color: #333;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    outline: none;
+    
+    // Ensure inputs don't cause overflow
+    box-sizing: border-box;
+    width: 100%;
+
+    @media (max-width: 768px) {
+      padding: 0.75rem;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 480px) {
+      padding: 0.65rem 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    &::placeholder {
+      color: #999;
+
+      @media (max-width: 480px) {
+        font-size: 0.85rem;
+      }
+    }
+
+    &:focus {
+      border-color: #7A6514;
+      box-shadow: 0 0 0 3px rgba(156, 127, 22, 0.15);
+      background-color: #FFF;
+      transform: translateY(-1px);
+    }
+
+    &:hover:not(:focus) {
+      border-color: #7A6514;
+      box-shadow: 0 2px 4px rgba(156, 127, 22, 0.1);
+    }
+
+    &:invalid:not(:placeholder-shown) {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+    }
+
+    &:valid:not(:placeholder-shown) {
+      border-color: #28a745;
+      box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+    }
+  }
+}
+
+.submitButton {
+  background: linear-gradient(135deg, #9C7F16, #B8951A);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  outline: none;
+  
+  // Ensure button doesn't cause overflow
+  box-sizing: border-box;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+    margin-top: 0.75rem;
+  }
+
+  &:hover:not(:disabled) {
+    background: linear-gradient(135deg, #7A6514, #9C7F16);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(156, 127, 22, 0.4);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(156, 127, 22, 0.3);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(156, 127, 22, 0.3);
+  }
+
+  &:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    opacity: 0.7;
+
+    &:hover {
+      background: #ccc;
+      transform: none;
+    }
+  }
+}
+
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(-30px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(0) scale(1);
+  }
+}
+
+// Additional CSS to ensure popup appears in viewport center
+.overlay {
+  // Force the overlay to cover the entire viewport
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  
+  // Center content using flexbox
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  
+  // Ensure it's above all other content
+  z-index: 999999 !important;
+}
+
+// Force popup to center of screen regardless of page scroll
+.popup {
+  // Use absolute positioning relative to the fixed overlay
+  position: static !important;
+  
+  // Remove any transforms that might offset positioning
+  transform: none !important;
+  
+  // Ensure it's centered by flexbox parent
+  margin: 0 !important;
+}
+
+// Responsive design enhancements
+@media (max-width: 768px) {
+  .overlay {
+    padding: 15px;
+  }
+
+  .popup {
+    max-height: 80vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .overlay {
+    padding: 10px;
+  }
+
+  .popup {
+    max-height: 75vh;
+    padding: 1rem;
+  }
+
+  .header {
+    margin-bottom: 1.5rem;
+    padding-right: 36px;
+  }
+
+  .form {
+    gap: 0.875rem;
+  }
+
+  .inputGroup {
+    gap: 0.4rem;
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .overlay {
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+
+  .popup {
+    border: 3px solid #000;
+  }
+
+  .closeButton {
+    border: 2px solid #9C7F16;
+  }
+
+  .inputGroup input {
+    border-width: 3px;
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .overlay {
+    animation: none;
+  }
+
+  .popup {
+    animation: none;
+  }
+
+  .closeButton,
+  .submitButton,
+  .inputGroup input {
+    transition: none;
+  }
+
+  .submitButton:hover:not(:disabled) {
+    transform: none;
+  }
+}
+
+// Force overlay to be on top of everything and centered
+.overlay {
+  isolation: isolate;
+  contain: layout style paint;
+  
+  // Additional centering insurance
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+  }
+}
+
+// Debug helper - remove in production
+.popup {
+  // Ensure popup visibility with bright border for debugging
+  border: 3px solid #9C7F16 !important;
+  
+  // Add some debugging styles
+  background: #FFF7E1 !important;
+  
+  // Force it to be visible
+  opacity: 1 !important;
+  display: block !important;
+  visibility: visible !important;
+}

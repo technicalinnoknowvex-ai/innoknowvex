@@ -1,0 +1,66 @@
+@use "./variables" as v;
+@use "./fonts" as *;
+@use "./mixins" as m;
+
+// Shared scale for landing page section titles (H2-style)
+@mixin landing-section-primary-heading {
+  @include m.font($font-sharp-25, $medium, v.$text-primary);
+  margin: 0 0 6px 0;
+  font-size: clamp(1.75rem, 1.35rem + 1.25vw, 2.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+// Eyebrow / subheading under section titles (uppercase brand line)
+@mixin landing-section-secondary-heading {
+  @include m.font($font-sharp-25, $medium, v.$text-brand);
+  margin: 0;
+  text-transform: uppercase;
+  font-size: clamp(0.78rem, 0.7rem + 0.35vw, 0.95rem);
+  line-height: 1.2;
+  letter-spacing: 0.55px;
+}
+
+// Body copy under section headers (About, Programs intro, Why choose us, FAQ, etc.)
+@mixin landing-body-text {
+  @include m.font($font-oldschool, $medium);
+  color: rgba(38, 44, 53, 0.88);
+  margin: 0;
+  font-size: clamp(0.95rem, 0.82rem + 0.35vw, 1.08rem);
+  line-height: 1.6;
+}
+
+// Hero paragraph + secondary lines (keeps Oldschool for readability)
+@mixin landing-hero-body {
+  @include m.font($font-oldschool, $medium);
+  color: rgba(38, 44, 53, 0.9);
+  font-size: clamp(0.95rem, 0.82rem + 0.35vw, 1.05rem);
+  line-height: 1.6;
+}
+
+// Footer / dark sections: main title
+@mixin landing-section-primary-heading-inverse {
+  @include m.font($font-sharp-25, $medium, #ffffff);
+  margin: 0 0 8px 0;
+  font-size: clamp(1.5rem, 1.1rem + 1.1vw, 2.2rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+@mixin landing-section-secondary-heading-inverse {
+  @include m.font($font-sharp-25, $medium, v.$text-tertiary);
+  margin: 0;
+  text-transform: uppercase;
+  font-size: clamp(0.78rem, 0.7rem + 0.35vw, 0.95rem);
+  line-height: 1.2;
+  letter-spacing: 0.55px;
+}
+
+// FAQ questions, compact labels
+@mixin landing-label-uppercase {
+  @include m.font($font-sharp-25, $medium, v.$text-secondary);
+  font-size: clamp(0.8rem, 0.74rem + 0.2vw, 0.88rem);
+  line-height: 1.35;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
