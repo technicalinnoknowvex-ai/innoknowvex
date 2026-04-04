@@ -252,16 +252,7 @@ const Programs = () => {
                 style={{ objectFit: "cover", objectPosition: "center" }}
               />
 
-              {/* Floating glassmorphism badge */}
-              <div className={styles.imageBadge}>
-                <div className={styles.badgeIcon}>🎓</div>
-                <div className={styles.badgeText}>
-                  <span className={styles.badgeTop}>Currently Viewing</span>
-                  <span className={styles.badgeBottom}>
-                    {currentProgram.title.split(" ").slice(0, 2).join(" ")}
-                  </span>
-                </div>
-              </div>
+
             </div>
           </div>
 
@@ -349,7 +340,7 @@ const Programs = () => {
                   <span className={styles.btnArrow}>→</span>
                 </Link>
 
-                <Link href="/programs" className={styles.viewAllBtn}>
+                <Link href="/choose-packs" className={styles.viewAllBtn}>
                   View All Programs
                 </Link>
               </div>
