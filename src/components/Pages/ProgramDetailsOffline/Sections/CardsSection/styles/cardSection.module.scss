@@ -245,6 +245,18 @@
     border-left: 9px solid rgba(34, 211, 238, 0.92);
     filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.35));
     transform: translateY(-50%);
+    animation: arrowPulse 2s ease-in-out infinite;
+  }
+}
+
+@keyframes arrowPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.35)) drop-shadow(0 0 0px rgba(34, 211, 238, 0));
+    transform: translateY(-50%);
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(34, 211, 238, 0.6)) drop-shadow(0 0 6px rgba(167, 139, 250, 0.4));
+    transform: translateY(-50%) translateX(2px);
   }
 }
 

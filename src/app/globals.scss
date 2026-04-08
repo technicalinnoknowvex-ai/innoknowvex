@@ -8,16 +8,19 @@
 }
 
 html {
-  height: 100%; // Changed from position: fixed
+  height: 100%;
   width: 100%;
   overflow-x: hidden;
   scroll-behavior: smooth;
+
+  // Mobile: Allow normal document scrolling
+  @media (max-width: 1024px) {
+    height: auto;
+  }
 }
 
 body {
   width: 100%;
-  height: 100%; // Changed from min-height to height
-  // Fallback for older browsers
   height: 100vh;
   height: 100dvh;
   overflow-x: hidden;
@@ -25,12 +28,23 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: $app-background-base;
-  // cursor: none;
   @include hide-scrollbar;
+
+  // Mobile: Allow mobile scrolling
+  @media (max-width: 1024px) {
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
 
   // iOS Safari: Use -webkit-fill-available as additional fallback
   @supports (-webkit-touch-callout: none) {
     height: -webkit-fill-available;
+
+    @media (max-width: 1024px) {
+      height: auto;
+      min-height: -webkit-fill-available;
+    }
   }
 }
 
@@ -38,7 +52,13 @@ body {
   position: relative;
   width: 100%;
   height: 100%;
-  overflow: hidden; // Prevent default scrolling, let nested layouts handle it
+  overflow: hidden;
+
+  // Mobile: Allow normal scrolling
+  @media (max-width: 1024px) {
+    height: auto;
+    overflow: visible;
+  }
 }
 
 html::-webkit-scrollbar,
