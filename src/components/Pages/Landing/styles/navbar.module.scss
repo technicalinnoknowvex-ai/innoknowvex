@@ -1,0 +1,25 @@
+.navbar {
+  position: fixed;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  padding: 0px 30px;
+
+
+   
+  // iOS FIX 1: Force GPU acceleration for fixed positioning
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  
+  // iOS FIX 2: Hint browser to create compositor layer
+  will-change: transform;
+  
+  // iOS FIX 3: Isolate from parent stacking context
+  z-index: 1000;
+  
+  // iOS FIX 4: Enable hardware-accelerated scrolling
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+
+}

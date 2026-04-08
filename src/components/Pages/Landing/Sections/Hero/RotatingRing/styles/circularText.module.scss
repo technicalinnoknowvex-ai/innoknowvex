@@ -1,0 +1,43 @@
+@use "../../../../../../../styles/variables" as v;
+@use "../../../../../../../styles/mixins" as m;
+@use "../../../../../../../styles/fonts" as f;
+
+.wheelContainer {
+  position: relative;
+  aspect-ratio: 1/1;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circularText {
+  margin: 0 auto;
+  border-radius: 50%;
+  height: 100%;
+  aspect-ratio: 1/1;
+  cursor: pointer;
+  transform-origin: 50% 50%;
+  -webkit-transform-origin: 50% 50%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  span {
+    position: absolute;
+    display: inline-block;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    font-size: 0.6rem;
+    transition: all 0.5s cubic-bezier(0, 0, 0, 1);
+    color: #262c35;
+    @include m.font(f.$font-oldschool, f.$semibold);
+  }
+}
+.arrowIcon {
+  position: absolute;
+  width:30%;
+  height: 30%;
+}

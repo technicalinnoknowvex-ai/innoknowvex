@@ -1,0 +1,588 @@
+@use "../../../../styles/fonts" as *;
+@use "../../../../styles/variables" as v;
+
+// ─── Breakpoints ─────────────────────────────────────────
+$mobile: 480px;
+$tablet: 830px;
+$desktop: 1440px;
+
+@mixin mobile {
+  @media (max-width: #{$mobile}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$mobile + 1}) and (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media (min-width: #{$tablet + 1}) and (max-width: #{$desktop - 1}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop}) {
+    @content;
+  }
+}
+
+// ─── Hero Section ────────────────────────────────────────
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  padding: 120px 24px 80px;
+
+  @include mobile {
+    min-height: 55vh;
+    padding: 100px 20px 60px;
+  }
+
+  @include tablet {
+    min-height: 60vh;
+    padding: 110px 32px 70px;
+  }
+}
+
+.heroGlow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(250, 152, 5, 0.25) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+
+  @include mobile {
+    width: 350px;
+    height: 350px;
+  }
+}
+
+.heroLabel {
+  font-family: $font-sharp-20;
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: v.$brand-primary;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+
+  @include mobile {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+  }
+}
+
+.heroTitle {
+  font-family: $font-sharp-25;
+  font-weight: 700;
+  font-size: 5rem;
+  color: v.$text-primary;
+  line-height: 1.05;
+  position: relative;
+  z-index: 1;
+
+  @include mobile {
+    font-size: 2.5rem;
+  }
+
+  @include tablet {
+    font-size: 3.5rem;
+  }
+
+  @include laptop {
+    font-size: 4.2rem;
+  }
+}
+
+.heroSubtitle {
+  font-family: $font-oldschool;
+  font-weight: 400;
+  font-size: 1.2rem;
+  color: v.$text-primary;
+  opacity: 0.65;
+  max-width: 550px;
+  margin-top: 24px;
+  line-height: 1.7;
+  position: relative;
+  z-index: 1;
+
+  @include mobile {
+    font-size: 0.95rem;
+    margin-top: 16px;
+    max-width: 90%;
+  }
+
+  @include tablet {
+    font-size: 1.05rem;
+  }
+}
+
+.heroStarLeft {
+  position: absolute;
+  left: 12%;
+  top: 35%;
+  z-index: 1;
+  opacity: 0;
+
+  @include mobile {
+    left: 5%;
+    top: 25%;
+    transform: scale(0.5);
+  }
+
+  @include tablet {
+    left: 8%;
+  }
+}
+
+.heroStarRight {
+  position: absolute;
+  right: 12%;
+  bottom: 25%;
+  z-index: 1;
+  opacity: 0;
+
+  @include mobile {
+    right: 5%;
+    bottom: 20%;
+    transform: scale(0.5);
+  }
+
+  @include tablet {
+    right: 8%;
+  }
+}
+
+// ─── Vision & Mission Cards ─────────────────────────────
+.visionMission {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 24px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 40px 20px 60px;
+  }
+
+  @include tablet {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 50px 32px 70px;
+    max-width: 600px;
+  }
+
+  @include laptop {
+    gap: 32px;
+    max-width: 1000px;
+  }
+}
+
+.vmCard {
+  position: relative;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 24px;
+  padding: 48px 40px;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+  }
+
+  @include mobile {
+    padding: 32px 24px;
+    border-radius: 18px;
+  }
+
+  @include tablet {
+    padding: 40px 32px;
+  }
+}
+
+.vmAccent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, v.$brand-primary, #fa9805);
+  border-radius: 24px 24px 0 0;
+}
+
+.vmIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255, 100, 50, 0.12), rgba(250, 152, 5, 0.12));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+
+  @include mobile {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+  }
+}
+
+.vmTitle {
+  font-family: $font-sharp-25;
+  font-weight: 600;
+  font-size: 1.8rem;
+  color: v.$text-primary;
+  margin-bottom: 8px;
+
+  @include mobile {
+    font-size: 1.4rem;
+  }
+
+  @include tablet {
+    font-size: 1.6rem;
+  }
+}
+
+.vmSubtitle {
+  font-family: $font-sharp-20;
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: v.$brand-primary;
+  margin-bottom: 20px;
+
+  @include mobile {
+    font-size: 0.7rem;
+  }
+}
+
+.vmText {
+  font-family: $font-oldschool;
+  font-weight: 400;
+  font-size: 1.05rem;
+  color: v.$text-primary;
+  opacity: 0.75;
+  line-height: 1.75;
+
+  @include mobile {
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+}
+
+// ─── Team Section ────────────────────────────────────────
+.teamSection {
+  width: 100%;
+  padding: 80px 24px 60px;
+  text-align: center;
+
+  @include mobile {
+    padding: 50px 20px 40px;
+  }
+}
+
+.sectionLabel {
+  font-family: $font-sharp-20;
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: v.$brand-primary;
+  margin-bottom: 12px;
+
+  @include mobile {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+  }
+}
+
+.sectionTitle {
+  font-family: $font-sharp-25;
+  font-weight: 600;
+  font-size: 3rem;
+  color: v.$text-primary;
+  margin-bottom: 16px;
+
+  @include mobile {
+    font-size: 2rem;
+  }
+
+  @include tablet {
+    font-size: 2.5rem;
+  }
+}
+
+.sectionSubtitle {
+  font-family: $font-oldschool;
+  font-weight: 400;
+  font-size: 1.1rem;
+  color: v.$text-primary;
+  opacity: 0.6;
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.7;
+
+  @include mobile {
+    font-size: 0.92rem;
+    max-width: 90%;
+  }
+}
+
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  max-width: 1000px;
+  margin: 60px auto 0;
+  padding: 0 24px;
+  justify-items: center;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    margin-top: 40px;
+    max-width: 320px;
+    padding: 0;
+  }
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+    max-width: 600px;
+    margin-top: 48px;
+  }
+
+  @include laptop {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    max-width: 900px;
+  }
+}
+
+.teamCard {
+  position: relative;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.07);
+
+    .teamImage {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.teamImageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f0e6cb, #e8dbb8);
+}
+
+.teamImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.teamInfo {
+  padding: 24px 20px;
+
+  @include mobile {
+    padding: 20px 16px;
+  }
+}
+
+.teamName {
+  font-family: $font-sharp-25;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: v.$text-primary;
+  margin-bottom: 4px;
+
+  @include mobile {
+    font-size: 1.1rem;
+  }
+}
+
+.teamRole {
+  font-family: $font-sharp-20;
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: v.$brand-primary;
+  margin-bottom: 12px;
+
+  @include mobile {
+    font-size: 0.72rem;
+  }
+}
+
+.teamDivider {
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, v.$brand-primary, #fa9805);
+  border-radius: 2px;
+  margin-bottom: 12px;
+}
+
+.teamDesc {
+  font-family: $font-oldschool;
+  font-weight: 400;
+  font-size: 0.92rem;
+  color: v.$text-primary;
+  opacity: 0.65;
+  line-height: 1.6;
+}
+
+.teamMembers {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    font-family: $font-oldschool;
+    font-weight: 400;
+    font-size: 0.92rem;
+    color: v.$text-primary;
+    opacity: 0.7;
+    line-height: 1.8;
+    padding-left: 16px;
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: v.$brand-primary;
+    }
+  }
+}
+
+// ─── Gallery Section ─────────────────────────────────────
+.gallerySection {
+  width: 100%;
+  padding: 80px 24px;
+
+  @include mobile {
+    padding: 50px 16px;
+  }
+
+  @include tablet {
+    padding: 60px 24px;
+  }
+}
+
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1200px;
+  margin: 60px auto 0;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 36px;
+  }
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    max-width: 700px;
+    margin-top: 48px;
+  }
+
+  @include laptop {
+    max-width: 1000px;
+  }
+}
+
+.galleryItem {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 3 / 2;
+  cursor: pointer;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.15) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    border-radius: 16px;
+  }
+
+  &:hover {
+    .galleryImage {
+      transform: scale(1.08);
+    }
+
+    &::after {
+      opacity: 1;
+    }
+  }
+}
+
+.galleryImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+// ─── Divider ─────────────────────────────────────────────
+.divider {
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, v.$brand-primary, #fa9805);
+  border-radius: 3px;
+  margin: 0 auto 60px;
+
+  @include mobile {
+    width: 60px;
+    margin-bottom: 40px;
+  }
+}
