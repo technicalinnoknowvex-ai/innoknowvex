@@ -390,6 +390,7 @@ const Navbar = () => {
     resetScrollLock();
     setActiveDropdown(null);
     setActiveCategory(null);
+    setActiveSubMenu(null);
     setIsOpen(false);
   }, [pathname]);
 
@@ -401,6 +402,7 @@ const Navbar = () => {
       ) {
         setActiveDropdown(null);
         setActiveCategory(null);
+        setActiveSubMenu(null);
         setIsOpen(false);
       }
     };
@@ -1009,7 +1011,20 @@ const Navbar = () => {
                                               onMouseEnter={() => showSubMenu(subMenuKey)}
                                               onMouseLeave={() => hideSubMenu(subMenuKey)}
                                             >
-                                              <div className={styles.dropdownItem}>
+                                              <div 
+                                                className={styles.dropdownItem}
+                                                onClick={(e) => {
+                                                  e.preventDefault();
+                                                  e.stopPropagation();
+                                                  // Toggle submenu on mobile/touch devices
+                                                  if (activeSubMenu === subMenuKey) {
+                                                    hideSubMenu(subMenuKey);
+                                                  } else {
+                                                    showSubMenu(subMenuKey);
+                                                  }
+                                                }}
+                                                style={{ cursor: 'pointer', userSelect: 'none' }}
+                                              >
                                                 <span className={styles.programIcon}>
                                                   →
                                                 </span>
@@ -1243,17 +1258,88 @@ const Navbar = () => {
                           {category.category}
                         </p>
                         <ul className={styles.subMenu}>
-                          {category.items.map((item, iIndex) => (
-                            <li key={iIndex}>
-                              <Link
-                                href={item.href}
-                                className={styles.dropdownLink}
-                                onClick={() => setIsOpen(false)}
-                              >
-                                {item.label}
-                              </Link>
-                            </li>
-                          ))}
+                          {category.items.map((item, iIndex) => {
+                            const hasItemSubMenu = item.hasSubMenu && item.subItems;
+                            const subMenuKey = `mobile-${cIndex}-${iIndex}`;
+                            const isSubMenuOpen = activeSubMenu === subMenuKey;
+
+                            return (
+                              <li key={iIndex}>
+                                {hasItemSubMenu ? (
+                                  <button
+                                    className={styles.dropdownLink}
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      setActiveSubMenu(isSubMenuOpen ? null : subMenuKey);
+                                    }}
+                                    style={{
+                                      display: 'flex',
+                                      justifyContent: 'space-between',
+                                      alignItems: 'center',
+                                      width: '100%',
+                                      background: 'none',
+                                      border: 'none',
+                                      cursor: 'pointer',
+                                      textAlign: 'left',
+                                      padding: '0.25rem 0'
+                                    }}
+                                  >
+                                    <span>{item.label}</span>
+                                    <svg
+                                      width="10"
+                                      height="6"
+                                      viewBox="0 0 10 6"
+                                      fill="none"
+                                      style={{
+                                        transform: isSubMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                                        transition: 'transform 0.3s ease',
+                                        marginLeft: '0.5rem'
+                                      }}
+                                    >
+                                      <path
+                                        d="M1 1L5 5L9 1"
+                                        stroke="currentColor"
+                                        strokeWidth="1.2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                      />
+                                    </svg>
+                                  </button>
+                                ) : (
+                                  <Link
+                                    href={item.href}
+                                    className={styles.dropdownLink}
+                                    onClick={() => setIsOpen(false)}
+                                  >
+                                    {item.label}
+                                  </Link>
+                                )}
+
+                                {hasItemSubMenu && isSubMenuOpen && (
+                                  <ul
+                                    className={styles.subMenu}
+                                    style={{
+                                      marginTop: '0.5rem',
+                                      paddingLeft: '1.5rem',
+                                      borderLeft: '2px solid #c0880f'
+                                    }}
+                                  >
+                                    {item.subItems.map((subItem, sIndex) => (
+                                      <li key={sIndex}>
+                                        <Link
+                                          href={subItem.href}
+                                          className={styles.dropdownLink}
+                                          onClick={() => setIsOpen(false)}
+                                        >
+                                          {subItem.label}
+                                        </Link>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                )}
+                              </li>
+                            );
+                          })}
                         </ul>
                       </li>
                     ))}
