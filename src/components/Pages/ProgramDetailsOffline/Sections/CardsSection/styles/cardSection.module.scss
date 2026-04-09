@@ -9,6 +9,10 @@
   top: 50%;
   transform: translateY(-50%);
   display: block;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 @keyframes cardShine {
@@ -194,6 +198,11 @@
     padding: 0 0 2rem 0;
     justify-content: center;
   }
+
+  @media (max-width: 768px) {
+    margin-top: 2rem;
+    padding: 0 1.5rem 2rem 1.5rem;
+  }
 }
 
 .arcWrap {
@@ -202,6 +211,13 @@
   height: clamp(360px, 45vw, 480px);
   z-index: 1;
   margin-left: auto;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+    margin-left: 0;
+    margin-top: 2rem;
+  }
 }
 
 .arcCenterTitle {
@@ -221,6 +237,10 @@
   -webkit-backdrop-filter: blur(14px) saturate(1.1);
   pointer-events: none;
   z-index: 3;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .activeConnector {
@@ -246,6 +266,10 @@
     filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.35));
     transform: translateY(-50%);
     animation: arrowPulse 2s ease-in-out infinite;
+  }
+
+  @media (max-width: 768px) {
+    display: none;
   }
 }
 
@@ -287,6 +311,19 @@
 .arcNodes {
   position: absolute;
   inset: 0;
+
+  @media (max-width: 768px) {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    padding: 1rem 0;
+    inset: auto;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .iconItem {
@@ -313,6 +350,17 @@
     font-weight: 450;
     font-size: 0.92rem;
   }
+
+  @media (max-width: 768px) {
+    position: static;
+    transform: none;
+    opacity: 1;
+    gap: 8px;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
 }
 
 .animateCard {
@@ -326,6 +374,10 @@
   gap: 4px;
   margin-bottom: 6px;
   max-width: 160px;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
 }
 
 .stepNum {
@@ -344,6 +396,11 @@
   line-height: 1.25;
   color: #e2e8f0;
   text-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
+
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
+    text-shadow: none;
+  }
 }
 
 .toolBlurb {
@@ -384,6 +441,31 @@
     border-bottom: 1px solid rgba(148, 163, 184, 0.55);
     transform-origin: center;
     rotate: 45deg;
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+    position: static;
+    width: 100%;
+    bottom: auto;
+    top: auto;
+    left: auto;
+    transform: none;
+    opacity: 0.85;
+    background: rgba(15, 23, 42, 0.6);
+    border: none;
+    box-shadow: none;
+    padding: 0.5rem 0;
+    border-radius: 0;
+    margin-top: 0.5rem;
+
+    &::after {
+      display: none;
+    }
+
+    span {
+      font-size: 0.75rem;
+    }
   }
 }
 
@@ -426,6 +508,20 @@
   .iconItem:hover & {
     transform: translateY(-4px) scale(1.05);
     box-shadow: 0 18px 34px rgba(15, 23, 42, 0.3);
+  }
+
+  @media (max-width: 768px) {
+    width: 72px;
+    height: 72px;
+
+    .iconItem:hover & {
+      transform: scale(1.02);
+    }
+  }
+
+  @media (max-width: 480px) {
+    width: 64px;
+    height: 64px;
   }
 }
 

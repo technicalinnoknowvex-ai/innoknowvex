@@ -125,6 +125,10 @@
   gap: 14px;
   width: 100%;
 
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   &.animateSkills .skillBox {
     animation: skillIn 0.45s ease-out calc(var(--delay, 0s)) both;
   }

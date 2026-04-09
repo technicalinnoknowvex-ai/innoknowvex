@@ -267,16 +267,6 @@ const AboutDetailsPage = () => {
               <div className={s.teamInfo}>
                 <h3 className={s.teamName}>{member.name}</h3>
                 <p className={s.teamRole}>{member.role}</p>
-                <div className={s.teamDivider} />
-                {member.desc ? (
-                  <p className={s.teamDesc}>{member.desc}</p>
-                ) : (
-                  <ul className={s.teamMembers}>
-                    {member.members?.map((m, j) => (
-                      <li key={j}>{m}</li>
-                    ))}
-                  </ul>
-                )}
               </div>
             </div>
           ))}

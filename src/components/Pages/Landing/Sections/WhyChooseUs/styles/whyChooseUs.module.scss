@@ -120,43 +120,56 @@
     width: 100%;
     height: auto;
     display: grid;
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-    grid-template-rows: repeat(2, auto);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 30px;
     // border: 1px solid green;
 
     @include screen(sm) {
-      grid-template-columns: repeat(1, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
     }
 
     @include screen(md) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
     }
 
     @include screen(lg) {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     @include screen(xl) {
       width: 80%;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .reasonCard {
       width: 100%;
-      aspect-ratio: 3/2;
+      aspect-ratio: 4/3;
       background: linear-gradient(168.99deg, #fff7e1 8.13%, #f8f1de 114.75%);
       border: 1px solid #715c1121;
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      padding: 10% 12%;
+      padding: 8% 10%;
       border-radius: 2rem 2rem 2rem 3.5rem;
       transform-style: preserve-3d;
       will-change: transform;
       transition: box-shadow 0.35s ease,
         border-color 0.35s ease,
         background 0.35s ease;
+
+      @include mobile-down {
+        aspect-ratio: 1/1;
+        padding: 5% 6%;
+        gap: 4px;
+        border-radius: 1.2rem 1.2rem 1.2rem 2.2rem;
+      }
+
+      @include screen(lg) {
+        aspect-ratio: 3.5/2.5;
+        padding: 7% 9%;
+      }
 
       &:hover {
         border-color: rgba(113, 92, 17, 0.28);
@@ -228,21 +241,29 @@
             @include font($font-sharp-25, $semibold, #9c7f16);
             text-transform: uppercase;
             font-size: clamp(0.92rem, 0.84rem + 0.22vw, 1.02rem);
-            line-height: 1.2;
+            line-height: 1.1;
             letter-spacing: 0.02em;
             transition: color 0.3s ease;
+
+            @include mobile-down {
+              font-size: clamp(0.68rem, 0.6rem + 0.15vw, 0.78rem);
+            }
           }
 
           .subTitleText {
             position: relative;
             display: block;
-            margin-top: 0.2rem;
+            margin-top: 0.1rem;
             @include font($font-sharp-25, $medium, #9c7f16);
             text-transform: uppercase;
             font-size: clamp(0.84rem, 0.78rem + 0.18vw, 0.95rem);
-            line-height: 1.2;
+            line-height: 1.1;
             letter-spacing: 0.02em;
             transition: color 0.3s ease;
+
+            @include mobile-down {
+              font-size: clamp(0.56rem, 0.5rem + 0.12vw, 0.65rem);
+            }
           }
         }
       }

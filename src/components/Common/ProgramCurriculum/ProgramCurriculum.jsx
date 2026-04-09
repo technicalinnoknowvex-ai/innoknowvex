@@ -78,26 +78,48 @@ export default function ProgramCurriculum({ program, isOffline = false }) {
         <div className={styles.mainGrid}>
           <div className={styles.modulesGrid} ref={containerRef}>
             {programCurriculum.map((module, index) => (
-              <div
-                key={module.id ?? index}
-                className={`${styles.moduleCard} ${
-                  activeModule === index || hoveredModule === index
-                    ? styles.active
-                    : ""
-                }`}
-                onMouseEnter={() => setHoveredModule(index)}
-                onMouseLeave={() => setHoveredModule(null)}
-                onClick={() => setActiveModule(index)}
-              >
-                <div className={styles.cardInner}>
-                  <div className={styles.moduleNumber}>
-                    {String(module.id ?? index + 1).padStart(2, "0")}
+              <div key={module.id ?? index}>
+                <div
+                  className={`${styles.moduleCard} ${
+                    activeModule === index || hoveredModule === index
+                      ? styles.active
+                      : ""
+                  }`}
+                  onMouseEnter={() => setHoveredModule(index)}
+                  onMouseLeave={() => setHoveredModule(null)}
+                  onClick={() => setActiveModule(index)}
+                >
+                  <div className={styles.cardInner}>
+                    <div className={styles.moduleNumber}>
+                      {String(module.id ?? index + 1).padStart(2, "0")}
+                    </div>
+                    <h3 className={styles.cardTitle}>{module.title}</h3>
+                    <p className={styles.topicCount}>
+                      {module.topics?.length ?? 0} topics
+                    </p>
                   </div>
-                  <h3 className={styles.cardTitle}>{module.title}</h3>
-                  <p className={styles.topicCount}>
-                    {module.topics?.length ?? 0} topics
-                  </p>
                 </div>
+
+                {/* Mobile Accordion Topics */}
+                {activeModule === index && (
+                  <div className={styles.mobileTopicsDropdown}>
+                    <div className={styles.topicsWrapper}>
+                      <h3 className={styles.sectionHeading}>Topics</h3>
+                      <ul className={styles.topicsList}>
+                        {module.topics?.map((topic, idx) => (
+                          <li
+                            key={idx}
+                            className={styles.topicItem}
+                            style={{ animationDelay: `${idx * 0.05}s` }}
+                          >
+                            <span className={styles.checkmark}>✓</span>
+                            <span className={styles.topicName}>{topic}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>

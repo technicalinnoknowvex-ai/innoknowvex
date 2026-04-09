@@ -202,6 +202,7 @@ const Navbar = () => {
   const profileMenuRef = useRef(null);
   const profileBadgeRef = useRef(null);
   const menuRef = useRef(null);
+  const backdropRef = useRef(null);
   const containerRef = useRef(null);
   const sparkleRefs = useRef([]);
   const dropdownRefs = useRef({});
@@ -491,17 +492,35 @@ const Navbar = () => {
     if (menuRef.current) {
       if (isOpen) {
         gsap.to(menuRef.current, {
-          y: 0,
+          x: 0,
           autoAlpha: 1,
-          duration: 0.5,
+          duration: 0.4,
           ease: "power2.out",
           pointerEvents: "auto",
         });
       } else {
         gsap.to(menuRef.current, {
-          y: "-100%",
+          x: "-100%",
           autoAlpha: 0,
+          duration: 0.3,
+          ease: "power2.in",
+          pointerEvents: "none",
+        });
+      }
+    }
+
+    if (backdropRef.current) {
+      if (isOpen) {
+        gsap.to(backdropRef.current, {
+          autoAlpha: 1,
           duration: 0.4,
+          ease: "power2.out",
+          pointerEvents: "auto",
+        });
+      } else {
+        gsap.to(backdropRef.current, {
+          autoAlpha: 0,
+          duration: 0.3,
           ease: "power2.in",
           pointerEvents: "none",
         });
@@ -1193,7 +1212,7 @@ const Navbar = () => {
             )}
 
             <button className={styles.toggleButton}>
-              <Hamburger isOpen={isOpen} setIsOpen={setIsOpen} />
+              <Hamburger isOpen={isOpen} setIsOpen={setIsOpen} color={getNavLinkColor()} />
             </button>
           </div>
         </div>
@@ -1201,7 +1220,15 @@ const Navbar = () => {
 
       {/* mobile navigation */}
 
-      <div className={styles.menu} ref={menuRef}>
+      {/* Mobile menu backdrop */}
+      <div 
+        ref={backdropRef}
+        className={`${styles.menuBackdrop} ${isOpen ? styles.open : ""}`}
+        onClick={() => setIsOpen(false)}
+        role="presentation"
+      ></div>
+
+      <div className={`${styles.menu} ${isOpen ? styles.open : ""}`} ref={menuRef}>
         <ul className={styles.navList}>
           {navLinks.map((link, index) => {
             const isDropdown = link.type === "dropdown";

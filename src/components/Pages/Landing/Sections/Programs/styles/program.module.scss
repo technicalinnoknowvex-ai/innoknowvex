@@ -481,7 +481,7 @@
 .cardsGrid {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 16px;
   margin: 8px 0;
 
@@ -490,12 +490,12 @@
   }
 
   @include tablet-down {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
 
   @include mobile-down {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 14px;
   }
 }
@@ -567,11 +567,12 @@
   }
 
   @include mobile-down {
-    padding: 16px 14px;
+    padding: 12px 10px;
     border-radius: 1.1rem 1.1rem 1.1rem 2rem;
     flex-direction: row;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
+    min-height: 80px;
   }
 }
 
@@ -613,6 +614,11 @@
   @include tablet-down {
     font-size: 0.68rem;
   }
+
+  @include mobile-down {
+    font-size: 0.58rem;
+    letter-spacing: 0.6px;
+  }
 }
 
 .cardValue {
@@ -620,6 +626,11 @@
   font-size: clamp(1.1rem, 1.8vw, 1.65rem) !important;
   font-weight: 700;
   line-height: 1.2;
+
+  @include mobile-down {
+    font-size: clamp(0.95rem, 1.2vw, 1.15rem) !important;
+    line-height: 1.1;
+  }
 }
 
 .careerRolesList {

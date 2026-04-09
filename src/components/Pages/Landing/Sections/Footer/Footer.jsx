@@ -298,7 +298,12 @@ const Footer = () => {
 
         <div className={styles.sectionInnerWrapper__linksCell}>
           {footerLinks.map((group, gIndex) => (
-            <React.Fragment key={gIndex}>
+            <div
+              key={gIndex}
+              className={`${styles.linksGroup} ${
+                group.listLabel === "OUR PROGRAMS" ? styles["linksGroup--programs"] : ""
+              }`}
+            >
               <div
                 className={`${styles.itemContainer} ${styles["itemContainer--label"]}`}
               >
@@ -320,7 +325,7 @@ const Footer = () => {
                   {link.label}
                 </Link>
               ))}
-            </React.Fragment>
+            </div>
           ))}
         </div>
 

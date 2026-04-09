@@ -60,8 +60,18 @@ const OfflineHighlights = () => {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const hoverTimerRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
 
-  if (!offlineCourses.length) return null;
+  useEffect(() => {
+    // Detect mobile screen size
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const handleCardKeyDown = (event, index) => {
     if (event.key === "Enter" || event.key === " ") {
@@ -97,6 +107,8 @@ const OfflineHighlights = () => {
     };
   }, []);
 
+  if (!offlineCourses.length) return null;
+
   return (
     <section className={styles.offlineSection} aria-labelledby="offline-heading">
       <div className={styles.inner}>
@@ -109,10 +121,16 @@ const OfflineHighlights = () => {
               const depth = Math.min(3, Math.abs(offset));
               const direction = offset === 0 ? 0 : offset > 0 ? 1 : -1;
 
+              // Responsive offsets: smaller on mobile
+              const baseOffsetX = isMobile ? 40 : 72;
+              const depthOffsetX = isMobile ? 14 : 26;
+              const baseOffsetY = isMobile ? 10 : 18;
+              const depthOffsetY = isMobile ? 12 : 22;
+
               const translateX = isActive
                 ? 0
-                : direction * (72 + depth * 26);
-              const translateY = isActive ? 0 : 18 + depth * 22;
+                : direction * (baseOffsetX + depth * depthOffsetX);
+              const translateY = isActive ? 0 : baseOffsetY + depth * depthOffsetY;
               const rotate = isActive ? 0 : direction * (3 + depth * 0.7);
               const scale = isActive ? 1 : 0.93 - depth * 0.02;
               const opacity = isActive ? 1 : 0.92 - depth * 0.1;
@@ -164,6 +182,37 @@ const OfflineHighlights = () => {
               );
             })}
           </div>
+
+          {/* Mobile Navigation Controls */}
+          {isMobile && (
+            <div className={styles.mobileNav}>
+              <button
+                className={styles.navBtn}
+                onClick={() => setActiveIndex((prev) => (prev - 1 + offlineCourses.length) % offlineCourses.length)}
+                aria-label="Previous course"
+              >
+                ← Prev
+              </button>
+              <div className={styles.navDots}>
+                {offlineCourses.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`${styles.dot} ${index === activeIndex ? styles.dotActive : ""}`}
+                    onClick={() => setActiveIndex(index)}
+                    aria-label={`Go to course ${index + 1}`}
+                    aria-current={index === activeIndex ? "true" : "false"}
+                  />
+                ))}
+              </div>
+              <button
+                className={styles.navBtn}
+                onClick={() => setActiveIndex((prev) => (prev + 1) % offlineCourses.length)}
+                aria-label="Next course"
+              >
+                Next →
+              </button>
+            </div>
+          )}
         </div>
 
         <div className={styles.textColumn}>

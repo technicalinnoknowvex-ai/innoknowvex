@@ -666,26 +666,63 @@ $navbar-height: 70px;
 }
 
 .menu {
-  position: absolute;
-  top: 90px;
-  left: 20px;
-  height: auto;
-  width: 90%;
-  border: 1px solid #c0880f;
+  position: fixed;
+  top: 70px;
+  left: 0;
+  height: calc(100vh - 70px);
+  width: 100%;
+  border: none;
   background-color: #fdefd1;
-  border-radius: 20px;
-  z-index: 1;
+  border-radius: 0;
+  z-index: 999;
   padding: 2rem;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
   display: flex;
   flex-direction: column;
-  transform: translateY(-100%);
+  transform: translateX(-100%);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+
+  @media (min-width: 769px) {
+    display: none;
+  }
+}
+
+// Mobile menu backdrop overlay
+.menuBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+
+  @media (min-width: 769px) {
+    display: none;
+  }
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+}
+
+// Open state for menu
+.menu.open {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .navList {

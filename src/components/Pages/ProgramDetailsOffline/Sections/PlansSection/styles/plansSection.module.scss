@@ -768,6 +768,10 @@
       font-size: 0.84rem;
       line-height: 1.2;
     }
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   .offlineRightPane {

@@ -1,12 +1,12 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { MorphSVGPlugin } from "gsap/MorphSVGPlugin";
 import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(MorphSVGPlugin);
 
-const Hamburger = ({ isOpen, setIsOpen }) => {
+const Hamburger = ({ isOpen, setIsOpen, color = "black" }) => {
   const topRef = useRef(null);
   const bottomRef = useRef(null);
   const containerRef = useRef(null);
@@ -20,8 +20,9 @@ const Hamburger = ({ isOpen, setIsOpen }) => {
     { scope: containerRef }
   );
 
-  const toggleMenu = () => {
-    if (!isOpen) {
+  // Watch isOpen prop and animate accordingly
+  useEffect(() => {
+    if (isOpen) {
       // Morph to X
       const timeline = gsap.timeline();
 
@@ -49,7 +50,7 @@ const Hamburger = ({ isOpen, setIsOpen }) => {
       timeline.to(topRef.current, {
         duration: 0.4,
         morphSVG: "M5.66663 11.333H28.3333",
-        stroke: "black",
+        stroke: color,
         ease: "power2.inOut",
       });
 
@@ -58,13 +59,15 @@ const Hamburger = ({ isOpen, setIsOpen }) => {
         {
           duration: 0.4,
           morphSVG: "M5.66663 22.6663H28.3333",
-          stroke: "black",
+          stroke: color,
           ease: "power2.inOut",
         },
         "<"
       );
     }
+  }, [isOpen, color]);
 
+  const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
@@ -81,7 +84,7 @@ const Hamburger = ({ isOpen, setIsOpen }) => {
         <path
           ref={topRef}
           d="M5.66663 11.333H28.3333"
-          stroke="black"
+          stroke={color}
           strokeWidth="2.83333"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -91,7 +94,7 @@ const Hamburger = ({ isOpen, setIsOpen }) => {
         <path
           ref={bottomRef}
           d="M5.66663 22.6663H28.3333"
-          stroke="black"
+          stroke={color}
           strokeWidth="2.83333"
           strokeLinecap="round"
           strokeLinejoin="round"
