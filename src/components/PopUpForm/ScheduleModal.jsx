@@ -157,6 +157,7 @@ const ScheduleModal = () => {
         timestamp: new Date().toISOString(),
       };
 
+      // Send to internal API
       const response = await fetch("/api/schedule-meeting", {
         method: "POST",
         headers: {
@@ -168,6 +169,21 @@ const ScheduleModal = () => {
       if (!response.ok) {
         throw new Error("Failed to schedule meeting");
       }
+
+      // Send to Google Sheet
+      const googleSheetPayload = new FormData();
+      googleSheetPayload.append("name", data.name);
+      googleSheetPayload.append("phone", data.phone);
+      googleSheetPayload.append("date", data.selectedDate);
+      googleSheetPayload.append("time", data.selectedTime);
+      googleSheetPayload.append("timestamp", new Date().toISOString());
+
+      await fetch(process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL_SCHEDULE, {
+        method: "POST",
+        body: googleSheetPayload,
+      }).catch((err) => {
+        console.warn("Google Sheet sync failed (non-critical):", err);
+      });
 
       const result = await response.json();
       
