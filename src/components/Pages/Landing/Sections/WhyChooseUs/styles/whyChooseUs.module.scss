@@ -139,19 +139,19 @@
     }
 
     @include screen(xl) {
-      width: 80%;
+      width: 70%;
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .reasonCard {
       width: 100%;
-      aspect-ratio: 4/3;
+      aspect-ratio: 5/2;
       background: linear-gradient(168.99deg, #fff7e1 8.13%, #f8f1de 114.75%);
-      border: 1px solid #715c1121;
+      border: 2px solid #715c1166;
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      padding: 8% 10%;
+      padding: 6% 8%;
       border-radius: 2rem 2rem 2rem 3.5rem;
       transform-style: preserve-3d;
       will-change: transform;
@@ -167,8 +167,8 @@
       }
 
       @include screen(lg) {
-        aspect-ratio: 3.5/2.5;
-        padding: 7% 9%;
+        aspect-ratio: 16/7;
+        padding: 5% 7%;
       }
 
       &:hover {

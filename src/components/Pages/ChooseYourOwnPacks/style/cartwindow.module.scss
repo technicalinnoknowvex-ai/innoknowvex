@@ -383,3 +383,100 @@
     font-size: 0.95rem;
   }
 }
+
+// Success Message
+.successMessage {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #f0fdf4;
+  border: 1.5px solid #86efac;
+  border-radius: 8px;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.successIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: #4caf50;
+  color: white;
+  border-radius: 50%;
+  @include m.font($font-sharp-20, $bold, white);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.successText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.successTitle {
+  @include m.font($font-oldschool, $semibold, #166534);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.successSubtitle {
+  @include m.font($font-sharp-20, $book, #4caf50);
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+// Button Group
+.buttonGroup {
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+
+  .checkoutBtn {
+    width: 100%;
+  }
+}
+
+.continueShoppingBtn {
+  width: 100%;
+  padding: 14px 20px;
+  background: white;
+  color: #a69600;
+  border: 2px solid #a69600;
+  border-radius: 8px;
+  @include m.font($font-sharp-20, $semibold, #a69600);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  &:hover {
+    background: #f7f2e2;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  @include m.mobile-down {
+    padding: 12px 18px;
+    font-size: 0.95rem;
+  }
+}

@@ -213,9 +213,9 @@ export const landingPageData = {
     phone: "+91 9535788085",
     email: "support@innoknowvex.in",
     address:
-    //   `Aratt Girija Towers,Survey 157/1, 2nd Floor, Manipal County Club Road, Opposite Lake View County Apartment, Singasandra, Bengaluru, Karnataka - 560068`,
-    // landmark: "Landmark: Above Star market",
-    "Hustlehub SB01, WJ8G+XWP, 1st Cross Road, Santhosapuram, 1st Block Koramangala, HSR Layout 5th Sector, Bengaluru, Karnataka 560034",
+      `Aratt Girija Towers,Survey 157/1, 2nd Floor, Manipal County Club Road, Opposite Lake View County Apartment, Singasandra, Bengaluru, Karnataka - 560068`,
+    landmark: "Landmark: Above Star market",
+    // "Hustlehub SB01, WJ8G+XWP, 1st Cross Road, Santhosapuram, 1st Block Koramangala, HSR Layout 5th Sector, Bengaluru, Karnataka 560034",
     socialLinks: [
       {
         label: "facebook",

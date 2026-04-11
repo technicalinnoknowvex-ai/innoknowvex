@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Icon } from "@iconify/react";
-import Sparkle from "../Common/Icons/Sparkle";
 import styles from "./styles/scheduleModal.module.scss";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -25,7 +24,6 @@ const ScheduleModal = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState("");
-  const sparkleRef = useRef(null);
 
   const {
     register,
@@ -63,42 +61,6 @@ const ScheduleModal = () => {
       );
     }
   }, [isScheduleFormOpen]);
-
-  // Sparkle animation on submit
-  useGSAP(() => {
-    if (isSubmitting && sparkleRef.current) {
-      const sparkles = sparkleRef.current.querySelectorAll(
-        `.${styles.sparkleDiv}`
-      );
-
-      sparkles.forEach((sparkle, index) => {
-        const randomX = gsap.utils.random(-5, 5);
-        const randomY = gsap.utils.random(-10, 10);
-        const randomDelay = index * 0.2;
-        const randomDuration = gsap.utils.random(0.6, 1.2);
-
-        gsap.fromTo(
-          sparkle,
-          {
-            scale: 0.6,
-            opacity: 0,
-            y: 0,
-          },
-          {
-            scale: 1.4,
-            opacity: 1,
-            y: randomY,
-            x: randomX,
-            duration: randomDuration,
-            delay: randomDelay,
-            ease: "sine.inOut",
-            repeat: -1,
-            yoyo: true,
-          }
-        );
-      });
-    }
-  }, [isSubmitting]);
 
   const timeSlots = [
     "11:00 AM",
@@ -412,16 +374,6 @@ const ScheduleModal = () => {
               className={styles.submitBtn}
               disabled={isSubmitting}
             >
-              <div ref={sparkleRef} className={styles.sparkleContainer}>
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Sparkle
-                    key={i}
-                    className={styles.sparkleDiv}
-                    width={8}
-                    height={8}
-                  />
-                ))}
-              </div>
               {isSubmitting ? "Scheduling..." : "Schedule Meeting"}
             </button>
           </form>

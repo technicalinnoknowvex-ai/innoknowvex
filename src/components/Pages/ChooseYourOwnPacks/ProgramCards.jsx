@@ -19,6 +19,7 @@ const ProgramCards = ({
 }) => {
   const router = useRouter();
   const [selectedPlans, setSelectedPlans] = useState({});
+  const [displayPlans, setDisplayPlans] = useState({});
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const MAX_COURSES = 4;
@@ -28,10 +29,13 @@ const ProgramCards = ({
     setCartItems(items);
 
     const plans = {};
+    const displayPlansList = {};
     items.forEach((item) => {
       plans[item.id] = item.plan;
+      displayPlansList[item.id] = item.plan;
     });
     setSelectedPlans(plans);
+    setDisplayPlans(displayPlansList);
   }, []);
 
   const getSelectedCoursesCount = () => {
@@ -124,6 +128,13 @@ const ProgramCards = ({
     router.push(`/programs/${item.id}`);
   };
 
+  const handlePlanSelect = (courseId, planName) => {
+    setDisplayPlans((prev) => ({
+      ...prev,
+      [courseId]: planName,
+    }));
+  };
+
   const formatPrice = (price) => {
     return typeof price === "number" ? price.toLocaleString("en-IN") : price;
   };
@@ -132,29 +143,57 @@ const ProgramCards = ({
     !programs || programs.length === 0
       ? []
       : selectedCategory === "all"
-      ? programs
-      : programs.filter((p) => p.category === selectedCategory);
+      ? programs.filter((p) => !p.id.toLowerCase().includes("offline"))
+      : programs.filter((p) => p.category === selectedCategory && !p.id.toLowerCase().includes("offline"));
 
-  const renderPlanCard = (program, planType, planName, currentPrice, actualPrice) => {
-    const discount = Math.round(((actualPrice - currentPrice) / actualPrice) * 100);
-    const isSelected = isPlanSelected(program.id, planName);
+  const renderSingleCourseCard = (program, coursePrice) => {
     const courseSelected = isCourseSelected(program.id);
-    const isDisabled = courseSelected && !isSelected;
+    const currentDisplayPlan = displayPlans[program.id] || "Self";
     const canSelect = canSelectCourse(program.id);
+
+    // Get prices for all plans
+    const selfPrice = {
+      current: coursePrice.self_current_price,
+      actual: coursePrice.self_actual_price,
+    };
+    const mentorPrice = {
+      current: coursePrice.mentor_current_price,
+      actual: coursePrice.mentor_actual_price,
+    };
+    const professionalPrice = {
+      current: coursePrice.professional_current_price,
+      actual: coursePrice.professional_actual_price,
+    };
+
+    // Get current display plan pricing
+    let currentPrice, actualPrice;
+    if (currentDisplayPlan === "Mentor") {
+      currentPrice = mentorPrice.current;
+      actualPrice = mentorPrice.actual;
+    } else if (currentDisplayPlan === "Professional") {
+      currentPrice = professionalPrice.current;
+      actualPrice = professionalPrice.actual;
+    } else {
+      currentPrice = selfPrice.current;
+      actualPrice = selfPrice.actual;
+    }
+
+    const discount = Math.round(((actualPrice - currentPrice) / actualPrice) * 100);
+    const isSelected = isPlanSelected(program.id, currentDisplayPlan);
 
     return (
       <div
-        className={`${style.planCard} ${isSelected ? style.selectedCard : ""} ${
-          isDisabled ? style.disabledCard : ""
-        }`}
-        key={`${program.id}-${planType}`}
+        className={`${style.planCard} ${isSelected ? style.selectedCard : ""}`}
+        key={program.id}
       >
+        {/* Image Section */}
         <div className={style.planImageSection}>
           <Image src={program.image} fill alt={program.title} style={{ objectFit: "cover" }} />
           <div className={style.imageOverlay}></div>
         </div>
 
         <div className={style.planDetailsSection}>
+          {/* Program Header with View Details */}
           <div className={style.programInfo}>
             <h3 className={style.programTitle}>{program.title}</h3>
             <button className={style.exploreBtn} onClick={() => handleExplore(program)}>
@@ -162,8 +201,48 @@ const ProgramCards = ({
             </button>
           </div>
 
-          <div className={style.planTypeTag}>{planName} Plan</div>
+          {/* Plan Selector Toggle */}
+          <div className={style.planSelectorContainer}>
+            <label className={style.planSelectorLabel}>Select Plan:</label>
+            <div className={style.planToggleGroup}>
+              <button
+                className={`${style.planToggle} ${currentDisplayPlan === "Self" ? style.planToggleActive : ""}`}
+                onClick={() => handlePlanSelect(program.id, "Self")}
+              >
+                Self
+              </button>
+              <button
+                className={`${style.planToggle} ${currentDisplayPlan === "Mentor" ? style.planToggleActive : ""}`}
+                onClick={() => handlePlanSelect(program.id, "Mentor")}
+              >
+                Mentor
+              </button>
+              <button
+                className={`${style.planToggle} ${currentDisplayPlan === "Professional" ? style.planToggleActive : ""}`}
+                onClick={() => handlePlanSelect(program.id, "Professional")}
+              >
+                Professional
+              </button>
+            </div>
+          </div>
 
+          {/* All Plans Pricing */}
+          <div className={style.allPlansInfo}>
+            <div className={style.planPriceRow}>
+              <span className={style.planNameSmall}>Self: ₹{formatPrice(selfPrice.current)}</span>
+              <span className={style.planPriceSmall}>₹{formatPrice(selfPrice.actual)}</span>
+            </div>
+            <div className={style.planPriceRow}>
+              <span className={style.planNameSmall}>Mentor: ₹{formatPrice(mentorPrice.current)}</span>
+              <span className={style.planPriceSmall}>₹{formatPrice(mentorPrice.actual)}</span>
+            </div>
+            <div className={style.planPriceRow}>
+              <span className={style.planNameSmall}>Professional: ₹{formatPrice(professionalPrice.current)}</span>
+              <span className={style.planPriceSmall}>₹{formatPrice(professionalPrice.actual)}</span>
+            </div>
+          </div>
+
+          {/* Current Selected Plan Pricing Highlight */}
           <div className={style.pricingInfo}>
             <div className={style.priceGroup}>
               <span className={style.currentPrice}>₹{formatPrice(currentPrice)}</span>
@@ -172,6 +251,7 @@ const ProgramCards = ({
             <div className={style.discountBadge}>{discount}% OFF</div>
           </div>
 
+          {/* Add/Remove Button */}
           {isSelected ? (
             <button
               className={`${style.addToCartBtn} ${style.removeBtn}`}
@@ -182,11 +262,11 @@ const ProgramCards = ({
           ) : (
             <button
               className={style.addToCartBtn}
-              onClick={() => handleAddToCart(program, planName)} // ✅ No price parameter
-              disabled={isDisabled || !canSelect}
+              onClick={() => handleAddToCart(program, currentDisplayPlan)}
+              disabled={!canSelect}
             >
               <span>
-                {isDisabled ? "Another Plan Selected" : !canSelect ? "Pack Full" : "Add to Pack"}
+                {!canSelect ? "Pack Full" : "Add to Pack"}
               </span>
             </button>
           )}
@@ -248,25 +328,7 @@ const ProgramCards = ({
 
             if (!coursePrice) return null;
 
-            return (
-              <React.Fragment key={program.id}>
-                {renderPlanCard(program, "self", "Self", coursePrice.self_current_price, coursePrice.self_actual_price)}
-                {renderPlanCard(
-                  program,
-                  "mentor",
-                  "Mentor",
-                  coursePrice.mentor_current_price,
-                  coursePrice.mentor_actual_price
-                )}
-                {renderPlanCard(
-                  program,
-                  "professional",
-                  "Professional",
-                  coursePrice.professional_current_price,
-                  coursePrice.professional_actual_price
-                )}
-              </React.Fragment>
-            );
+            return renderSingleCourseCard(program, coursePrice);
           })}
         </div>
       )}

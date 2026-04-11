@@ -61,6 +61,8 @@ const OfflineHighlights = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const hoverTimerRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
+  const touchStartRef = useRef({ x: 0, y: 0 });
+  const cardsStackRef = useRef(null);
 
   useEffect(() => {
     // Detect mobile screen size
@@ -99,6 +101,35 @@ const OfflineHighlights = () => {
     }
   };
 
+  const handleTouchStart = (e) => {
+    touchStartRef.current = {
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY,
+    };
+  };
+
+  const handleTouchEnd = (e) => {
+    const touchEnd = {
+      x: e.changedTouches[0].clientX,
+      y: e.changedTouches[0].clientY,
+    };
+
+    const deltaX = touchEnd.x - touchStartRef.current.x;
+    const deltaY = Math.abs(touchEnd.y - touchStartRef.current.y);
+    const minSwipeDistance = 50;
+
+    // Only recognize as swipe if horizontal movement is larger than vertical
+    if (Math.abs(deltaX) > minSwipeDistance && Math.abs(deltaX) > deltaY) {
+      if (deltaX > 0) {
+        // Swiped right - show previous card
+        setActiveIndex((prev) => (prev - 1 + offlineCourses.length) % offlineCourses.length);
+      } else {
+        // Swiped left - show next card
+        setActiveIndex((prev) => (prev + 1) % offlineCourses.length);
+      }
+    }
+  };
+
   useEffect(() => {
     return () => {
       if (hoverTimerRef.current) {
@@ -113,7 +144,12 @@ const OfflineHighlights = () => {
     <section className={styles.offlineSection} aria-labelledby="offline-heading">
       <div className={styles.inner}>
         <div className={styles.cardsColumn}>
-          <div className={styles.cardsStack}>
+          <div 
+            className={styles.cardsStack}
+            ref={cardsStackRef}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
             {offlineCourses.map((course, index) => {
               const isActive = index === activeIndex;
               const offset = index - activeIndex;

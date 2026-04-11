@@ -438,13 +438,96 @@
   letter-spacing: 0.3px;
 }
 
+// Plan Selector
+.planSelectorContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.planSelectorLabel {
+  @include m.font($font-sharp-20, $semibold, #262c35);
+  font-size: 0.8rem;
+  letter-spacing: 0.3px;
+}
+
+.planToggleGroup {
+  display: flex;
+  gap: 6px;
+  border-radius: 6px;
+  background: #f7f2e2;
+  padding: 4px;
+}
+
+.planToggle {
+  flex: 1;
+  padding: 7px 10px;
+  background: transparent;
+  border: 1.5px solid transparent;
+  border-radius: 4px;
+  @include m.font($font-sharp-20, $medium, #666);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: capitalize;
+  white-space: nowrap;
+
+  &:hover {
+    background: rgba(166, 150, 0, 0.08);
+    color: #a69600;
+  }
+
+  &.planToggleActive {
+    background: white;
+    border-color: #a69600;
+    color: #a69600;
+    font-weight: 600;
+  }
+}
+
+// All Plans Info (showing all prices)
+.allPlansInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+  background: #fdfbf7;
+  border-radius: 6px;
+  border: 1px solid #ede8c7;
+}
+
+.planPriceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.planNameSmall {
+  @include m.font($font-sharp-20, $medium, #555);
+  font-size: 0.78rem;
+  flex: 1;
+}
+
+.planPriceSmall {
+  @include m.font($font-oldschool, $medium, #999);
+  font-size: 0.78rem;
+  text-decoration: line-through;
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
 // Pricing
 .pricingInfo {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  padding: 10px 0;
+  padding: 12px;
+  background: linear-gradient(135deg, #fdf9f0 0%, #f7f2e2 100%);
+  border: 1.5px solid #e8d896;
+  border-radius: 6px;
+  margin-top: 4px;
 }
 
 .priceGroup {

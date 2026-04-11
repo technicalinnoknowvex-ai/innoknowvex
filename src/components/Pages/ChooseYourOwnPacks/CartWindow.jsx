@@ -94,6 +94,15 @@ const CartWindow = ({
 
         {/* Footer */}
         <div className={style.cartFooter}>
+          {/* Success Message */}
+          <div className={style.successMessage}>
+            <span className={style.successIcon}>✓</span>
+            <div className={style.successText}>
+              <p className={style.successTitle}>Course Added!</p>
+              <p className={style.successSubtitle}>You can add up to 4 programs</p>
+            </div>
+          </div>
+
           {fixedPrice ? (
             <div className={style.packagePricing}>
               <div className={style.packageInfo}>
@@ -115,10 +124,15 @@ const CartWindow = ({
             </div>
           )}
 
-          <button className={style.checkoutBtn} onClick={handleCheckout}>
-            Proceed to Checkout
-            <ArrowRight size={20} />
-          </button>
+          <div className={style.buttonGroup}>
+            <button className={style.continueShoppingBtn} onClick={onClose}>
+              Add More Courses
+            </button>
+            <button className={style.checkoutBtn} onClick={handleCheckout}>
+              Proceed to Checkout
+              <ArrowRight size={20} />
+            </button>
+          </div>
 
           {/* ✅ Security Notice */}
           <p style={{ 

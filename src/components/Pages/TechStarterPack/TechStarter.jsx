@@ -24,6 +24,7 @@ const FIXED_PACKAGE_PRICE = 25000;
 
 const TechStarter = () => {
   const [selectedPlans, setSelectedPlans] = useState({});
+  const [displayPlans, setDisplayPlans] = useState({});
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [programsPrice, setProgramsPrice] = useState({});
@@ -52,10 +53,13 @@ const TechStarter = () => {
     setCartItems(items);
 
     const plans = {};
+    const displayPlansList = {};
     items.forEach((item) => {
       plans[item.id] = item.plan;
+      displayPlansList[item.id] = item.plan;
     });
     setSelectedPlans(plans);
+    setDisplayPlans(displayPlansList);
 
     // Also check if package info exists, if not create it
     const packageInfo = JSON.parse(sessionStorage.getItem("techStarterPackageInfo"));
@@ -71,7 +75,8 @@ const TechStarter = () => {
 
         const techPrograms = fetchedPrograms.filter(
           (p) =>
-            p.category === "Technology & Programming" || p.category === "AI & Data Science"
+            (p.category === "Technology & Programming" || p.category === "AI & Data Science") &&
+            !p.id.toLowerCase().includes("offline")
         );
 
         setPrograms(techPrograms);
@@ -267,22 +272,58 @@ const TechStarter = () => {
     });
   };
 
-  const handleExplore = (program) => {
-    window.open(`/programs/${program.id}`, "_blank");
+  const handlePlanSelect = (courseId, planName) => {
+    setDisplayPlans((prev) => ({
+      ...prev,
+      [courseId]: planName,
+    }));
   };
 
-  const renderPlanCard = (program, planType, planName) => {
-    const isSelected = isPlanSelected(program.id, planName);
+  const formatPrice = (price) => {
+    return typeof price === "number" ? price.toLocaleString("en-IN") : price;
+  };
+
+  const renderSingleCourseCard = (program, coursePrice) => {
     const courseSelected = isCourseSelected(program.id);
-    const isDisabled = courseSelected && !isSelected;
+    const currentDisplayPlan = displayPlans[program.id] || PLAN_TYPES.SELF;
     const canSelect = canSelectCourse(program.id);
+
+    // Get prices for all plans
+    const selfPrice = {
+      current: coursePrice.self_current_price,
+      actual: coursePrice.self_actual_price,
+    };
+    const mentorPrice = {
+      current: coursePrice.mentor_current_price,
+      actual: coursePrice.mentor_actual_price,
+    };
+    const professionalPrice = {
+      current: coursePrice.professional_current_price,
+      actual: coursePrice.professional_actual_price,
+    };
+
+    // Get current display plan pricing
+    let currentPrice, actualPrice;
+    if (currentDisplayPlan === PLAN_TYPES.MENTOR) {
+      currentPrice = mentorPrice.current;
+      actualPrice = mentorPrice.actual;
+    } else if (currentDisplayPlan === PLAN_TYPES.PROFESSIONAL) {
+      currentPrice = professionalPrice.current;
+      actualPrice = professionalPrice.actual;
+    } else {
+      currentPrice = selfPrice.current;
+      actualPrice = selfPrice.actual;
+    }
+
+    const discount = Math.round(((actualPrice - currentPrice) / actualPrice) * 100);
+    const isSelected = isPlanSelected(program.id, currentDisplayPlan);
 
     return (
       <div
-        className={`${style.planCard} ${isSelected ? style.selectedCard : ""} ${isDisabled ? style.disabledCard : ""
-          }`}
-        key={`${program.id}-${planType}`}
+        className={`${style.planCard} ${isSelected ? style.selectedCard : ""}`}
+        key={program.id}
       >
+        {/* Image Section */}
         <div className={style.planImageSection}>
           <Image
             src={program.image}
@@ -294,6 +335,7 @@ const TechStarter = () => {
         </div>
 
         <div className={style.planDetailsSection}>
+          {/* Program Header with View Details */}
           <div className={style.programInfo}>
             <h3 className={style.programTitle}>{program.title}</h3>
             <button
@@ -304,8 +346,48 @@ const TechStarter = () => {
             </button>
           </div>
 
-          <div className={style.planTypeTag}>{planName} Plan</div>
+          {/* Plan Selector Toggle */}
+          <div className={style.planSelectorContainer}>
+            <label className={style.planSelectorLabel}>Select Plan:</label>
+            <div className={style.planToggleGroup}>
+              <button
+                className={`${style.planToggle} ${currentDisplayPlan === PLAN_TYPES.SELF ? style.planToggleActive : ""}`}
+                onClick={() => handlePlanSelect(program.id, PLAN_TYPES.SELF)}
+              >
+                Self
+              </button>
+              <button
+                className={`${style.planToggle} ${currentDisplayPlan === PLAN_TYPES.MENTOR ? style.planToggleActive : ""}`}
+                onClick={() => handlePlanSelect(program.id, PLAN_TYPES.MENTOR)}
+              >
+                Mentor
+              </button>
+              <button
+                className={`${style.planToggle} ${currentDisplayPlan === PLAN_TYPES.PROFESSIONAL ? style.planToggleActive : ""}`}
+                onClick={() => handlePlanSelect(program.id, PLAN_TYPES.PROFESSIONAL)}
+              >
+                Professional
+              </button>
+            </div>
+          </div>
 
+          {/* All Plans Pricing */}
+          <div className={style.allPlansInfo}>
+            <div className={style.planPriceRow}>
+              <span className={style.planNameSmall}>Self: ₹{formatPrice(selfPrice.current)}</span>
+              <span className={style.planPriceSmall}>₹{formatPrice(selfPrice.actual)}</span>
+            </div>
+            <div className={style.planPriceRow}>
+              <span className={style.planNameSmall}>Mentor: ₹{formatPrice(mentorPrice.current)}</span>
+              <span className={style.planPriceSmall}>₹{formatPrice(mentorPrice.actual)}</span>
+            </div>
+            <div className={style.planPriceRow}>
+              <span className={style.planNameSmall}>Professional: ₹{formatPrice(professionalPrice.current)}</span>
+              <span className={style.planPriceSmall}>₹{formatPrice(professionalPrice.actual)}</span>
+            </div>
+          </div>
+
+          {/* Package Info */}
           <div className={style.packageInfo}>
             <p className={style.packageText}>
               Part of Tech Starter Pack @ ₹25,000
@@ -322,15 +404,11 @@ const TechStarter = () => {
           ) : (
             <button
               className={style.addToCartBtn}
-              onClick={() => handleAddToCart(program, planName)}
-              disabled={isDisabled || !canSelect}
+              onClick={() => handleAddToCart(program, currentDisplayPlan)}
+              disabled={!canSelect}
             >
               <span>
-                {isDisabled
-                  ? "Another Plan Selected"
-                  : !canSelect
-                    ? "Pack Full"
-                    : "Add to Pack"}
+                {!canSelect ? "Pack Full" : "Add to Pack"}
               </span>
             </button>
           )}
@@ -344,6 +422,10 @@ const TechStarter = () => {
         )}
       </div>
     );
+  };
+
+  const handleExplore = (program) => {
+    window.open(`/programs/${program.id}`, "_blank");
   };
 
   if (loading) {
@@ -433,17 +515,7 @@ const TechStarter = () => {
 
             if (!coursePrice) return null;
 
-            return (
-              <React.Fragment key={program.id}>
-                {renderPlanCard(program, "self", PLAN_TYPES.SELF)}
-                {renderPlanCard(program, "mentor", PLAN_TYPES.MENTOR)}
-                {renderPlanCard(
-                  program,
-                  "professional",
-                  PLAN_TYPES.PROFESSIONAL
-                )}
-              </React.Fragment>
-            );
+            return renderSingleCourseCard(program, coursePrice);
           })}
         </div>
       </div>
