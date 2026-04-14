@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './styles/PosterModal.module.scss';
 import posterImage from '@/app/poster.jpeg';
 
@@ -51,13 +52,15 @@ const PosterModal = ({ isOpen, onClose }) => {
           ✕
         </button>
         
-        <Image
-          src={posterImage}
-          alt="Java & Data Structures Poster"
-          className={styles.posterImage}
-          priority
-          quality={90}
-        />
+        <Link href="/programs/java-dsa" onClick={onClose} className={styles.posterLink}>
+          <Image
+            src={posterImage}
+            alt="Java & Data Structures Poster"
+            className={styles.posterImage}
+            priority
+            quality={90}
+          />
+        </Link>
       </div>
     </div>
   );
