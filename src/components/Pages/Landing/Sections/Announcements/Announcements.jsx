@@ -11,6 +11,7 @@ const Announcements = () => {
     const normalizeName = (rawName) =>
       rawName
         .replace(/\.[a-zA-Z0-9]+$/, "")
+        .replace(/^copy\s+of\s+/i, "") // Remove "Copy of " prefix
         .replace(/[_-]+/g, " ")
         .replace(/\s+/g, " ")
         .trim()

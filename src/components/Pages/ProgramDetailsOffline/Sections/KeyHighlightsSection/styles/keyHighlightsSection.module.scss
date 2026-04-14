@@ -1,8 +1,8 @@
 .layout {
-  margin-top: 24px;
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
-  padding: 1.9rem 1.4rem;
+  padding: 2.5rem 1.5rem;
   position: relative;
   width: 100%;
   z-index: 1;
@@ -25,6 +25,16 @@
 
   &.animateIn {
     animation: fadeInUp 0.55s ease-out;
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 30px;
+    padding: 2rem 1.25rem;
+  }
+
+  @media (max-width: 480px) {
+    margin-top: 20px;
+    padding: 1.5rem 1rem;
   }
 }
 
@@ -55,10 +65,15 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 14px;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 
   @media (max-width: 760px) {
     flex-direction: column;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    margin-bottom: 1.25rem;
   }
 }
 
@@ -66,43 +81,55 @@
   h2 {
     margin: 0;
     font-family: var(--font-sharp-25), Sharp Grotesk;
-    font-size: clamp(1.3rem, 3.2vw, 2rem);
+    font-size: clamp(1.4rem, 3.5vw, 2.1rem);
     line-height: 1.25;
     color: #f8fafc;
-    font-weight: 560;
+    font-weight: 600;
+    letter-spacing: -0.01em;
   }
 
   p {
-    margin: 0.45rem 0 0;
+    margin: 0.6rem 0 0;
     color: #94a3b8;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     line-height: 1.5;
     max-width: 640px;
+
+    @media (max-width: 480px) {
+      font-size: 0.85rem;
+    }
   }
 }
 
 .sectionBadge {
   display: inline-block;
-  margin-bottom: 0.5rem;
-  padding: 0.2rem 0.7rem;
-  border-radius: 999px;
-  font-size: 0.7rem;
+  margin-bottom: 0.75rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #67e8f9;
   background: rgba(34, 211, 238, 0.12);
   border: 1px solid rgba(34, 211, 238, 0.35);
+  font-weight: 600;
 }
 
 .metaChip {
-  padding: 0.5rem 0.8rem;
-  border-radius: 999px;
+  padding: 0.6rem 1rem;
+  border-radius: 50px;
   font-size: 0.8rem;
   color: #e2e8f0;
   background: rgba(15, 23, 42, 0.55);
   border: 1px solid rgba(148, 163, 184, 0.28);
   align-self: center;
   white-space: nowrap;
+  font-weight: 500;
+
+  @media (max-width: 480px) {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.8rem;
+  }
 }
 
 .programName {
@@ -120,102 +147,179 @@
 }
 
 .skillsContainer {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 0.9rem;
   width: 100%;
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
 
   &.animateSkills .skillBox {
     animation: skillIn 0.45s ease-out calc(var(--delay, 0s)) both;
   }
+
+  @media (max-width: 768px) {
+    gap: 0.8rem;
+    justify-content: center;
+  }
+
+  @media (max-width: 480px) {
+    gap: 0.7rem;
+  }
 }
 
 .skillBox {
-  padding: 0.85rem 0.95rem;
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.5rem;
-  border: 1px solid rgba(148, 163, 184, 0.22);
-  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.8rem 1.3rem;
+  border-radius: 50px;
+  border: 1.5px solid rgba(34, 211, 238, 0.25);
+  background: linear-gradient(
+    135deg,
+    rgba(34, 211, 238, 0.08) 0%,
+    rgba(167, 139, 250, 0.05) 100%
+  );
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
   overflow: hidden;
+  box-shadow:
+    0 4px 12px rgba(34, 211, 238, 0.1),
+    0 0 1px rgba(34, 211, 238, 0.2) inset;
+  backdrop-filter: blur(8px);
+  animation: slideInUp 0.5s ease-out backwards;
+  animation-delay: calc(var(--badge-index, 0) * 0.06s);
 
   &::before {
     content: "";
     position: absolute;
-    left: 0;
-    right: 0;
     top: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #22d3ee, #a78bfa, #fbbf24);
-    opacity: 0.85;
-  }
-
-  &:nth-child(even) {
-    transform: translateY(6px);
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.15), transparent);
+    transition: left 0.5s ease;
   }
 
   .skillIcon {
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
-    display: grid;
-    place-items: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #67e8f9;
-    background: rgba(34, 211, 238, 0.14);
-    border: 1px solid rgba(34, 211, 238, 0.28);
+    background: rgba(34, 211, 238, 0.2);
+    border: 1px solid rgba(34, 211, 238, 0.4);
     flex-shrink: 0;
+    transition: all 0.3s ease;
+
+    svg {
+      stroke-width: 2.5;
+      width: 16px;
+      height: 16px;
+    }
   }
 
   .skillText {
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     line-height: 1.3;
-    font-weight: 520;
+    font-weight: 500;
     color: #e2e8f0;
+    white-space: nowrap;
+    transition: all 0.3s ease;
   }
 
   .skillMeta {
-    font-size: 0.72rem;
-    color: #94a3b8;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+    display: none;
+  }
+
+  .skillIndex {
+    display: none;
+  }
+
+  .skillTopRow {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+    width: 100%;
   }
 
   &:hover {
-    transform: translateY(-4px);
-    border-color: rgba(167, 139, 250, 0.45);
-    background: rgba(30, 41, 59, 0.55);
+    border-color: rgba(34, 211, 238, 0.55);
+    background: linear-gradient(
+      135deg,
+      rgba(34, 211, 238, 0.15) 0%,
+      rgba(167, 139, 250, 0.1) 100%
+    );
+    transform: translateY(-2px);
+    box-shadow:
+      0 8px 20px rgba(34, 211, 238, 0.2),
+      0 0 1px rgba(34, 211, 238, 0.4) inset;
+
+    .skillIcon {
+      background: rgba(34, 211, 238, 0.35);
+      border-color: rgba(34, 211, 238, 0.6);
+      transform: scale(1.1) rotate(-5deg);
+    }
+
+    &::before {
+      left: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.75rem 1.15rem;
+    font-size: 0.85rem;
+    gap: 0.6rem;
+
+    .skillIcon {
+      width: 24px;
+      height: 24px;
+
+      svg {
+        width: 14px;
+        height: 14px;
+      }
+    }
+
+    .skillText {
+      font-size: 0.85rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.65rem 1rem;
+    font-size: 0.8rem;
+    gap: 0.5rem;
+
+    .skillIcon {
+      width: 22px;
+      height: 22px;
+
+      svg {
+        width: 12px;
+        height: 12px;
+      }
+    }
+
+    .skillText {
+      font-size: 0.8rem;
+      white-space: normal;
+    }
   }
 }
 
-.skillTopRow {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.skillIndex {
-  font-family: var(--font-sharp-25), Sharp Grotesk;
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  color: rgba(248, 250, 252, 0.75);
-}
-
 .offlineSkillBox {
-  background: linear-gradient(
-    160deg,
-    rgba(15, 23, 42, 0.74) 0%,
-    rgba(30, 41, 59, 0.62) 100%
-  );
-  box-shadow:
-    0 10px 20px rgba(0, 0, 0, 0.26),
-    0 0 0 1px rgba(255, 255, 255, 0.04) inset;
-  backdrop-filter: blur(10px);
+  // Inherits from .skillBox, no additional styles needed
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

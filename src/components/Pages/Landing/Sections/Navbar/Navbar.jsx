@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./styles/navbar.module.scss";
-import CompanyLogo from "./CompanyLogo";
+// import CompanyLogo from "./CompanyLogo";
 import { useNavColor } from "@/context/NavColorContext";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -849,11 +849,11 @@ const Navbar = () => {
       <nav className={styles.navbar}>
         <div className={styles.navbar__overlay}></div>
         <div className={styles.contentWrapper}>
-          <div className={styles.logoWrapper}>
+          {/* <div className={styles.logoWrapper}>
             <Link href={"/"} className={styles.logoContainer}>
               <CompanyLogo />
             </Link>
-          </div>
+          </div> */}
           <div className={styles.linksWrapper}>
             {navLinks.map((link, lIndex) => (
               <React.Fragment key={lIndex}>

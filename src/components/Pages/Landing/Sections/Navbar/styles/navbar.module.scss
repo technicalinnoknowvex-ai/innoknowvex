@@ -7,7 +7,7 @@ $navbar-height: 70px;
 
 .navbar {
   position: fixed;
-  top: 0;
+  top: var(--promo-bar-offset,0px);
   left: 0;
   right: 0;
   width: 100%;

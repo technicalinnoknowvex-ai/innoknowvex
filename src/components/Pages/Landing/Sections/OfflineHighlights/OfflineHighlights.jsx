@@ -8,23 +8,26 @@ import Link from "next/link";
 const normalizeName = (rawName) => {
   if (!rawName) return "";
 
-  // Remove extension and common prefixes like "Copy of "
+  // Remove extension
   const withoutExt = rawName.replace(/\.[a-zA-Z0-9]+$/, "");
-  let cleaned = withoutExt
-    .replace(/copy of/gi, "") // strip "Copy of" text
-    .replace(/[_-]+/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+  
+  // Remove "Copy of " prefix (case-insensitive)
+  let cleaned = withoutExt.replace(/^copy\s+of\s+/i, "");
+  
+  // Clean up underscores and hyphens
+  cleaned = cleaned.replace(/[_-]+/g, " ").replace(/\s+/g, " ").trim();
 
-  // Remove stray format words like "jpg", "jpeg", "png", "webp" if present
+  // Remove stray format words like "jpg", "jpeg", "png", "webp"
   cleaned = cleaned.replace(/\b(jpg|jpeg|png|webp)\b/gi, "").replace(/\s+/g, " ").trim();
 
+  // Title case
   const titleCased = cleaned
     .toLowerCase()
     .replace(/\b\w/g, (ch) => ch.toUpperCase());
 
-  // Custom mappings for nicer labels
+  // Special cases
   if (/^ai$/i.test(cleaned)) return "Artificial Intelligence";
+  if (/^aiml$/i.test(cleaned)) return "AI & Machine Learning";
 
   return titleCased;
 };

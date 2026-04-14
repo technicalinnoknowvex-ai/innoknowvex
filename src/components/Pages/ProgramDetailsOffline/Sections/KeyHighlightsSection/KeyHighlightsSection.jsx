@@ -29,26 +29,29 @@ const iconMap = {
   "cloud": Cloud,
   "docker": Layers,
   "git": GitBranch,
+  "sql": Database,
+  "rest": Cloud,
+  "http": Cloud,
 };
 
 const getIconForSkill = (skill) => {
   const skillLower = skill.toLowerCase();
   for (const [key, IconComponent] of Object.entries(iconMap)) {
     if (skillLower.includes(key)) {
-      return <IconComponent size={20} />;
+      return <IconComponent size={18} />;
     }
   }
-  return <Sparkles size={20} />;
+  return <Sparkles size={18} />;
 };
 
 export default function KeyHighlightsSection({ program, isOffline }) {
   const containerRef = useRef(null);
-  const skillsRef = useRef([]);
   const skillCount = program?.skills?.length || 0;
 
   useEffect(() => {
     if (isOffline && containerRef.current) {
       containerRef.current.classList.add(styles.animateIn);
+      containerRef.current.querySelector(`.${styles.skillsContainer}`)?.classList.add(styles.animateSkills);
     }
   }, [isOffline, program]);
 
@@ -61,7 +64,7 @@ export default function KeyHighlightsSection({ program, isOffline }) {
         <div className={styles.headingText}>
           <span className={styles.sectionBadge}>Program highlights</span>
           <h2>
-            What You Will Master in{" "}
+            Core Skills You'll Master in{" "}
             <span className={`${styles.programName} ${isOffline ? styles.offlineGradient : ""}`}>
               {program.id}
             </span>
@@ -77,23 +80,17 @@ export default function KeyHighlightsSection({ program, isOffline }) {
             <div
               key={index}
               className={`${styles.skillBox} ${isOffline ? styles.offlineSkillBox : ""}`}
-              style={isOffline ? { "--delay": `${index * 0.08}s` } : {}}
-              ref={(el) => (skillsRef.current[index] = el)}
+              style={isOffline ? { "--delay": `${index * 0.05}s` } : { "--badge-index": index }}
               title={skill}
             >
-              <div className={styles.skillTopRow}>
-                <span className={styles.skillIcon}>
-                  {getIconForSkill(skill)}
-                </span>
-                <span className={styles.skillIndex}>
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-              </div>
+              <span className={styles.skillIcon}>
+                {getIconForSkill(skill)}
+              </span>
               <span className={styles.skillText}>{skill}</span>
-              <span className={styles.skillMeta}>Hands-on industry module</span>
             </div>
           ))}
       </div>
     </div>
   );
 }
+
