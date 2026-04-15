@@ -89,7 +89,12 @@ const ScheduleModal = () => {
       day
     );
     setSelectedDate(newDate);
-    setValue("selectedDate", newDate.toISOString().split("T")[0]);
+    // Format as local date string (YYYY-MM-DD) to avoid timezone issues
+    const year = newDate.getFullYear();
+    const month = String(newDate.getMonth() + 1).padStart(2, '0');
+    const date = String(newDate.getDate()).padStart(2, '0');
+    const localDateString = `${year}-${month}-${date}`;
+    setValue("selectedDate", localDateString);
   };
 
   const handlePrevMonth = () => {

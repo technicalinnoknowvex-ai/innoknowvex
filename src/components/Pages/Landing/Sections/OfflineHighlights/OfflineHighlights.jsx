@@ -63,6 +63,8 @@ const OfflineHighlights = () => {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const hoverTimerRef = useRef(null);
+  const autoRotateTimerRef = useRef(null);
+  const [isHovering, setIsHovering] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const touchStartRef = useRef({ x: 0, y: 0 });
   const cardsStackRef = useRef(null);
@@ -86,6 +88,8 @@ const OfflineHighlights = () => {
   };
 
   const handleCardMouseEnter = (index) => {
+    setIsHovering(true);
+
     if (hoverTimerRef.current) {
       clearTimeout(hoverTimerRef.current);
     }
@@ -98,6 +102,8 @@ const OfflineHighlights = () => {
   };
 
   const handleCardMouseLeave = () => {
+    setIsHovering(false);
+
     if (hoverTimerRef.current) {
       clearTimeout(hoverTimerRef.current);
       hoverTimerRef.current = null;
@@ -141,6 +147,26 @@ const OfflineHighlights = () => {
     };
   }, []);
 
+  // Auto-rotate cards every 7 seconds when not hovering
+  useEffect(() => {
+    if (isHovering) {
+      if (autoRotateTimerRef.current) {
+        clearInterval(autoRotateTimerRef.current);
+      }
+      return;
+    }
+
+    autoRotateTimerRef.current = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % offlineCourses.length);
+    }, 7000);
+
+    return () => {
+      if (autoRotateTimerRef.current) {
+        clearInterval(autoRotateTimerRef.current);
+      }
+    };
+  }, [isHovering, offlineCourses.length]);
+
   if (!offlineCourses.length) return null;
 
   return (
@@ -152,6 +178,7 @@ const OfflineHighlights = () => {
             ref={cardsStackRef}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
+            onMouseLeave={handleCardMouseLeave}
           >
             {offlineCourses.map((course, index) => {
               const isActive = index === activeIndex;

@@ -15,6 +15,7 @@
   backdrop-filter: blur(4px);
   padding: 20px;
   animation: fadeIn 0.3s ease-out;
+  overflow: auto;
 
   @keyframes fadeIn {
     from {
@@ -30,21 +31,21 @@
   background: linear-gradient(135deg, #0f0f1e 0%, #1a1a3e 100%);
   border: 1px solid rgba(255, 107, 53, 0.2);
   border-radius: 20px;
-  padding: 40px;
-  max-width: 900px;
+  padding: 32px;
+  max-width: 800px;
   width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
+  max-height: none;
+  overflow-y: visible;
   position: relative;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 
   @media (max-width: 768px) {
-    padding: 24px;
+    padding: 20px;
     border-radius: 16px;
   }
 
   @media (max-width: 480px) {
-    padding: 16px;
+    padding: 14px;
     border-radius: 12px;
   }
 }
@@ -75,11 +76,11 @@
 .modalContent {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 18px;
 }
 
 .title {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 700;
   color: #fff;
   margin: 0;
@@ -89,12 +90,12 @@
   background-clip: text;
 
   @media (max-width: 480px) {
-    font-size: 22px;
+    font-size: 20px;
   }
 }
 
 .subtitle {
-  font-size: 14px;
+  font-size: 13px;
   color: rgba(255, 255, 255, 0.7);
   margin: 0;
 }
@@ -102,7 +103,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
   animation: slideUp 0.5s ease-out;
 
   @keyframes slideUp {
@@ -120,7 +121,7 @@
 .formGroup {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   animation: slideUp 0.5s ease-out;
 
   @keyframes slideUp {
@@ -141,7 +142,7 @@
   }
 
   input {
-    padding: 12px 16px;
+    padding: 10px 14px;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 107, 53, 0.3);
     border-radius: 12px;
@@ -180,13 +181,13 @@
 .scheduleSection {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 14px;
 }
 
 .dateTimeWrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  gap: 16px;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -197,7 +198,7 @@
 .timePickerContainer {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 
   label {
     font-size: 14px;
@@ -207,7 +208,7 @@
 }
 
 .dateButton {
-  padding: 12px 16px;
+  padding: 10px 14px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 107, 53, 0.3);
   border-radius: 12px;
@@ -216,7 +217,7 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   transition: all 0.3s ease;
 
   &:hover {
@@ -352,7 +353,7 @@
 .timeSlots {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 8px;
 
   @media (max-width: 768px) {
     grid-template-columns: repeat(3, 1fr);
@@ -360,17 +361,17 @@
 
   @media (max-width: 480px) {
     grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
+    gap: 6px;
   }
 }
 
 .timeSlot {
-  padding: 10px;
+  padding: 8px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 107, 53, 0.3);
   border-radius: 10px;
   color: #fff;
-  font-size: 13px;
+  font-size: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
 
@@ -388,13 +389,13 @@
 }
 
 .submitBtn {
-  padding: 14px 24px;
+  padding: 12px 20px;
   background: linear-gradient(135deg, #ff6b35 0%, #ff8a50 100%);
   border: none;
-  margin-top: 8px;
+  margin-top: 4px;
   border-radius: 12px;
   color: #fff;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
