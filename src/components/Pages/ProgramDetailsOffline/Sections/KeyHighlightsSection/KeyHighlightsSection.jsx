@@ -1,5 +1,6 @@
 import styles from "./styles/keyHighlightsSection.module.scss";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { getSkillDescription } from "@/data/skills";
 import { 
   Code2, Database, Zap, BarChart3, Smartphone, Cloud,
   Cpu, Shield, Layers, GitBranch, Palette, Workflow,
@@ -46,7 +47,21 @@ const getIconForSkill = (skill) => {
 
 export default function KeyHighlightsSection({ program, isOffline }) {
   const containerRef = useRef(null);
+  const [hoveredSkill, setHoveredSkill] = useState(null);
+  const [tooltipPos, setTooltipPos] = useState({ top: 0, left: 0 });
+  const [isMobile, setIsMobile] = useState(false);
   const skillCount = program?.skills?.length || 0;
+
+  // Detect mobile on mount and on resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     if (isOffline && containerRef.current) {
@@ -54,6 +69,43 @@ export default function KeyHighlightsSection({ program, isOffline }) {
       containerRef.current.querySelector(`.${styles.skillsContainer}`)?.classList.add(styles.animateSkills);
     }
   }, [isOffline, program]);
+
+  const updateTooltipPosition = (index, e) => {
+    setHoveredSkill(index);
+    if (containerRef.current) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const layoutRect = containerRef.current.getBoundingClientRect();
+      
+      setTooltipPos({
+        top: rect.top - layoutRect.top - 15,
+        left: rect.left - layoutRect.left + rect.width / 2,
+      });
+    }
+  };
+
+  const handleMouseEnter = (index, e) => {
+    if (!isMobile) {
+      updateTooltipPosition(index, e);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!isMobile) {
+      setHoveredSkill(null);
+    }
+  };
+
+  const handleClick = (index, e) => {
+    if (isMobile) {
+      if (hoveredSkill === index) {
+        // Close tooltip if clicking the same skill
+        setHoveredSkill(null);
+      } else {
+        // Show tooltip for clicked skill
+        updateTooltipPosition(index, e);
+      }
+    }
+  };
 
   return (
     <div
@@ -82,6 +134,9 @@ export default function KeyHighlightsSection({ program, isOffline }) {
               className={`${styles.skillBox} ${isOffline ? styles.offlineSkillBox : ""}`}
               style={isOffline ? { "--delay": `${index * 0.05}s` } : { "--badge-index": index }}
               title={skill}
+              onMouseEnter={(e) => handleMouseEnter(index, e)}
+              onMouseLeave={handleMouseLeave}
+              onClick={(e) => handleClick(index, e)}
             >
               <span className={styles.skillIcon}>
                 {getIconForSkill(skill)}
@@ -90,6 +145,20 @@ export default function KeyHighlightsSection({ program, isOffline }) {
             </div>
           ))}
       </div>
+
+      {hoveredSkill !== null && program.skills && (
+        <div
+          className={`${styles.tooltip} ${isOffline ? styles.offlineTooltip : ""}`}
+          style={{
+            top: `${tooltipPos.top}px`,
+            left: `${tooltipPos.left}px`,
+          }}
+        >
+          <div className={styles.tooltipContent}>
+            <p>{getSkillDescription(program.skills[hoveredSkill])}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
