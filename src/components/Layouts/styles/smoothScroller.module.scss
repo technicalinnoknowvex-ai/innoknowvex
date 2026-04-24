@@ -1,0 +1,25 @@
+@use "../../../styles/mixins" as m;
+
+.scrollWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+
+  // Mobile: Allow normal scrolling behavior
+  @media (max-width: 1024px) {
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: auto;
+  }
+}
+
+.scrollContent {
+  width: 100%;
+
+  @media (max-width: 1024px) {
+    position: relative;
+  }
+}

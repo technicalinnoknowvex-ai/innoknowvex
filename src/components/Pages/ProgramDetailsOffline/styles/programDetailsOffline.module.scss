@@ -1,0 +1,208 @@
+@use "../../../../styles/variables" as *;
+@use "../../../../styles/mixins" as *;
+
+.courseContainer {
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+  color: #e2e8f0;
+  background-color: #020617;
+
+  // Shared tokens for offline program detail (aligns with listing page)
+  --offline-accent-a: #22d3ee;
+  --offline-accent-b: #a78bfa;
+  --offline-accent-c: #fbbf24;
+  --offline-accent-d: #fb7185;
+  --offline-border: rgba(148, 163, 184, 0.14);
+  --offline-glass: rgba(15, 23, 42, 0.45);
+  --offline-text-muted: #94a3b8;
+
+  &::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 100% 70% at 50% -25%, rgba(56, 189, 248, 0.2), transparent 55%),
+      radial-gradient(ellipse 65% 50% at 100% 15%, rgba(167, 139, 250, 0.16), transparent 50%),
+      radial-gradient(ellipse 55% 45% at 0% 75%, rgba(251, 191, 36, 0.09), transparent 48%),
+      linear-gradient(180deg, #020617 0%, #0b1220 50%, #020617 100%);
+    animation: none;
+  }
+
+  &::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.12;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 768px) {
+    &::after {
+      display: none;
+    }
+  }
+}
+
+.communitySection {
+  margin: 40px auto 0;
+  max-width: 1400px;
+  padding: 40px 28px 60px;
+  border-radius: 32px;
+  background: linear-gradient(
+    145deg,
+    rgba(15, 23, 42, 0.92) 0%,
+    rgba(30, 41, 59, 0.88) 100%
+  );
+  border: 1px solid rgba(56, 189, 248, 0.18);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+    0 30px 80px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(16px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr);
+  gap: 32px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    padding: 32px 20px 40px;
+  }
+
+  @media (max-width: 640px) {
+    padding: 26px 16px 34px;
+    border-radius: 24px;
+    backdrop-filter: none;
+  }
+}
+
+.communityBlock {
+  position: relative;
+  z-index: 1;
+}
+
+.partnersCompact {
+  margin-top: 0 !important;
+  padding-top: 14px !important;
+  padding-bottom: 8px !important;
+  margin-bottom: 0 !important;
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%) !important;
+  border-radius: 0;
+}
+
+.testimonialsCompact {
+  margin-top: 0 !important;
+  padding-top: 18px !important;
+}
+
+// Utility animations and transitions
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes rotateGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+// Text animations
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+// Glowing effects
+@mixin glowEffect($color) {
+  box-shadow: 0 0 20px rgba($color, 0.3), 0 0 40px rgba($color, 0.1);
+  border-color: rgba($color, 0.5);
+}
+
+// Button glow
+@keyframes buttonGlow {
+  0% {
+    box-shadow: 0 0 10px rgba(255, 107, 107, 0.4), 0 0 20px rgba(255, 107, 107, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.6), 0 0 30px rgba(255, 107, 107, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(255, 107, 107, 0.4), 0 0 20px rgba(255, 107, 107, 0.2);
+  }
+}
+
+// Component-specific styles will be applied in individual component files
+// This file establishes the global container and animation framework

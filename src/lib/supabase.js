@@ -1,0 +1,465 @@
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+console.log('🔧 Supabase Config:', {
+  url: supabaseUrl,
+  hasKey: !!supabaseKey
+});
+
+// 🔥 FIX: Create TWO clients - one for general use, one for auth
+const _noop = () => ({ data: null, error: null })
+const _noopAsync = async () => ({ data: null, error: null })
+const _stubClient = {
+  auth: {
+    getSession: async () => ({ data: { session: null }, error: null }),
+    getUser: async () => ({ data: { user: null }, error: null }),
+    onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => { } } } }),
+    signInWithPassword: _noopAsync, signUp: _noopAsync, signOut: _noopAsync,
+    resetPasswordForEmail: _noopAsync, updateUser: _noopAsync, setSession: _noopAsync,
+    resend: _noopAsync,
+  },
+  from: () => ({ select: _noop, insert: _noop, update: _noop, delete: _noop }),
+  storage: { from: () => ({ list: _noopAsync, createSignedUrl: _noopAsync }) },
+}
+
+export const supabase = supabaseUrl && supabaseKey
+  ? createClient(supabaseUrl, supabaseKey, {
+    auth: {
+      autoRefreshToken: true,
+      persistSession: true,
+      detectSessionInUrl: true,
+      flowType: 'pkce',
+      storage: typeof window !== 'undefined' ? window.localStorage : undefined,
+      storageKey: 'supabase.auth.token'
+    }
+  })
+  : _stubClient
+
+// Test database connection
+export const testConnection = async () => {
+  try {
+    const { data, error } = await supabase
+      .from('enquiries')
+      .select('count', { count: 'exact' })
+
+    if (error) {
+      console.error('Database connection failed:', error)
+      return false
+    }
+
+    console.log('✅ Database connected successfully')
+    return true
+  } catch (error) {
+    console.error('Database connection error:', error)
+    return false
+  }
+}
+
+// ========== AUTH HELPER FUNCTIONS ==========
+
+// Sign up with email confirmation
+export const signUpWithEmail = async (email, password, redirectUrl, additionalData = {}) => {
+  try {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: redirectUrl,
+        data: additionalData
+      }
+    })
+
+    if (error) throw error
+
+    return {
+      success: true,
+      user: data.user,
+      session: data.session,
+      emailConfirmationRequired: !data.session
+    }
+  } catch (error) {
+    console.error('Sign up error:', error)
+    return {
+      success: false,
+      error: error.message
+    }
+  }
+}
+
+// Sign in with email and password
+export const signInWithEmail = async (email, password) => {
+  try {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    })
+
+    if (error) throw error
+
+    return {
+      success: true,
+      user: data.user,
+      session: data.session
+    }
+  } catch (error) {
+    console.error('Sign in error:', error)
+    return {
+      success: false,
+      error: error.message
+    }
+  }
+}
+
+// Request password reset email
+// ========== UPDATED AUTH HELPER FUNCTIONS ==========
+
+// Request password reset email with custom redirect URL
+export const requestPasswordReset = async (email, customRedirectPath = null) => {
+  try {
+    console.log('🔄 [RESET] Starting password reset request');
+    console.log('📧 [RESET] Email:', email);
+
+    // ✅ FIX: Use custom redirect path if provided, otherwise default to student
+    const baseUrl = typeof window !== 'undefined'
+      ? window.location.origin
+      : process.env.NEXT_PUBLIC_API_BASE_URL;
+
+    const redirectUrl = customRedirectPath
+      ? `${baseUrl}${customRedirectPath}`
+      : `${baseUrl}/auth/student/reset-password`;
+
+    console.log('🔗 [RESET] Redirect URL:', redirectUrl);
+
+    const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: redirectUrl,
+    });
+
+    console.log('📬 [RESET] Supabase response:', {
+      data,
+      error,
+      hasError: !!error
+    });
+
+    if (error) throw error;
+
+    console.log('✅ [RESET] Email sent successfully');
+    return {
+      success: true,
+      message: 'Password reset email sent successfully'
+    }
+  } catch (error) {
+    console.error('❌ [RESET] Error:', error);
+    console.error('❌ [RESET] Error details:', {
+      message: error.message,
+      status: error.status,
+      name: error.name
+    });
+    return {
+      success: false,
+      error: error.message
+    }
+  }
+}
+// Update password
+export const updatePassword = async (newPassword) => {
+  try {
+    console.log('🔄 [UPDATE] Starting password update');
+
+    // Check current session
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+
+    console.log('🔍 [UPDATE] Session check:', {
+      hasSession: !!session,
+      sessionError,
+      userId: session?.user?.id,
+      userEmail: session?.user?.email
+    });
+
+    if (sessionError) {
+      console.error('❌ [UPDATE] Session error:', sessionError);
+      throw new Error('Session error: ' + sessionError.message);
+    }
+
+    if (!session) {
+      console.error('❌ [UPDATE] No active session found');
+      throw new Error('No active session. Please click the reset link again.');
+    }
+
+    console.log('✅ [UPDATE] Valid session found, updating password...');
+
+    const { data, error } = await supabase.auth.updateUser({
+      password: newPassword
+    });
+
+    console.log('📝 [UPDATE] Update response:', {
+      data,
+      error,
+      hasError: !!error
+    });
+
+    if (error) throw error;
+
+    console.log('✅ [UPDATE] Password updated successfully');
+    return {
+      success: true,
+      message: 'Password updated successfully'
+    }
+  } catch (error) {
+    console.error('❌ [UPDATE] Error:', error);
+    console.error('❌ [UPDATE] Error details:', {
+      message: error.message,
+      status: error.status,
+      name: error.name
+    });
+    return {
+      success: false,
+      error: error.message
+    }
+  }
+}
+
+// Sign out
+export const signOut = async () => {
+  try {
+    console.log('🔄 [SIGNOUT] Starting sign out');
+    const { error } = await supabase.auth.signOut();
+
+    if (error) throw error;
+
+    console.log('✅ [SIGNOUT] Signed out successfully');
+    return {
+      success: true,
+      message: 'Signed out successfully'
+    }
+  } catch (error) {
+    console.error('❌ [SIGNOUT] Error:', error);
+    return {
+      success: false,
+      error: error.message
+    }
+  }
+}
+
+// Get current user
+export const getCurrentUser = async () => {
+  try {
+    const { data: { user }, error } = await supabase.auth.getUser()
+
+    if (error) throw error
+
+    return {
+      success: true,
+      user
+    }
+  } catch (error) {
+    console.error('Get user error:', error)
+    return {
+      success: false,
+      error: error.message
+    }
+  }
+}
+
+// Get current session
+export const getCurrentSession = async () => {
+  try {
+    const { data: { session }, error } = await supabase.auth.getSession()
+
+    if (error) throw error
+
+    return {
+      success: true,
+      session
+    }
+  } catch (error) {
+    console.error('Get session error:', error)
+    return {
+      success: false,
+      error: error.message
+    }
+  }
+}
+
+// Resend confirmation email
+export const resendConfirmationEmail = async (email, redirectUrl) => {
+  try {
+    const { error } = await supabase.auth.resend({
+      type: 'signup',
+      email,
+      options: {
+        emailRedirectTo: redirectUrl
+      }
+    })
+
+    if (error) throw error
+
+    return {
+      success: true,
+      message: 'Confirmation email resent successfully'
+    }
+  } catch (error) {
+    console.error('Resend confirmation error:', error)
+    return {
+      success: false,
+      error: error.message
+    }
+  }
+}
+
+// ✅ FIXED: Proper session handling with verification
+export const setSessionFromTokens = async (accessToken, refreshToken) => {
+  try {
+    console.log('🔄 [SESSION] Setting session from tokens');
+    console.log('🔑 [SESSION] Access token:', accessToken?.substring(0, 20) + '...');
+    console.log('🔑 [SESSION] Has refresh token:', !!refreshToken);
+
+    if (!accessToken) {
+      throw new Error('Access token is required');
+    }
+
+    // Clear any existing session first
+    await supabase.auth.signOut();
+    console.log('🧹 [SESSION] Cleared existing session');
+
+    // Set new session with both tokens
+    const { data, error } = await supabase.auth.setSession({
+      access_token: accessToken,
+      refresh_token: refreshToken || accessToken // Use access token as fallback
+    });
+
+    console.log('📝 [SESSION] Set session response:', {
+      hasSession: !!data?.session,
+      hasUser: !!data?.user,
+      userId: data?.user?.id,
+      error: error?.message
+    });
+
+    if (error) {
+      console.error('❌ [SESSION] Supabase error:', error);
+      throw error;
+    }
+
+    if (!data.session) {
+      throw new Error('Session was not created');
+    }
+
+    console.log('✅ [SESSION] Session set successfully');
+    console.log('👤 [SESSION] User ID:', data.user?.id);
+
+    return {
+      success: true,
+      session: data.session,
+      user: data.user
+    }
+  } catch (error) {
+    console.error('❌ [SESSION] Error:', error);
+    console.error('❌ [SESSION] Error name:', error.name);
+    console.error('❌ [SESSION] Error status:', error.status);
+    return {
+      success: false,
+      error: error.message || 'Failed to set session'
+    }
+  }
+}
+
+// ========== STORAGE HELPER FUNCTIONS ==========
+
+// Helper function to get public image URL
+export const getImageUrl = (bucketName, folderPath, fileName) => {
+  const cleanFolderPath = folderPath.replace(/^\/+|\/+$/g, '')
+  const cleanFileName = fileName.replace(/^\/+|\/+$/g, '')
+
+  return `${supabaseUrl}/storage/v1/object/public/${bucketName}/${cleanFolderPath}/${cleanFileName}`
+}
+
+// Helper function to get signed URL
+export const getSignedImageUrl = async (bucketName, filePath) => {
+  const { data, error } = await supabase.storage
+    .from(bucketName)
+    .createSignedUrl(filePath, 3600)
+
+  if (error) {
+    console.error('Error creating signed URL:', error)
+    return null
+  }
+
+  return data?.signedUrl
+}
+
+// Function to list all files in a folder
+export const listFilesInFolder = async (bucketName, folderPath = '') => {
+  const { data, error } = await supabase.storage
+    .from(bucketName)
+    .list(folderPath, {
+      limit: 100,
+      offset: 0,
+      sortBy: { column: 'name', order: 'asc' }
+    })
+
+  if (error) {
+    console.error('Error listing files:', error)
+    throw error
+  }
+
+  return data || []
+}
+
+// Function to get all images from a specific folder
+export const getFolderImages = async (bucketName, folderPath) => {
+  try {
+    const files = await listFilesInFolder(bucketName, folderPath)
+
+    const imageFiles = files.filter(file =>
+      file.name && file.name.match(/\.(jpg|jpeg|png|gif|webp|bmp|svg)$/i)
+    )
+
+    return imageFiles.map(file => ({
+      name: file.name,
+      url: getImageUrl(bucketName, folderPath, file.name),
+      path: `${folderPath}/${file.name}`.replace(/\/\//g, '/')
+    }))
+  } catch (error) {
+    console.error('Error getting folder images:', error)
+    return []
+  }
+}
+
+// Function to get all available folders in your bucket
+export const getStorageFolders = async (bucketName) => {
+  try {
+    const { data, error } = await supabase.storage
+      .from(bucketName)
+      .list('', {
+        limit: 100
+      })
+
+    if (error) throw error
+
+    return data.filter(item => !item.mimetype).map(folder => folder.name)
+  } catch (error) {
+    console.error('Error getting storage folders:', error)
+    return []
+  }
+}
+
+// Test storage connection
+export const testStorageConnection = async () => {
+  try {
+    const { data, error } = await supabase.storage
+      .from('Innoknowvex website content')
+      .list('', { limit: 1 })
+
+    if (error) {
+      console.error('Storage connection failed:', error)
+      return false
+    }
+
+    console.log('✅ Storage connected successfully')
+    return true
+  } catch (error) {
+    console.error('Storage connection error:', error)
+    return false
+  }
+}

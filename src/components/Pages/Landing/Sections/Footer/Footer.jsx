@@ -1,0 +1,368 @@
+"use client";
+import React, { useRef } from "react";
+import styles from "./styles/footer.module.scss";
+import { useCursor } from "@/hooks/useCursor";
+import InnoknowvexFooterEmblem from "./InnoknowvexFooterEmblem";
+import { landingPageData } from "@/data/landing";
+import Sparkle from "@/components/Common/Icons/Sparkle";
+import Link from "next/link";
+import { Icon } from "@iconify/react";
+import { useSectionObserver } from "@/hooks/useSectionObserver";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { useNavColor } from "@/context/NavColorContext";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useScroll } from "@/context/ScrollContext";
+import { usePopupForm } from "@/context/PopupFormContext";
+import Image from "next/image";
+import { useRouter, usePathname } from "next/navigation";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const Footer = () => {
+  const { openForm } = usePopupForm();
+  const footerRef = useRef(null);
+  const { resetCursor, transformCursor } = useCursor();
+  const { updateNavColor } = useNavColor();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const { heading, subheading, phone, email, address, landmark, socialLinks, footerLinks } =
+    landingPageData.footerSection;
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleFooterNavigation = (link) => {
+    // Handle section links with hash (e.g., #blogs, #testimonials, #programs)
+    if (link.href.startsWith("#")) {
+      if (pathname !== "/") {
+        // Not on home page, navigate to home first
+        router.push("/");
+
+        const checkHomePageLoad = () => {
+          if (window.location.pathname === "/") {
+            setTimeout(() => {
+              const sectionId = link.href.substring(1);
+              const element = document.getElementById(sectionId);
+
+              if (element) {
+                const navbarHeight = 70;
+                const elementPosition =
+                  element.getBoundingClientRect().top + window.pageYOffset;
+                const offsetPosition = elementPosition - navbarHeight - 20;
+
+                window.scrollTo({
+                  top: offsetPosition,
+                  behavior: "smooth",
+                });
+              }
+            }, 300);
+          } else {
+            setTimeout(checkHomePageLoad, 100);
+          }
+        };
+
+        setTimeout(checkHomePageLoad, 100);
+      } else {
+        // Already on home page, scroll directly to section
+        setTimeout(() => {
+          const sectionId = link.href.substring(1);
+          const element = document.getElementById(sectionId);
+
+          if (element) {
+            const navbarHeight = 70;
+            const elementPosition =
+              element.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = elementPosition - navbarHeight - 20;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth",
+            });
+          }
+        }, 100);
+      }
+    } else {
+      // Regular page link, scroll to top first
+      scrollToTop();
+    }
+  };
+
+  useGSAP(
+    () => {
+      ScrollTrigger.create({
+        trigger: footerRef.current,
+        start: "top 60px",
+        end: "bottom bottom",
+        onEnter: () => {
+          updateNavColor("white");
+        },
+        onEnterBack: () => updateNavColor("white"),
+        onLeave: () => updateNavColor("#262c35"),
+        onLeaveBack: () => updateNavColor("#262c35"),
+      });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      });
+
+      tl.fromTo(
+        `.${styles.headingContainer}`,
+        { opacity: 0, y: 40, clipPath: "inset(0 0 100% 0)" },
+        { opacity: 1, y: 0, clipPath: "inset(0 0 0% 0)", duration: 0.7, ease: "power3.out" }
+      )
+        .fromTo(
+          `.${styles.emailContainer}`,
+          { opacity: 0, x: -30 },
+          { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" },
+          "-=0.3"
+        )
+        .fromTo(
+          `.${styles.sectionInnerWrapper__linksCell}`,
+          { opacity: 0, x: 30 },
+          { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" },
+          "-=0.5"
+        );
+    },
+
+    { scope: footerRef }
+  );
+
+  return (
+    <footer
+      ref={footerRef}
+      id="footer"
+      className={styles.sectionWrapper}
+      onMouseEnter={() =>
+        transformCursor({
+          dot: {
+            backgroundColor: "white",
+            scale: 2,
+          },
+          ring: {
+            opacity: 0,
+            scale: 0.5,
+          },
+        })
+      }
+      onMouseLeave={() => resetCursor()}
+    >
+      <div className={styles.sectionInnerWrapper}>
+        <div className={styles.sectionInnerWrapper__contactUsCell}>
+          <div className={styles.headingContainer}>
+            <div
+              className={`${styles.gradientSpot} ${styles["gradientSpot--1"]}`}
+            />
+            <div className={styles.sparkleDiv}>
+              <Sparkle color={"#FFF6C3"} />
+            </div>
+
+            <h2 className={styles.headingContainer__primaryHeading}>
+              {heading}
+            </h2>
+
+            <h3 className={styles.headingContainer__secondaryHeading}>
+              {subheading}
+            </h3>
+          </div>
+          <div className={styles.emailContainer}>
+            <div className={styles.emailRow}>
+              <Icon
+                icon="eva:phone-fill"
+                style={{ width: "20px", height: "20px", color: "#fff6c3" }}
+              />
+              <p>
+                {phone}
+              </p>
+            </div>
+            <div className={styles.emailRow}>
+              <Icon
+                icon="eva:email-fill"
+                style={{ width: "20px", height: "20px", color: "#fff6c3" }}
+              />
+              <p
+                className={styles.email}
+                onMouseEnter={() =>
+                  transformCursor({
+                    dot: {
+                      backgroundColor: "white",
+                      scale: 5,
+                      opacity: 0.5,
+                    },
+                    ring: {
+                      opacity: 0,
+                      scale: 0.5,
+                    },
+                  })
+                }
+                onMouseLeave={() =>
+                  transformCursor({
+                    dot: {
+                      backgroundColor: "white",
+                      scale: 2,
+                      opacity: 1,
+                    },
+                    ring: {
+                      opacity: 0,
+                      scale: 0.5,
+                    },
+                  })
+                }
+              >
+                {email}
+              </p>
+            </div>
+            <button
+              className={styles.sendMsgButton}
+              onClick={openForm}
+              onMouseEnter={() =>
+                transformCursor({
+                  dot: {
+                    backgroundColor: "#ff6432",
+                    scale: 2,
+                    opacity: 0.5,
+                  },
+                  ring: {
+                    opacity: 0,
+                    scale: 0.5,
+                  },
+                })
+              }
+              onMouseLeave={() =>
+                transformCursor({
+                  dot: {
+                    backgroundColor: "white",
+                    scale: 2,
+                    opacity: 1,
+                  },
+                  ring: {
+                    opacity: 0,
+                    scale: 0.5,
+                  },
+                })
+              }
+            >
+              <p>Send Message</p>
+            </button>
+          </div>
+        </div>
+
+        <div className={styles.sectionInnerWrapper__addressSocialCell}>
+          <label className={styles.addressLabel}>ADDRESS</label>
+          <p className={styles.address}>{address}</p>
+          <p className={styles.landmark}><strong>{landmark}</strong></p>
+          <div className={styles.socialLinksContainer}>
+            {socialLinks.map((social, sIndex) => (
+              <Link
+                key={sIndex}
+                href={social.href}
+                className={styles.socialLinks}
+                onMouseEnter={() =>
+                  transformCursor({
+                    dot: {
+                      backgroundColor: "white",
+                      scale: 3,
+                      opacity: 0.5,
+                    },
+                    ring: {
+                      opacity: 0,
+                      scale: 0.5,
+                    },
+                  })
+                }
+                onMouseLeave={() =>
+                  transformCursor({
+                    dot: {
+                      backgroundColor: "white",
+                      scale: 2,
+                      opacity: 1,
+                    },
+                    ring: {
+                      opacity: 0,
+                      scale: 0.5,
+                    },
+                  })
+                }
+              >
+                <Icon icon={social.icon} className={styles.socialIcons} />
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.sectionInnerWrapper__linksCell}>
+          {footerLinks.map((group, gIndex) => (
+            <div
+              key={gIndex}
+              className={`${styles.linksGroup} ${
+                group.listLabel === "OUR PROGRAMS" ? styles["linksGroup--programs"] : ""
+              }`}
+            >
+              <div
+                className={`${styles.itemContainer} ${styles["itemContainer--label"]}`}
+              >
+                {group.listLabel}
+              </div>
+              {group.links.map((link, lIndex) => (
+                <Link
+                  key={lIndex}
+                  href={link.href}
+                  onClick={(e) => {
+                    if (link.href.startsWith("#")) {
+                      e.preventDefault();
+                      handleFooterNavigation(link);
+                    }
+                  }}
+                  className={`${styles.itemContainer} ${styles["itemContainer--link"]}`}
+                >
+                  <div className={styles.animatedUnderline}></div>
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          ))}
+        </div>
+
+        <div className={styles.sectionInnerWrapper__legalCell}>
+          <div className={styles.companyEmblem}>
+            <InnoknowvexFooterEmblem />
+          </div>
+          <div className={styles.secure}>
+            <p>100% Safe and Secure payments with</p>
+            <Image
+              className={styles.footerimg}
+              src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/extras/razorpay.jpg"
+              width={60}
+              height={24}
+              alt=" Razerpay" />
+            <Image
+              className={styles.footerimg}
+              src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/extras/cashfree.png"
+              width={60}
+              height={24}
+              alt="Cashless Payment" />
+            <Image
+              className={styles.footerimg}
+              src="https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/extras/upi.png"
+              width={60}
+              height={24}
+              alt="Cashless Payment" />
+
+          </div>
+          <div className={styles.copywrite}>
+            <p>All rights reserved 2025 © 2025 Innoknowvex Edutech Pvt Ltd.</p>
+
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

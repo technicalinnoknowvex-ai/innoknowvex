@@ -1,0 +1,459 @@
+@use "@/styles/index" as *;
+
+.modernHero {
+  position: relative;
+  width: 100%;
+  min-height: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 3rem 2rem 4rem 2rem;
+  padding-top: 3.5rem;
+  background: linear-gradient(135deg, #f8f1de 0%, #f3ead8 100%);
+  overflow: visible;
+
+  @media (max-width: 768px) {
+    min-height: auto;
+    padding: 2.5rem 1.5rem 3.5rem 1.5rem;
+    padding-top: 5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 2rem 1rem 3rem 1rem;
+    padding-top: 5.5rem;
+  }
+}
+
+.heroContainer {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1400px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+
+  @media (max-width: 1024px) {
+    gap: 1.5rem;
+    grid-template-columns: 1fr 1.2fr;
+    align-items: flex-start;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+}
+
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    gap: 0.4rem;
+  }
+}
+
+.tagline {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #404040;
+  letter-spacing: 0.3px;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(20px);
+  font-family: 'Sharp Grotesk', sans-serif;
+
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
+  }
+}
+
+.heading {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1.3;
+  margin: 1.5rem 0 0.5rem 0;
+  opacity: 0;
+  transform: translateY(20px);
+  font-family: 'Sharp Grotesk', sans-serif;
+  letter-spacing: -0.8px;
+  max-width: 580px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+
+  @media (max-width: 1024px) {
+    font-size: 2rem;
+    max-width: 520px;
+    margin: 1.2rem 0 0.5rem 0;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.6rem;
+    max-width: 100%;
+    margin: 1rem 0 0.5rem 0;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.3rem;
+    margin: 0.8rem 0 0.5rem 0;
+  }
+}
+
+.orangeText {
+  color: $brand-primary;
+  display: block;
+}
+
+.blackText {
+  color: #1a1a2e;
+  display: block;
+}
+
+.description {
+  @include landing-hero-body;
+  max-width: 550px;
+  margin: 0.5rem 0 0 0;
+  opacity: 0;
+  transform: translateY(20px);
+  font-weight: $book;
+
+  @media (max-width: 1024px) {
+    margin: 0.3rem 0 0 0;
+  }
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    margin: 0.3rem 0 0 0;
+  }
+
+  @media (max-width: 480px) {
+    max-width: 100%;
+    margin: 0.2rem 0 0 0;
+  }
+}
+
+.startNowButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 6px 16px;
+  background: linear-gradient(135deg, $brand-primary 0%, #ff8c42 100%);
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border-radius: 50px;
+  font-family: 'Sharp Grotesk', sans-serif;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 100, 50, 0.3);
+  opacity: 0;
+  transform: translateY(20px);
+  cursor: pointer;
+  border: none;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.38), transparent);
+    transform: skewX(-20deg);
+    animation: shimmerSweep 3.2s ease-in-out 1.5s infinite;
+    pointer-events: none;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -5px;
+    border-radius: 50px;
+    border: 2px solid rgba(255, 100, 50, 0.5);
+    animation: ctaPulse 2.2s ease-out infinite;
+    pointer-events: none;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 100, 50, 0.45);
+    background: linear-gradient(135deg, #ff8c42 0%, #ff9d52 100%);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    padding: 5px 14px;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 5px 12px;
+    font-size: 0.75rem;
+  }
+}
+
+.buttonCenter {
+  display: flex;
+  justify-content: center;
+  margin: 1.2rem 0;
+}
+
+.servicesHeading {
+  @include font($font-sharp-25, $bold, $brand-primary);
+  font-size: clamp(1.35rem, 1.1rem + 0.9vw, 1.85rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0.2rem 0 -0.4rem 0;
+  text-align: left;
+  display: block;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    margin: 0.2rem 0 -0.3rem 0;
+  }
+}
+
+.journeyLine {
+  @include font($font-sharp-25, $bold, $brand-primary);
+  font-size: clamp(1rem, 0.92rem + 0.35vw, 1.15rem);
+  line-height: 1.35;
+  max-width: 550px;
+  margin: 0.8rem 0 0 0;
+  opacity: 0;
+  transform: translateY(20px);
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, $brand-primary, #ff8c42);
+    animation: drawUnderline 0.9s cubic-bezier(0.4, 0, 0.2, 1) 2s forwards;
+    border-radius: 2px;
+  }
+
+  @media (max-width: 768px) {
+    margin: 0.5rem 0 0 0;
+  }
+}
+
+.networkSection {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  opacity: 0;
+  transform: scale(0.95);
+
+  @media (max-width: 1024px) {
+    height: 450px;
+  }
+
+  @media (max-width: 768px) {
+    height: 300px;
+    margin-top: 0.5rem;
+  }
+
+  @media (max-width: 480px) {
+    display: none;
+  }
+}
+
+// Smooth reveal animation on load
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmerSweep {
+  0% {
+    left: -75%;
+  }
+
+  100% {
+    left: 150%;
+  }
+}
+
+@keyframes drawUnderline {
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes wordGlow {
+
+  0%,
+  100% {
+    text-shadow: 0 0 0px transparent;
+  }
+
+  50% {
+    text-shadow: 0 0 18px rgba(255, 100, 50, 0.55);
+  }
+}
+
+@keyframes ctaPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+
+  70% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+
+@keyframes scrollBounce {
+
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+
+  50% {
+    transform: translateX(-50%) translateY(6px);
+    opacity: 0.5;
+  }
+}
+
+@keyframes scrollLineDrop {
+  0% {
+    top: -100%;
+    opacity: 1;
+  }
+
+  60% {
+    top: 100%;
+    opacity: 1;
+  }
+
+  61% {
+    opacity: 0;
+  }
+
+  100% {
+    top: -100%;
+    opacity: 0;
+  }
+}
+
+// ─── Cycling word in hero heading ───────────────
+.cycleWord {
+  color: $brand-primary;
+  display: inline-block;
+  position: relative;
+  white-space: nowrap;
+  animation: wordGlow 2.8s ease-in-out infinite;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, $brand-primary, #fa9805);
+    border-radius: 2px;
+  }
+}
+
+// ─── Scroll indicator ───────────────────────────
+.scrollIndicator {
+  position: absolute;
+  bottom: 1.8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  z-index: 10;
+  animation: scrollBounce 2s ease-in-out infinite;
+
+  @media (max-width: 480px) {
+    display: none;
+  }
+}
+
+.scrollLabel {
+  font-family: 'Sharp Grotesk', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(38, 44, 53, 0.35);
+  white-space: nowrap;
+}
+
+.scrollLine {
+  width: 1px;
+  height: 36px;
+  background: rgba(38, 44, 53, 0.12);
+  border-radius: 1px;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(180deg, transparent, $brand-primary);
+    animation: scrollLineDrop 1.8s ease-in-out infinite;
+  }
+}

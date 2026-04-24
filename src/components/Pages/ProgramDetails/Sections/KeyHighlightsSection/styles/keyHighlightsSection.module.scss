@@ -1,0 +1,265 @@
+
+.layout {
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 2rem;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  overflow: visible;
+
+  @media (max-width: 768px) {
+    margin-top: 60px;
+    padding: 2rem 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    margin-top: 40px;
+    padding: 1.5rem 1rem;
+  }
+}
+
+.headingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 3rem;
+  text-align: center;
+  max-width: 600px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 2.5rem;
+  }
+
+  @media (max-width: 480px) {
+    margin-bottom: 2rem;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, rgba(255, 100, 50, 0.1) 0%, rgba(255, 100, 50, 0.05) 100%);
+    border: 1px solid rgba(255, 100, 50, 0.3);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #ff6432;
+    margin-bottom: 1rem;
+    letter-spacing: 0.5px;
+
+    @media (max-width: 480px) {
+      font-size: 0.75rem;
+      padding: 0.4rem 0.8rem;
+      margin-bottom: 0.75rem;
+    }
+  }
+
+  .heading {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 0.75rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+
+    @media (max-width: 480px) {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .subheading {
+    font-size: 1rem;
+    color: #666;
+    margin: 0;
+    font-weight: 400;
+    line-height: 1.5;
+
+    @media (max-width: 480px) {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.skillsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 900px;
+  position: relative;
+
+  @media (max-width: 768px) {
+    gap: 0.85rem;
+    max-width: 100%;
+  }
+
+  @media (max-width: 480px) {
+    gap: 0.75rem;
+  }
+}
+
+.skillBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.5rem;
+  background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+  border: 1.5px solid;
+  border-image: linear-gradient(135deg, #ff6432 0%, #ff8a5f 50%, #ffb08a 100%) 1;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #262c35;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 2px 8px rgba(255, 100, 50, 0.08),
+    0 0 1px rgba(255, 100, 50, 0.2) inset;
+  animation: slideInUp 0.5s ease-out backwards;
+  animation-delay: calc(var(--badge-index, 0) * 0.06s);
+
+  .skillIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(255, 100, 50, 0.15) 0%, rgba(255, 100, 50, 0.05) 100%);
+    color: #ff6432;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+
+    svg {
+      stroke-width: 2.5;
+    }
+  }
+
+  .skillText {
+    white-space: nowrap;
+    transition: all 0.3s ease;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 100, 50, 0.1), transparent);
+    transition: left 0.5s ease;
+  }
+
+  &:hover {
+    background: linear-gradient(135deg, #fff5f0 0%, #ffe8de 100%);
+    border-image: linear-gradient(135deg, #ff6432 0%, #ff4500 50%, #ff2800 100%) 1;
+    transform: translateY(-2px);
+    box-shadow: 
+      0 8px 20px rgba(255, 100, 50, 0.25),
+      0 0 1px rgba(255, 100, 50, 0.4) inset;
+
+    .skillIcon {
+      background: linear-gradient(135deg, rgba(255, 100, 50, 0.3) 0%, rgba(255, 100, 50, 0.15) 100%);
+      transform: scale(1.1) rotate(-5deg);
+    }
+
+    &::before {
+      left: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+    gap: 0.5rem;
+
+    .skillIcon {
+      width: 22px;
+      height: 22px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.65rem 1rem;
+    font-size: 0.85rem;
+    gap: 0.4rem;
+
+    .skillIcon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .skillText {
+      white-space: normal;
+    }
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 9999;
+  pointer-events: none;
+  animation: tooltipFadeIn 0.2s ease-out;
+  white-space: nowrap;
+}
+
+.tooltipContent {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  color: #ffffff;
+  padding: 0.9rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  font-weight: 400;
+  max-width: 280px;
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.35),
+    0 0 1px rgba(255, 100, 50, 0.5) inset;
+  border: 1px solid rgba(255, 100, 50, 0.2);
+  backdrop-filter: blur(8px);
+  word-wrap: break-word;
+  white-space: normal;
+  position: relative;
+  transform: translate(-50%, -100%);
+
+  p {
+    margin: 0;
+    display: block;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+    padding: 0.8rem 1rem;
+    max-width: 240px;
+  }
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -90%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -100%);
+  }
+}

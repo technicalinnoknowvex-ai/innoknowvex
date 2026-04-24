@@ -1,0 +1,296 @@
+@use "../../../../../../styles/mixins" as m;
+@use "../../../../../../styles/index" as *;
+
+// Animations
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes certFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes certTilt {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(0.8deg);
+  }
+}
+
+@keyframes certPop {
+  0% {
+    transform: scale(1) translateY(0);
+  }
+  40% {
+    transform: scale(1.06) translateY(-10px);
+  }
+  100% {
+    transform: scale(1.02) translateY(-6px);
+  }
+}
+
+@keyframes certEnterLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-90px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes certEnterRight {
+  from {
+    opacity: 0;
+    transform: translateX(90px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin-top: 20;
+
+  &.offlineStyle {
+    background: rgba(15, 23, 42, 0.35);
+    border: 1px solid rgba(148, 163, 184, 0.12);
+    border-radius: 28px;
+    padding: 56px 36px;
+    margin: 32px auto;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(12px);
+
+    h1 {
+      color: #f8fafc;
+      background: linear-gradient(105deg, #f8fafc 0%, #22d3ee 45%, #a78bfa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .images {
+      img {
+        animation: none;
+      }
+    }
+  }
+
+  // Reduced margin for larger screens (desktop)
+  // margin-top: 10px;
+
+  // Responsive adjustments for smaller devices
+  @media (min-width: 1200px) and (max-width: 1440px) {
+    margin-top: 70px;
+  }
+  
+  @media (min-width: 770px) and (max-width: 1200px) {
+    margin-top: 60px;
+  }
+  
+  @media (max-width: 769px) {
+    margin-top: 50px;
+  }
+
+  h1 {
+    font-family: var(--font-sharp-25), Sharp Grotesk;
+    font-size: 36px;
+    font-weight: 500;
+    text-align: center;
+    color: #262c35;
+    margin-bottom: 20px;
+  }
+}
+
+.starImg {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  
+  &.animateIn {
+    animation: slideInDown 0.8s ease-out;
+  }
+  
+  .starOrange {
+    height: 60px;
+    width: 60px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+  }
+  
+  p {
+    font-family: var(--font-sharp-25), Oldschool Grotesk;
+    font-size: 36px;
+    font-weight: 600;
+    text-align: center;
+    color: #FF6B6B;
+  }
+}
+
+.layout.offlineStyle .starImg p {
+  background: linear-gradient(105deg, #22d3ee, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.images {
+  z-index: 1;
+  padding: 30px;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  
+  &.animateImages {
+    animation: slideInUp 0.8s ease-out;
+  }
+  
+  img {
+    height: 450px;
+    width: 700px;
+    border-radius: 18px;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease;
+    filter: drop-shadow(0 18px 35px rgba(0, 0, 0, 0.18));
+  }
+
+  img:hover {
+    animation: certPop 420ms ease-out both;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
+    filter: drop-shadow(0 22px 45px rgba(255, 107, 107, 0.18));
+  }
+
+  img:nth-child(1) {
+    animation: none;
+  }
+
+  img:nth-child(2) {
+    animation: none;
+  }
+
+  @media (min-width: 1200px) and (max-width: 1440px) {
+    padding: 10px;
+    gap: 10px;
+    
+    img {
+      height: 350px;
+      width: 550px;
+    }
+  }
+
+  @media (min-width: 930px) and (max-width: 1200px) {
+    padding: 10px;
+    gap: 10px;
+
+    img {
+      height: 250px;
+      width: 450px;
+    }
+  }
+
+  @media (min-width: 770px) and (max-width: 930px) {
+    padding: 10px;
+    padding-bottom: 0;
+    gap: 10px;
+    flex-direction: column;
+    
+    img {
+      height: 250px;
+      width: 450px;
+    }
+  }
+  
+  @media (min-width: 480px) and (max-width: 770px) {
+    padding: 10px;
+    gap: 10px;
+    flex-direction: column;
+
+    img {
+      height: 250px;
+      width: 450px;
+    }
+  }
+  
+  @media (min-width: 360px) and (max-width: 480px) {
+    .layout {
+      justify-content: center;
+      align-items: center;
+    }
+    
+    padding: 10px;
+    margin: 20px;
+    gap: 10px;
+    flex-direction: column;
+
+    img {
+      height: 150px;
+      width: 350px;
+    }
+  }
+}
+
+.certWrap {
+  opacity: 0;
+}
+
+.leftCert.certVisible {
+  animation: certEnterLeft 0.85s ease-out both;
+}
+
+.rightCert.certVisible {
+  animation: certEnterRight 0.85s ease-out 0.1s both;
+}
+
+
+.ellipse {
+  z-index: 0;
+  position: absolute;
+  height: 900px;
+  width: 900px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .images img {
+    animation: none !important;
+  }
+
+  .leftCert.certVisible,
+  .rightCert.certVisible {
+    animation: none !important;
+    opacity: 1;
+  }
+}
