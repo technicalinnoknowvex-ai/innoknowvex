@@ -20,6 +20,7 @@ const SideNavigation = () => {
     { key: "courses", label: "Courses Info", href: `${base}/courses` },
     { key: "blogs", label: "Blogs", href: `${base}/blogs` },
     { key: "jobs", label: "Jobs", href: `${base}/jobs` },
+    { key: "postedJobs", label: "Posted Jobs", href: `${base}/posted-jobs` },
     { key: "testimonials", label: "Testimonials", href: `${base}/testimonials` },
     { key: "coupons", label: "Coupons", href: `${base}/coupons` },
   ];

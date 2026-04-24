@@ -13,6 +13,7 @@ const CareersPage = () => {
   const [selectedFilter, setSelectedFilter] = useState("All");
   const [showApplicationForm, setShowApplicationForm] = useState(false);
   const [selectedJobId, setSelectedJobId] = useState(null);
+  const [selectedJobForDetails, setSelectedJobForDetails] = useState(null);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -149,6 +150,14 @@ const CareersPage = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleReadMoreClick = (job) => {
+    setSelectedJobForDetails(job);
+  };
+
+  const handleCloseJobDetails = () => {
+    setSelectedJobForDetails(null);
+  };
+
   const stats = [
     { number: "5,000+", label: "Students Impacted" },
     { number: "100%", label: "Growth Mode" },
@@ -197,6 +206,12 @@ const CareersPage = () => {
             </p>
           </div>
 
+          <JobDetailsModal
+            job={selectedJobForDetails}
+            onClose={handleCloseJobDetails}
+            onApplyClick={handleApplyClick}
+          />
+
           {/* Filter Buttons */}
           <div className={style.filterButtons}>
             {employmentTypes.map((type) => (
@@ -230,7 +245,18 @@ const CareersPage = () => {
                     </div>
                   </div>
 
-                  <p className={style.jobDescription}>{job.description}</p>
+                  <div className={style.jobDescriptionWrapper}>
+                    <p className={style.jobDescription}>{job.description}</p>
+                    {typeof job.description === "string" && job.description.trim().length > 180 && (
+                      <button
+                        type="button"
+                        className={style.readMoreBtn}
+                        onClick={() => handleReadMoreClick(job)}
+                      >
+                        Read more
+                      </button>
+                    )}
+                  </div>
 
                   <div className={style.skillsList}>
                     {job.skills?.slice(0, 4).map((skill, idx) => (

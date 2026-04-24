@@ -209,9 +209,31 @@
   margin-bottom: 1.5rem;
   flex-grow: 1;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.jobDescriptionWrapper {
+  position: relative;
+}
+
+.readMoreBtn {
+  position: absolute;
+  right: 0;
+  bottom: 1.5rem; // aligns with .jobDescription margin-bottom
+  padding-left: 2.25rem;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.95) 35%, rgba(255, 255, 255, 1) 100%);
+  border: none;
+  color: $brand-primary;
+  @include font('sharp-grotesk', 700, $brand-primary, false);
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    color: #e55a2a;
+  }
 }
 
 .skillsList {
@@ -345,8 +367,8 @@
   margin: 0 auto;
 
   @include mobile-down {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
   }
 }
 
@@ -357,6 +379,10 @@
   padding: 2rem;
   text-align: center;
   transition: all 0.3s ease;
+
+  @include mobile-down {
+    padding: 1.25rem;
+  }
 
   &:hover {
     transform: translateY(-5px);
@@ -379,6 +405,86 @@
     font-size: 0.9rem;
     color: #666;
     line-height: 1.5;
+
+    @include mobile-down {
+      display: none;
+    }
+  }
+}
+
+// Job details modal (Read more)
+.jobModalOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  z-index: 999;
+  overflow-y: auto;
+
+  @include mobile-down {
+    padding: 0.75rem;
+    align-items: flex-end;
+  }
+}
+
+.jobDetailsModal {
+  position: relative; // anchors the close button on all breakpoints
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  padding: 2.5rem;
+  max-height: 90vh;
+  overflow-y: auto;
+
+  @include mobile-down {
+    padding: 1.25rem !important;
+    border-radius: 14px !important;
+    max-height: 92dvh !important;
+  }
+}
+
+.jobModalCloseBtn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  color: #666;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(6px);
+
+  &:hover {
+    background: rgba(255, 255, 255, 1);
+    color: #262c35;
+  }
+}
+
+.jobModalActions {
+  @include mobile-down {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+.jobModalSecondaryBtn {
+  &:hover {
+    background: #e0e0e0 !important;
+  }
+}
+
+.jobModalPrimaryBtn {
+  &:hover {
+    background: #e55a24 !important;
   }
 }
 

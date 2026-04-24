@@ -8,6 +8,7 @@ const JobDetailsModal = ({ job, onClose, onApplyClick }) => {
 
   return (
     <div
+      className={style.jobModalOverlay}
       style={{
         position: "fixed",
         top: 0,
@@ -18,7 +19,6 @@ const JobDetailsModal = ({ job, onClose, onApplyClick }) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "2rem 1rem",
         zIndex: 999,
         overflowY: "auto",
       }}
@@ -28,31 +28,18 @@ const JobDetailsModal = ({ job, onClose, onApplyClick }) => {
         className={style.jobDetailsModal}
         style={{
           animation: "slideDown 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
-          maxWidth: "800px",
-          width: "100%",
-          margin: "0 auto",
           boxShadow: "0 25px 80px rgba(0, 0, 0, 0.3)",
-          minHeight: "auto",
           background: "white",
-          borderRadius: "12px",
-          padding: "2.5rem",
-          maxHeight: "90vh",
-          overflowY: "auto",
         }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           onClick={onClose}
+          className={style.jobModalCloseBtn}
           style={{
-            position: "absolute",
-            top: "1.5rem",
-            right: "1.5rem",
-            background: "none",
-            border: "none",
             fontSize: "1.8rem",
             cursor: "pointer",
-            color: "#666",
             zIndex: 10,
           }}
           title="Close"
@@ -193,6 +180,7 @@ const JobDetailsModal = ({ job, onClose, onApplyClick }) => {
 
         {/* Apply Button */}
         <div
+          className={style.jobModalActions}
           style={{
             display: "flex",
             gap: "1rem",
@@ -203,6 +191,7 @@ const JobDetailsModal = ({ job, onClose, onApplyClick }) => {
         >
           <button
             onClick={onClose}
+            className={style.jobModalSecondaryBtn}
             style={{
               flex: 1,
               padding: "1rem 1.5rem",
@@ -215,8 +204,6 @@ const JobDetailsModal = ({ job, onClose, onApplyClick }) => {
               cursor: "pointer",
               transition: "all 0.3s ease",
             }}
-            onMouseOver={(e) => (e.target.style.background = "#e0e0e0")}
-            onMouseOut={(e) => (e.target.style.background = "#f5f5f5")}
           >
             Close
           </button>
@@ -225,6 +212,7 @@ const JobDetailsModal = ({ job, onClose, onApplyClick }) => {
               onApplyClick(job.id);
               onClose();
             }}
+            className={style.jobModalPrimaryBtn}
             style={{
               flex: 1,
               padding: "1rem 1.5rem",
@@ -241,8 +229,6 @@ const JobDetailsModal = ({ job, onClose, onApplyClick }) => {
               justifyContent: "center",
               gap: "0.5rem",
             }}
-            onMouseOver={(e) => (e.target.style.background = "#e55a24")}
-            onMouseOut={(e) => (e.target.style.background = "#ff6432")}
           >
             <Icon icon="lucide:arrow-right" />
             Apply Now

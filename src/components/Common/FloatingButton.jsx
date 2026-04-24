@@ -5,13 +5,18 @@ import styles from "./styles/floatingButton.module.scss";
 import { Icon } from "@iconify/react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { usePathname } from "next/navigation";
 
 const FloatingButton = () => {
   const { openScheduleForm } = usePopupForm();
   const [isHovered, setIsHovered] = useState(false);
   const buttonRef = React.useRef(null);
+  const pathname = usePathname();
+
+  const isAdminPath = pathname?.startsWith("/admin/");
 
   useGSAP(() => {
+    if (isAdminPath) return;
     if (buttonRef.current) {
       gsap.fromTo(
         buttonRef.current,
@@ -30,11 +35,13 @@ const FloatingButton = () => {
         }
       );
     }
-  }, []);
+  }, [isAdminPath]);
 
   const handleClick = () => {
     openScheduleForm();
   };
+
+  if (isAdminPath) return null;
 
   return (
     <button
