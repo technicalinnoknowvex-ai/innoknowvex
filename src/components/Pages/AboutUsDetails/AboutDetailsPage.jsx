@@ -31,7 +31,7 @@ const TEAM = [
     name: "Durgesh C.",
     role: "CGO (Co-Founder)",
     image:
-      "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Page/CGO.jpeg",
+      "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Page/durgesh.jpeg",
     desc: "Builds client relationships, drives revenue growth, and ensures the company's solutions meet market needs.",
   },
 ];
