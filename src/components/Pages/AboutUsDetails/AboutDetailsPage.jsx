@@ -234,7 +234,7 @@ const AboutDetailsPage = () => {
           <p className={s.vmText}>
             At Innoknowvex, we empower individuals to drive progress through
             technology and future-ready skills. With expert-led assessments,
-            learning paths, and courses, our platform helps professionals
+            learning paths, and domains, our platform helps professionals
             benchmark their expertise and meet industry demands. We are committed
             to bridging the talent gap, connecting individuals with companies, and
             transforming industries through critical tech education.

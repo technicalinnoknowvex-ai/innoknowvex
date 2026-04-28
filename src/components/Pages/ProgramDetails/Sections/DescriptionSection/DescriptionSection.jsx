@@ -42,7 +42,7 @@ export default function DescriptionSection({ program }) {
         <p>{program.overview}</p>
         <div className={styles.buttons}>
           <button className={styles.startnow} onClick={scrollToPlans}>
-            Start Course Now
+            Start Now
           </button>
           <button
             className={styles.Brochure}

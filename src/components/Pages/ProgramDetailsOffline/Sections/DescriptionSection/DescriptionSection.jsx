@@ -78,7 +78,7 @@ export default function DescriptionSection({ program, isOffline }) {
               <p>{program.overview}</p>
               <div className={styles.buttons}>
                 <button className={styles.startnow} onClick={scrollToPlans}>
-                  <span className={styles.buttonText}>Start Course Now</span>
+                  <span className={styles.buttonText}>Start Now</span>
                   <span className={styles.buttonIcon}>→</span>
                 </button>
                 <button
@@ -149,7 +149,7 @@ export default function DescriptionSection({ program, isOffline }) {
             <p>{program.overview}</p>
             <div className={styles.buttons}>
               <button className={styles.startnow} onClick={scrollToPlans}>
-                <span className={styles.buttonText}>Start Course Now</span>
+                <span className={styles.buttonText}>Start Domain Now</span>
                 <span className={styles.buttonIcon}>→</span>
               </button>
               <button

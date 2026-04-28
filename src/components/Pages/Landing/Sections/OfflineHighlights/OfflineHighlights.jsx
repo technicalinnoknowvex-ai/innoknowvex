@@ -237,9 +237,9 @@ const OfflineHighlights = () => {
                         href={`/offline-courses/${course.courseSlug}`}
                         className={styles.exploreMini}
                         onClick={(e) => e.stopPropagation()}
-                        aria-label={`Explore course: ${course.name}`}
+                        aria-label={`Explore domain: ${course.name}`}
                       >
-                        Explore course
+                        Explore domain
                       </Link>
                     </div>
                     <h3 className={styles.cardTitle}>{course.name}</h3>
