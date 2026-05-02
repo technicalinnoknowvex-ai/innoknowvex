@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { usePathname } from "next/navigation";
 import styles from "./styles/mainLayout.module.scss";
 import Navbar from "@/components/Pages/Landing/Sections/Navbar/Navbar";
 import { NavColorProvider } from "@/context/NavColorContext";
@@ -12,6 +13,8 @@ import { PosterModal } from "@/components/Common/PosterModal";
 import { usePosterModal } from "@/hooks/posterModal";
 
 const MainLayout = ({ children }) => {
+  const pathname = usePathname();
+  const isAdminPage = pathname.includes("/admin");
   const { showPoster, closePoster } = usePosterModal(10000); // 10 seconds delay
 
   return (
@@ -19,9 +22,9 @@ const MainLayout = ({ children }) => {
       <PopupFormProvider>
         <div className={styles.mainLayout}>
           <Navbar />
-          <PopUpForm />
-          <ScheduleModal />
-          <PosterModal isOpen={showPoster} onClose={closePoster} />
+          {!isAdminPage && <PopUpForm />}
+          {!isAdminPage && <ScheduleModal />}
+          {!isAdminPage && <PosterModal isOpen={showPoster} onClose={closePoster} />}
           <FloatingButton />
           {children}
         </div>

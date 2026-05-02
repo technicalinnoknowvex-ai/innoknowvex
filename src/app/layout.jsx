@@ -4,7 +4,7 @@ import { CursorProvider } from "@/context/CursorProvider";
 import { ScrollProvider } from "@/context/ScrollContext";
 import { ToastContainer } from "react-toastify";
 import { sharpGrotesk20, sharpGrotesk25, oldSchoolGrotesk } from "@/lib/fonts";
-import HolidayBanner from "@/components/Common/HolidayBanner/HolidayBanner";
+import BannerWrapper from "@/components/Common/BannerWrapper";
 import { PageViewTracker } from "@/components/Common/PageViewTracker";
 import { cookies } from "next/headers";
 
@@ -56,7 +56,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${sharpGrotesk20.variable} ${sharpGrotesk25.variable} ${oldSchoolGrotesk.variable}`}
       >
-        <HolidayBanner initialVisible={!isBannerDismissed} />
+        <BannerWrapper initialVisible={!isBannerDismissed} />
         <ToastContainer
           position="top-right"
           autoClose={1000}
