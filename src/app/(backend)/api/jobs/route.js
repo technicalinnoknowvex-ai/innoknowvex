@@ -1,4 +1,3 @@
-import { submitJobApplication } from './applications.js';
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -159,11 +158,57 @@ export async function POST(req) {
     // Validate environment variable for Google Sheets
     const googleScriptUrl = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL_JOB_APPLICATION || process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL;
 
-    // Submit to database first
+    // Submit to database using service role key for proper RLS policy enforcement
     let dbResult;
     try {
-      console.log('Submitting application to database...');
-      dbResult = await submitJobApplication(applicationData);
+      console.log('Submitting application to database with service role key...');
+      
+      // Generate ID by getting the max ID and incrementing
+      const { data: maxIdData, error: maxIdError } = await supabase
+        .from('job_applications')
+        .select('id')
+        .order('id', { ascending: false })
+        .limit(1);
+
+      if (maxIdError) {
+        console.error('Error fetching max ID:', maxIdError);
+        throw maxIdError;
+      }
+
+      const newId = maxIdData && maxIdData.length > 0 ? maxIdData[0].id + 1 : 1;
+      
+      const { data, error: dbInsertError } = await supabase
+        .from('job_applications')
+        .insert([
+          {
+            id: newId,
+            full_name: fullName,
+            email,
+            phone,
+            job_title: role,
+            location: location || null,
+            resume_link: resumeUrl,
+            cover_note: coverNote || null,
+            job_id: jobId ? parseInt(jobId) : null,
+            applied_at: new Date().toISOString(),
+            status: 'received',
+          },
+        ])
+        .select();
+
+      if (dbInsertError) {
+        console.error('Database RLS policy error details:', {
+          message: dbInsertError.message,
+          code: dbInsertError.code,
+          details: dbInsertError.details,
+          hint: dbInsertError.hint,
+          applicationData: applicationData,
+          keyUsed: serviceRoleKey ? 'SERVICE_ROLE_KEY ✓' : 'ANON_KEY (⚠️ RLS will reject)'
+        });
+        throw dbInsertError;
+      }
+
+      dbResult = { success: true, data: data[0] };
       console.log('Database submission successful:', dbResult);
     } catch (dbError) {
       console.error('Database error details:', {
