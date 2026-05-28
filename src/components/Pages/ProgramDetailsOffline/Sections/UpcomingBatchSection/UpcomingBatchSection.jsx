@@ -2,7 +2,7 @@
 import styles from "./styles/upcomingBatchSection.module.scss";
 
 const batchInfo = [
-  { label: "Next batch", value: "May 5, 2026", pill: "Filling fast" },
+  { label: "Next batch", value: "June 5, 2026", pill: "Filling fast" },
   { label: "Seats available", value: "30 seats" },
   { label: "Timing", value: "9 AM - 1 PM" },
   { label: "Duration", value: "3 months" },
