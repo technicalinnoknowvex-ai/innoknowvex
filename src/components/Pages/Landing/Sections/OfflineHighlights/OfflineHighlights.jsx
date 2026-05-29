@@ -34,7 +34,7 @@ const normalizeName = (rawName) => {
 
 const OfflineHighlights = () => {
   const offlineCourses = useMemo(() => {
-    const images = landingPageData?.offlineProgramSection?.images ?? [];
+    const images = landingPageData?.offlineTrainingSection?.images ?? [];
 
     return images.slice(0, 4).map((src, index) => {
       const path = decodeURIComponent(src.split("?")[0] || "");

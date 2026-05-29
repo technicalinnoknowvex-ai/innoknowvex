@@ -15,7 +15,7 @@ const FormSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email"),
   phone: z.string().regex(/^\d{10}$/, "Phone must be 10 digits"),
-  program: z.string().min(1, "Program is required"),
+  training: z.string().min(1, "Training is required"),
   language: z.string().min(1, "Preferred language is required"),
 });
 
@@ -34,7 +34,7 @@ const PopUpForm = () => {
       name: "",
       email: "",
       phone: "",
-      program: "",
+      training: "",
       language: "",
     },
   });
@@ -191,18 +191,18 @@ const PopUpForm = () => {
         </fieldset>
 
         <fieldset
-          className={`${styles.inputGroup} ${styles["inputGroup--program"]}`}
+          className={`${styles.inputGroup} ${styles["inputGroup--training"]}`}
         >
-          <label className={styles.formLabel}>Program</label>
+          <label className={styles.formLabel}>Training</label>
           <input 
             className={styles.formInput} 
             type="text"
-            placeholder="Enter program name"
-            {...register("program")} 
+            placeholder="Enter training name"
+            {...register("training")} 
           />
           <div className={styles.errorDiv}>
-            {errors.program && (
-              <p className={styles.error}>{errors.program.message}</p>
+            {errors.training && (
+              <p className={styles.error}>{errors.training.message}</p>
             )}
           </div>
         </fieldset>

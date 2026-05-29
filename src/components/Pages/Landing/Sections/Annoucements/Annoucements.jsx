@@ -17,9 +17,9 @@ const Annoucements = () => {
   const modalRef = useRef(null);
   const trackRef = useRef(null);
 
-  // Extract the images array from offlineProgramSection
-  const images = useMemo(
-    () => landingPageData.offlineProgramSection.images ?? [],
+  // Extract the images array from offlineTrainingSection
+  const imageList = useMemo(
+    () => landingPageData.offlineTrainingSection.images ?? [],
     []
   );
   const totalSlides = images.length;
@@ -114,8 +114,8 @@ const Annoucements = () => {
     return (
       <div className={styles.layout}>
         <div className={styles.textContainer}>
-          <h1>{landingPageData.offlineProgramSection.heading}</h1>
-          <p>{landingPageData.offlineProgramSection.subHeading}</p>
+          <h1>{landingPageData.offlineTrainingSection.heading}</h1>
+          <p>{landingPageData.offlineTrainingSection.subHeading}</p>
         </div>
         <div className={styles.noData}>
           <p>No announcements available at the moment.</p>
@@ -147,7 +147,7 @@ const Annoucements = () => {
 
 
             <h2 className={styles.annoucementHeading}>Announcements</h2>
-            <p className={styles.annoucementSubtitle}>Now offline courses are available</p>
+            <p className={styles.annoucementSubtitle}>Now offline Trainings are available</p>
 
             <div
               className={styles.popupCarouselWrapper}

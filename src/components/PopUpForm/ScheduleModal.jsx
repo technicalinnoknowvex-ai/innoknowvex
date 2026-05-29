@@ -220,7 +220,7 @@ const ScheduleModal = () => {
         <div className={styles.modalContent}>
           <h2 className={styles.title}>Schedule Your Meeting</h2>
           <p className={styles.subtitle}>
-            Book a call with our expert to discuss your program
+            Book a call with our expert to discuss your training
           </p>
 
           <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>

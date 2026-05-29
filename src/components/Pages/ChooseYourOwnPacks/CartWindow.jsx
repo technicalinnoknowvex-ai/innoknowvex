@@ -98,7 +98,7 @@ const CartWindow = ({
           <div className={style.successMessage}>
             <span className={style.successIcon}>✓</span>
             <div className={style.successText}>
-              <p className={style.successTitle}>Course Added!</p>
+              <p className={style.successTitle}>Training Added!</p>
               <p className={style.successSubtitle}>You can add up to 4 programs</p>
             </div>
           </div>
@@ -126,7 +126,7 @@ const CartWindow = ({
 
           <div className={style.buttonGroup}>
             <button className={style.continueShoppingBtn} onClick={onClose}>
-              Add More Courses
+              Add More Trainings
             </button>
             <button className={style.checkoutBtn} onClick={handleCheckout}>
               Proceed to Checkout

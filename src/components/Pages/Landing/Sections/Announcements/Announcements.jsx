@@ -6,7 +6,7 @@ import { landingPageData } from "@/data/landing";
 
 const Announcements = () => {
   const offlineCourseNames = useMemo(() => {
-    const imageUrls = landingPageData?.offlineProgramSection?.images ?? [];
+    const imageUrls = landingPageData?.offlineTrainingSection?.images ?? [];
 
     const normalizeName = (rawName) =>
       rawName
@@ -31,22 +31,22 @@ const Announcements = () => {
 
   const tickerItems = useMemo(() => {
     const baseHeading =
-      landingPageData?.offlineProgramSection?.heading || "Offline courses are now live";
+      landingPageData?.offlineTrainingSection?.heading || "Offline training are now live";
     const baseSubHeading =
-      landingPageData?.offlineProgramSection?.subHeading ||
+      landingPageData?.offlineTrainingSection?.subHeading ||
       "Mentor-led learning with real projects";
     const imageCount = offlineCourseNames.length;
     const coursesLine =
       imageCount > 0
-        ? `Offline courses: ${offlineCourseNames.join(" | ")}`
-        : "Offline courses now available";
+        ? `Offline Training: ${offlineCourseNames.join(" | ")}`
+        : "Offline Training now available";
 
     return [
-      "New: Offline programs open for enrollment",
+      "New: Offline Training open for enrollment",
       baseHeading,
       baseSubHeading,
       coursesLine,
-      imageCount > 0 ? `${imageCount} offline courses currently active` : "Seats are filling fast for upcoming batches",
+      imageCount > 0 ? `${imageCount} offline Trainings currently active` : "Seats are filling fast for upcoming batches",
       "Visit Programs to explore online and offline tracks",
     ];
   }, [offlineCourseNames]);
@@ -59,11 +59,11 @@ const Announcements = () => {
           <div className={styles.tickerTrack}>
             {[...tickerItems, ...tickerItems].map((item, index) => (
               <span key={`${item}-${index}`} className={styles.tickerItem}>
-                {item.startsWith("Offline courses:") ? (
+                {item.startsWith("Offline Training:") ? (
                   <>
-                    <span className={styles.tickerPrefix}>Offline courses:</span>{" "}
+                    {/* <span className={styles.tickerPrefix}>Offline Trainings-----:</span>{" "} */}
                     <span className={styles.courseHighlight}>
-                      {item.replace("Offline courses:", "").trim()}
+                      {item.replace("Offline Trainings:", "").trim()}
                     </span>
                   </>
                 ) : (

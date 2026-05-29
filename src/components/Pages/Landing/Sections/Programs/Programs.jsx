@@ -23,7 +23,7 @@ const CARD_ICONS = {
 
 const Programs = () => {
   const { updateNavColor } = useNavColor();
-  const { heading, subheading, para, programs } = landingPageData.programsSection;
+  const { heading, subheading, para, trainings } = landingPageData.trainingsSection;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
 
@@ -54,7 +54,7 @@ const Programs = () => {
     }, tick);
 
     timerRef.current = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % programs.length);
+      setCurrentIndex((prev) => (prev + 1) % trainings.length);
       step = 0;
       setProgress(0);
     }, CAROUSEL_INTERVAL);
@@ -67,7 +67,7 @@ const Programs = () => {
       if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [programs.length]);
+  }, [trainings.length]);
 
   // ─── Scroll-trigger animations ────────────────────────────────────────────
   useGSAP(
@@ -191,7 +191,7 @@ const Programs = () => {
     startCarousel();
   };
 
-  const currentProgram = programs[currentIndex];
+  const currentTraining = trainings[currentIndex];
 
   // Reset cardsRef on each render (cards are recreated per index change)
   cardsRef.current = [];
@@ -206,7 +206,7 @@ const Programs = () => {
           {/* Pill label */}
           <div className={styles.sectionLabel}>
             <span className={styles.labelDot} />
-            <span>Our Programs</span>
+            <span>Our Trainings</span>
           </div>
 
           <div className={styles.sectionHeadingWrapper}>
@@ -218,7 +218,7 @@ const Programs = () => {
               ref={headingRef}
             >
               {heading}
-              <span className={styles.highlight}> Programs</span>
+              <span className={styles.highlight}> Trainings</span>
               <br />
               We're Offering
             </h1>
@@ -245,8 +245,8 @@ const Programs = () => {
 
             <div className={styles.imageContainer}>
               <Image
-                src={currentProgram.image}
-                alt={currentProgram.title}
+                src={currentTraining.image}
+                alt={currentTraining.title}
                 fill
                 priority
                 style={{ objectFit: "cover", objectPosition: "center" }}
@@ -266,25 +266,25 @@ const Programs = () => {
                   <span className={styles.counterCurrent}>
                     {String(currentIndex + 1).padStart(2, "0")}
                   </span>
-                  <span className={styles.counterTotal}> / {String(programs.length).padStart(2, "0")}</span>
+                  <span className={styles.counterTotal}> / {String(trainings.length).padStart(2, "0")}</span>
                 </span>
                 <div className={styles.programDivider} />
               </div>
 
-              {/* Course title */}
+              {/* Training title */}
               <h3 key={currentIndex} className={styles.courseName}>
-                <span className={styles.orangeText}>{currentProgram.title}</span>
-                {currentProgram.subTitle && (
+                <span className={styles.orangeText}>{currentTraining.title}</span>
+                {currentTraining.subTitle && (
                   <>
                     <br />
-                    <span className={styles.blackText}>{currentProgram.subTitle}</span>
+                    <span className={styles.blackText}>{currentTraining.subTitle}</span>
                   </>
                 )}
               </h3>
 
               {/* Description */}
               <p className={styles.courseDescription}>
-                {currentProgram.description}
+                {currentTraining.description}
               </p>
 
               {/* Info Cards */}
@@ -297,7 +297,7 @@ const Programs = () => {
                   <div className={styles.cardIconWrapper}>{CARD_ICONS.salary}</div>
                   <div className={styles.cardContent}>
                     <div className={styles.cardLabel}>Avg. Salary</div>
-                    <div className={styles.cardValue}>{currentProgram.salary}</div>
+                    <div className={styles.cardValue}>{currentTraining.salary}</div>
                   </div>
                 </div>
 
@@ -310,7 +310,7 @@ const Programs = () => {
                   <div className={styles.cardContent}>
                     <div className={styles.cardLabel}>Career Paths</div>
                     <div className={styles.careerRolesList}>
-                      {currentProgram.careerRoles.slice(0, 3).map((role, idx) => (
+                      {currentTraining.careerRoles.slice(0, 3).map((role, idx) => (
                         <div key={idx} className={styles.roleItem}>{role}</div>
                       ))}
                     </div>
@@ -333,7 +333,7 @@ const Programs = () => {
               {/* CTA Buttons */}
               <div className={styles.actionRow}>
                 <Link
-                  href={`/programs/${currentProgram.slug}`}
+                  href={`/programs/${currentTraining.slug}`}
                   className={styles.learnMoreBtn}
                 >
                   Learn More
@@ -341,19 +341,19 @@ const Programs = () => {
                 </Link>
 
                 <Link href="/choose-packs" className={styles.viewAllBtn}>
-                  View All Programs
+                  View All Trainings
                 </Link>
               </div>
 
               {/* Carousel footer: dots + progress */}
               <div className={styles.carouselFooter}>
                 <div className={styles.carouselDots}>
-                  {programs.map((_, index) => (
+                  {trainings.map((_, index) => (
                     <button
                       key={index}
                       className={`${styles.dot} ${currentIndex === index ? styles.activeDot : ""}`}
                       onClick={() => handleDotClick(index)}
-                      aria-label={`Go to program ${index + 1}`}
+                      aria-label={`Go to training ${index + 1}`}
                     />
                   ))}
                 </div>

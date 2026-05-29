@@ -9,7 +9,7 @@ const PopupForm = ({ delaySeconds = 6 }) => {
     name: "",
     email: "",
     phone: "",
-    program: "",
+    training: "",
     timestamp: "", // This will be set automatically
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -41,7 +41,7 @@ const PopupForm = ({ delaySeconds = 6 }) => {
       !formData.name ||
       !formData.email ||
       !formData.phone ||
-      !formData.program
+      !formData.training
     ) {
       alert("Please fill in all fields");
       return;
@@ -96,7 +96,7 @@ const PopupForm = ({ delaySeconds = 6 }) => {
       name: "",
       email: "",
       phone: "",
-      program: "",
+      training: "",
       timestamp: "",
     });
   };
@@ -131,7 +131,7 @@ const PopupForm = ({ delaySeconds = 6 }) => {
     <div className={styles.overlay} onClick={handleOverlayClick}>
       <div className={styles.popup}>
         <div className={styles.header}>
-          <h2>Get Program Information</h2>
+          <h2>Get Training Information</h2>
           <p>Fill out the form below and we'll get back to you!</p>
         </div>
 
@@ -179,14 +179,14 @@ const PopupForm = ({ delaySeconds = 6 }) => {
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="program">Program of Interest *</label>
+            <label htmlFor="training">Training of Interest *</label>
             <input
               type="text"
-              id="program"
-              name="program"
-              value={formData.program}
+              id="training"
+              name="training"
+              value={formData.training}
               onChange={handleInputChange}
-              placeholder="Enter your program of interest"
+              placeholder="Enter your training of interest"
               required
               autoComplete="off"
             />

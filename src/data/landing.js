@@ -25,9 +25,9 @@ export const landingPageData = {
       "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/About%20Us%20Images/Landing/about_us_cell_90%20(1).jpg",
     ],
   },
-  offlineProgramSection:{
+  offlineTrainingSection:{
     heading:"Announcements",
-    subHeading:"Offline Programs Now Available",
+    subHeading:"Offline Training Now Available",
     images:[
       "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/offine/Copy%20of%20AI.png",
       "https://hfolrvqgjjontjmmaigh.supabase.co/storage/v1/object/public/Innoknowvex%20website%20content/offine/Copy%20of%20AIML.png",
@@ -46,16 +46,16 @@ export const landingPageData = {
     ]
 
   },
-  programsSection: {
+  trainingsSection: {
     heading: "What",
-    subheading: "Programs We're Offering",
-    para: `Get equipped with real-world skills, hands-on experience, and career-focused programs tailored to meet industry demands. Our expert-led courses are designed to help you build practical knowledge, boost your confidence, and launch a successful career in today’s fast-paced, tech-driven world.`,
-    programs: [
+    subheading: "Trainings We're Offering",
+    para: `Get equipped with real-world skills, hands-on experience, and career-focused trainings tailored to meet industry demands. Our expert-led trainings are designed to help you build practical knowledge, boost your confidence, and launch a successful career in today's fast-paced, tech-driven world.`,
+    trainings: [
       {
         title: "Artificial",
         subTitle: "Intelligence",
         description:
-          "Dive into the world of Artificial Intelligence with a hands-on learning experience focused on machine learning, deep learning, and neural networks. Through interactive lessons, real-world projects, and expert guidance, you’ll move beyond theory into practical application. Whether you're starting out or upskilling, this course equips you for real-world challenges and success in an AI-driven future.",
+          "Dive into the world of Artificial Intelligence with a hands-on learning experience focused on machine learning, deep learning, and neural networks. Through interactive lessons, real-world projects, and expert guidance, you'll move beyond theory into practical application. Whether you're starting out or upskilling, this training equips you for real-world challenges and success in an AI-driven future.",
         slug: "artificial-intelligence",
         image:
           "https://res.cloudinary.com/dquwagna6/image/upload/v1774874557/AI_wd3nha.jpg",        
@@ -66,7 +66,7 @@ export const landingPageData = {
         title: "Data",
         subTitle: "Science",
         description:
-          "Explore the field of Data Science through a structured program covering statistics, data visualization, and predictive modeling. With guided projects, step-by-step lessons, and mentorship, you’ll build the ability to transform raw data into actionable insights. This course ensures you develop industry-ready skills to solve real problems in analytics and data-driven decision-making.",
+          "Explore the field of Data Science through a structured training covering statistics, data visualization, and predictive modeling. With guided projects, step-by-step lessons, and mentorship, you'll build the ability to transform raw data into actionable insights. This training ensures you develop industry-ready skills to solve real problems in analytics and data-driven decision-making.",
         slug: "data-science",
         image:
           "https://res.cloudinary.com/dquwagna6/image/upload/v1774874989/WhatsApp_Image_2026-03-30_at_18.18.20_hm2rd2.jpg",        
@@ -88,7 +88,7 @@ export const landingPageData = {
         title: "Cloud",
         subTitle: "Computing",
         description:
-          "Step into Cloud Computing with comprehensive training on infrastructure, virtualization, and service deployment across leading platforms. Through hands-on labs, guided exercises, and applied projects, you’ll understand the backbone of modern digital solutions. Whether aiming for certifications or career growth, this program equips you to architect, deploy, and manage scalable cloud systems.",
+          "Step into Cloud Computing with comprehensive training on infrastructure, virtualization, and service deployment across leading platforms. Through hands-on labs, guided exercises, and applied projects, you'll understand the backbone of modern digital solutions. Whether aiming for certifications or career growth, this training equips you to architect, deploy, and manage scalable cloud systems.",
         slug: "cloud-computing",
         image:
           "https://res.cloudinary.com/dquwagna6/image/upload/v1762238485/Cloud_Computing_oahxvt.jpg",       
@@ -99,7 +99,7 @@ export const landingPageData = {
         title: "Machine",
         subTitle: "Learning",
         description:
-          "Gain mastery in Machine Learning through a project-based curriculum emphasizing supervised, unsupervised, and reinforcement learning techniques. With real-world case studies, coding exercises, and expert mentorship, you’ll develop the ability to build intelligent models and deploy them in practice. This program prepares you to innovate and excel in AI-powered applications across industries.",
+          "Gain mastery in Machine Learning through a project-based curriculum emphasizing supervised, unsupervised, and reinforcement learning techniques. With real-world case studies, coding exercises, and expert mentorship, you'll develop the ability to build intelligent models and deploy them in practice. This training prepares you to innovate and excel in AI-powered applications across industries.",
         slug: "machine-learning",
         image:
           "https://res.cloudinary.com/dquwagna6/image/upload/v1762238490/Machine_Learning_uhbcvr.jpg",        
@@ -110,7 +110,7 @@ export const landingPageData = {
   },
   whyChooseUsSection: {
     heading: "Why choose Us",
-    subheading: "What makes our courses stand out.",
+    subheading: "What makes our trainings stand out.",
     para: ` We’re not just a platform, we’re your learning partner, here to support your growth every step of the way. From interactive live classes and real-world projects to personalized guidance, everything is designed to help you learn with confidence. Add a welcoming, inspiring community, and your journey becomes not just effective, but truly meaningful and future-ready`,
     reasons: [
       {
@@ -147,7 +147,7 @@ export const landingPageData = {
         title: "Lifetime Access",
         subTitle: "to Content",
         description:
-          "Enjoy lifetime access to course content, including updated resources, added modules, and future enhancements. Revisit your learning anytime, stay current with industry trends, and continuously improve your skills—ensuring your knowledge grows steadily and remains valuable throughout your entire professional journey.",
+          "Enjoy lifetime access to training content, including updated resources, added modules, and future enhancements. Revisit your learning anytime, stay current with industry trends, and continuously improve your skills—ensuring your knowledge grows steadily and remains valuable throughout your entire professional journey.",
       },
     ],
   },
@@ -201,9 +201,9 @@ export const landingPageData = {
           "We accept all major credit/debit cards, UPI, net banking, and EMI options through partnered banks and financial services.",
       },
       {
-        question: "Will I receive a certificate after completing the program?",
+        question: "Will I receive a certificate after completing the training?",
         answer:
-          "Yes, upon successful completion of your program, you’ll receive an industry-recognized certificate from Innoknowvex.",
+          "Yes, upon successful completion of your training, you'll receive an industry-recognized certificate from Innoknowvex.",
       },
     ],
   },
@@ -270,7 +270,7 @@ export const landingPageData = {
         ],
       },
       {
-        listLabel: "OUR PROGRAMS",
+        listLabel: "OUR TRAININGS",
         links: [
           { label: "Web Development", href: "/programs/web-development" },
           {
@@ -323,7 +323,7 @@ export const landingPageData = {
         ],
       },
       {
-        listLabel: "ADVANCED PROGRAMS",
+        listLabel: "ADVANCED TRAININGS",
         links: [
           {
             label: "Advanced Data Science",
@@ -335,14 +335,14 @@ export const landingPageData = {
           },
         ],
       },
-      {
-        listLabel: "LEGAL ",
-        links: [
-          { label: "Privacy Policy", href: "#" },
-          { label: "Payments & Refunds", href: "#" },
-          { label: "Terms of Service", href: "#" },
-        ],
-      },
+      // {
+      //   listLabel: "LEGAL ",
+      //   links: [
+      //     { label: "Privacy Policy", href: "#" },
+      //     { label: "Payments & Refunds", href: "#" },
+      //     { label: "Terms of Service", href: "#" },
+      //   ],
+      // },
     ],
   },
 };

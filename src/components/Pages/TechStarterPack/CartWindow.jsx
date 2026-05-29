@@ -267,7 +267,7 @@ const CartPage = () => {
                                 : '';
 
                             const courseDetails = isCustomPackPurchase || isTechStarterPack
-                                ? `\n\nCourses Enrolled (${allCourses.length}):\n${allCourses.map((course, index) => `• ${course.courseName} - ${course.plan}`).join('\n')}`
+                                ? `\n\nTrainings Enrolled (${allCourses.length}):\n${allCourses.map((course, index) => `• ${course.courseName} - ${course.plan}`).join('\n')}`
                                 : '';
 
                             const successMessage = `Payment Successful! 
@@ -279,7 +279,7 @@ Your enrollment details have been recorded and you should receive a confirmation
 Transaction Details:
 • Payment ID: ${verifyData.paymentId}
 • Order ID: ${verifyData.orderId}
-• Total Courses: ${isCustomPackPurchase || isTechStarterPack ? allCourses.length : 1}
+• Total Trainings: ${isCustomPackPurchase || isTechStarterPack ? allCourses.length : 1}
 
 Thank you for choosing Innoknowvex!`;
                             

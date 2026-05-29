@@ -1181,7 +1181,7 @@ const webDevelopmentCurriculum = [
       "Responsive Design and Layout",
       "Client and Server Scripting Languages",
       "Website Structure and Flow",
-      "Course Discussion and Doubt Clearing"
+      "Training Discussion and Doubt Clearing"
     ]
   },
   {
@@ -1575,7 +1575,7 @@ const mlCurriculum = [
     topics: [
       "If, Elif and Else Conditions",
       "For Loop and While Loop",
-      "Course-Related Doubts and Discussion Sessions",
+      "Training-Related Doubts and Discussion Sessions",
       "Interactive Problem Solving",
       "Concept Reinforcement Exercises"
     ]
@@ -1637,7 +1637,7 @@ const mlCurriculum = [
   },
   {
     id: 9,
-    title: "Model Review & Course Wrap-Up",
+    title: "Model Review & Training Wrap-Up",
     topics: [
       "Review of Supervised Learning Models",
       "Review of Unsupervised Learning Models",
@@ -1830,7 +1830,7 @@ const cyberSecurityCurriculum = [
     topics: [
       "Comprehensive Security Checklists for Auditing and Testing",
       "Project Explanation, Review and Feedback Sessions",
-      "Course Doubt Clearing, Concept Revision and Q&A",
+      "Training Doubt Clearing, Concept Revision and Q&A",
       "Career Opportunities, Job Roles and Skills for Industry Readiness"
     ]
   }
@@ -1923,7 +1923,7 @@ const autoCADCurriculum = [
     title: "Project & Career Readiness",
     topics: [
       "Project Explanation, Requirements and Review Sessions",
-      "Course Doubt Clearing, Concept Revision and Q&A",
+      "Training Doubt Clearing, Concept Revision and Q&A",
       "Industry Use Cases Discussion",
       "Career Opportunities, Job Roles and Skills for Industry Readiness"
     ]
@@ -2016,7 +2016,7 @@ const embeddedSystemsCurriculum = [
     id: 9,
     title: "Career Readiness & Industry Wrap-Up",
     topics: [
-      "Course-Related Doubt Clearing and Concept Revision",
+      "Training-Related Doubt Clearing and Concept Revision",
       "Industry Use Cases Discussion",
       "Career Opportunities and Job Roles in Embedded Systems",
       "Skills Required for Industry Readiness"
@@ -2206,7 +2206,7 @@ const stockMarketCurriculum = [
     topics: [
       "Comprehensive Project – Analyzing a Stock or Mock Investment Portfolio",
       "Final Project Presentation, Critique and Review of Key Concepts",
-      "Course Doubt Clearing, Concept Revision and Q&A",
+      "Training Doubt Clearing, Concept Revision and Q&A",
       "Career Opportunities, Job Roles and Skills for Industry Readiness"
     ]
   }
@@ -2429,7 +2429,7 @@ const financeCurriculum = [
     topics: [
       "Data Visualization by Creating Charts in Excel",
       "Project Discussion and Requirements Review",
-      "Course-Related Doubt Clearing and Concept Revision",
+      "Training-Related Doubt Clearing and Concept Revision",
       "Career Opportunities, Job Roles & Skills for Industry Readiness"
     ]
   }
@@ -2539,7 +2539,7 @@ const hrmCurriculum = [
     time: "To be notified",
     topics: [
       "Project Explanation, Requirements Discussion & Review",
-      "Course-Related Doubt Clearing and Concept Revision",
+      "Training-Related Doubt Clearing and Concept Revision",
       "Industry Use Cases Discussion",
       "Career Opportunities, Job Roles & Skills for Industry Readiness"
     ]
@@ -2763,7 +2763,7 @@ const medicalCodingCurriculum = [
       "Mock test and review session",
       "Career opportunities in medical coding",
       "Salary growth, placement, and industry outlook",
-      "Course doubt-clearing and final Q&A discussion"
+      "Training doubt-clearing and final Q&A discussion"
     ]
   }
 ];
