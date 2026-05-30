@@ -18,7 +18,7 @@ export async function sendEnquiry(enquiryDetails) {
           name: enquiryDetails.name,
           email: enquiryDetails.email,
           phone: enquiryDetails.phone,
-          program: enquiryDetails.program,
+          program: enquiryDetails.training,
           language: enquiryDetails.language,
           timestamp: enquiryDetails.timestamp
         }
@@ -44,7 +44,7 @@ export async function sendEnquiry(enquiryDetails) {
           name: enquiryDetails.name,
           email: enquiryDetails.email,
           phone: enquiryDetails.phone,
-          program: enquiryDetails.program,
+          program: enquiryDetails.training,
           language: enquiryDetails.language,
           timestamp: enquiryDetails.timestamp
         })
