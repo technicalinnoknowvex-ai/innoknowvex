@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import HolidayBanner from './HolidayBanner/HolidayBanner';
+// import HolidayBanner from './HolidayBanner/HolidayBanner';
 
 export default function BannerWrapper({ initialVisible }) {
   const pathname = usePathname();
@@ -12,5 +12,5 @@ export default function BannerWrapper({ initialVisible }) {
     return null;
   }
 
-  return <HolidayBanner initialVisible={initialVisible} />;
+  // return <HolidayBanner initialVisible={initialVisible} />;
 }

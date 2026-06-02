@@ -9,7 +9,7 @@ const supabase = supabaseUrl && supabaseKey
 
 export async function sendEnquiry(enquiryDetails) {
   try {
-    console.log("🚀 Sending enquiry to Supabase:", enquiryDetails);
+    console.log("Sending enquiry to Supabase:", enquiryDetails);
 
     const { data, error } = await supabase
       .from('enquiries')
