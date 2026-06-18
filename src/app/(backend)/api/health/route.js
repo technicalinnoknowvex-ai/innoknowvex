@@ -1,6 +1,19 @@
-// import sql from "@/db"
+// Health check endpoint for monitoring and uptime checks
 
-// export async function GET() {
-//     await sql`SELECT 1`
-//     return Response.json({ status: 'ok' })
-// }
+export async function GET() {
+  try {
+    return Response.json(
+      {
+        status: "ok",
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime(),
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    return Response.json(
+      { status: "error", message: error.message },
+      { status: 500 }
+    );
+  }
+}
