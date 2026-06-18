@@ -1,12 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import style from "./style/coupons.module.scss";
-import {
-  getCoupons,
-  createCoupon,
-  updateCoupon,
-  deleteCoupon,
-} from "@/app/(backend)/api/validate-coupon/createCoupon/route";
 import { getPrograms } from "@/app/(backend)/api/programs/programs";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
@@ -68,8 +62,10 @@ const CouponsPage = () => {
   const loadCoupons = async () => {
     try {
       setLoading(true);
-      const data = await getCoupons();
-      setCouponsData(data);
+      const response = await fetch("/api/validate-coupon/createCoupon");
+      if (!response.ok) throw new Error("Failed to fetch coupons");
+      const { data } = await response.json();
+      setCouponsData(data || []);
     } catch (error) {
       console.error("Failed to load coupons:", error);
       alert("Failed to load coupons. Please try again.");
@@ -301,14 +297,24 @@ const CouponsPage = () => {
       }
 
       if (editMode) {
-        const result = await updateCoupon(editingCouponId, couponData);
+        const response = await fetch("/api/validate-coupon/createCoupon", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ couponId: editingCouponId, couponData }),
+        });
+        const result = await response.json();
         if (result.success) {
           alert("Coupon updated successfully!");
           resetForm();
           await loadCoupons();
         }
       } else {
-        const result = await createCoupon(couponData);
+        const response = await fetch("/api/validate-coupon/createCoupon", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(couponData),
+        });
+        const result = await response.json();
         if (result.success) {
           alert("Coupon created successfully!");
           resetForm();
@@ -357,7 +363,12 @@ const CouponsPage = () => {
     if (!confirmDelete) return;
 
     try {
-      const result = await deleteCoupon(couponId);
+      const response = await fetch("/api/validate-coupon/createCoupon", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ couponId }),
+      });
+      const result = await response.json();
       if (result.success) {
         alert("Coupon deleted successfully!");
         await loadCoupons();
