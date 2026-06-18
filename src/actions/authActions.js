@@ -192,7 +192,7 @@ async function ensureUserRecordExists(supabase, user, role) {
       const insertData = {
         id: user.id,
         email: user.email,
-        full_name: user.user_metadata?.full_name || null,
+        name: user.user_metadata?.full_name || null,
         created_at: new Date().toISOString(),
       };
 

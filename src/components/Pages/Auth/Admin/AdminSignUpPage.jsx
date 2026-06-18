@@ -54,8 +54,8 @@ const AdminSignUpPage = () => {
     try {
       const redirectUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL || window.location.origin}/api/auth/callback`;
       
-      // console.log('🔵 ADMIN SIGNUP CHECKPOINT 1: Starting signup process');
-      // console.log('🔵 ADMIN SIGNUP CHECKPOINT 2: Redirect URL:', redirectUrl);
+      console.log('🔵 ADMIN SIGNUP CHECKPOINT 1: Starting signup process');
+      console.log('🔵 ADMIN SIGNUP CHECKPOINT 2: Redirect URL:', redirectUrl);
 
       const result = await signUpWithEmail(
         data.email,
@@ -68,14 +68,40 @@ const AdminSignUpPage = () => {
         }
       );
 
-      // console.log('🔵 ADMIN SIGNUP CHECKPOINT 3: Signup result:', result);
+      console.log('🔵 ADMIN SIGNUP CHECKPOINT 3: Signup result:', result);
 
       if (!result.success) {
         throw new Error(result.error);
       }
 
+      // ✅ NEW: Create admin record in database immediately after signup
+      if (result.user) {
+        console.log('🔵 ADMIN SIGNUP CHECKPOINT 4: Creating admin record for user:', result.user.id);
+        
+        const adminRecordResponse = await fetch('/api/admin/create-record', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userId: result.user.id,
+            email: data.email,
+            fullName: data.fullName,
+          }),
+        });
+
+        const adminRecordResult = await adminRecordResponse.json();
+        
+        if (!adminRecordResponse.ok) {
+          console.warn('⚠️ Admin record creation warning:', adminRecordResult);
+          // Don't throw - signup is still successful
+        } else {
+          console.log('✅ Admin record created successfully');
+        }
+      }
+
       if (result.emailConfirmationRequired) {
-        // console.log('🔵 ADMIN SIGNUP CHECKPOINT 4: Email confirmation required');
+        console.log('🔵 ADMIN SIGNUP CHECKPOINT 5: Email confirmation required');
         
         setSuccessMessage(
           `Registration successful! We've sent a verification email to ${data.email}. Please check your inbox and click the verification link. Note: Admin accounts require approval before you can access the system.`
@@ -87,7 +113,7 @@ const AdminSignUpPage = () => {
           router.push('/auth/admin/sign-in');
         }, 7000);
       } else {
-        // console.log('🔵 ADMIN SIGNUP CHECKPOINT 5: No email confirmation needed');
+        console.log('🔵 ADMIN SIGNUP CHECKPOINT 6: No email confirmation needed');
         
         setSuccessMessage("Registration successful! Redirecting...");
         setTimeout(() => {

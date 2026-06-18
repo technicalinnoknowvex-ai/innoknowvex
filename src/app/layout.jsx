@@ -7,11 +7,26 @@ import { sharpGrotesk20, sharpGrotesk25, oldSchoolGrotesk } from "@/lib/fonts";
 import BannerWrapper from "@/components/Common/BannerWrapper";
 import { PageViewTracker } from "@/components/Common/PageViewTracker";
 import { cookies } from "next/headers";
+import { generateMetadataObject, createOrganizationSchema } from "@/utils/seo";
+import { SITE_CONFIG, PAGES, DEFAULT_OG_IMAGE } from "@/constants/seo";
 
-export const metadata = {
-  title: "Innoknowvex",
-  description: "Transforming Aspirations into Achievements",
-};
+export const metadata = generateMetadataObject({
+  title: SITE_CONFIG.title,
+  description: SITE_CONFIG.description,
+  keywords: [
+    "web development",
+    "MERN stack",
+    "cyber security",
+    "internships",
+    "placement training",
+    "tech education",
+    "coding courses",
+    "professional training",
+  ],
+  image: DEFAULT_OG_IMAGE,
+  path: "/",
+  type: "website",
+});
 
 export default function RootLayout({ children }) {
   const isBannerDismissed =
@@ -21,6 +36,16 @@ export default function RootLayout({ children }) {
     <html lang="en">
      
      <head>
+        {/* Organization Schema */}
+        <Script
+          id="organization-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(createOrganizationSchema()),
+          }}
+        />
+
+        {/* Facebook Meta Pixel */}
         <Script
           id="meta-pixel"
           strategy="beforeInteractive"
@@ -46,12 +71,28 @@ export default function RootLayout({ children }) {
             width="1" 
             style={{display:"none"}}
             src="https://www.facebook.com/tr?id=1645166679868765&ev=PageView&noscript=1"
-            alt=""
+            alt="Facebook pixel"
           />
         </noscript>
+
+        {/* Google Analytics */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-XXXXXXXXXX');
+            `,
+          }}
+        />
       </head>
-
-
 
       <body
         className={`${sharpGrotesk20.variable} ${sharpGrotesk25.variable} ${oldSchoolGrotesk.variable}`}

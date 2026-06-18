@@ -1,6 +1,17 @@
 import React from "react";
 import Link from "next/link";
 import styles from "./styles/offlineCourseListing.module.scss";
+import { generateMetadataObject } from "@/utils/seo";
+import { PAGES, DEFAULT_OG_IMAGE } from "@/constants/seo";
+
+export const metadata = generateMetadataObject({
+  title: PAGES.offlineCourses.title,
+  description: PAGES.offlineCourses.description,
+  keywords: PAGES.offlineCourses.keywords,
+  image: DEFAULT_OG_IMAGE,
+  path: PAGES.offlineCourses.path,
+  type: "website",
+});
 
 const OfflineCoursesPage = async () => {
   const offlineCourses = [
