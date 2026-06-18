@@ -5,6 +5,16 @@ import { SITE_CONFIG, DEFAULT_OG_IMAGE } from "@/constants/seo";
  * Helper functions for generating consistent SEO metadata
  */
 
+interface MetadataParams {
+  title: string;
+  description: string;
+  keywords?: string[];
+  image?: string;
+  path?: string;
+  noindex?: boolean;
+  type?: string;
+}
+
 /**
  * Generate complete metadata object for a page
  */
@@ -16,7 +26,7 @@ export function generateMetadataObject({
   path = "/",
   noindex = false,
   type = "website",
-} = {}) {
+}: MetadataParams) {
   const canonicalUrl = `${SITE_CONFIG.domain}${path}`;
 
   return {
@@ -58,8 +68,8 @@ export function generateMetadataObject({
       title,
       description,
       images: [image],
-      creator: "@edutect",
-      site: "@edutect",
+      creator: "@innoknowvex",
+      site: "@innoknowvex",
     },
 
     // Author

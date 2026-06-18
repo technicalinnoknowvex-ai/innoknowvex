@@ -15,7 +15,6 @@ export const SITE_CONFIG = {
   socialMedia: {
     facebook: "https://www.facebook.com/profile.php?id=61582759388164",
     linkedin: "https://www.linkedin.com/company/innoknowvex",
-
     instagram: "https://www.instagram.com/inno_knowvex/",
     youtube: "https://www.youtube.com/channel/UCAh8BzOPFtransa1GrHDeMa9l7Tw",
   },
