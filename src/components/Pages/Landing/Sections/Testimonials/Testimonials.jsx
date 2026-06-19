@@ -23,6 +23,9 @@ const TestimonialCard = ({ testimonial }) => (
           src={testimonial.avatar}
           alt="avatar"
           fill
+          loading="lazy"
+          sizes="(max-width: 768px) 60px, 80px"
+          quality={85}
           style={{ objectFit: "cover", objectPosition: "center" }}
         />
       </div>

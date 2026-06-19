@@ -177,8 +177,10 @@ const Annoucements = () => {
                           src={imageUrl}
                           alt={`Announcement ${index + 1}`}
                           fill
-                          style={{ objectFit: 'contain' }}
                           priority={index === 0}
+                          sizes="(max-width: 768px) 90vw, (max-width: 1024px) 70vw, 800px"
+                          quality={85}
+                          style={{ objectFit: 'contain' }}
                         />
                       </div>
                     </div>

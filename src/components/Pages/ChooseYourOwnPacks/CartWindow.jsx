@@ -54,6 +54,9 @@ const CartWindow = ({
                     src={item.image}
                     fill
                     alt={item.course}
+                    loading="lazy"
+                    sizes="(max-width: 768px) 100px, 120px"
+                    quality={85}
                     style={{ objectFit: "cover" }}
                   />
                 </div>

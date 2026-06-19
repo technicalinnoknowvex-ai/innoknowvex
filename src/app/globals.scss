@@ -94,6 +94,15 @@ a {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: globalGradientShift 4s ease infinite;
+  
+  // Performance optimizations
+  contain: layout style paint;
+  will-change: background-position;
+  
+  // Respect user motion preferences
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 button {

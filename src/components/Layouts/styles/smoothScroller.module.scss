@@ -6,6 +6,10 @@
   left: 0;
   width: 100%;
   overflow: hidden;
+  
+  // Performance optimization: contain repaints to this element
+  contain: layout style paint;
+  will-change: transform;
 
   // Mobile: Allow normal scrolling behavior
   @media (max-width: 1024px) {
@@ -13,13 +17,16 @@
     overflow-y: auto;
     overflow-x: hidden;
     height: auto;
+    contain: auto;
   }
 }
 
 .scrollContent {
   width: 100%;
+  will-change: transform;
 
   @media (max-width: 1024px) {
     position: relative;
+    will-change: auto;
   }
 }

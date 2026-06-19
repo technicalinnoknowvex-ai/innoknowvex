@@ -59,6 +59,7 @@ const PosterModal = ({ isOpen, onClose }) => {
             className={styles.posterImage}
             priority
             quality={90}
+            sizes="(max-width: 768px) 90vw, (max-width: 1024px) 80vw, 600px"
           />
         </Link>
       </div>

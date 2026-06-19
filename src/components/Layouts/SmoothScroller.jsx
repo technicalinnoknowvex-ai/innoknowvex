@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger, ScrollSmoother, useGSAP);
 
 const SmoothScroller = ({
   children,
-  smooth = 3,
+  smooth = 1.5,
   effects = true,
   smoothTouch = 0.1,
 }) => {
@@ -29,11 +29,11 @@ const SmoothScroller = ({
         return;
       }
 
-      // Create ScrollSmoother instance
+      // Create ScrollSmoother instance with optimized settings
       const smoother = ScrollSmoother.create({
         wrapper: scrollContainerRef.current,
         content: scrollerRef.current,
-        smooth, // Duration in seconds for scroll animation
+        smooth, // Reduced from 3 to 1.5 for better performance
         effects, // Enable data-speed and data-lag effects
         smoothTouch, // Smooth scrolling on touch devices
         normalizeScroll: true, // Normalize scroll across different devices

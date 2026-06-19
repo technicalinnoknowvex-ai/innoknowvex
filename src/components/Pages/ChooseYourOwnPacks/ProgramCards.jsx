@@ -188,7 +188,15 @@ const ProgramCards = ({
       >
         {/* Image Section */}
         <div className={style.planImageSection}>
-          <Image src={program.image} fill alt={program.title} style={{ objectFit: "cover" }} />
+          <Image 
+            src={program.image} 
+            fill 
+            alt={program.title} 
+            style={{ objectFit: "cover" }}
+            loading="lazy"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            quality={90}
+          />
           <div className={style.imageOverlay}></div>
         </div>
 

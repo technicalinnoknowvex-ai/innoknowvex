@@ -16,9 +16,13 @@ export const useGSAPInit = () => {
         ignoreMobileResize: true,
       });
 
-      // Refresh on resize for accuracy
+      // Debounce function to prevent excessive refresh calls
+      let resizeTimeout;
       const handleResize = () => {
-        ScrollTrigger.refresh();
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 250); // Wait 250ms after resize ends
       };
 
       window.addEventListener("resize", handleResize);
@@ -27,6 +31,7 @@ export const useGSAPInit = () => {
       return () => {
         window.removeEventListener("resize", handleResize);
         window.removeEventListener("load", () => ScrollTrigger.refresh());
+        clearTimeout(resizeTimeout);
       };
     }
   }, []);

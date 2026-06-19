@@ -856,6 +856,8 @@ Thank you for choosing Innoknowvex!`;
                                                     height={100}
                                                     width={100}
                                                     alt={item.isPack ? item.name : item.course}
+                                                    loading="lazy"
+                                                    quality={85}
                                                 />
                                             </div>
 

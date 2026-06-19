@@ -200,6 +200,7 @@ const AboutUs = ({ scrollContainerRef }) => {
                 src={images[1]}
                 alt="cell_2_img"
                 fill
+                loading="lazy"
                 sizes="(max-width: 768px) 30vw, 15vw"
                 rel="preload"
                 quality={55}
@@ -213,6 +214,7 @@ const AboutUs = ({ scrollContainerRef }) => {
                 src={images[2]}
                 alt="cell_3_img"
                 fill
+                loading="lazy"
                 sizes="(max-width: 768px) 40vw, 20vw"
                 rel="preload"
                 quality={75}
@@ -228,6 +230,7 @@ const AboutUs = ({ scrollContainerRef }) => {
                 src={images[3]}
                 alt="cell_4_img"
                 fill
+                loading="lazy"
                 sizes="(max-width: 768px) 35vw, 18vw"
                 rel="preload"
                 quality={55}
@@ -242,6 +245,7 @@ const AboutUs = ({ scrollContainerRef }) => {
                 src={images[4]}
                 alt="cell_5_img"
                 fill
+                loading="lazy"
                 sizes="(max-width: 768px) 45vw, 22vw"
                 rel="preload"
                 quality={55}
