@@ -95,21 +95,21 @@ const programsCategory = [
   {
     category: "Business & Management",
     items: [
-      { label: "Business & Management", href: "/programs/business-management" },
+      // { label: "Business & Management", href: "/programs/business-management" },
       { label: "Business Analytics", href: "/programs/business-analytics" },
       { label: "Digital Marketing", href: "/programs/digital-marketing" },
       { label: "Finance", href: "/programs/finance" },
       { label: "Stock Trading", href: "/programs/stock-trading" },
       { label: "Human Resources", href: "/programs/human-resources" },
       { label: "Corporate Law", href: "/programs/corporate-law" },
-      { label: "Supply Chain Management", href: "/programs/supply-chain-management" },
+      { label: "Operations & Supply Chain Management", href: "/programs/supply-chain-management" },
     ],
   },
   {
     category: "Design & Creative",
     items: [
       { label: "UI/UX Design", href: "/programs/ui-ux-design" },
-      { label: "Fashion Designing", href: "/programs/fashion-designing" },
+      // { label: "Fashion Designing", href: "/programs/fashion-designing" },
     ],
   },
   {
@@ -117,10 +117,10 @@ const programsCategory = [
     items: [
       { label: "Psychology", href: "/programs/psychology" },
       { label: "Medical Coding", href: "/programs/medical-coding" },
-      {
-        label: "Clinical Data Management",
-        href: "/programs/clinical-data-management",
-      },
+      // {
+      //   label: "Clinical Data Management",
+      //   href: "/programs/clinical-data-management",
+      // },
       {
         label: "Clinical Trials & Research",
         href: "/programs/clinical-trials-and-research",
@@ -134,10 +134,10 @@ const programsCategory = [
         label: "Advanced Web Development",
         href: "/programs/advanced-web-development",
       },
-      {
-        label: "Advanced Data Science",
-        href: "/programs/advanced-data-science",
-      },
+      // {
+      //   label: "Advanced Data Science",
+      //   href: "/programs/advanced-data-science",
+      // },
     ],
   },
 
