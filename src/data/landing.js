@@ -325,10 +325,10 @@ export const landingPageData = {
       {
         listLabel: "ADVANCED TRAININGS",
         links: [
-          {
-            label: "Advanced Data Science",
-            href: "/programs/advanced-data-science",
-          },
+          // {
+          //   label: "Advanced Data Science",
+          //   href: "/programs/advanced-data-science",
+          // },
           {
             label: "Advanced Web Development",
             href: "/programs/advanced-web-development",
